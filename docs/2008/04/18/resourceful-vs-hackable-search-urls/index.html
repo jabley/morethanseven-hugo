@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Resourceful Vs Hackable Search URLs &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Resourceful Vs Hackable Search URLs</h1>
+    <span class="post-date">Apr 18, 2008 &middot; 3 minute read
+    </span>
+    <p>I often end up pondering URL design given a moment and something that keeps coming up is hackable search queries. But first a very quick primer on the idea of resourceful design.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> is a series of architectural principals more than a defined architecture. The <a href="http://en.wikipedia.org/wiki/Resource_oriented_architecture">Resource Orientated Architecture</a> builds on those ideas with a series of concrete guidelines put down by <a href="http://intertwingly.net">Sam Ruby</a> for designing RESTful systems. The simple version is that you try to design your system around <a href="http://en.wikipedia.org/wiki/Resource_%28Web%29">resources</a> represented by URLs.</p>
+
+<p>I&rsquo;d thoroughly recommend reading <a href="http://www.amazon.co.uk/RESTful-Web-Services-Leonard-Richardson/dp/0596529260">RESTful web services</a> whenever you get a moment as this subject is covered in detail.</p>
+
+<p>Flickr isn&rsquo;t a truly resourceful design but it does have many of the hallmarks. For example the URL that describes me is at:</p>
+
+<pre><code>&lt;code&gt;http://flickr.com/people/garethr&lt;/code&gt;
+</code></pre>
+
+<p>When it comes to searching on flickr we have:</p>
+
+<pre><code>&lt;code&gt;http://flickr.com/search/?w=all&amp;q=pubstandards&amp;m=text&lt;/code&gt;
+</code></pre>
+
+<p>The pattern of using a query string argument named <em>q</em> to pass a search string is pretty common. One of the guidelines mentioned as part of the ROA discussed query strings:</p>
+
+<blockquote>
+<p>Query string parameters are appropriate if they are inputs to a Resource which is an algorithm. Otherwise, these values should be moved into the URI.</p>
+</blockquote>
+
+<p>Search is definitely algorithmic. Now you could maybe argue that a global search should be done on the root of a site, with specific resource searches on the resource in questions. eg. <em>/people/?q=</em>. This would likely work fine but require some behind the scenes complexity as well as probably not being as obvious to the end user. Global searches are in many cases much more common that restricted searches and even in resourceful designs the root of the site (ie. the home page) might not act as a list of available site resources. A notable exception might would have to be the excellent <a href="http://www.bbc.co.uk/programmes">BBC Programmes</a> site which is basically one big semantic catalogue.</p>
+
+<p>But we have another kind of URL that&rsquo;s cropping up for search results, one that treats the URL much more like a fundamental part of the user interface for search. An example from a site I use all the time is <a href="http://traintimes.org.uk/">The Accessible UK Train Timetable</a> which allows for URLs like the following:</p>
+
+<pre><code>&lt;code&gt;http://traintimes.org.uk/newcastle/london&lt;/code&gt;
+</code></pre>
+
+<p>You can basically squash all the search parameters from the form into the URL, meaning you can easily bookmark search results. Note however the actual content is likely to change. The above example for instance would use the current time to get a list of trains from Newcastle to London. In an hours time the results will be different.</p>
+
+<p>Another good example would be the new Yahoo! UK TV listings which has URLs like these:</p>
+
+<pre><code>&lt;code&gt;http://uk.tv.yahoo.com/listings/bbc-two/2008-04-17/&lt;/code&gt;
+
+&lt;code&gt;http://uk.tv.yahoo.com/listings/itv1/2008-04-17/21-00/&lt;/code&gt;
+</code></pre>
+
+<p>Again this is really a search query, or at least specifying the time and date is. In some ways it&rsquo;s the return of the command line - allowing searches to be run very quickly from a textual interface.</p>
+
+<p>Now, both these approaches treat URLs with the respect they deserve. But they do have the potential to clash somewhere in the middle if care isn&rsquo;t taken. The Accessible Train Times site is a single purpose site which just does searches while BBC Programmes does feature a search engine but it&rsquo;s just the global BBC search which takes you off site. And if that wasn&rsquo;t enough potential competition then a question raised by <a href="http://simonwillison.net">Simon</a> at The Highland Fling regarding URL design and the search engine optimisation crowd go me thinking too. From being a somewhat niche area of interest URLs might just become a sort after part of a good website design - fought over by the varying disciplines of modern web design and development.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

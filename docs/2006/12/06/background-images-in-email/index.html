@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Background Images in Email &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Background Images in Email</h1>
+    <span class="post-date">Dec 6, 2006 &middot; 2 minute read
+    </span>
+    <p>
+Whatever you might think about image rich emails you have to admit clients are a fan, and sometimes needs must.
+
+</p>
+<p>
+The web, as always, comes to the rescue and their are a few good articles around – many of them over on <a href="http://campaignmonitor.com">campaignmonitor.com</a> including a set of <a href="http://www.campaignmonitor.com/blog/archives/2005/11/html_email_desi.html">Email Design Guidelines for 2006</a>, <a href="http://www.campaignmonitor.com/blog/archives/2005/08/optimizing_css_1.html">Optimizing CSS presentation in HTML emails</a> and the excellent <a href="http://www.campaignmonitor.com/blog/archives/2006/03/a_guide_to_css_1.html">A Guide to CSS Support in Email</a>
+
+</p>
+<p>
+<a href="http://alistapart.com/">A List Apart</a> also has an <a href="http://www.alistapart.com/articles/cssemail/">older article</a> and their is some good infmation over on <a href="http://www.xavierfrenette.com">xavierfrenette.com</a> about the <a href="http://www.xavierfrenette.com/articles/css-support-in-webmail/">support in web mail clients</a>.
+
+</p>
+<p>
+Another little bit of useful info I thought worth posting, after a quick conversation with a colleague, concerns the use of background images in emails.
+
+</p>
+<p>
+Assuming your going down the inline styles route you might want to have something like this:
+
+</p>
+<code>
+&lt;div style="background: url(image.jpg) top left no-repeat; width: 500px;"&gt;&lt;/div&gt;;
+</code>
+
+<p>
+But this just doesn’t work. The image doesn’t appear when the email is sent. A quick fix is to include the image inline, but hide it as much as possible with a height and width of 1px and a style of display: none.
+
+</p>
+<code>
+&lt;img src="image.jpg" width="1px" height="1px" style="display: none;"/&gt;
+</code>
+
+<p>
+This throws up one of those interesting annoyances in Outlook. If you’re sending the email using Outlook the image appears twice in the editing pane, hence the 1px trick as well as the style display: none. When it’s received the style rule gets applied.
+
+</p>
+<p>
+This assumes you are sending the images along with the email, rather than simply linking to them online were you dont have this problem – but do have a host of other issues with blocked images and the like.
+
+</p>
+<p>
+I haven’t admittedly tested this extensively, however I’ve had a lot of luck with Outlook, which for business to business emails accouts for something like 75% of the audience according to Campaign Monitor (and probably around what I’d expect based on my experience).
+
+</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

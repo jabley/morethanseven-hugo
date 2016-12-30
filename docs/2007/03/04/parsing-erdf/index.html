@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Parsing ERDF &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Parsing ERDF</h1>
+    <span class="post-date">Mar 4, 2007 &middot; 2 minute read
+    </span>
+    
+
+<p>Now we&rsquo;ve got some <a href="http://morethanseven.net/posts/microformats-and-erdf-sitting-in-a-tree/">eRDF in our pages</a> we need to extract it out in preparation for doing someting with it.</p>
+
+<h3 id="with-xsl">With XSL</h3>
+
+<p>First up we want to try and extract the eRDF in our page into an RDF document. <a href="http://iandavis.com">Ian Davis</a> has already created a nice XSL document to do just that. and I&rsquo;ve implemented a <a href="http://morethanseven.net/presents/erdf/">nice service wrapper</a> to extract the RDF from a given URL. Try pointing it at <a href="http://morethanseven.net">morethanseven.net</a> or <a href="http://iandavis.com">iandavis.com</a> for an example of it in action. Next step here is to extend it to allow extracting a simple vcard from the RDF in a similar manner to <a href="http://suda.co.uk/">Brian Suda&rsquo;s</a> <a href="http://suda.co.uk/projects/X2V/">Microformats extractor</a>.</p>
+
+<h3 id="with-javascript">With Javascript</h3>
+
+<p><a href="http://www.danwebb.net/">Dan Webb</a> has recently written up his <a href="http://www.danwebb.net/2007/2/9/sumo-a-generic-microformats-parser-for-javascript">Sumo! microformas parser</a> and boy is it really rather fancy. At the moment he&rsquo;s only got profiles for hCard, hCalendar and hResume but writing profiles is relatively simple. Accoring to one of Dans comments he&rsquo;s working on adding support for rel and rev style microformats like rel-tag and XFN.</p>
+
+<p>Although billed as a Microformats parser, in reality what Dan&rsquo;s created is pretty generic. You can use it to parse out any information marked up with any semantic class names - just like our eRDF.</p>
+
+<p>I&rsquo;ve set up a very basic Sumo! profile for FOAF and some <a href="http://morethanseven.net/presents/foaf/">simple tests to extract eRDF data from a test page</a>. This is very much a proof of concept of extracting eRDF using Javascript but would be relatively simple to extend for the full FOAF spec once Dan or someone else extends Sumo! to support rel and rev.</p>
+
+<p>On a related note the combination of Sumo! and the <a href="http://www.getfirebug.com/">Firebug</a> javascript console is just perfect. Anyone who hasn&rsquo;t yet downloaded the latest version should get over there quick.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgFirebug.png" alt="Firebug" title="Firebug" /></p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

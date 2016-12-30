@@ -1,0 +1,16 @@
+---
+comments: true
+created_at: 2005/06/29}
+date: 2005-06-29T00:00:00Z
+title: asp.net here we come
+url: /2005/06/29/aspnet-here-we-come/
+---
+
+<p>
+I now have an ASP.NET environment setup and ready to go and the will to use it. Depending on how it goes I’ll try and post any thoughts as I go. In particularly related to how I get on with good standards markup.
+
+</p>
+<p>
+I can knock together whatever I want in PHP reasonably well and with my new job focusing on CSS and XHTML amongst other related bits, and working at .NET shop I thought I now have a reason to play.
+
+</p>

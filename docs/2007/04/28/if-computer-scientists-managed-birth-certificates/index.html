@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>If computer scientists managed birth certificates &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">If computer scientists managed birth certificates</h1>
+    <span class="post-date">Apr 28, 2007 &middot; 2 minute read
+    </span>
+    <p>I&rsquo;ve been pondering <a href="http://morethanseven.net/posts/authoritative-hcards-authority-in-microformats/">authority in microformats</a> and as a result been taking a closer look at <a href="http://microid.org">microID</a>.</p>
+
+<p>The situation I want to find a solution for is; If their are lots of published hcards for a given person they might be different, either out of date or more sinisterly fraudulent. If I do a search for contact details, lets say using the <a href="http://kitchen.technorati.com/contact/search/">technorati hcard search engine</a>, how do I know which one is to be trusted?</p>
+
+<p>If I publish an hcard on <a href="http://morethanseven.net">my site</a> using the following markup, including a microID using the included email and url details to form the hash.</p>
+
+<pre><code>&lt;code&gt;&lt;div 
+   class=&quot;vcard microid-mailto+http:sha1:a52b4f86cfa4190b53634d99198c0f56970c8d83&quot;&gt;
+   &lt;h2 class=&quot;fn&quot;&gt;gareth rushgrove&lt;/h2&gt;
+   &lt;a href=&quot;http://morethanseven.net&quot; class=&quot;url&quot; rel=&quot;me&quot;&gt;
+      morethanseven.net
+   &lt;/a&gt;
+   &lt;a href=&quot;mailto:gareth@morethanseven.net&quot; class=&quot;email&quot;&gt;
+      gareth@morethanseven.net
+   &lt;/a&gt;
+&lt;/div&gt;&lt;/code&gt;
+</code></pre>
+
+<p>If the hcard search engine reads that hcard on the morethanseven.net domain it could check the hash in the vcard against doings it&rsquo;s own hash with the specified email address and url (checking the url is the same as the one on which the vcard lives). &ldquo;Ah ha&rdquo;. It can say. This looks like an authoritive hcard.</p>
+
+<p>This does however raise a couple of issues. In order for the search engine or external reader to be able to create its hash you have to include the email in your hcard. I&rsquo;m also not sure it does solve the issue of evil me:</p>
+
+<pre><code>&lt;code&gt;&lt;div 
+   class=&quot;vcard microid-mailto+http:sha1:40b46e5c349453bddd0dbd022fb33488494699cb&quot;&gt;
+   &lt;h2 class=&quot;fn&quot;&gt;evil gareth rushgrove&lt;/h2&gt;
+   &lt;a href=&quot;http://spammer.com&quot; class=&quot;url&quot; rel=&quot;me&quot;&gt;
+      spammer.com
+   &lt;/a&gt;
+   &lt;a href=&quot;mailto:gareth@spammer.com&quot; class=&quot;email&quot;&gt;
+      gareth@spammer.com
+   &lt;/a&gt;
+&lt;/div&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Assuming the above is published on spammer.com then I&rsquo;m sunk. It&rsquo;s another authorative hcard with the same name, in this case <em>my</em> name. Of course therein lies another problem, when we name our children we tend to just do it on a whim, we even copy names we like from other people! And we change or subvert these names when we dont like them with nick names and the like. Domain names are unique so we avoid this problem.</p>
+
+<p>So, a possible solution does present itself; using the uniqueness of domain names combined with the fact that most people aren&rsquo;t evil spammers. Lets postulate a search engine finds lots of hcards for a given name. Most of these hcards probably point back to the url of the entity they are describing (so most hcards on the web describing me point back to this site). We can then check if one of the hcards is from that domain, and if it has a valid microID. In other words we use the lazy web to identify the most likely location of an authorative hcard.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

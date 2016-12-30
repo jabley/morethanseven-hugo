@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Operations is more than just Systems Administration &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Operations is more than just Systems Administration</h1>
+    <span class="post-date">Dec 27, 2015 &middot; 4 minute read
+    </span>
+    
+
+<p>I think one of the patterns of the last few years has been the
+democratization of systems administration, especially for web
+applications. Whether that&rsquo;s Heroku or Docker, or Chef or Puppet, more
+and more traditional developers are doing work that would have been
+<em>somebody else&rsquo;s problem</em> only a few years ago. But running in parallel
+to that thread is another less positive trend, that of conflating
+operations with <em>just</em> systems administation. The story seems to go that
+now we know Ansible (or some other tool) we just need developers to run
+the show.</p>
+
+<p>In this post I&rsquo;m going to try and introduce some of the other
+operational disciplines, especially for developers who maybe have come
+to operations via the above resurgence in infrastructure tooling over
+the past few years.</p>
+
+<p>Note that this post has a slight bias towards more <em>normal</em>
+organisations. That is to say if you&rsquo;re in a 5 person software startup
+you probably don&rsquo;t have operational problems to worry too much about
+yet. I&rsquo;m also not playing down the practice of systems administration,
+most experienced sysadmins I know are also quite rounded operations pros
+as well.</p>
+
+<h2 id="service-management">Service Management</h2>
+
+<p>If you&rsquo;ve worked in operations, or in many large organisations you&rsquo;ll have
+come across the term Service Management. This tends to be linked to
+various service management frameworks; like ITIL or MOF (Microsoft
+Operations Framework). The framework will describe, often in great
+detail, activities and processes for things like incident response,
+configuration management, change management, capacity planning and more.</p>
+
+<p>While I was at <a href="https://gds.blog.gov.uk/">The Government</a> I wrote what I
+think is a reasonable introduction to <a href="https://www.gov.uk/service-manual/operations/service-management.html">Service
+Management</a>
+albeit from a specific point-of-view. This was based on my experience of
+trying, and likely sometimes failing, to encourage teams to think about
+how the products they we&rsquo;re working on would be run. Each of the topics
+touched on in the overview is worthy of it&rsquo;s own stack of books, but I
+will repeat the ITIL service list here as (whatever you might think of
+the framework or a specific implementation) I&rsquo;d found it a useful starting
+point for conversations - in particular stressing the breadth of
+topics under service management.</p>
+
+<h4 id="service-strategy">Service Strategy</h4>
+
+<ul>
+<li>IT service management</li>
+<li>Service portfolio management</li>
+<li>Financial management for IT services</li>
+<li>Demand management</li>
+<li>Business relationship management</li>
+</ul>
+
+<h3 id="service-design">Service Design</h3>
+
+<ul>
+<li>Design coordination</li>
+<li>Service Catalogue management</li>
+<li>Service level management</li>
+<li>Availability management</li>
+<li>Capacity Management</li>
+<li>IT service continuity management</li>
+<li>Information security management system</li>
+<li>Supplier management</li>
+</ul>
+
+<h3 id="service-transition">Service Transition</h3>
+
+<ul>
+<li>Transition planning and support</li>
+<li>Change management</li>
+<li>Service asset and configuration management</li>
+<li>Release and deployment management</li>
+<li>Service validation and testing</li>
+<li>Change evaluation</li>
+<li>Knowledge management</li>
+</ul>
+
+<h3 id="service-operation">Service Operation</h3>
+
+<ul>
+<li>Event management</li>
+<li>Incident management</li>
+<li>Request fulfillment</li>
+<li>Problem management</li>
+<li>Identity management</li>
+<li>Continual Service Improvement</li>
+</ul>
+
+<p>For each of the above points, whether you are using ITIL or not, it&rsquo;s
+useful to have a conversation. Some of these areas do provide ample
+opportunity for automation and for using tooling to minimise the effort
+required. But much of this is about designing <em>how</em> you are going to
+operate a service throughout it&rsquo;s lifetime.</p>
+
+<h2 id="operations-user-stories">Operations user stories</h2>
+
+<p>One of the other things I published while at The Government was a set of
+<a href="https://www.gov.uk/service-manual/operations/web-operations-stories.html">user stories for a web operations
+team</a>.
+These grew out of work on launching GOV.UK and have had input from
+various past colleagues. In hindsight I&rsquo;d probably do somethings
+here differently, the stories assume a certain context which isn&rsquo;t explicitly
+spelled out for instance. But they have a couple of things going for them in that
+they demonstrate how traditional operations activities can be planned out as part
+of a more developer-friendly planning approach, and also they are public and
+have been tested by more than a single team.</p>
+
+<h2 id="not-everything-is-a-programming-problem">Not everything is a programming problem</h2>
+
+<p>The main point I think is that not everything can be turned into a
+programming problem to solve. Automation has it&rsquo;s place, and many manual
+processes and practices can benefit from automation. But the wide range
+of activities involved in running a non-trivial and often non-ideal
+system in production tend to mean making trade-offs and prioritization
+decisions frequently. This is where softer skills like arguing for
+funding or additional head count, or building a business case for
+further work, come into play. Operations management is much more than
+systems administration.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>This is little more than a plea for people to think more about
+operations, separate to the more technical aspects of systems
+administration. If you&rsquo;re interested in learning more however I would
+recommend some good reading material:</p>
+
+<ul>
+<li><a href="http://www.itpi.org/the-visible-ops-handbook-review.html">Visible Ops
+Handbook</a> -
+still an excellent and pragmatic introduction to many of the topics
+noted above.</li>
+<li><a href="http://shop.oreilly.com/product/0636920033080.do">Designig Delivery</a> -
+a bang up-to-date tome covering a range of service design topics.</li>
+<li><a href="http://www.basicsm.com/bsm-basic-service-management-book">Basic Service
+Management</a> -
+a 50 page starter book covering the fundamentals of service
+management as generally discussed in more detail elsewhere. A great
+starting point.</li>
+</ul>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

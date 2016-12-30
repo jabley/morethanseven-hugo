@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/21/example-using-xmpp-app-engine-imified/">Example of using XMPP on App Engine (via IMified)</a>
+      </h1>
+      <span class="post-date">Feb 21, 2009 &middot; 3 minute read
+      </span>
+      
+      <p>As I <a href="http://morethanseven.net/2009/02/07/xmpp-and-offline-processing-coming-google-app-engi/">mentioned before</a>, App Engine is getting an XMPP API at some point soon. But if you just can&rsquo;t wait to start adding IM interfaces to your applications then you <em>can</em> do it now, by using a nifty third party in <a href="http://imified.com/">IMified</a>.</p>
+
+<p>IMified provide an incredibly simple HTTP API for interacting with your own IM bot. If we want to be buzz word compliant we might even call it a <a href="http://webhooks.pbwiki.com">webhook</a>. It&rsquo;s also currently a free service while they work through the beta. The <a href="http://new.imified.com/developers/api">documentation</a> is short and to the point but only contains examples in PHP. It supports multiple step <em>conversations</em> as well as authentication.</p>
+
+<p>So, armed with a little time on the train over the last few days I got to work knocking together a quick demo application as a proof of concept. You can find the site on <a href="http://imified-demo.appspot.com/">imified-demo.appspot.com</a> and if you want to chat with the bot you can add <em>appengineimified@bot.im</em> to your contacts. The bot uses the Jabber protocol so is available over Jabber or GTalk. IMified make it easy to use MSN or Yahoo IM accounts as well, which is something the App Engine API might very well not do I would imagine.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRjRDww" alt="Screengrab of the IMified App Engine site"/></p>
+
+<p>As always you can find the code on <a href="http://github.com/garethr/appengine-imified/tree/master">GitHub</a>. Most of the code is actually just the site itself or settings to make local development easier. The following is a slightly edited version of the live code (logging and caching removed to make it easier to follow). All we need to do is accept a HTTP Post request with a list of arguments and return a plain text response. All being well the response is sent as a IM message to the sender.</p>
+
+<p>pre. class IMified(webapp.RequestHandler):
+&ldquo;This is the endpoint for the message from IMified&rdquo;
+def post(self):
+&ldquo;We recieve post data from IMified&rdquo;
+userkey = self.request.get(&lsquo;userkey&rsquo;)
+network = self.request.get(&lsquo;network&rsquo;)
+msg = self.request.get(&lsquo;msg&rsquo;)
+step = self.request.get(&lsquo;step&rsquo;)
+try:
+# we try and create the message
+message = Message(
+userkey = userkey,
+network = network,
+msg = msg,
+step = int(step)
+)
+message.put()
+# the response is send as an IM message to the sender
+self.response.out.write(&lsquo;Message saved&rsquo;)
+except:
+self.response.out.write(&lsquo;An error ocured, message not saved&rsquo;)</p>
+
+<p>IMified can obviously be used outside App Engine as well, and in fact it&rsquo;s not just about working around limitations in existing systems. Running the long running processes required for bots, and potentially even running your own XMPP server, is fiddly at times and requires at least some setup, monitoring and configuration to get working. Not having that as a barrier for entry for simple experiments or applications is a good thing.</p>
+
+<p><a href="http://aralbalkan.com/">Aral</a> spoke at the last <a href="http://groups.google.com/group/django-london">DJUGL</a> about App Engine and mentioned a wide range of third party services that you can use to get around current limitations. IMified definitely fits into this group of support services very nicely indeed. I&rsquo;d love to see them do really well as it really makes it much easier to get started with XMPP applications, even if what you can do is limited to a few simple APIs. I&rsquo;d love to hear about other services that people are using in this way to build these distributed applications.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/18/python-rest-client/">Python REST Client</a>
+      </h1>
+      <span class="post-date">Feb 18, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;m working on a small project involving using RESTful APIs and wanted a simple HTTP client, something that sat a little higher in the stack than <a href="http://code.google.com/p/httplib2/">httplib2</a> or similar. I turned initially to the <a href="http://www.djangoproject.com/documentation/models/test_client/">Django Test Client</a> which now <a href="http://code.google.com/p/python-rest-client/">supports all the required methods</a> but it turned out that I&rsquo;d have to unpick it from django a little.</p>
+
+<p>With a little bit of looking around I found the <a href="http://code.google.com/p/python-rest-client/">python-rest-client</a> which certainly sounded like it would do what I wanted. It lets you make HTTP requests in as straight forward a manner as possible and fitted the bill perfectly.</p>
+
+<p>pre. from restful_lib import Connection
+conn = Connection(&ldquo;<a href="http://morethanseven.net&quot;">http://morethanseven.net&quot;</a>)
+response = conn.request_get(&ldquo;/&rdquo;)</p>
+
+<p>It supports authentication, nice helper methods and gives you the response in a nice format.</p>
+
+<p>pre. conn = Connection(&ldquo;<a href="http://example.org&quot;">http://example.org&quot;</a>, username=&ldquo;XXX&rdquo;, password=&ldquo;XXX&rdquo;)
+conn.request_delete(&lsquo;/items/11232344&rsquo;)</p>
+
+<p>As an added benefit it also comes with a Google App Engine compatible version.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/15/let-you-sys-admin-override-your-django-settings/">Let you Sys Admin Override your Django Settings</a>
+      </h1>
+      <span class="post-date">Feb 15, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>The previous <a href="http://morethanseven.net/2009/02/11/django-settings-tip-setting-relative-paths/">Django settings tip</a> seemed to go down well so I thought I&rsquo;d jot down a few more over the next few weeks. Most of these have come out of working with a decent sized Django team at <a href="http://thisisglobal.com">Global</a> so I can&rsquo;t take credit for anything but writing them down for the most part. For this example I think <a href="http://alixandalex.com/obfuscated-signatures/">Alex Knowles</a> did the original version.</p>
+
+<p>I was talking with out friendly <a href="http://search.cpan.org/~rclamp/">sys</a> <a href="http://www.unixdaemon.net/">admins</a> on Friday about a new application and whether they were happy with some application specific logging (using the Python logging module) I&rsquo;d build in. Nothing fancy, just application logging to a rotated log file for system events. Their answer was yes, as long as they could control where the log files ended up and the maximum file size, ideally without having to play around in the code or to redeploy the application if they wanted to move the files elsewhere.</p>
+
+<p>These things were already specified in the settings file rather than hardcode into the application but that only gets us half way. The standard Linux way of setting this sort of thing is with a configuration file stored in the /etc directory. So we ended up with the following snippet of code in our settings.py file.</p>
+
+<p>pre. # we&rsquo;re going to allow overriding of settings via a yml file.</p>
+
+<ol>
+<li>This makes live nicer for anyone managing the box</li>
+<li>and means settings can be overloaded without redeploying the site
+SETTINGS_OVERIDE = &ldquo;/etc/application_name.yml&rdquo;
+try:
+file = open(SETTINGS_OVERIDE)
+for key, value in yaml.load(file).items():
+globals()[key]=value
+except:
+# we don&rsquo;t always have the file around or need the setting
+# defined so best to be quite if things go wrong
+pass</li>
+</ol>
+
+<p>Then in the yaml file you can simply clobber any of the settings using a simple name value pair approach.</p>
+
+<p>pre. LOG_FILE: &ldquo;/var/log/application_name.log&rdquo;</p>
+
+<p>It lets us keep production paths that might change out of the developers code, at the same time as giving the sys admins a familiar way of managing the production environment.</p>
+
+<p>It does have one downside, if you&rsquo;re not aware of it&rsquo;s presence then it can make debugging settings related issues a pain. With that in mind you could wrap it so as to only work this way when DEBUG is False, or take the approach here which is to leave extensive comments.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/15/looking-new-job-june/">Looking for a New Job in June</a>
+      </h1>
+      <span class="post-date">Feb 15, 2009 &middot; 4 minute read
+      </span>
+      
+      <p>As I think a few people are aware I&rsquo;ll be leaving <a href="http://thisisglobal.com">Global</a> at the end of May.</p>
+
+<p>It&rsquo;s going to have been a pretty good year all told. I got to work with some great people and we built some pretty good stuff from the group up. The <a href="http://www.capitalradio.co.uk/">Capital Radio</a> website was part of it but it&rsquo;s the systems behind the scenes where all the interestingness lies. But as the team as a whole was just getting started the economy got bored of growing each year and went south. Global is first and foremost a radio company that makes money from advertising and, in need of cash, it decided to <a href="http://radiotoday.co.uk/news.php?extend.4270">cut lots of the interactive department</a>. All of that meant lots of redundancies and less interesting work and I decided I&rsquo;d rather go now than wait around.</p>
+
+<p>It&rsquo;s an odd situation to be in but I&rsquo;m not going to dwell on that and I&rsquo;m not bitter about any of the goings on. I got to play with Django full time in what, I think, was the biggest Django development team in the UK. I got to work, and argue, with smart people every day. We had two internal hackdays where I got to play with XMPP and messaging apps. And I&rsquo;m definitely a far better programmer than a year ago.</p>
+
+<p>I&rsquo;ll be sticking around at Global for the next three months to finish off a number of projects that I&rsquo;ve been involved in and tidy up a few loose ends, as well as to work out what to do next. Which is where you (might) come in. Think of it like a job vacancy in reverse.</p>
+
+<ul>
+<li>I&rsquo;m looking for a job to start in June or thereabouts.</li>
+<li>I live in Cambridge and have been working in London for the last 9 months, so I don&rsquo;t mind a commute. I&rsquo;d also consider something that had me working remotely and traveling further afield as needed.</li>
+<li>My main focus is on finding something where I get to <em>build interesting things</em>. By that I mean a web development role that also involves bit of system design and other bits thrown in.</li>
+<li>I&rsquo;d like something that tallies with my current interests. This blog, <a href="http://slideshare.net/garethr">Slideshare</a> and <a href="http://github.com/garethr">my GitHub profile</a> should give you an idea about what they are but to name but a few: testing, REST, APIs, messaging, content distribution, aggregation and development team tools.</li>
+<li>Technology wise I&rsquo;d be more than happy with something using Python or Ruby. I&rsquo;d love to do more than just play around at home with Erlang as well, or the opportunity to pick up Scala. Having said all that if it&rsquo;s interesting enough I don&rsquo;t mind too much, I learn new tricks for fun and have 3 months of free time to kill.</li>
+<li>Big company or small? It depends on the company, and probably depends more on the people. I&rsquo;d choose smart people over a fancy company name any day of the week. I also don&rsquo;t mind the idea of getting involved with a startup where some salary is offset against equity - but only if the idea is good enough.</li>
+<li>I&rsquo;ve got around 8 years of wide ranging professional experience, I write articles, speak at conferences and get things done. I know roughly what the going rate for good professional web developers is as well.</li>
+<li><a href="http://www.google.com/search?q=gareth+rushgrove">Ask the internet about me</a> if you want to know more.</li>
+</ul>
+
+<p>So if anyone knows of something that would be up my street I&rsquo;d be grateful. Even better, if you or your company are looking for someone at the moment and don&rsquo;t mind waiting a few months then I might be what you&rsquo;re looking for. For those that don&rsquo;t already have an email address you can find me on <a href="mailto:gareth@morethanseven.net">gareth@morethanseven.net</a></p>
+
+<p>(There is obviously a chance that you might be a recruiter, rather than someone who wants me to work with or for them. I won&rsquo;t ignore you out of hand but please don&rsquo;t try and ring me unless I ask you to. Email is both quicker and easier for me to deal with. Also if you just want my CV for your files, have only a vague job description, or you want to tell me about a job in a company you can&rsquo;t tell me the name of please don&rsquo;t be offended if I don&rsquo;t get back to you.)</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/11/django-settings-tip-setting-relative-paths/">Django Settings Tip - Setting Relative Paths </a>
+      </h1>
+      <span class="post-date">Feb 11, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>Django settings files are pretty interesting. Rather than being written in some sort of purely declarative markup they just use Python. This brings both lots of power as well as the ability to do things in the settings file that you probably shouldn&rsquo;t do.</p>
+
+<p>One area where I find this capability particularly useful is when specifying file system paths. Lots of the settings concern where Django can find templates, images, or stylesheets for instance. The examples given in the default settings file are all of the form <em>/this/directory/structure/</em>. If you plan on only working on your own, and never running your applications anywhere except your local machine this is probably fine. The moment you want to deploy your application, or want to collaborate with others this becomes a problem. You either have to agree upon a fixed directory structure between all developers (annoying) or have distinct settings files for each machine, which probably means them being outside source control (also annoying).</p>
+
+<p>A better approach is to have those paths dynamically ascertained at runtime. It makes the application much more portable, making local development and production use easier. Using the standard library <em>os</em> module we can do just that.</p>
+
+<p>pre. import os
+import django</p>
+
+<ol>
+<li>calculated paths for django and the site</li>
+<li>used as starting points for various other paths
+DJANGO_ROOT = os.path.dirname(os.path.realpath(django.<em>file</em>))
+SITE_ROOT = os.path.dirname(os.path.realpath(<em>file</em>))</li>
+</ol>
+
+<p>Here we set a couple of useful constants, one is the path to the site folder and the other the path to where django is stored on this machine. settings.py contains a number of places where these constants are useful. For instance the MEDIA_ROOT settings which specifies the file system location for assets like images or stylesheets. The default settings file even comes with an instruction and example showing a non portable path.</p>
+
+<p>pre. # Absolute path to the directory that holds media.</p>
+
+<ol>
+<li>Example: &ldquo;/home/media/media.lawrence.com/&rdquo;
+MEDIA_ROOT = os.path.join(SITE_ROOT, &lsquo;assets&rsquo;)</li>
+</ol>
+
+<p>Other examples include setting the path for a SQLite database:</p>
+
+<p>pre. DATABASE_ENGINE = &lsquo;sqlite3&rsquo;
+DATABASE_NAME = os.path.join(SITE_ROOT, &lsquo;db&rsquo;) + &lsquo;/development.db&rsquo;</p>
+
+<p>Or specifying directories in which we can place templates.</p>
+
+<p>pre. TEMPLATE_DIRS = (
+os.path.join(SITE_ROOT, &lsquo;templates&rsquo;)
+)</p>
+
+<p>I actually think this should probably make it&rsquo;s way into the default settings file. I might very well be missing something but I can&rsquo;t see when it&rsquo;s not much better to do things this way.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/10/append-slashes-urls-django/">Append slashes to URLs in Django</a>
+      </h1>
+      <span class="post-date">Feb 10, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>Quick Django pop quiz. Can anyone spot the deliberate mistake in the following url definition? We&rsquo;re trying to define a view called log_viewer and instructing a specific url pattern to render it.</p>
+
+<p>pre. urlpatterns = patterns(&ldquo;,
+(r&rsquo;^log/?$&lsquo;, log_viewer),
+)</p>
+
+<p>In this case our regex matches /log or /log/ using the /? optional pattern. This is because even if we only link to one format we know people will probably visit both, either by entering the URL manually or by linking from an external source.</p>
+
+<p>As far as HTTP is concerned though /log and /log/ are separate URLs, even if they display the same content. The main reason this matters for public facing websites is that our friendly search engine spiders are likely to index both separately, leading to splitting the page rank as well as accusations of duplicate content which might see further erosion of rankings.</p>
+
+<p>The solution is generally to issue a 301 redirect from one format to the other. This tells search engines and people alike that the canonical location for the requested content is elsewhere. You could specify the redirect manually, but this is going to get irritating quickly once you have a few more definitions.</p>
+
+<p>pre. urlpatterns = patterns(&ldquo;,
+(r&rsquo;^log$&lsquo;, redirect_to, {&lsquo;url&rsquo;: &lsquo;/log/&rsquo;}),
+(r&rsquo;^log/$&lsquo;, log_viewer),
+)</p>
+
+<p>Handily Django provides a mechanism to do exactly what we want to do by setting <a href="http://docs.djangoproject.com/en/dev/ref/settings/#append-slash">APPEND_SLASH</a> to True in your settings file. Even better it&rsquo;s switched on by default. So if you don&rsquo;t know much about the intricacies of HTTP you still get the correct behavior. That is unless you specify your URL patterns in the format above.</p>
+
+<p>You see APPEND_SLASH only works if the URL doesn&rsquo;t match a specified pattern. If no pattern match is found it appends a trailing slash and checks for a match again. Because the above pattern matches the pattern without the trailing slash (/log) the desired behavior is never triggered, and the view is rendered at both URLs. So although we want to catch /log and /log/ on the front end, our urls.py definition should actually be:</p>
+
+<p>pre. urlpatterns = patterns(&ldquo;,
+(r&rsquo;^log/$&lsquo;, log_viewer),
+)</p>
+
+<p>Django has lots of useful bits of magic for doing the right thing, but unless you know what they <em>actually</em> do you either end up recreating functionality yourself, or find features don&rsquo;t work in quite the way you thought. It&rsquo;s a good argument for keeping frameworks small whenever possible, and for developers to at least know their way around the code of their respective framework.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/07/new-version-radiant-cms-out-today/">New Version of Radiant CMS Out Today</a>
+      </h1>
+      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Via <a href="http://github.com/radiant/radiant/tree/master">tagging a new release</a> on GitHub I see a new version of <a href="http://radiantcms.org/">Radiant</a> (0.7) has been released. Radiant is a really nice CMS for smaller projects, it&rsquo;s used on the official <a href="http://www.ruby-lang.org/">Ruby</a> site and I used it here at one point.</p>
+
+<p>Go check out the <a href="http://radiantcms.org/blog/archives/2009/02/07/radiant-0-7-0---intaglio-release-final/">blog post for the full list of the changes</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/07/pdb-and-appengine/">PDB and AppEngine</a>
+      </h1>
+      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>It turns out App Engine breaks the default behaviour of the Python debugger PDB by sending STDOUT to the browser. But with a <a href="http://jjinux.blogspot.com/2008/05/python-debugging-google-app-engine-apps.html">little bit of python</a> you can put it back in.</p>
+
+<p>pre. import sys
+import pdb
+for attr in (&lsquo;stdin&rsquo;, &lsquo;stdout&rsquo;, &lsquo;stderr&rsquo;):
+setattr(sys, attr, getattr(sys, &lsquo;<strong>s</strong>&rsquo; attr))
+pdb.set_trace()</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/07/xmpp-and-offline-processing-coming-google-app-engi/">XMPP and offline processing coming to Google App Engine</a>
+      </h1>
+      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Three weeks ago I pondered whether <a href="http://morethanseven.net/2009/01/15/are-xmpp-and-offline-processing-coming-google-app-/">XMPP and offline processing were coming to Google App Engine?</a>. It was a hunch based on the upcoming release of Jaiku on App Engine. I reasoned you couldn&rsquo;t really do it without XMPP and offline processing APIs. Looks like I was right.</p>
+
+<p>Today <a href="http://bitworking.org/news/">Joe Gregorio</a> announced on the <a href="http://googleappengine.blogspot.com/">App Engine Blog</a> an <a href="http://googleappengine.blogspot.com/2009/02/roadmap-update.html">update to the roadmap for the next 6 months</a>; including</p>
+
+<ul>
+<li>Support for running scheduled tasks</li>
+<li>Task queues for performing background processing</li>
+<li>Ability to receive and process incoming email</li>
+<li>Support for sending and receiving XMPP (Jabber) messages</li>
+</ul>
+
+<p>Colour me excited. This could be the point were we start seeing more and more interesting IM interfaces. And this ticks off several of my must haves for App Engine.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/02/05/hosting-images-app-engine/">Hosting Images on App Engine</a>
+      </h1>
+      <span class="post-date">Feb 5, 2009 &middot; 3 minute read
+      </span>
+      
+      <p>I like adding images to the occasional blog post but don&rsquo;t do it as often as I want to. The reason being I can hardly ever be bothered to resize images. It means opening up a memory hogging application, fiddling around for a few minutes and then saving it out somewhere, then uploading said image to my server. All of those things bore me.</p>
+
+<p>Appengine to the rescue. As an excuse to play around with the <a href="http://code.google.com/appengine/docs/python/images/overview.html">image API</a> as well as add more pictures to this here blog I decided to build myself a small image hosting application. I really only care about the two things noted above; resizing and uploading. If I can do that in one go I&rsquo;m happy.</p>
+
+<p>A couple of train rides (all the best code gets written on train journeys, fact) later and I&rsquo;ve deployed the first version of Image Host which looks a little something like this:</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRjtBww" alt="Image Hosting interface on Google App Engine"/></p>
+
+<p>(And yes that image is an image of image-host hosted on image-host. If you&rsquo;re thinking <em>what image?</em> then it means this experiment isn&rsquo;t working at the moment.)</p>
+
+<p>The application is designed in such a way as you could have as many people uploading and managing their own set of images as you want, all within one instance. The only reason I don&rsquo;t just open it up to any google user account is that it would eat into my quotas if it got popular and I have no interest in policing whatever dubious images anyone might upload.</p>
+
+<p>I&rsquo;ve been playing with App Engine quite extensively of late. I really appreciate the SDK and the limited, but well designed and thought out APIs and testing stubs. At the moment I&rsquo;m happy with where it&rsquo;s at. It&rsquo;s obviously early days but in my mind all I really want are APIs for offline processing, some sort of message queuing facility, XMPP support and a payment model for raising the limitations. And several of those are already slated for the near future.</p>
+
+<p>If anyone wants to host their own version you can grab the code from <a href="http://github.com/garethr/appengine-image-host/tree/master">GtHub</a>. You&rsquo;ll need your own App Engine account and your own snappy name but that&rsquo;s all. If you really don&rsquo;t want to do that, have a good reason to needing image hosting and ask nicely I might add more people to my version as well.</p>
+
+<p>Their are a few bugs I&rsquo;m going to fix when I get a moment, a few documented limitations I know about and I&rsquo;m still fleshing out the test suite to cover all the functionality. But all in all a worthwhile few hours spent hacking. I&rsquo;ll probably get round to writing up some pointers for testing App Engine code as well as their are a host of gotchas and the only real documentation at present is comments in the code.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/16/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        class="active"><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/18/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

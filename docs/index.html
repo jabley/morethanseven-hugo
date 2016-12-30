@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2016/11/23/the-coming-of-the-kubernetes-distributions/">The coming of the Kubernetes distributions</a>
+      </h1>
+      <span class="post-date">Nov 23, 2016 &middot; 5 minute read
+      </span>
+      
+      
+
+<p>Very few people today start using Linux by downloading the linux kernel
+and starting from scratch. Most people start with a Linux distribution;
+for instance Debian, Ubuntu or CentOS. These distributions provide some
+opinions, some central infrastructure, a brand, strong versioning for
+the entire ecosystem and a bunch of other things. I posit that we&rsquo;ll see
+the same pattern emerge with Kubernetes.</p>
+
+<h2 id="what-even-is-kubernetes">What even is Kubernetes?</h2>
+
+<p>I&rsquo;ve seen Kubernetes described as all of the following:</p>
+
+<ul>
+<li>An operating system for your datacenter</li>
+<li>The distributed systems toolkit</li>
+<li>The Linux kernel for distributed systems</li>
+</ul>
+
+<p>I think all of these descriptions point to the developers intent that
+Kubernetes is something to build upon, rather than a simple out-of-the-box
+experience. It&rsquo;s predominantly about building agreement on the
+primitives/APIs of distributed systems.</p>
+
+<h2 id="a-name-for-a-thing">A name for a thing</h2>
+
+<p>I&rsquo;ve not seen much discussion of this in general yet, I think because
+it&rsquo;s early days and many of the people looking at Kubernetes today are
+either developers or early adopter types. These people have been
+&ldquo;downloading the kernel and starting from scratch&rdquo;, even until recently
+most likely running from source downloaded directly from GitHub. If the
+Kubernetes ecosystem is to grow then that&rsquo;s not how more mainstream IT
+will adopt Kubernetes.</p>
+
+<p>The reason for discussing this now is that I think a name is useful.
+That way we can talk about Kubernetes (singular, the software) separate
+from distrubutions of Kubernetes (many of them, from different vendors
+and communities). I&rsquo;d be happy to see a different name, but I think
+distribution probably fits best.</p>
+
+<h2 id="any-evidence">Any evidence?</h2>
+
+<p>Absolutely. A range of software vendors are providing what I&rsquo;m calling
+Kubernetes distributions. Here is a sample, I&rsquo;m sure there are and will
+be more. I&rsquo;m also sure over time some will disappear or maintain only a
+niche audience.</p>
+
+<ul>
+<li>OpenShift from Red Hat</li>
+<li>Tectonic from CoreOS</li>
+<li>Kismatic from Apprenda</li>
+<li>Rancher</li>
+<li>Canonical Distribution of Kubernetes</li>
+<li>GKE from Google</li>
+<li>Azure Container Service from Microsoft</li>
+<li>Photon Platform from VMware</li>
+<li>Navops from Univa</li>
+</ul>
+
+<p>Note that Canonical are already using the term <em>distribution</em> in the
+name. I&rsquo;ve seen it used in passing in CoreOS, OpenShift and Apprenda
+press materials too.</p>
+
+<h2 id="what-can-we-expect-from-kubernetes-distributions">What can we expect from Kubernetes distributions?</h2>
+
+<p>Running with the analogy that Kubernetes is &ldquo;an operating system for
+your datacenter&rdquo; and that we&rsquo;ll have a range of competing Kubernetes
+distributions, what else can we expect over the next few years?</p>
+
+<h3 id="package-repositories-aka-app-stores">Package repositories (aka. app stores)</h3>
+
+<p>One of the things provided by the traditional Linux distributions has
+been a central package repository. Most of the packages you&rsquo;re
+installing from <code>apt</code> or <code>yum</code> are coming from that currated set of
+available packages. Not to mention community efforts like EPEL. We
+already have two package concepts within the Kubernetes ecosystem -
+container images (often from Docker Hub today, or from internal
+repositories) and Charts, part of the Helm package management tool
+(now a CNCF project).</p>
+
+<p>In the short term expect the shared public Charts repository and Docker
+Hub to dominate. But over time different vendors will launch there own
+repositories. Partly this will be about building a trusted ecosystem,
+partly about limiting permutations for support and testing, and partly
+about control. The prize here is to be &ldquo;the enterprise app store&rdquo; and
+no vendor in this space isn&rsquo;t going to at least try to own that as part
+of their platform.</p>
+
+<h3 id="kubernetes-standards-and-compliance">Kubernetes standards and compliance</h3>
+
+<p>In an environment with many distributors of core software, it&rsquo;s
+common for people to emphasise portability. As vendors extend their
+distribution (to provide higher level, but potentially proprietary
+features) this can become muddier. Some level of certification is
+often the answer. See CloudFoundry or OpenStack for recent examples.
+Kubernetes is already part of the CNCF, part of the Linux Foundation.
+I&rsquo;d expect to see the works standards and certification eventually
+float around, but my guess is not in the short term.</p>
+
+<h3 id="a-fight-over-who-is-the-most-open">A fight over who is the most open</h3>
+
+<p>Much of the container conversation recently has centered around a
+<em>weaponisation</em> of <em>open</em>. I think as the different distributions try and
+take the community with them at the same time as trying to scale sales this
+will continue. This will be an irritation and is probably best avoided.</p>
+
+<h3 id="pressure-for-aws-to-offer-kubernetes-as-a-service">Pressure for AWS to offer Kubernetes as a service</h3>
+
+<p>I would presume AWS has a very good idea of how many people are actually
+using Kubernetes on it&rsquo;s platform. I think as that grows, and as other
+vendors efforts mature, they will come under pressure to offer the
+Kubernetes API as a service. I&rsquo;m still split on whether that will
+actually happen but that&rsquo;s a longer blog post about economics.</p>
+
+<h3 id="differentiating-features">Differentiating features</h3>
+
+<p>Ultimately vendors will try and differentiate themselves in this new
+market. To begin with the majority of business will be targetting the
+container-curious and mainly talking up the benefits of containers and
+Kubernetes. But some potentialy customers are going to insist on
+comparing Kubernetes distributions and winning there is going to be about
+clear differentiation. Do you want to be the budget offering or the
+provider with the unique selling point?</p>
+
+<h2 id="interesting-questions">Interesting questions</h2>
+
+<p>An observation at the moment is that all the current Kubernetes
+distributions I&rsquo;m aware of are vendor-owned. Whether Open Source or not,
+they are driven by a single vendor (CoreOS, Red Hat, Apprenda, etc.)
+It&rsquo;s interesting to see whether, in the current climate, we see a
+genuinely free and open source Kubernetes distribution emerge, similar
+to the role Debian plays in the Linux distribution world.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2016/11/12/the-end-of-the-general-purpose-operating-system-unikernels/">Unikernels and The End of the General Purpose Operating System</a>
+      </h1>
+      <span class="post-date">Nov 12, 2016 &middot; 2 minute read
+      </span>
+      
+      
+
+<p>The <a href="http://www.morethanseven.net/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/">previous
+post</a>
+went into why I think the days of the general purpose operating system
+(for servers) are numbered. But one interesting area I didn&rsquo;t comment
+on (but did talk about in the talk of the same name) was Unikernels.</p>
+
+<h2 id="it-s-all-about-cost">It&rsquo;s all about cost</h2>
+
+<p>One of the topics I didn&rsquo;t really touch on in discussing the end of the
+generally purpose operating system was cost. Historically,
+maintaining a general purpose operating system has been a costly
+endeavour, something only the largest companies or communities could
+sustain by themselves. Think Red Hat, Oracle, Microsoft, Sun, IBM,
+Debian, etc. The result of that is the assumption when building software
+that you should target one or more of a small number of operating systems.
+In doing so you&rsquo;re ceding some ground, and likely some revenue, to another
+vendor. You&rsquo;re also stuck with any underlying limitations of that OS as
+well as its release cadence. And invariably you&rsquo;re also stuck with the
+multiplying support cost of supporting your software on multiple versions of
+that OS over time.</p>
+
+<p>I would posit that up until relatively recently the cost of that support
+burden was hugely outweighted by the cost of maintaining an actual operating
+system. But that&rsquo;s now changing, as I outlined in the previous post. Now a
+small or medium sized software company (be it CoreOS, Rancher, Docker,
+Pivotal, etc.) can build and maintain it&rsquo;s own operating system as well.
+This is very much about the rising level of abstraction - all of the
+above leverage the huge efforts that go into the Linux kernel and into
+other projects like systemd (CoreOS) or Alpine (Docker&rsquo;s Moby) for
+instance.</p>
+
+<h2 id="enter-unikernels">Enter Unikernels</h2>
+
+<p>But where do Unikernels fit into this narrative? I&rsquo;d argue that they
+represent the fulfilment of this democratization. If building and
+maintaining a traditional OS is only possible for the largest of
+companies, and building and maintaining a more special-purpose OS (say
+for running containers, or a storage device) is cost-effective for medium
+sized softare companies, then Unikernels will allow anyone to build their
+own single-purpose operating systems.</p>
+
+<p>There are other technical reasons for (and against) Unikernels as an
+approach but most focus on the technical. I think the economic side is
+worth some consideration too. And not just the typical development and
+support costs, but the ability to own the end-to-end unit of software
+has lots of benefits, and Unikernels may make those benefits available
+to everyone, including small organisations and individuals.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/">The End of the General Purpose Operating System</a>
+      </h1>
+      <span class="post-date">Nov 5, 2016 &middot; 5 minute read
+      </span>
+      
+      
+
+<p>As interesting chat on Twitter today reminded me that not everyone is
+probably aware that we&rsquo;re seeing a concerted attempt to dislodge the
+general purpose operating system from our servers.</p>
+
+<p>I gave a talk about some of this <a href="https://speakerdeck.com/garethr/the-end-of-the-general-purpose-operating-system">nearly two years
+ago</a>
+and I though a blog post looking at what I got right, what I got wrong
+and what&rsquo;s actually happening would be of interest to folks. The talk
+was written only a few months after I joined Puppet. With a bunch
+more time working for a software vendor there are some bits I missed in
+my original discussion.</p>
+
+<h2 id="what-do-you-mean-by-general-purpose-and-by-end">What do you mean by general purpose and by end?</h2>
+
+<p>First up, a bit of clarification. By <em>general purpose OS</em> I&rsquo;m referring
+to what most people use for server workloads today - be it RHEL or variants
+like CentOS or Fedora, or Debian and derivatives like Ubuntu. We&rsquo;ll
+include Arch, the various BSD and opensolaris flavours and Windows too.
+By <em>end</em> I don&rsquo;t literally mean they go away or stop being useful. My
+hypothosis is that, slowly to begin with then more quickly, they cease
+to be the default we reach for when launching new services.</p>
+
+<h2 id="the-hypervisor-of-containers">The hypervisor of containers</h2>
+
+<p>The first part of the talk included a discussion of what I&rsquo;d referred to
+as <em>the hypervisor of containers</em>, what today would more likely be
+referred to as a CaaS, or containers as a service. I even speculated
+that VMWare would have to ship something in this space (See vSphere Integrated
+Containers and the work on Photon OS) and that counting out OpenShift
+would be premature (OpenShift 3 shipped predominantly as a Kubernetes
+distribution). I&rsquo;ll come back to why this is a threat to your beloved
+Debian servers shortly.</p>
+
+<h2 id="the-race-to-pid1">The race to PID1</h2>
+
+<p>For anyone who has run Docker you&rsquo;ll likely have wrestled with the
+question of where does the role of the host process supervisor (probably systemd)
+start and the container process supervisor (the Docker engine) end? Do
+you have to interact directly with both of them?</p>
+
+<p>Now imagine if <em>all</em> of the software on your servers was run in containers.
+Why do I need two process supervisors now with 100% overlap? The obvious
+answer is you don&rsquo;t, which is why the fight between Docker and systemd
+is inevitable. Note that this isn&rsquo;t specific to Docker either. In-scope
+for <a href="https://github.com/kubernetes-incubator/cri-o">cri-o</a> is <em>Container
+process lifecycle management</em>.</p>
+
+<h2 id="containers-as-the-unit-of-software">Containers as the unit of software</h2>
+
+<p>Hidden behind my hypothosis, which mainly went unsaid, was
+that containers are becoming the unit of software. By which I mean
+the software we build or buy will increasingly be distributed as
+containers and run as containers. The container will carry with it
+enough metadata for the runtime to determine what resources are
+required to run it.</p>
+
+<p>The number of simplying assumption that come from this shared contract should not
+be underestimated. At least at the host level you&rsquo;re likely to need lots
+of near-identical hosts, all simply advertising their capabilities to
+the container scheduler.</p>
+
+<h2 id="operating-system-as-implementation-detail">Operating system as implementation detail</h2>
+
+<p>What we&rsquo;re witnessing in the market is the development of vertically integrated
+stacks.</p>
+
+<ul>
+<li>Docker for Mac/Windows/AWS/Azure ships with it&rsquo;s own operating
+system, an Alpine Linux derivative <a href="http://lucjuggery.com/blog/?p=753">nicknamed Moby</a>, which is not intended for direct management by end users.</li>
+<li>Tectonic from CoreOS is a Kubernetes distribution which runs atop a
+cluster of managed CoreOS hosts. Most of the operating system is
+managed with frequent atomic rolling updates.</li>
+<li>OpenShift Enterprise from RedHat is another Kubernetes derivative,
+this time running atop Atomic host.</li>
+<li>Pivotal CloudFoundry <a href="https://twitter.com/jambay/status/794904634502496257">ships with the IaaS, host OS, kernel, file
+system, container OS all tested
+together</a></li>
+</ul>
+
+<p>In all of these cases the operating system is an implementation detail
+of the higher level software. It&rsquo;s not intended to be directly managed,
+or at least managed to the same degree as the general purpose OS you&rsquo;re
+running today.</p>
+
+<p>This is how the end comes for the majority of your general purpose
+operating system running servers. The machines running containers will
+be running something more single purpose, and more and more of the
+software you&rsquo;re running will be running in containers.</p>
+
+<p>The reason why you&rsquo;ll do this, rather than compose everything yourself, is
+compatability. Whether it&rsquo;s kernel versions, file system drivers,
+operating system variants or a hundred variations that make your OS
+build different from mine. Building and testing software that runs
+everywhere is a sisyphean task. Their is also the commercial angle at
+play here, and the advantage of being able to support a single validated
+product to everyone.</p>
+
+<h2 id="implications">Implications</h2>
+
+<p>There are lots of implications to this move, and it&rsquo;s going to be
+interesting to see how it plays out with both early adopters and
+enterprise customers alike.</p>
+
+<ul>
+<li>What does this mean for corporate operating system policies?</li>
+<li>How do standard agent-based monitoring systems work in a world of
+closed vertical stacks?</li>
+<li>Will we see this pattern for other types of service in the AWS Marketplace,
+where instance launched are inaccessible but automatically updating?</li>
+<li>How does such fast moving software work in environments with rigid
+change control processes or audit requirements?</li>
+<li>Many large organisations will end up running more than one of these
+types of system, how best to manage such heterogenous environments?</li>
+<li>Will we see push back from some parties? In particular the open source
+community who may see this mainly serving the needs of vendors?</li>
+<li>Does the end of the general purpose OS lead to greater specialism
+amongst systems administrators?</li>
+</ul>
+
+<p>I&rsquo;d love to chat about any of this with other folks who have given it
+some thought. It&rsquo;s interesting watching grand changes play out across
+the industry and picking up on patterns that are likely obvious in
+hindsight. And if you like this sort of thing let me know and I&rsquo;ll try
+and find time for more speculation.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2016/10/07/infrakit-hello-world/">InfraKit Hello World</a>
+      </h1>
+      <span class="post-date">Oct 7, 2016 &middot; 3 minute read
+      </span>
+      
+      <p>Docker just shipped <a href="https://github.com/docker/infrakit">InfraKit</a> a few days ago at LinuxCon and, while at the Docker Distributed Systems Summit, I wanted to see if I could get a hello world example up and running. The documentation is lacking at the moment, epecially around how to tie the different components like instances and flavors together.</p>
+
+<p>The following example isn&rsquo;t going to do anything particularly useful, but it&rsquo;s hopefully simple enough to help anyone else trying to get started. I&rsquo;m assuming you&rsquo;ve checked out and built the binaries as described in the <a href="https://github.com/docker/infrakit#building">README</a>.</p>
+
+<p>First create a directory. We&rsquo;re going to be using InfraKit to manage local files in that directory as part of the demo.</p>
+
+<pre><code>mkdir test
+</code></pre>
+
+<p>Now create an InfraKit configuration file. We&rsquo;re going to use the <code>file</code> instance plugin to manage files in out directory. This means everything works on the local machine, rather than trying to launch real infrastructure in AWS or similar. InfraKit also requires a <code>flavor</code> plugin. I&rsquo;m using <code>vanilla</code> here just to meet the requirement for a flavor plugin, but it&rsquo;s not going to actually do anything in this demo. It might be useful to write a noop flavor plugin or similar.</p>
+
+<pre><code>cat garethr.json
+</code></pre>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>{
+    <span style="color: #bb0066; font-weight: bold">&quot;ID&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;garethr&quot;</span>,
+    <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+        <span style="color: #bb0066; font-weight: bold">&quot;Instance&quot;</span> : {
+            <span style="color: #bb0066; font-weight: bold">&quot;Plugin&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;instance-file&quot;</span>,
+            <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+            }
+        },
+        <span style="color: #bb0066; font-weight: bold">&quot;Flavor&quot;</span> : {
+            <span style="color: #bb0066; font-weight: bold">&quot;Plugin&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;flavor-vanilla&quot;</span>,
+            <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+                <span style="color: #bb0066; font-weight: bold">&quot;Size&quot;</span>: <span style="color: #0000DD; font-weight: bold">1</span>
+            }
+        }
+    }
+}
+</pre></div>
+
+<p>InfraKit is based on running separate plugins. Each plugin runs as a separate process and provides a filesystem socket in /run/infrakit/plugins. First start up the file plugin:</p>
+
+<pre><code>$ ./infrakit/file --dir=./test
+INFO[0000] Starting plugin
+INFO[0000] Listening on: unix:///run/infrakit/plugins/instance-file.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/instance-file.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>Next, in a separate terminal run the vanilla plugin:</p>
+
+<pre><code>$ ./infrakit/vanilla
+INFO[0000] Starting plugin
+INFO[0000] Listening on: unix:///run/infrakit/plugins/flavor-vanilla.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/flavor-vanilla.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>An finally run the group plugin. I&rsquo;m passing <code>--log=5</code> to enable more verbose outout so it&rsquo;s easier to see what&rsquo;s going on with the group.</p>
+
+<pre><code>$ ./infrakit/group --log=5
+INFO[0000] Starting discovery
+DEBU[0000] Opening: /run/infrakit/plugins
+DEBU[0000] Discovered plugin at unix:///run/infrakit/plugins/instance-file.sock
+INFO[0000] Starting plugin
+INFO[0000] Starting
+INFO[0000] Listening on: unix:///run/infrakit/plugins/group.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/group.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>With that all setup we can create a group based on our configuration file from above.</p>
+
+<pre><code>$ ./infrakit/cli group --name group watch garethr.json
+watching garethr
+</code></pre>
+
+<p>Have a look in the test directory. You should see a single file has been created.</p>
+
+<pre><code>$ ls test
+instance-1475833380
+</code></pre>
+
+<p>Let&rsquo;s delete that file and see what happens:</p>
+
+<pre><code>rm test/*
+</code></pre>
+
+<p>Hopefully InfraKit will spot the instance (a file in this case) no longer exists and recreate it. You should see something like the following in the logs:</p>
+
+<pre><code>INFO[0612] Created instance instance-1475833820 with tags map[infrakit.config_sha:B2MsacXz8V_ztsjAzu3tu3zivlw= infrakit.group:garethr]
+</code></pre>
+
+<p>This is obviously a less-than-useful example but hopefully provides a good hello world example for anyone trying to run InfraKit in it&rsquo;s current early stage.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2016/07/05/everyone-is-not-a-software-company/">Everyone is Not a Software Company</a>
+      </h1>
+      <span class="post-date">Jul 5, 2016 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>The <em>Everyone is a Software Company</em> meme has been around for a
+<a href="http://www.forbes.com/sites/techonomy/2011/11/30/now-every-company-is-a-software-company/#22c372311009">number</a>
+<a href="http://www.zdnet.com/article/now-that-everyone-is-a-software-company-should-they-operate-like-software-companies/">of</a>
+<a href="http://blogs.gartner.com/peter-sondergaard/everyone-is-a-technology-company/">years</a>,
+but it feels increasingly hard to get away from recently. That prompted
+this post.</p>
+
+<h2 id="but-what-do-we-mean-by-software-company">But what do we mean by Software Company?</h2>
+
+<p>To be software company you&rsquo;re going to need to employee software
+engineers and other professionals. Applying that logic to a large
+number of companies at once, and looking at how existing
+<em>software companies</em> are setup, we find a few large problems.</p>
+
+<h2 id="google-as-an-example">Google as an example</h2>
+
+<p>In my talk at Velocity, entitled <a href="https://speakerdeck.com/garethr/the-two-sides-to-google-infrastructure-for-everyone-else">The Two Sides of Google Infrastructure
+for Everyone
+Else</a>
+I argued both for and against the idea of wholesale adoption of
+Google-like software and development/operations practices.
+Even though they derive the lions share of revenue from advertising it&rsquo;s
+easy to argue that Google are a software company. But what does that look like?
+What makes Google a software company?</p>
+
+<p>From the <a href="https://abc.xyz/investor/pdf/20151231_alphabet_10K.pdf">Google Annual Report
+2015</a></p>
+
+<blockquote>
+<p>61,814 full-time employees: 23,336 in research and development,
+19,082 in sales and marketing, 10,944 in operations, and 8,452
+in general and administrative functions</p>
+</blockquote>
+
+<p>So, roughly 50% of Google is involved in building or running software.
+<a href="https://www.glassdoor.com/Salary/Google-Salaries-E9079.htm">Glassdoor</a>
+says salaries for engineers at Google average about $126,000-$162,000.</p>
+
+<p>The <a href="http://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm">US Bureau of Labor Statistics says</a>
+that in 2014 the number of computer programming jobs in the US
+was 1,114,000, with median pay in 2015 of $100,690 a year. The
+total number of jobs in the US is about 143 million, with the
+average wages at $44,569.20 according to the <a href="https://www.ssa.gov/oact/cola/awidevelop.html">Social Security
+Administration</a>.</p>
+
+<p>The Google Annual Report also states:</p>
+
+<blockquote>
+<p>Competition for qualified personnel in our industry is intense,
+particularly for software engineers, computer
+scientists, and other technical staff</p>
+</blockquote>
+
+<p>So, quick summary:</p>
+
+<ul>
+<li>Software engineers are expensive relative to others employees</li>
+<li>Demand for the best engineers means even higher wages</li>
+<li>Proportionally there aren&rsquo;t many software developers</li>
+<li>There isn&rsquo;t a large surplus of unemployed software engineers</li>
+</ul>
+
+<p>Now the data above is mainly from US sources, although the Google data
+is from an international company with offices around the world. My
+experience says this is likely similar in Europe. Looking into data for
+India and China would be super interesting I&rsquo;d wager.</p>
+
+<h2 id="problems">Problems</h2>
+
+<p>One obvious problem is short-term supply and demand. Everyone wants
+experienced software folks for their transformation effort. But the more
+organisations that buy into the <em>everyone is a software company</em> story
+the greater the demand for a finite supply of people. For most
+that means you&rsquo;ll to able to find less people that you want because of
+competition and afford even less people because all that competition
+pushes up salaries.</p>
+
+<p>I&rsquo;ve seen that firsthand while working for the UK Government. People
+occasionally complained that Government was hampering commercial
+organisations growth by employing lots of developers and operations
+people in London.</p>
+
+<p>You&rsquo;re also immediately in competition for software professionals with
+existing software companies. Given the high salaries, most of
+those employers already have developer friendly working environments and
+established hiring practices suited to luring developers to work for
+them. This sort of special case is hard for large companies without an
+existing empowered developer organisation. I saw a lot of that at the
+Government as well.</p>
+
+<p>But the real macro problems are much more interesting. Even if you think
+50% is a high mark for the ratio of software folk to others, you probably
+agree you need a lot more than you have today. And those developers just
+don&rsquo;t exist today to allow <em>everyone to be a software company</em>. Nor
+would I argue is education in the near term producing enough skilled
+people to fill that gap tomorrow. So, what happens?</p>
+
+<ul>
+<li>Does everyone sort-of become a software company but not quite?</li>
+<li>Do most organisations struggle to hire and maintain a software team
+and see the endeavour fail?</li>
+<li>Do increasing numbers of developers end up working for a small number
+of larger and larger software companies?</li>
+<li>Does outsourcing bounceback,  adapt and demonstrate innovation and
+transformation qualities to go along with the scale?</li>
+<li>Countries like India or China are able to produce enough software engineers
+at scale to allow there companies to act on everyone becoming a
+software company?</li>
+<li>We see clear winners and losers, ie. companies which become software
+companies and accelarate away from those that don&rsquo;t?</li>
+</ul>
+
+<p>Personally I think to take advantage of the idea behind the meme we&rsquo;re
+going to need order of magnitude more efficient approaches to software
+delivery. What that looks like is the most interesting question of all.</p>
+
+<h2 id="caveats">Caveats</h2>
+
+<p>The above is not a detailed analysis, and undoutedly has a few holes. It
+also doesn&rsquo;t overly question the <em>advantage</em> of being a software
+company, or really question what we actually mean by <em>everyone</em>. But I
+think the central point holds: Everyone is NOT a software company, nor
+will everyone be a software company any time soon, unless we come up
+with a fundamentally better approach to service delivery.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2015/12/27/operations-more-than-systems-administration/">Operations is more than just Systems Administration</a>
+      </h1>
+      <span class="post-date">Dec 27, 2015 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>I think one of the patterns of the last few years has been the
+democratization of systems administration, especially for web
+applications. Whether that&rsquo;s Heroku or Docker, or Chef or Puppet, more
+and more traditional developers are doing work that would have been
+<em>somebody else&rsquo;s problem</em> only a few years ago. But running in parallel
+to that thread is another less positive trend, that of conflating
+operations with <em>just</em> systems administation. The story seems to go that
+now we know Ansible (or some other tool) we just need developers to run
+the show.</p>
+
+<p>In this post I&rsquo;m going to try and introduce some of the other
+operational disciplines, especially for developers who maybe have come
+to operations via the above resurgence in infrastructure tooling over
+the past few years.</p>
+
+<p>Note that this post has a slight bias towards more <em>normal</em>
+organisations. That is to say if you&rsquo;re in a 5 person software startup
+you probably don&rsquo;t have operational problems to worry too much about
+yet. I&rsquo;m also not playing down the practice of systems administration,
+most experienced sysadmins I know are also quite rounded operations pros
+as well.</p>
+
+<h2 id="service-management">Service Management</h2>
+
+<p>If you&rsquo;ve worked in operations, or in many large organisations you&rsquo;ll have
+come across the term Service Management. This tends to be linked to
+various service management frameworks; like ITIL or MOF (Microsoft
+Operations Framework). The framework will describe, often in great
+detail, activities and processes for things like incident response,
+configuration management, change management, capacity planning and more.</p>
+
+<p>While I was at <a href="https://gds.blog.gov.uk/">The Government</a> I wrote what I
+think is a reasonable introduction to <a href="https://www.gov.uk/service-manual/operations/service-management.html">Service
+Management</a>
+albeit from a specific point-of-view. This was based on my experience of
+trying, and likely sometimes failing, to encourage teams to think about
+how the products they we&rsquo;re working on would be run. Each of the topics
+touched on in the overview is worthy of it&rsquo;s own stack of books, but I
+will repeat the ITIL service list here as (whatever you might think of
+the framework or a specific implementation) I&rsquo;d found it a useful starting
+point for conversations - in particular stressing the breadth of
+topics under service management.</p>
+
+<h4 id="service-strategy">Service Strategy</h4>
+
+<ul>
+<li>IT service management</li>
+<li>Service portfolio management</li>
+<li>Financial management for IT services</li>
+<li>Demand management</li>
+<li>Business relationship management</li>
+</ul>
+
+<h3 id="service-design">Service Design</h3>
+
+<ul>
+<li>Design coordination</li>
+<li>Service Catalogue management</li>
+<li>Service level management</li>
+<li>Availability management</li>
+<li>Capacity Management</li>
+<li>IT service continuity management</li>
+<li>Information security management system</li>
+<li>Supplier management</li>
+</ul>
+
+<h3 id="service-transition">Service Transition</h3>
+
+<ul>
+<li>Transition planning and support</li>
+<li>Change management</li>
+<li>Service asset and configuration management</li>
+<li>Release and deployment management</li>
+<li>Service validation and testing</li>
+<li>Change evaluation</li>
+<li>Knowledge management</li>
+</ul>
+
+<h3 id="service-operation">Service Operation</h3>
+
+<ul>
+<li>Event management</li>
+<li>Incident management</li>
+<li>Request fulfillment</li>
+<li>Problem management</li>
+<li>Identity management</li>
+<li>Continual Service Improvement</li>
+</ul>
+
+<p>For each of the above points, whether you are using ITIL or not, it&rsquo;s
+useful to have a conversation. Some of these areas do provide ample
+opportunity for automation and for using tooling to minimise the effort
+required. But much of this is about designing <em>how</em> you are going to
+operate a service throughout it&rsquo;s lifetime.</p>
+
+<h2 id="operations-user-stories">Operations user stories</h2>
+
+<p>One of the other things I published while at The Government was a set of
+<a href="https://www.gov.uk/service-manual/operations/web-operations-stories.html">user stories for a web operations
+team</a>.
+These grew out of work on launching GOV.UK and have had input from
+various past colleagues. In hindsight I&rsquo;d probably do somethings
+here differently, the stories assume a certain context which isn&rsquo;t explicitly
+spelled out for instance. But they have a couple of things going for them in that
+they demonstrate how traditional operations activities can be planned out as part
+of a more developer-friendly planning approach, and also they are public and
+have been tested by more than a single team.</p>
+
+<h2 id="not-everything-is-a-programming-problem">Not everything is a programming problem</h2>
+
+<p>The main point I think is that not everything can be turned into a
+programming problem to solve. Automation has it&rsquo;s place, and many manual
+processes and practices can benefit from automation. But the wide range
+of activities involved in running a non-trivial and often non-ideal
+system in production tend to mean making trade-offs and prioritization
+decisions frequently. This is where softer skills like arguing for
+funding or additional head count, or building a business case for
+further work, come into play. Operations management is much more than
+systems administration.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>This is little more than a plea for people to think more about
+operations, separate to the more technical aspects of systems
+administration. If you&rsquo;re interested in learning more however I would
+recommend some good reading material:</p>
+
+<ul>
+<li><a href="http://www.itpi.org/the-visible-ops-handbook-review.html">Visible Ops
+Handbook</a> -
+still an excellent and pragmatic introduction to many of the topics
+noted above.</li>
+<li><a href="http://shop.oreilly.com/product/0636920033080.do">Designig Delivery</a> -
+a bang up-to-date tome covering a range of service design topics.</li>
+<li><a href="http://www.basicsm.com/bsm-basic-service-management-book">Basic Service
+Management</a> -
+a 50 page starter book covering the fundamentals of service
+management as generally discussed in more detail elsewhere. A great
+starting point.</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2015/12/04/provisioning-droplets-with-puppet/">Provisioning droplets with Puppet</a>
+      </h1>
+      <span class="post-date">Dec 4, 2015 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>I love <a href="https://www.digitalocean.com/">DigitalOcean</a> for quickly spinning
+up machines. I also like managing my infrastructure using Puppet. Enter the
+<a href="https://forge.puppetlabs.com/garethr/digitalocean">garethr-digitalocean</a> module.
+This currently provides a single Puppet type; <code>droplet</code>.</p>
+
+<p>Lets show a quick example of that, by launching two droplets, called
+test-digitalocean and test-digitalocean-1.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #336699">droplet</span> { [<span style="color: #dd2200; background-color: #fff0f0">&#39;test-digitalocean&#39;</span>, <span style="color: #dd2200; background-color: #fff0f0">&#39;test-digitalocean-1&#39;</span>]:
+  <span style="color: #336699">ensure</span> =&gt; <span style="color: #008800; font-weight: bold">present</span>,
+  <span style="color: #336699">region</span> =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;lon1&#39;</span>,
+  <span style="color: #336699">size</span>   =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;512mb&#39;</span>,
+  <span style="color: #336699">image</span>  =&gt; <span style="color: #0000DD; font-weight: bold">14169855</span>,
+}
+</pre></div>
+
+<p>With the above manifest saved as <code>droplets.pp</code> we can run it with:</p>
+
+<pre><code>$ puppet apply --test droplets,pp
+</code></pre>
+
+<p>This will ensure those two droplets exist in that region, and have that
+size. If they don&rsquo;t exist it will launch droplets using the specified image.
+This means we can run the same command again, and rather that create
+more instances it will simply report that we currently have those
+droplets already.</p>
+
+<h2 id="querying-resources">Querying resources</h2>
+
+<p>Puppet also comes with <code>puppet resource</code>, a handy way of querying the
+state of a given resource or type. Running the following will list all
+of your droplets, whether you created them using Puppet or not.</p>
+
+<pre><code>$ puppet resource droplet
+droplet { 'test-digitalocean':
+  ensure              =&gt; 'present',
+  backups             =&gt; 'false',
+  image               =&gt; '14169855',
+  image_slug          =&gt; 'ubuntu-15-10-x64',
+  ipv6                =&gt; 'true',
+  price_monthly       =&gt; '10.0',
+  private_address     =&gt; '10.131.98.186',
+  private_networking  =&gt; 'true',
+  public_address      =&gt; '178.62.25.100',
+  public_address_ipv6 =&gt; '2A03:B0C0:0001:00D0:0000:0000:0090:B001',
+  region              =&gt; 'lon1',
+  size                =&gt; '1gb',
+}
+</code></pre>
+
+<h2 id="mutating-resources">Mutating resources</h2>
+
+<p>The type also supports mutating droplets, for instance changing the
+size of a droplet if you change the model in Puppet. The API client
+doesn&rsquo;t support all possible changes, but you can disable backups, enable
+IPv6 and switch on private networking as needed. Here&rsquo;s a quick sample
+of the output showing this in action.</p>
+
+<pre><code>Info: Loading facts
+Notice: Compiled catalog for gareths-macbook.local in environment production in 0.43 seconds
+Info: Applying configuration version '1449225401'
+Info: Checking if droplet test-digitalocean exists
+Info: Powering off droplet test-digitalocean
+Info: Resizing droplet test-digitalocean
+Info: Powering up droplet test-digitalocean
+Notice: /Stage[main]/Main/Droplet[test-digitalocean]/size: size changed '1gb' to '512mb'
+Error: Disabling IPv6 for test-digitalocean is not supported
+Error: /Stage[main]/Main/Droplet[test-digitalocean]/ipv6: change from true to false failed: Disabling IPv6 for test-digitalocean is not supported
+Error: Disabling private networking for test-digitalocean is not supported
+Error: /Stage[main]/Main/Droplet[test-digitalocean]/private_networking: change from true to false failed: Disabling private networking for test-digitalocean is not supported
+Info: Checking if droplet test-digitalocean-1 exists
+Info: Created new droplet called test-digitalocean-1
+Notice: /Stage[main]/Main/Droplet[test-digitalocean-1]/ensure: created
+Info: Class[Main]: Unscheduling all events on Class[Main]
+Notice: Applied catalog in 60.61 seconds
+</code></pre>
+
+<h2 id="but-why">But why?</h2>
+
+<p>Describing your infrastructure at this level in code has several advantages:</p>
+
+<ul>
+<li>Having a shared model of your infrastructure in code allows for a discussion
+around that model</li>
+<li>You can be convident in the model because of the idempotent nature of running
+the code</li>
+<li>The use of code for this model allows for activities like code review, change
+control based on pull requests, unit testing, user created abstrations and more</li>
+<li>The use of Puppet means you can use it as above as a command line interface, or
+run it every period of time to enfore and report on the state of you infrastructure</li>
+<li>Puppet ecosystem tools like PuppetDB, Puppet Board or Puppet Enterprise mean you can
+store data over time for later analysis</li>
+</ul>
+
+<p>The module also acts as a reasonable example of a simple Puppet type and provider.
+If you&rsquo;re interested in extending Puppet for your own services this is hopefully a
+good place to start understanding the API.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2015/09/20/security-implications-of-unikernels/">Some Security Implication of Unikernels</a>
+      </h1>
+      <span class="post-date">Sep 20, 2015 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>I was attending the first <a href="http://gotocon.com/goto-london-2015/">GOTO London conference</a> last week, in particlar the <a href="https://www.ruggedsoftware.org/">Rugged</a> Track. One of the topics of conversation that came up was unikernels, and their potential for improving the state of software security. Unikernels are pretty new outside research groups, I’m just lucky enough to live and work in Cambridge where some of that research is happening. The security advantages of unikernels are one of the things that attracted me in the first place. I thought it might be interesting to jot a few of those down for other people interested in security and the future of infrastructure.</p>
+
+<p>As with my <a href="http://www.morethanseven.net/2015/08/21/operating-unikernel-challenges/">last post</a>, it’s worth having a basic understand of Unikernels. I’d recommend reading <a href="http://queue.acm.org/detail.cfm?id=2566628">Unikernels - the rise of the virtual library operating system</a>.</p>
+
+<h2 id="hypervisor">Hypervisor</h2>
+
+<p>Every unikernel is provided the isolation guarantees from a hypervisor. Not only are these guarantees reasonably well understood, they tend to make use of hardware features too. It’s interesting to note that recent container runtime work is heading in this direction too, with ptojects like <a href="https://clearlinux.org/features/clear-containers">Clear Containers from Intel</a>, <a href="https://blogs.vmware.com/cloudnative/introducing-project-bonneville/">Bonneville from VMware</a> and the <a href="https://coreos.com/blog/rkt-0.8-with-new-vm-support/">new stage1 in rkt</a>.</p>
+
+<h2 id="no-user-space">No User Space</h2>
+
+<p>With a typical server OS we have kernel space and user space. Part of the idea here is to ensure the underlying machine doesn’t crash, whatever horrible things people do in user space. But this means <em>you can do horrible things</em>. The unikernel model is similar to the Erlang philosophy of <em>let it crash</em>. You only have kernel space, you entire application resides in it. Most things out of the ordinary are going to crash the kernel. This makes the sort of exploratory testing useful in exploit development harder.</p>
+
+<h2 id="really-immutable-infrastructure">Really Immutable Infrastructure</h2>
+
+<p>People often talk about immutable infrastructure. I’d wager there is more talk than reality however. When you push, people are often not using read-only file systems and retain the capability to login to machines to make ad-hoc changes. What they mean by immutable is that they only change machines at deploy time. This ignores both the fact they have the technical capability to change them anytime, and that an attacker could change them outside that deployment cycle. With unikernel systems there is often just the compiled kernel, you can’t just change files on disk. The defaults force an immutable way of working.</p>
+
+<h2 id="clean-slate-tls">Clean Slate TLS</h2>
+
+<p>As a typical developer or operator you’ve probably learned more than you wanted to know about the OpenSSL source code. It’s not well understood and not likely to be so anytime soon and has some pretty spectacular bugs like <a href="http://heartbleed.com/">Heartbleed</a>. The <a href="https://www.coreinfrastructure.org/">Core Infrastructure Initiative</a> is laudable and will improve things but it’s still a problematic codebase. Functional programming is often regarded as an easier way of writing understandable code. Types are a good thing, especially when it comes to security systems. So a pure <a href="https://mirage.io/blog/introducing-ocaml-tls">OCaml TLS</a> implementation as used by <a href="https://mirage.io/">MirageOS</a> makes sense on lots of levels. Yes this is quite an undertaking, but the <a href="http://amirchaudhry.com/bitcoin-pinata/">bitcoin pinata</a> tests show promise.</p>
+
+<h2 id="formal-proofs">Formal Proofs</h2>
+
+<p>Knowing whether an application really does exactly what you want it to do (and no more) is a hard problem to solve. Unit tests and other form of automated testing help, but are still reliant on people to both write and design the tests. A formal proof system can provide much stronger guarentees of correctness, it’s an approach used in some cases for missing-critical components of <a href="http://cacm.acm.org/magazines/2015/4/184701-how-amazon-web-services-uses-formal-methods/fulltext">Amazon’s AWS</a>. MirageOS is implemented in OCaml. One of the most popular OCaml programmes is <a href="https://coq.inria.fr/">Coq</a>, which just so happens to be a formal proof management system. I’ve not seen many examples yet of this approach, probably due to the effort involved, but the capability is there for building formally specified unikernels. I’d wager a similar thing is possible with Haskell and <a href="https://github.com/GaloisInc/HaLVM">HalVM</a>. Making that easier to do for typical developers could open up much more secure development practices for certain usecases.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2015/08/21/operating-unikernel-challenges/">A Discussion of The Operational Challenges With Unikernels</a>
+      </h1>
+      <span class="post-date">Aug 21, 2015 &middot; 7 minute read
+      </span>
+      
+      
+
+<h2 id="what-are-unikernels">What are Unikernels</h2>
+
+<p>Most of this post assumes a basic understanding of what unikernels are
+so I’d recommend reading <a href="http://queue.acm.org/detail.cfm?id=2566628">Unikernels – the rise of the virtual library
+operating system</a> before moving
+on.</p>
+
+<h2 id="why-are-unikernels-interesting">Why are Unikernels interesting</h2>
+
+<p>As a starting point: complexity. Managing infrastructure, and the
+software that runs on it, is too complicated. You can impose
+organisational rules to control this complexity (we only deploy on
+Debian, we only run JVM applications, the only allowed database is
+MySQL) but that limits you in other ways too, and in reality is nearly
+always broken somewhere in any non-trivial environment (this appliance
+uses Ubuntu, this software is only certified on Windows, PostgreSQL
+doesn’t run on the JVM). So you turn to software to manage that
+complexity; Puppet or Chef do a great job of allowing configuration
+complexity to be managed in code (where you can test it) and Docker
+allows for bundles of complexity to be isolated from other bundles of
+complexity. But there are still an awful lot of moving parts.</p>
+
+<p>Another reason is the growing realisation that security is important.
+Securing systems on the internet is hard. Even though the basics are
+broadly understood they are often not implemented, and the people
+attempting to compromise systems are smart, well paid and highly
+incentivised (basically like you). It’s generally easier to break
+something than to build it. Part of this is a numbers game – to run a
+reasonable sixed system you might need to run 50 different services, and
+install 200 packages on every host. An attacker has to compromise just
+one of those to win.</p>
+
+<p>A further reason, if one were needed, is the proliferation of many small
+internet connected devices, aka. The Internet of Things. Part of this
+relates to the above points about security concerns, but some of it is
+simply a matter of managing that many single purpose, low power,
+devices. The overhead of a typical general purpose operating system and
+application runtime just don’t fit this model.</p>
+
+<p>Enter unikernels. Unikernels actually remove unneeded complexity. You’re
+running a hypervisor and the unikernel and that’s it. The unikernel
+contains only those libraries that you have specifically required. That
+drastically reduces the surface area for attack as well as meaning
+you’re running less software, hopefully enough less that your power
+needs are reduced too. By specifically requiring individual libraries
+you’re also making complexity visible. Rather than using a general
+purpose operating system with it’s 100s of packages and millions of
+lines of code you are at least choosing what to include.</p>
+
+<h2 id="operational-challenges">Operational challenges</h2>
+
+<p>While I think some part of the future looks like unikernels their are
+some large operational challenges to overcome before they break out of
+very specific niches or research projects. Note that</p>
+
+<p>there are architectural and software development challenges as well, I
+just happen to think they’re easier to deal with.</p>
+
+<h3 id="development-environment">Development environment</h3>
+
+<p>There are a few properties of a development environment that I think are
+essential to modern development; development/production parity being one
+of the most important. Tools like Vagrant, and a move towards
+infrastructure as code, and more recently Docker have made great strides
+here in the past several years. The different unikernel implementations
+are generally based on lesser known software stacks (Haskell, OCaml,
+Erlang, etc) so some of this is familiarity. But what does
+development/production partity mean for a unikernel based system? We’re
+not just talking about the individual unikernel here either – how do I
+deploy unikernels? How do I compose several unikernels together to build
+an application? What does a Continuous integration or deployment
+pipeline look like? In my view the unikernel movement should focus some
+efforts here. Not only will this make it easier for people to get
+started, but having strong opinions early will allow the nascent
+community to solve the problem together, rather than everyone solving it
+just-in-time for themselves.</p>
+
+<h3 id="managing-the-hypervisor">Managing the hypervisor</h3>
+
+<p>I’d argue today most developers don’t spent much time directly working
+with hypervisors. Either you’re running on an in-house VMware, KVM or
+Xen install with some (hopefully self-service, automated) provisioning
+mechanism in place or you’re using a public cloud like AWS, Azure, etc.
+The current generation of unikernel systems mainly target Xen. I think
+in the short term at least this means getting to know the hypervisor.
+Xen is solid software, but I don’t see a great deal of automation around
+it – say well maintained Puppet modules, API clients or a Terraform
+provider. In the long term we’ll hopefully have higher level interfaces,
+but in the short term efforts here would lower the barrier to entry
+considerably.</p>
+
+<h4 id="double-down-on-aws">Double down on AWS</h4>
+
+<p>Given the above, and given the ubiquity of EC2 (which is based on Xen)
+it might be wise to build up first-class tools around using EC2 as a
+target environment for unikernel deployments. EC2 supports custom
+kernels, but these require a number of convoluted steps that could be
+automated away (note that I’m talking about more than just a shell
+script here). Also what are the best practices around autoscaling groups
+andunikernels? Or VPC networks and unikernels?</p>
+
+<h3 id="the-network">The network</h3>
+
+<p>With the explosion in containers and microservices it’s becoming clearer
+(if it wasn’t already) how important the network is. By removing the
+operating system we remove things like host firewalls and the new breed
+of overlay networks. At the same time if we are to tap the dynamic
+potential of unikernels we’ll need a similarly dynamic and automatable
+network. Maybe this becomes more of an application concern, with
+services communicating via other services which act as firewalls and
+intelligent proxies, but that still leaves the underlying network to be
+managed.</p>
+
+<h3 id="debugging">Debugging</h3>
+
+<p>However much testing you do beforehand you’ll still likely end up with
+problems in production, and as you scale up you’ll hit issues that you
+simply can’t recreate outside the live environment. This is were good
+debugging capabilities come in. While general purpose operating systems
+might be complex they are well know, and tools like ps, top, free, ping,
+telnet, netcat, dtrace, etc. are commonly used by anyone debugging
+systems. Note that in many cases you’re debugging a combination of
+systems; is the performance issue an application problem, a network
+problem, a storage problem or some interesting combination of several
+facters?</p>
+
+<p>By removing the general purpose operating system, unikernel based
+environments remove most of the current debugging tools at the same
+time. Part of this Is good application development hygiene (logs,
+metrics and status endpoints for instance), but what about the more
+interactive debugging practices? What does debugging a system based on
+unikernels look like?</p>
+
+<h3 id="orchestration">Orchestration</h3>
+
+<p>The word may be overloaded but the need to arrange and manage a number
+of components that make up a larger system is a real need. This might be
+something like Docker&rsquo;s Compose file or <a href="https://brooklyn.incubator.apache.org/learnmore/blueprint-tour.html">Brooklyn&rsquo;s
+Blueprints</a>,
+or it could be something more akin to the APIs from Cloud Foundry,
+Kubernetes or Mesos. Testing some of these models with unikernel based systems
+will be an interesting test of how coupled to containers the existing models are.
+The lack of legacy again opens up the potential to come up with a truly
+modern alternative here too.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Unless you’re in an environment where security is your number 1 concern
+then the current state of Unikernels probably means choosing to adopt
+them now is a little bleeding edge. But I think that will change over
+time as the various projects mature and address some of the issues
+described above. In the meantime I’d love to see more discussion of some
+of the operational challenges. I think talking about the needs of
+operators at this early stage should make the resulting ecosystems more
+robust whsen it comes to future production deployments.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2015/08/20/puppet-module-skeleton-updates/">Update to Puppet Module Skeleton</a>
+      </h1>
+      <span class="post-date">Aug 20, 2015 &middot; 2 minute read
+      </span>
+      
+      <p>Being on holiday last week meant I had a little time for some gardening
+of open source projects and I decided to update
+<a href="https://www.github.com/garethr/puppet-module-skeleton">puppet-module-skeleton</a>
+with some new opinions.</p>
+
+<p>The skeleton is a replacement for the default module skeleton that ships
+with Puppet and is used by puppet module generate. Unlike the default
+skeleton this one is super-opinionated. It comes bundled with lots of
+testing tools, suggestions for documentation, integration with <a href="http://travis-ci.org">Travis
+CI</a>, module coverage reports and more.</p>
+
+<p>Updates in the latest version include:</p>
+
+<ul>
+<li>Support for Puppet 4 paths</li>
+<li>The addition of Rubocop, which enforces parts of the Ruby style guide</li>
+<li>Adding a number of Puppet Lint plugins</li>
+<li>Allow installing various Puppet versions during integration tests</li>
+</ul>
+
+<p>I also fixed a few reported bugs and extended the test matrix to test
+across a range of Puppet and Ruby combinations.</p>
+
+<p>The skeleton is intended to help people with a basic understanding of
+Puppet write better modules, without having to setup everything
+themselves. You don’t have to agree with all the options to make use of
+the skeleton as it’s simple enough to delete a few files once you
+generate your new module. But a working out-of-the-box beaker install,
+and the ability to automatically run unit tests when files change are
+patterns worth adopting for most module developers I think.</p>
+
+<p>If anyone has any suggestions for extra tools, or changes to the
+skeleton itself, let me know.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        class="disabled">
+        <a href="" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        class="active"><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/2/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

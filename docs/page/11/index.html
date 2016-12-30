@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/03/19/Static-generator-for-web-services/">Static Generator For Web Services</a>
+      </h1>
+      <span class="post-date">Mar 19, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>My latest <em>on a train</em> project is <a href="http://github.com/garethr/Dumper">Dumper</a>, a static generator for web services. I&rsquo;m a huge fan of <a href="http://nanoc.stoneship.org/">Nanoc</a> and tools like <a href="http://github.com/mojombo/jekyl">Jekyl</a> for building websites. But I spend at least as much time building small webservicds. I wanted something super simple that would let me expose data I had access to as a read only web service.</p>
+
+<p>At the moment that means using a mysql database, specifying a SQL query and running a python script. Hey presto you have lots and lots of XML and JSON files representing your data. Dumper provides hooks for you to customise the ourput or even overide the database layer. It should be possible if you were so inclined to replace the mysql backend with another database, or other type of data store. Hopefully some of these might end up in my branch at a later date.</p>
+
+<p>At a basic level all you need is a config file which looks a little like:</p>
+
+<p>&lt;% syntax_colorize :ini, type=:coderay do %&gt;
+[Dumper]
+path: people
+index: id
+backend: mysql</p>
+
+<p>[Database]
+sql: SELECT id, name FROM people
+host: localhost
+username: root
+password:
+database: dumper
+&lt;% end %&gt;</p>
+
+<p>And then run a command line application against that file:</p>
+
+<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
+dumper -c people.ini dump
+&lt;% end %&gt;</p>
+
+<p>The application supports a number of flags for specifying where you want the files to be generated, what your config file is called and to clean up any generated files if you want to try again. The output will let you know which files have been updated, which deleted and which added too. If you&rsquo;d rather have a single file but with all your records in then that&rsquo;s easy too - just add something to the config file.</p>
+
+<p>It&rsquo;s somewhat early days for Dumper, and I&rsquo;ve not seen anything similar so their are definately some rough edges that could do with some work. All of that will really come down to how much use it gets. I&rsquo;d appreciate any feedback from anyone with a similar itch to scratch too.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/03/08/Piston-and-sanitising-json-callbacks/">Piston And Sanitising Json Callbacks</a>
+      </h1>
+      <span class="post-date">Mar 8, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m a big fan of <a href="http://bitbucket.org/jespern/django-piston">Piston</a>, the django app for creating RESTful web services. As part of a project at work I ended up looking through the source code, mainly at some of the neat tricks of serialisation of objects. While poking around I came across something in my mind that wanted fixing. This being open source rather than just file a bug report I setup a <a href="http://bitbucket.org">bitbucket</a> account and got hacking.</p>
+
+<p>&lt;% syntax_colorize :python, type=:coderay do %&gt;
+def render(self, request):
+    cb = request.GET.get(&lsquo;callback&rsquo;)
+        seria = simplejson.dumps(self.construct(),
+        cls=DateTimeAwareJSONEncoder,
+        ensure_ascii=False, indent=4)</p>
+
+<pre><code>    # Callback
+    if cb:
+        return '%s(%s)' % (cb, seria)
+
+    return seria
+</code></pre>
+
+<p>&lt;% end %&gt;</p>
+
+<p>Can you spot the problem? Note the use of the callback passed in the query string arguments and then used <em>without any checking</em> in the output.</p>
+
+<p>What we really want to do is something like this:</p>
+
+<p>&lt;% syntax_colorize :python, type=:coderay do %&gt;
+if is_valid_jsonp_callback_value(cb):
+&lt;% end %&gt;</p>
+
+<p>Which is exactly what has just <a href="http://bitbucket.org/jespern/django-piston/changeset/f558b2c66dcc/">gone into the code for Piston</a>. <a href="http://tav.espians.com/sanitising-jsonp-callback-identifiers-for-security.html">This article</a> contains lots of background information about why JSONP callbacks can be a security hole, and helpfully provides a <a href="http://github.com/tav/scripts/blob/master/validate_jsonp.py">nice Python module</a> to help with the sanitisation. Nice to be on the authors list for something I&rsquo;m using actively.</p>
+
+<p>Thanks to <a href="http://twitter.com/jespern">Jesper Noehr</a> for Piston, for some pointers on bitbucket and for quickly taking the patch. If you&rsquo;re accepting a callback on your site or application, especially if it&rsquo;s a public service, you really want to do something like this or you just might have an exploitable security hole.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/03/07/Mysql-support-for-cucumber-nagios/">Mysql Support For Cucumber Nagios</a>
+      </h1>
+      <span class="post-date">Mar 7, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I just noticed Lindsay had <a href="http://github.com/auxesis/cucumber-nagios">committed</a> the amqp steps for cucumber-nagios and remembered I hadn&rsquo;t mentioned on here some other work I&rsquo;ve been doing on the same project. We use MySQL quite a bit at work and I&rsquo;ve been wanting to extent our monitoring for a while. So I set about thinking how that would work with cucumber-nagios. What I&rsquo;ve come up with looks something like this:</p>
+
+<pre>
+Feature: localhost
+  To make sure the rest of the system is in order
+  Our database server should not be overloaded
+
+  Scenario: check running processes count
+    Given I have a MySQL server on localhost
+    And I use the username root
+    Then it should have less than 10 processes
+
+  Scenario: check queries per second
+    Given I have a MySQL server on localhost
+    And I use the username root
+    Then it should have less than 200 select queries per second
+    Then it should have less than 300 queries per second
+    Then it should have less than 5 slow queries pers second
+    Then it should have at least 10 queries per second
+</pre>
+
+<p>The numbers, username details and host details are all variables. So you can write senarios for your specific deployments. The tests over time are based on a very short lived sampling mechanic which I&rsquo;ve yet to test in anger. I&rsquo;m not sure just yet is this approach will lead to too many false positives but we&rsquo;ll have to see.</p>
+
+<p>This <a href="http://codeinthehole.com/archives/8-Monitoring-MySQL-with-Ganglia-and-gmetric.html">mysql gmetric script</a> gave me lots of the ideas for invidual steps. I&rsquo;ll be writing more about some work I&rsquo;ve been doing with cucumber-nagios and ganglia soon as well.</p>
+
+<p>For the moment if anyone want&rsquo;s to try these steps out you can either check out <a href="http://github.com/garethr/cucumber-nagios">my cucumber-nagios</a> fork or just grab the steps from the <a href="http://github.com/garethr/cucumber-nagios/blob/master/lib/generators/project/features/steps/mysql_steps.rb">mysql_steps.rb</a> file. Any feedback much appreciated.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/03/07/New-nanoc-powered-blog/">New Nanoc Powered Blog</a>
+      </h1>
+      <span class="post-date">Mar 7, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>It&rsquo;s taken longer than I would have liked but I&rsquo;ve finally gotten around to relaunching this site on <a href="http://nanoc.stoneship.org/">nanoc</a>.</p>
+
+<p>After looking through lots of code from the <a href="http://projects.stoneship.org/trac/nanoc/wiki/Showcase">nanoc showcase</a> I had a pretty good feel for how I wanted things to work and I then used the excellent <a href="http://github.com/mgutz/nanoc3_blog">nanoc3_blog</a> template to get started. I&rsquo;ve hacked around quite a bit with the code to get things how I wanted them. Using <a href="http://lesscss.org/">Less</a> to make the CSS more manageable, <a href="http://coderay.rubychan.de/">Coderay</a> for lovely syntax highlighting and making everything default to textile rather than markdown. I&rsquo;ve also written import scripts for my old blog (in Python) and another one so I can use tumblr is I want to create items on here (in Ruby).</p>
+
+<p>Nanoc really is a joy to work with and I&rsquo;m hoping that alone will get me back into writing more freqently than I have done for a while. The fact I can just write in Vim or WriteRoom or whatever editor I have to hand feels nice. And using Git, Rake and Rsync complete my little toolset. Everything is still served via Nginx.</p>
+
+<p>I&rsquo;ve thrown the all the code, including all the content, up on <a href="http://github.com/garethr/morethanseven">GitHub</a> for anyone interested. Back to writing.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/02/15/blogging-platforms/">On blogging platforms</a>
+      </h1>
+      <span class="post-date">Feb 15, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>Every now and again I feel the need for a change and spent a little time tonight looking at different blogging software. I&rsquo;m currently running a custom django app I wrote a good while ago, more as an excuse to play with Django than anything. Previously I&rsquo;ve used Wordpress, Textpattern and even Radiant. But I&rsquo;m coming to the conclusion that what I want doesn&rsquo;t exist. In theory that means an opportunity for someone to enter the market, in reality I think it might just be me. So, what do I want?</p>
+
+<ul>
+<li>Customisable URL patterns and redirects. Tumblr did well until this point but I have years of content on nice URLs and I&rsquo;d not going to throw that away.</li>
+<li>Command line interface for posting snippets</li>
+<li>Nice looking web based API (bonus points to Typepad here for some nifty features like pubsubhubhub)</li>
+<li>iPod touch app</li>
+<li>Real control over the design, not just pre-made templates unless you pay for a pro account</li>
+<li>Hackable (this could mean anything, but I know it when I see it. So not WordPress then.)</li>
+<li>Export plain text out</li>
+<li>Use my own domain name</li>
+</ul>
+
+<p>I have a sneaking suspicion what I might be thinking about is a private tumblr blog used as a datasource for <a href="http://nanoc.stoneship.org/">Nanoc3</a>. But that relies on me having the time to build that as I can&rsquo;t find anyone who might have written such a think. Maybe one day.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/02/11/djugl-february/">DJUGL February</a>
+      </h1>
+      <span class="post-date">Feb 11, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>The next Django User Group London is in two weeks time. You can register over on <a href="http://londonpython.eventwax.com/djugl-february">Eventwax</a>. So far we have <a href="http://intranation.com">Brad</a> talking with more speakers to be announced shortly. Hope to see a few people there.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/02/01/rise-house-team/">The rise of the in-house team?</a>
+      </h1>
+      <span class="post-date">Feb 1, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I was just thinking about the <a href="http://www.dibiconference.com/">Design it Build it</a> conference later in the year (full disclosure: I&rsquo;m speaking). Specifically the people speaking on the developer track. Between myself, Michael Brunton-Spall from The Guardian, David Singleton from Last.fm and Emma Persky from Gumtree four of the six speakers work on in-house teams. Not early stage start-ups, not large software/advertising companies, not as freelancers but in a reasonable sized company on a development team.</p>
+
+<p>My original background was working in agencies, and then a stint working for myself and I&rsquo;m constantly interested by the different facets of the web software industry. I think conferences or magazines aimed at your average interested web developer or designer play an interesting role in what people perceive as normal. If all you see are people who work as a freelancer you start to think that must be way cooler than whatever it is you&rsquo;re doing at the time. I remember attending the first @media event and being surprised at the small number of people from larger agencies. Everyone was from smaller boutique places, or Yahoo! or a freelancer. Now lots of people I see at events are involved in startups.</p>
+
+<p>Interestingly as well none of it is about a particular language or framework. Thinking about it as I type I think between the four of us we spend are day jobs mainly using different languages (java, python, php, perl). But I bet we all work in environments where we use other languages at least occasionally, or at the least the people around us do. Mixed environments are commonplace in companies that have been around a good while and run on software. They are far less common elsewhere with startups using whatever is cool (lets build a mobile search engine in Haskel anyone?) and small agencies often using whatever they built their first client website with (probably PHP).</p>
+
+<p>What I&rsquo;m really interested in though is the type of topics that are going to be talked about. Last.fm vs the Xbox, Scaling the Guardian, my rambling thoughts on a modern toolbox for developers beyond your average LAMP or .NET stack. This is the sort of think I&rsquo;m interested in. It&rsquo;s the sort of problems I like having. It&rsquo;s also, I think, the sort of stuff that doesn&rsquo;t get a showing a many mainstream conferences. I&rsquo;m hoping it&rsquo;s all going to be fairly practical too - things that whatever role people have they can take away and apply.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/01/30/rabbitmq-support-cucumber-nagios/">RabbitMQ support for Cucumber-nagios</a>
+      </h1>
+      <span class="post-date">Jan 30, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve been doing more operations related work of late and am starting to use <a href="http://auxesis.github.com/cucumber-nagios/">Cucumber-nagios</a> for various monitoring tasks. <a href="http://www.nagios.org/">Nagios</a> might not be the most attractive of web interfaces but it&rsquo;s so simple to get clients up and running and extend to do what you need. Cucumber however has a lovely, text based, user interface. And although I&rsquo;m mainly working with Python at the moment cucumber-nagios (written in Ruby) really is the easiest way I&rsquo;ve found of writing simple functional tests.</p>
+
+<p>Cucumber-nagios is the creation of <a href="http://holmwood.id.au/~lindsay/">Lindsay Holmwood</a> and after several brief conversations over Twitter I set about adding a feature I wanted for my own monitoring setup. Namely support for keeping an eye on RabbitMQ.</p>
+
+<p>At the moment the code is in a <a href="http://github.com/garethr/cucumber-nagios">fork on GitHub</a> but I&rsquo;m hoping that once any rough edges have been ironed out and a few people have kicked the tyres then it will make it&rsquo;s way into trunk. If you want to use this with an existing project straight away you can always drop the contents of <a href="http://github.com/garethr/cucumber-nagios/blob/master/lib/generators/project/features/steps/amqp_steps.rb">amqp_steps.rb</a> into your feature steps file after installing the <a href="http://gems.rubyforge.org/gems/amqp">amqp gem</a>.</p>
+
+<p>I&rsquo;ve included a little documentation in the fork as well with a quick example:</p>
+
+<pre><code>Feature: github.com
+  To make sure the rest of the system is in order
+  All our message queues must not be backed up
+  Scenario: test queue
+    Given I have a AMQP server on rabbit.github.com
+    And I want to check on the fork queue
+    Then it should have less than 400 messages
+    Then it should have at least 5 consumers
+    Then it should have less than 50 messages per consumer
+</code></pre>
+
+<p>My main usecase was to keep an eye on a known queue size and number of consumers. I&rsquo;m sure I&rsquo;m missing some features at the moment so any feedback much appreciated.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/01/26/processing-large-files-sed-and-awk/">Processing large files with sed and awk</a>
+      </h1>
+      <span class="post-date">Jan 26, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I found myself using a couple of powerful but underused command line applications this week and felt like sharing.</p>
+
+<p>My problem involved a large text file with over three million lines and a script that processed the file line by line, in this case running a SQL query against a remote database.</p>
+
+<p>My script didn&rsquo;t try and process everything in one go, rather taking off large chunks and processing them in turn, then stopping and printing out the number of lines processed. This was mainly so I could keep an eye on it and make sure it wasn&rsquo;t having a detrimental affect on other systems. But once I&rsquo;d run the script once (and processed the first quarter of a million records or so) I wanted to run it again, except without the first batch of lines. For this I used sed. The following command creates a new file with the contents of the original file, minus the first 254263 lines.</p>
+
+<pre><code>sed '1,254263d' original.txt &gt; new.txt
+</code></pre>
+
+<p>I could then run my script with the input from new.txt and not have to reprocess the deleted lines. My next problem came when the network connection between the box running the script and the database dropped out. The script printed out the contents of the last line successfully processed, so what I wanted was a new file with the all contents of the old file past the last line. The following awk command does just that, assuming the last line processed was f251f9ee0b39beb5b5c4675ed4802113.</p>
+
+<pre><code>awk '/^f251f9ee0b39beb5b5c4675ed4802113/{f=1;next}f' original.txt &gt; new.txt
+</code></pre>
+
+<p>Now I could have made the script that did the work more complicated and ensure it dealt with these cases. But it would have involved much more code and the original scripts where only a handful of throw away code. For one off jobs like this a quick dive into the command line seemed more prudent.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/01/07/speaking-dibi/">Speaking at DIBI</a>
+      </h1>
+      <span class="post-date">Jan 7, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ll be heading back up to Newcastle in April to give a talk at what&rsquo;s shaping up to be a good looking conference to kick off the year with. <a href="http://www.whatisdibi.com/">DIBI</a> is trying to please everyone, with both front and backend focused streams.</p>
+
+<blockquote>
+<p>Created for both sides of the web coin, DIBI brings together designers and developers for an unusual two-track web conference. World renowned speakers leading in their fields of work will talk about all things web. Taking place in Newcastle upon Tyne, (it&rsquo;s oop north) at The Sage Gateshead on the 28th April 2010, we&rsquo;re bringing both sides of the web world together with some awesome speakers.</p>
+</blockquote>
+
+<p>I&rsquo;m not a big fan of making a point of dividing frontend and backend work. You nearly always end up with javascript dominated horribleness (because we only had a front end person available) or a so called content management system that means all sites have to look the same except for the colour palette. So I&rsquo;m hoping lots of cross over stuff happens and interesting conversations abound.</p>
+
+<p>Oh, and if you&rsquo;re wondering what I&rsquo;ll be speaking about it&rsquo;s probably going to be something about all the cool tools you could and should be using when building or looking after web applications. I&rsquo;ll probably be doing my best to convince people to look outside the comfort of the LAMP or C#/MSSQL stacks and realise the future for lots of web developers might just be more devops.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/10/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        class="active"><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/12/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

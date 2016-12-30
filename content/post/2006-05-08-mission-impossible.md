@@ -1,0 +1,36 @@
+---
+comments: true
+created_at: 2006/05/08}
+date: 2006-05-08T00:00:00Z
+title: Mission Impossible?
+url: /2006/05/08/mission-impossible/
+---
+
+<p>
+I’m quite a fan of mobile devices. I’ve got a <a href="http://www.palm.com/">Palm</a>, I had a <a href="http://news.bbc.co.uk/1/hi/sci/tech/1773120.stm">Pogo</a> for jeepers. However, I dont really have a geek phone at the moment (long story) – I’m still using my K700i.
+
+</p>
+<p>
+While watching the last day of premiership football in a suitable venue I thought I might see about going to the cinema. With my trusty phone I <em>tried</em> to find what was going on. I waded through pages and pages. I did searches. It sent me round in circles more than once and I gave up more than once. I found some info. I tried to buy tickets. It failed to acknowledge the existence of first the cinema, and then the film.
+
+</p>
+<p>
+Someone asked me at a recent talk about how easy it was to make sites compatible with mobile devices and I said (something like) “pretty easy”. I’m not happy with that answer now, so I’m going to change the question. How easy <em>should it</em> be to makes compatible sites?
+
+</p>
+<p>
+<a href="http://www.w3schools.com/wap/wml_reference.asp">WML</a> might not be sexy, but it’s still in use all over the place. Support for mobile style sheets for proper web browsing seems all over the shop, with hundreds of different browsers pulling every which way.
+
+</p>
+<p>
+Their are a host of IA issues that browsing on a mobile device brings up. A vast number of slightly new challenges to look at – and importantly a whole new way of confusing the user.
+
+</p>
+<p>
+It makes you think maybe we need a dominant browser in the mobile space? Something to occupy alot of the ground and for the other browsers to loath and persue endlessly?
+
+</p>
+<p>
+We also need some centres of best practice. I’m sure their are some out there. I just dont know where yet. Some references. A Mobile <a href="http://csszengarden.com">Zen Garden</a>. A good book or two to <a href="http://webdesignbookshelf.com">review</a>. Any thoughts?
+
+</p>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/11/28/dreque/">Dreque</a>
+      </h1>
+      <span class="post-date">Nov 28, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve just found <a href="http://github.com/samuel/dreque">Dreque</a> from <a href="http://samuelks.com/">Samuel Stauffer</a> on GitHub. It&rsquo;s yet another take on the whole messaging things which is definitely seeing a lot of activity at the back end of this year. It&rsquo;s using <a href="http://code.google.com/p/redis/">Redis</a> on the backend and looks really rather nice:</p>
+
+<p>Submitting jobs:</p>
+
+<pre><code>&lt;code&gt;from dreque import Dreque
+def some_job(argument):
+    pass
+dreque = Dreque(&quot;127.0.0.1&quot;)
+dreque.enqueue(&quot;queue&quot;, some_job, argument=&quot;foo&quot;)&lt;/code&gt;
+</code></pre>
+
+<p>Worker:</p>
+
+<pre><code>&lt;code&gt;from dreque import DrequeWorker
+worker = DrequeWorker([&quot;queue&quot;], &quot;127.0.0.1&quot;)
+worker.work()&lt;/code&gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/11/05/djugl-december/">DJUGL December</a>
+      </h1>
+      <span class="post-date">Nov 5, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>As mentioned at the last event I&rsquo;ve taken over organising the Django User Group London event from Rob. Tickets are now available for the next event which is going to be on the 3rd of December at The Guardian offices in Kings Cross.</p>
+
+<p>You can sign up on <a href="http://londonpython.eventwax.com/djugl-december">eventwax</a></p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/11/01/erlang-screencasts/">Erlang Screencasts</a>
+      </h1>
+      <span class="post-date">Nov 1, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve been trying to learn Erlang for a while. What I actually mean is it&rsquo;s been on my list of <em>things to learn</em> for months, along with all sorts of other incredibly interesting bits and pieces. I spend a little bit of time at home but the majority of my learning time is now spent commuting to London and back most days. Sometimes I&rsquo;m even going all the way to Swindon which gives me even longer to not learn Erlang.</p>
+
+<p>The main problem with learning something new on the train is space. Reading a book (or my new Kindle) or just using my laptop is fine. Trying to do both at once is nearly impossible (I&rsquo;ve tried). So I&rsquo;ve decided to give another approach a try, namely screencasts.</p>
+
+<p>I&rsquo;ve only done the first <a href="http://www.pragprog.com/screencasts/v-kserl/erlang-in-practice">Erlang in Practice</a> episode so far but I was hugely impressed with the content and general presentation. $5 as well doesn&rsquo;t seem bad at all I don&rsquo;t think. The episode was half an hour long, but took me a little longer, probably closer to 45 minutes, as I was playing along at home and typing the code examples as I went. I also got sidetracked with messing with my vim configuration at the same time but hey. This makes them perfect for my hour long commute. The full series is 8 episodes long and with luck I&rsquo;ll be able to work through them this week.</p>
+
+<p>So, good job <a href="http://weblog.hypotheticalabs.com/">Kevin Smith</a> and <a href="http://www.pragprog.com">Pragmatic</a> for a nice, accessible start to Erlang. All I need to do now is find something interesting to hack on in Erlang.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/10/24/django-committers/">Django Committers</a>
+      </h1>
+      <span class="post-date">Oct 24, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve been lurking on the django-developers mailing list for the last couple of weeks and that provided an excuse to play with the <a href="http://blog.twitter.com/2009/09/soon-to-launch-lists.html">new Twitter Lists</a> feature. So here&rsquo;s a <a href="http://twitter.com/garethr/djangocommitters">list of djangocommitters on twitter</a>. If I missed someone do let me know. Their is a chance you won&rsquo;t be able to see this if you&rsquo;re not on the beta yet I think, sorry!</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/10/18/problems-installing-hadoop-and-dumbo-ubuntu/">Problems Installing Hadoop 0.20 and Dumbo 0.21 on Ubuntu</a>
+      </h1>
+      <span class="post-date">Oct 18, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>The Hadoop wiki has a great introduction to <a href="http://wiki.apache.org/hadoop/Running_Hadoop_On_Ubuntu_Linux_(Single-Node_Cluster)">installing this piece of software</a>, which I wanted to do to have a play with <a href="http://klbostee.github.com/dumbo/">Dumbo</a>. The Dumbo docs also have a good <a href="http://wiki.github.com/klbostee/dumbo/building-and-installing">getting started</a> section which includes a few patches than need to be applied.</p>
+
+<blockquote>
+<p>Dumbo can be considered to be a convenient Python API for writing MapReduce programs</p>
+</blockquote>
+
+<p>Unfortunately it&rsquo;s not quite that simple, at least on Ubuntu Jaunty. Hadoop now uses Java6, but if you just follow the instructions on the wikis you&rsquo;ll hit a problem when you run &ldquo;ant package&rdquo;, namely that a third party application (<a href="http://forrest.apache.org/">Apache Forrest</a>) requires Java 1.5. Once you fix that, the build script will complain again that you need to install Forrest. Here&rsquo;s what I did to get everything working:</p>
+
+<p>pre. sudo apt-get install ant sun-java5-jdk</p>
+
+<p>pre. su - hadoop
+wget <a href="http://mirrors.dedipower.com/ftp.apache.org/forrest/apache-forrest-0.8.tar.gz">http://mirrors.dedipower.com/ftp.apache.org/forrest/apache-forrest-0.8.tar.gz</a>
+tar xzf apache-forrest-0.8.tar.gz
+cd /usr/local/hadoop
+patch -p0 &lt; /path/to/HADOOP-1722.patch
+patch -p0 &lt; /path/to/HADOOP-5450.patch
+patch -p0 &lt; /path/to/MAPREDUCE-764.patch
+ant package -Djava5.home=/usr/lib/jvm/java-1.5.0-sun -Dforrest.home=/home/hadoop/apache-forrest-0.8/</p>
+
+<p>With all that out of the way you should be able to run the <a href="http://dumbotics.com/2009/05/31/dumbo-on-clouderas-distribution/">simple examples</a> found on the rather excellent <a href="http://dumbotics.com">dumbotics</a> blog. If you&rsquo;re using the Cloudera distribution, or when the Hadoop 0.21 gets a release, these problems will disappear but in the meantime hopefully this saves someone else a bit of head scratching.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/09/21/learnings-september/">Learnings from September</a>
+      </h1>
+      <span class="post-date">Sep 21, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m keep meaning to get around to writing about why I think the future of web developers is operations but in lieu of a proper post here&rsquo;s a list of things I&rsquo;ve been spending my work life getting to know this month:</p>
+
+<ul>
+<li><a href="http://reductivelabs.com/products/puppet">Puppet</a> - It&rsquo;s brilliant. Define (with a Ruby DSL of course) what software and services you want running on all your machines, install a daemon on each of them, and hey presto central configuration management.</li>
+<li><a href="http://www.vmware.com/products/vsphere/">VMWare vsphere</a> - puppet makes more sense the more boxes you have. With vsphere I can have as many boxes as I want (nearly). Command line scripts and an actually very nice windows gui for settings up virtual machines is all pretty nice, especially running on some meaty hardware.</li>
+<li><a href="http://nagios.org/">Nagios</a> - With lots of boxes comes lots of responsibility (or something). Nagios might look a bit ugly, and bug me with it&rsquo;s needless frames based admin, but I can see what people see in it. Which frankly is the ability to monitor everything everywhere for any change what-so-ever.</li>
+<li><a href="http://lucene.apache.org/solr/">Solr</a> - I&rsquo;m now also pretty well versed in using Solr. I&rsquo;ve used it in the past, but always behind a Ruby or Python library. Now I know my way around all the XML based configuration inards. Heck, I&rsquo;m even running a nighly release from a couple of days ago in a production environment because I wanted a cool new feature. A special mention to the Solr community on the mailing list, twitter and irc for being great when I had questions.</li>
+<li>Solaris - I nearly forgot, I spend more time than I care to remember working out how to use Open Solaris (conclusion: OK, but not Debian) and eventually Solaris 10 (conclusion: hope I don&rsquo;t have to do that again). My installation notes read like some hideous hack but everything works fine in production and it&rsquo;s scarily repeatable so I&rsquo;ll live with it for now.</li>
+</ul>
+
+<p>I do wonder if it&rsquo;s just me that&rsquo;s drawn to knowing how everything in the full web stack works. But personally I can&rsquo;t just write code if I don&rsquo;t understand how to deploy it or what it&rsquo;s running on. Front end types know this all too well. Being a master of CSS, HTML and Javascript simply isn&rsquo;t enough. You need to understand the browser to get anything done. I&rsquo;m not sure it&rsquo;s the same for all backend inclined folk; how many PHP programmers really understand Apache and a few other useful bits of web tech?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/09/13/no-database-test-runner-added-test-extensions/">No database test runner added to test extensions</a>
+      </h1>
+      <span class="post-date">Sep 13, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Thanks to <a href="http://intranation.com/">Brad</a> I&rsquo;ve just released a new version of <a href="http://pypi.python.org/pypi/django-test-extensions/0.5">Django Test Extensions</a> (also on <a href="http://github.com/garethr/django-test-extensions">GitHub</a> with support for running tests without the overhead of setting up and tearing down the database. Django still has a few places were it assumes you&rsquo;ll have a database somewhere in your project - and the default test runner is one of them.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/09/06/automating-web-site-deployment-barcamp-brighton/">Automating web site deployment at Barcamp Brighton</a>
+      </h1>
+      <span class="post-date">Sep 6, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>On the first day at Barcamp Brighton this year I did a brief talk about getting started with automating deployment. I kept it nice and simple and didn&rsquo;t focus on any specific technology or tool - just the general principles and pitfalls of doing anything manually. You can see the &ldquo;slides on Slideshare&rdquo;:</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=automatingdeployment-090906054723-phpapp01&stripped_title=automating-web-site-deployment" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=automatingdeployment-090906054723-phpapp01&stripped_title=automating-web-site-deployment" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>As part of the presentation I even did a live demo and promised I&rsquo;d upload the code I used. The following is an incredibly simple fabric file that has most the basic set of tasks. <a href="http://pypi.python.org/pypi/Fabric/">Fabric</a> is a python tool similar to capistrano in Ruby. I don&rsquo;t really care whether you&rsquo;re using make, ant, rake, capistrano or just plain shell scripts. Getting from not automating things to automating deployments is the important part - and it&rsquo;s easier that you think.</p>
+
+<p><script src="http://gist.github.com/181755.js">
+</script>
+The other part of the code example was a very basic apache virtualhost so just in case anyone needed that as well here it is:</p>
+
+<pre><code>&amp;lt;VirtualHost *:80&amp;gt;
+    ServerName sample.local
+    DocumentRoot /srv/sample/releases/current
+    &amp;lt;Directory /srv/sample/releases/current&amp;gt;
+        Order deny,allow
+        Allow from all
+    &amp;lt;/Directory&amp;gt;
+    ErrorLog /var/log/apache2/sample/error.log
+    LogLevel warn
+    CustomLog /var/log/apache2/sample/access.log combined
+&amp;lt;/VirtualHost&amp;gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/08/31/another-chance-djugl/">Another chance to DJUGL</a>
+      </h1>
+      <span class="post-date">Aug 31, 2009 &middot; 2 minute read
+      </span>
+      
+      <p><a href="http://djugl.eventwax.com/djugllondon-python">DJUGL</a> is back, the <em>monthly</em> Django meetup in London. I think the last few times have been as much about useful Python stuff as just using Django, and this time it&rsquo;s officially a bit more broad ranging. If you&rsquo;re in or around London on the 24th September then come along.</p>
+
+<p>You can get more information on <a href="http://twitter.com/londonpython">Twitter</a> or by following <a href="http://twitter.com/robertlofthouse/">Rob</a>. But expect a few short talks, some interesting conversations and maybe some beer with other like minded developers.</p>
+
+<p>I&rsquo;m going to be talking about automating deployment of Python web applications. If you follow me on Twitter you&rsquo;ll have heard me rambling a little about some of what I&rsquo;ve been up to, and some of the posts here give an insight into what I&rsquo;ve been working on. But the short version is that several friends mentioned how difficult it could be to get a working Django application from a local machine to a production web server. And I though I better get down in script form my experiences of Django, WSGI applications and web server setup to make things easier.</p>
+
+<p>I think this situation is partially caused by the success of the Django development server, and partially by people coming from a PHP background. In my PHP days I think I always wanted to know how Apache did it&rsquo;s think, so long ago jumped into anything and everything in httpd.conf from loading modules to virtual hosts. But not everyone does the same, and PHP does make simple deployments easy enough that you might get away without doing so. Rails went through the same problems and seems to be coming out the other side. I&rsquo;m hoping that Django and Python is soon to be in the same position, where basic deployment is just a given.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/08/21/django-wsgi-deployment-solaris/">Django and WSGI deployment on Solaris</a>
+      </h1>
+      <span class="post-date">Aug 21, 2009 &middot; 3 minute read
+      </span>
+      
+      <p>Now I&rsquo;m generally an Ubuntu guy, but I&rsquo;ve just had the need to setup some boxes running Solaris for Django and a handful of WSGI applications. I know my way around Ubuntu pretty well. I know all the packages I need to install and in what order. Hell, I even have all that scripted so I can just run a command and it works by magic. I&rsquo;ll script the following steps if I can do when I get round to it but here, in one list, are the installation instructions for Apache, mod_wsgi, Mysql, MySQLdb, setuptools and memcached that worked for me on the latest version of <a href="http://www.opensolaris.com/">Open Solaris</a> (2009.06 at the time of writing).</p>
+
+<p>First up I needed to install Apache and start the service running.</p>
+
+<pre><code>pfexec pkg install SUNWapch22
+svcadm enable http:apache22
+</code></pre>
+
+<p>You should be able to test that&rsquo;s running by hitting localhost on a browser running on the same box. Now for MySQL.</p>
+
+<pre><code>pfexec pkg install SUNWmysql5
+svcadm enable mysql:version_50
+</code></pre>
+
+<p>This installs the mysql binary into /usr/mysql/5.0/bin/mysql on the system I&rsquo;m working on. As I want to talk to the MySQL database server using Python I need to install MySQLdb.</p>
+
+<pre><code>pfexec pkg install SUNWmysql-python
+ln -s /usr/mysql/5.0/lib/mysql/libmysqlclient_r.so.15 /usr/lib/libmysqlclient_r.so.15
+</code></pre>
+
+<p>This installs the library files into /usr/mysql/5.0/lib and Python doesn&rsquo;t know were to find them. The above command links them into the more standard /usr/lib folder were Python will pick it up nicely.</p>
+
+<p>I tend to use <a href="http://code.google.com/p/modwsgi/">mod_wsgi</a> for serving Python apps behind Apache, however a mod_wsgi package isn&rsquo;t part of the default package list. It is however available in the pending list so first you need to add that list of packages.</p>
+
+<pre><code>pfexec pkg set-authority -O http://pkg.opensolaris.org/pending pending
+pfexec pkg refresh
+pfexec pkg install mod-wsgi
+</code></pre>
+
+<p>This installs the module but you then need to tell Apache to load it. Add the following line to /etc/apache2/2.2/conf.d/modules-32.load or /etc/apache2/2.2/conf.d/modules-64.load depending on your architecture.</p>
+
+<pre><code>LoadModule wsgi_module    libexec/mod_wsgi.so
+</code></pre>
+
+<p>To get Apache to load that module you need to restart it like so:</p>
+
+<pre><code>svcadm restart http:apache22
+</code></pre>
+
+<p>I use <a href="http://pypi.python.org/pypi/pip">Pip</a> for installing Python code, but tend to install setuptools to make installing Pip easier. I don&rsquo;t know if an up to date Pip package exists.</p>
+
+<pre><code>pfexec pkg install python-setuptools
+</code></pre>
+
+<p>This should leave you with easy_install on your path so installing Pip, then virtualenv should be a breeze.</p>
+
+<p>As an added bonus I also installed memcached for some snappy caching.</p>
+
+<pre><code>pfexec pkg install SUNWmemcached
+</code></pre>
+
+<p>This won&rsquo;t start up by default and needs a little configuration. The first command will launch you into a prompt where you can type the rest of the commands.</p>
+
+<pre><code>svccfg
+svc:&gt; select memcached
+svc:/application/database/memcached&gt; setprop memcached/options=(&quot;-u&quot; &quot;nobody&quot;)
+svc:/application/database/memcached&gt; quit
+</code></pre>
+
+<p>Once you&rsquo;d done that you should be able to start memcache on the standard port.</p>
+
+<pre><code>svcadm refresh memcached
+svcadm enable memcached
+</code></pre>
+
+<p>Et voila. The internet helped massively on my quest to track down this information. Not all of the following links turned out to work for me but all of them led me in the right direction. Thanks everyone.</p>
+
+<ul>
+<li><a href="http://blogs.sun.com/quenelle/entry/jazz_guitar_and_rpath">http://blogs.sun.com/quenelle/entry/jazz_guitar_and_rpath</a></li>
+<li><a href="http://blogs.sun.com/natarajan/entry/installing_amp_stack_within_glassfish">http://blogs.sun.com/natarajan/entry/installing_amp_stack_within_glassfish</a></li>
+<li><a href="http://blogs.sun.com/overstre/entry/django_on_solaris10_with_the">http://blogs.sun.com/overstre/entry/django_on_solaris10_with_the</a></li>
+<li><a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_SMI-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=Web-Stack-1.5-OTH-G-F@CDS-CDS_SMI">https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_SMI-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=Web-Stack-1.5-OTH-G-F@CDS-CDS_SMI</a></li>
+<li><a href="http://wiki.joyent.com/mod_wsgi">http://wiki.joyent.com/mod_wsgi</a></li>
+<li><a href="http://textusers.com/wiki/AcceleratorDjango">http://textusers.com/wiki/AcceleratorDjango</a></li>
+<li><a href="http://wiki.joyent.com/accelerators:kb:django">http://wiki.joyent.com/accelerators:kb:django</a></li>
+<li><a href="http://www.b-list.org/weblog/2007/sep/04/django-accelerated/">http://www.b-list.org/weblog/2007/sep/04/django-accelerated/</a></li>
+<li><a href="http://blogs.sun.com/natarajan/entry/getting_ruby_or_amp_apache">http://blogs.sun.com/natarajan/entry/getting_ruby_or_amp_apache</a></li>
+<li><a href="http://blogs.sun.com/overstre/entry/opensolaris_with_mod_wsgi">http://blogs.sun.com/overstre/entry/opensolaris_with_mod_wsgi</a></li>
+<li><a href="http://branesks.blogspot.com/2009/01/installing-modwsgi-on-opensolaris.html">http://branesks.blogspot.com/2009/01/installing-modwsgi-on-opensolaris.html</a></li>
+<li><a href="http://blogs.sun.com/overstre/entry/django_on_opensolaris">http://blogs.sun.com/overstre/entry/django_on_opensolaris</a></li>
+<li><a href="http://code.google.com/p/modwsgi/wiki/InstallationOnSolaris">http://code.google.com/p/modwsgi/wiki/InstallationOnSolaris</a></li>
+<li><a href="http://groups.google.com/group/modwsgi/browse_thread/thread/7e2cc7ce366253cc">http://groups.google.com/group/modwsgi/browse_thread/thread/7e2cc7ce366253cc</a></li>
+<li><a href="http://blogs.sun.com/lr/entry/django_setup_mysql_python_opensolaris">http://blogs.sun.com/lr/entry/django_setup_mysql_python_opensolaris</a></li>
+<li><a href="http://blogs.sun.com/trond/entry/memcached_in_solaris">http://blogs.sun.com/trond/entry/memcached_in_solaris</a></li>
+<li><a href="http://blog.hendrikvolkmer.de/2009/1/29/deploying-a-rails-application-on-opensolaris-with-passenger-aka-modrails/">http://blog.hendrikvolkmer.de/2009/1/29/deploying-a-rails-application-on-opensolaris-with-passenger-aka-modrails/</a></li>
+</ul>
+
+<p>I&rsquo;m not a Solaris admin. I&rsquo;m not really a sysadmin at all, I just end up pretending to be one of late. Any experienced Solaris people with experience of these tools reading this I&rsquo;d be grateful for any hints and tips. Hopefully this saves a few people from the head scratching I&rsquo;ve been doing for the last few days.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/11/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        class="active"><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/13/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

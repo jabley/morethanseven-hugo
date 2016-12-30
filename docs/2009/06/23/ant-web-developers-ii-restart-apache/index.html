@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Ant for Web Developers II - Restart Apache &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Ant for Web Developers II - Restart Apache</h1>
+    <span class="post-date">Jun 23, 2009 &middot; 2 minute read
+    </span>
+    <p>Following on from <a href="http://morethanseven.net/2009/06/22/ant-web-developers-i-backup-config-file/">yesterdays first useful ant task</a>, here&rsquo;s another commonly used task - restarting a remote service. I&rsquo;ve used apache in this example, but it could be any service running on your remote machine and it doesn&rsquo;t have to be the restart command.</p>
+
+<p>In order to do this we&rsquo;ll use the <a href="http://ant.apache.org/manual/OptionalTasks/sshexec.html">sshexec target</a> which has a third party <a href="http://ant.apache.org/manual/install.html#librarydependencies">library dependency</a>. This is the same third party library needed for the scp task in yesterdays post</p>
+
+<p>You need first to download <a href="http://www.jcraft.com/jsch/index.html">JSCH</a> and then compile the source using ant. Just run <em>ant dist</em> in the downloaded folder and you should get a .jar file in the /dist/lib folder. Save this .jar file as as jsch.jar to a folder in your home directory <em>~/.ant/lib</em> where ant can automatically load it. Alternatively you can run ant with the -lib command to load libraries from a different location.</p>
+
+<p>pre. ant -lib /tools/ant-libraries</p>
+
+<p>With that out of the way lets have a look at the task.</p>
+
+<p>pre.</p>
+
+<p>&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?&gt;
+<project name="example" basedir=".">
+<property name="host" value="{host}"/>
+<property name="username" value="{user}"/>
+<property name="password" value="{password}"/>
+<target name="restart-apache" description="execute a remote command to restart apache">
+<sshexec host="${host}"
+            username="${username}"
+            password="${password}"
+            command="/etc/init.d/apache2 restart"/>
+</target>
+</project></p>
+
+<p>And running it is as simple as:</p>
+
+<p>pre. ant restart-apache</p>
+
+<p>One potential issue with tasks like this is storing the password in the build file in plain text. The target we&rsquo;re using can also use key authentication is you&rsquo;re happy using ssh keys. Alternatively you can set properties on the command line each time you run ant like so.</p>
+
+<p>pre. ant restart-apache -Dpassword={password}</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

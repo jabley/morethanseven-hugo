@@ -1,0 +1,9 @@
+---
+comments: true
+created_at: 2009/03/13}
+date: 2009-03-13T00:00:00Z
+title: App Engine Remote API calls
+url: /2009/03/13/app-engine-remote-api-calls/
+---
+
+Not sure how I missed this but apparently App Engine (as of 1.1.9) supports [remote access to your live data store](http://code.google.com/appengine/articles/remote_api.html). This means you can create administration applications more easily by running them locally, rather than within the limitations of the live platform. You can even run a local python prompt with access to your live datastore which is pretty neat.

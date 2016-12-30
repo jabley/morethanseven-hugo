@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Why You Should Be Using Virtualisation &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Why You Should Be Using Virtualisation</h1>
+    <span class="post-date">Nov 4, 2010 &middot; 10 minute read
+    </span>
+    
+
+<p>My main development machine for a while has been an apple laptop. From looking around at conferences, offices and usergroups I know I&rsquo;m not alone. But I don&rsquo;t really <em>run</em> code on my mac very often, certainly not for work. I might edit the code on my mac but I execute it running in a virtualised Linux environment matching (as close as possible) the production environment it&rsquo;s going to end up in. This blog post is an attempt to explain why this is a good idea to the majority of people who develop on a mac (or a windows machine) and deploy to something else. This isn&rsquo;t language specific either. You might be working on small PHP web sites or huge Python applications, you&rsquo;ll still one day run into the same issues.</p>
+
+<h2 id="why-is-virtualisation-a-good-idea">Why is virtualisation a good idea?</h2>
+
+<p>Bugs happen, but catching them early, way before they even hit your shared source code repository makes them much less of an issue. Catching bugs only after a live release, when they affect customers and cost someone money is bad. And if your release is a long period of time after the work was done then fixing them is harder to boot. These are just some of the reasons we&rsquo;re all fond of unit testing and continuous integration.</p>
+
+<p>But if you&rsquo;re running those tests against code executing on different hardware, on a different operating system, with different low level libraries or a different web server version or a different database server then you are not going to catch all the problems. If you take this to an extreme then you can only get rid of all of these problems by giving each developer a full production stack of their very own. This is obviously impossibly expensive for anything past the most trivial setup. But eliminating even some of these issues makes it more likely you&rsquo;ll catch bugs early and less likely you&rsquo;ll have a bug on your hands that you can&rsquo;t recreate locally. So we&rsquo;ll aim for production like rather than a 100% copy.</p>
+
+<p>Here&rsquo;s a real example, a case insensitive file system. Grab a terminal prompt on your mac and type the following in an empty directory. Then do the same on a typical linux machine. All we&rsquo;re doing is using touch to create a file.</p>
+
+<pre><code>touch Test
+touch test
+ls
+</code></pre>
+
+<p>On you&rsquo;re mac you&rsquo;ll probably see:</p>
+
+<pre><code>Test
+</code></pre>
+
+<p>On your linux box you&rsquo;re more likely to get:</p>
+
+<pre><code>Test
+test
+</code></pre>
+
+<p>What? The mac treated Test and test as meaning the same thing. It wont let you have a file called test and one called Test in the same place. It&rsquo;s case insensitive. But the linux machine didn&rsquo;t have this problem. Now imagine we&rsquo;re not dealing with empty files called test but either files you&rsquo;re running code is creating at run time (a file cache maybe or a user uploaded file) or even more interestingly your source code files. Lets say you have git on a linux box in the corner of the office and someone checks in two files from a linux machine called Pages_controller.rb and pages_controller.rb. What happens when you get these to you&rsquo;re mac? I haven&rsquo;t actually tried this but it&rsquo;s not going to end well. And imagine debugging this sort of issue? If you think this is all hypothetical I know about this little quirk exactly because I saw someone trying to fix a bug related to it.</p>
+
+<p>What if the bug was because you had one version of lib_xml on your local development machine and a different one on production. Up to that point you might not even know what libxml was or how it got on your shiny apple laptop.</p>
+
+<p>How many people can genuinely say they have never had a bug they could recreate on live and not on their development machine? Same code, different behaviour. Load and data often play a part in bugs like this as well but these can be isolated and tests created in at least some cases. Being pragmatic what we&rsquo;re aiming for isn&rsquo;t to eliminate all differences, it&rsquo;s to get rid of those that are easy to eliminate.</p>
+
+<h2 id="how-can-i-do-this">How can I do this?</h2>
+
+<p>Virtualisation tools used to be cumbersome and expensive and generally not aimed at consumers. I&rsquo;ve used both VMWare Fusion and VirtualBox on my mac and even compared to a few years ago these tools are increasingly easy to use. And VirtualBox is free and open source too. On top of that we now have tools like vagrant which I&rsquo;ll give a quick example of here.</p>
+
+<p><a href="http://vagrantup.com">Vagrant</a> for those that haven&rsquo;t come across it yet describes itself thus:</p>
+
+<blockquote>
+<p>Vagrant uses Oracle’s VirtualBox to build configurable, lightweight, and portable virtual machines dynamically</p>
+</blockquote>
+
+<p>What it really is is a tool for quickly and painlessly building virtual machines based on sensible default configurations, and then providing programatic hooks for more advanced configuration. For instance you&rsquo;ll have a configuration file to describe which ports you want forwarded and you can use Chef to install packages when the VM first boots. Once you have it installed it&rsquo;s as easy as this to use</p>
+
+<pre><code>vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
+vagrant init lucid32
+vagrant up
+</code></pre>
+
+<p>The first line downloads a 32bit Ubuntu disk image but you&rsquo;ll only need to do that once. You&rsquo;ll find lots of images for different distros too. The next two lines create and then boot a new headless virtual machine. That&rsquo;s it.</p>
+
+<pre><code>vagrant ssh
+</code></pre>
+
+<p>Will let you jump straight into a ssh session with the new machine, for an idea of what else it can do here&rsquo;s the help output:</p>
+
+<pre><code>Tasks:
+  vagrant box                        # Commands to manage system boxes
+  vagrant destroy                    # Destroy the environment, deleting the create...
+  vagrant halt                       # Halt the running VMs in the environment
+  vagrant help [TASK]                # Describe available tasks or one specific task
+  vagrant init [box_name] [box_url]  # Initializes the current folder for Vagrant u...
+  vagrant package                    # Package a Vagrant environment for distribution
+  vagrant provision                  # Rerun the provisioning scripts on a running VM
+  vagrant reload                     # Reload the environment, halting it then rest...
+  vagrant resume                     # Resume a suspended Vagrant environment.
+  vagrant ssh                        # SSH into the currently running Vagrant envir...
+  vagrant ssh_config                 # outputs .ssh/config valid syntax for connect...
+  vagrant status                     # Shows the status of the current Vagrant envi...
+  vagrant suspend                    # Suspend a running Vagrant environment.
+  vagrant up                         # Creates the Vagrant environment
+  vagrant version                    # Prints the Vagrant version information
+</code></pre>
+
+<p>I&rsquo;ll leave it their as this post is more of a rant than a tutorial, but I might write more about using vagrant later. But in the meantime read the web site for a pretty simple walkthrough. And don&rsquo;t be put off by the fact it&rsquo;s written in Ruby or that the example shows a Rails app, this is a great tool whatever language you&rsquo;re going to be using on the virtual machine.</p>
+
+<h2 id="arguments-against">Arguments against</h2>
+
+<p>I see too few developers doing this for it to just be about a lack of awareness. Lots of developers not doing this might be running local virtual machines for cross browser testing for instance. Here&rsquo;s a few complaints I&rsquo;ve heard and what I think the answer is.</p>
+
+<h3 id="speed">Speed</h3>
+
+<p>If something is slow and you don&rsquo;t have as much RAM as you can get into your machine then do that before complaining about anything. Running a few extra operating systems inside your main operating system is obviously going to be intensive so don&rsquo;t scrimp on your tools. Also the defaults when setting up new virtual machines in VirtualBox or VMWare Fusion at least are quite minimal. Try increasing the ammount of RAM you let them use or give them access to more processes. I can genuinely say I&rsquo;ve had a problem with this once and the real solution was changing the code, not throwing away all the advantages of virtualisation. If you&rsquo;re doing some crazy real time video processing thing then your mileage will vary, but then you probably want a faster machine anyway.</p>
+
+<h3 id="lower-level-that-you-re-used-to">Lower level that you&rsquo;re used to</h3>
+
+<blockquote>
+<p>As a PHP/Ruby/Python developer why should I have to care about Apache? I just write code!</p>
+</blockquote>
+
+<p>This argument just bugs me, but I do know part of that is me. I need to know how all the bits work and fit together and I accept not everyone does, or indeed needs to understand everything. But someone on your team probably wants to know this stuff and importantly be able to tell others how they should do things. It&rsquo;s pretty common for developers to setup a development environment for a pure frontend developer or a designer so they can make changes and commit CSS or new templates. This is no different. Most designers don&rsquo;t need to know about the software environment in detail, it&rsquo;s easier for them to defer to a domain expert. If a developer just wants to write code then they too should defer to someone who does know about the lower level when it comes to their development environment too.</p>
+
+<h3 id="something-else-to-setup">Something else to setup</h3>
+
+<p>This argument has some merit. We&rsquo;re all busy and downing tools to setup something for you and your team is time consuming. And I think until pretty recently the time taken and the knowledge needed was a genuine barrier. Personally I&rsquo;ve tended to have few problems, but then I&rsquo;m familiar enough with Linux administration to avoid some common pitfalls. But problems with setting up port forwarding or shared folders can be pretty irritating when you want to work on a pressing bug or shiny new feature. But with tools like vagrant providing a simple interface to do this I think this is hopefully a thing of the past.</p>
+
+<h3 id="developers-workstations-should-be-personal">Developers workstations should be personal</h3>
+
+<p>I agree up to a point here. Discussions of standardising individual developer tools turn into holy flame wars over whether everyone should use some IDE, Vim or Emacs (answer: Vim). This is pointless. File managers, utilities, test editors, terminal styles, host operating system. All of these and more should be up to the individual developers. But in the same way you generally don&rsquo;t allow individual developers to use a new language no one knows without at least some discussion, why would this be different for the web server or operating system on which you&rsquo;ll be running that code in production. Most of the time it&rsquo;s not that developers make a consious decision to use a different version either. It&rsquo;s more likely that they will take the path of least resistance and follow a tutorial or just use a package manager. It&rsquo;s more likely if you ask the question &ldquo;what specific version of Apache are you using on your development machine&rdquo; they won&rsquo;t know the answer.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>I&rsquo;ve not even gone into some of the other advantages of virtualisation here. Being able to snapshot your environment at any point and roll back an entire virtual machine like you do your code is hugely handy. As is the ability to create virtual machines that you can share with other members of your team. No more do new employees have to spend the first week installing dependencies and just getting code running.</p>
+
+<p>I&rsquo;m certainly not the only person doing this and it&rsquo;s not a new idea. But it&rsquo;s never been easier or cheaper. And with an increasing move towards virtualisation or cloud computing production environments it&rsquo;s even easier to share good practices with your friendly systems administrators.</p>
+
+<p>I&rsquo;ve renabled comments on this blog after something of a break and I&rsquo;d love to hear what people think, positive and negative.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

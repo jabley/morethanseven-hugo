@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>OPML Feeds using Radiant &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">OPML Feeds using Radiant</h1>
+    <span class="post-date">Jan 16, 2007 &middot; 2 minute read
+    </span>
+    <p>
+As mentioned when I moved the site over to Radiant I promised a few tutorials and behind the scenes footage of goings on. So here goes with a quick look at how I added a nice <a href="http://morethanseven.net/friends.opml">OPML feed</a> to my site.
+
+</p>
+<p>
+For those not familiar with <a href="http://www.opml.org/">OPML</a> it’s an XML format for outlines, often used for storing blog rolls and the like.
+
+</p>
+<p>
+What I wanted was a friends parent and the ability to add friends to it and for them to appear in a dynamic OPML feed. The following screenshot shows what I ended up with:
+
+</p>
+<p>
+<img src="http://morethanseven.net/_assets/media/imgFriendsFeed.png" alt="Tree showing Friends feed in Radiant" />
+
+</p>
+<p>
+To accomplish this within Radiant I needed a custom layout, one which would simply render the content but also had the relevant header and footer markup. Note the mime type setting as well.
+
+</p>
+<p>
+<img src="http://morethanseven.net/_assets/media/imgOpmlLayout.png" alt="Layout for OPML in Radiant" />
+
+</p>
+<p>
+Next up is the page which actually uses the OPML layout to render the page.
+
+</p>
+<p>
+<img src="http://morethanseven.net/_assets/media/imgFriendsFeedCode.png" alt="friends feed from Radiant" />
+
+</p>
+<p>
+Note that I set the status of all the friends records to hidden, and then set the status of the r:children:each loop to search for hidden children. This way the individual friends records dont show up as seperate pages.
+
+</p>
+<p>
+All I need to do then is add children to the parent, friends-feed in my case. I added a few page parts to each friend page to make management a little easier; a <em>link</em>, a <em>feed</em> and for a little added spice <em>xfn</em>.
+
+</p>
+<p>
+<img src="http://morethanseven.net/_assets/media/imgEditFriend.png" alt="Edit friend view from Radiant" />
+
+</p>
+<p>
+All in all it makes adding and updating friends easy, and the general approach will work with pretty much any content where you want to compose a single page based on it’s children.
+
+</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

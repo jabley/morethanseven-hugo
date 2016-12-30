@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>What&#39;s new in Django 1.1 &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">What&#39;s new in Django 1.1</h1>
+    <span class="post-date">Jul 23, 2009 &middot; 3 minute read
+    </span>
+    
+
+<p>With the <a href="http://www.djangoproject.com/weblog/2009/jul/21/rc/">release candidate for Django 1.1</a> out the door I decided to have a quick look at what&rsquo;s new. This isn&rsquo;t a complete list, rather the bits I found most interesting.</p>
+
+<h2 id="conditional-views-http-docs-djangoproject-com-en-dev-topics-conditional-view-processing"><a href="http://docs.djangoproject.com/en/dev/topics/conditional-view-processing/">Conditional Views</a></h2>
+
+<blockquote>
+<p>Django now has much better support for conditional view processing using the standard ETag and Last-Modified HTTP headers. This means you can now easily short-circuit view processing by testing less-expensive conditions. For many views this can lead to a serious improvement in speed and reduction in bandwidth.</p>
+</blockquote>
+
+<p>A nice set of decorators for dealing with ETags and Last-Modified headers. Again very simple to use and set up, and a simple way of squeezing a little more performance out of you application.</p>
+
+<h2 id="admin-actions-http-docs-djangoproject-com-en-dev-ref-contrib-admin-actions-ref-contrib-admin-actions"><a href="http://docs.djangoproject.com/en/dev/ref/contrib/admin/actions/#ref-contrib-admin-actions">Admin Actions</a></h2>
+
+<blockquote>
+<p>The basic workflow of Django’s admin is, in a nutshell, “select an object, then change it.” This works well for a majority of use cases. However, if you need to make the same change to many objects at once, this workflow can be quite tedious. In these cases, Django’s admin lets you write and register “actions” – simple functions that get called with a list of objects selected on the change list page.</p>
+</blockquote>
+
+<p>Anything that makes the admin a little more powerful and a little more flexible is a good idea in my book. Admin actions allow you to run code over multiple objects at once, simple select them with a checkbox then select an action to run. This is worth it for the delete action alone, but you can write your own actions simply enough as well (for instance for approving a batch of comments, or archiving a set or articles.)</p>
+
+<h2 id="editable-admin-list-items-http-docs-djangoproject-com-en-dev-ref-contrib-admin-admin-list-editable"><a href="http://docs.djangoproject.com/en/dev/ref/contrib/admin/#admin-list-editable">Editable Admin List Items</a></h2>
+
+<blockquote>
+<p>You can now make fields editable on the admin list views via the new list_editable admin option. These fields will show up as form widgets on the list pages, and can be edited and saved in bulk.</p>
+</blockquote>
+
+<p>Another time saving admin addition, this time for making some fields editable from the change list rather than the object view. For quick changes, especially to boolean fields, I think this again is a nice addition.</p>
+
+<h2 id="unmanaged-models-http-docs-djangoproject-com-en-dev-ref-models-options-django-db-models-options-managed"><a href="http://docs.djangoproject.com/en/dev/ref/models/options/#django.db.models.Options.managed">Unmanaged Models</a></h2>
+
+<blockquote>
+<p>You can now control whether or not Django creates database tables for a model using the managed model option. This defaults to True, meaning that Django will create the appropriate database tables in syncdb and remove them as part of reset command. That is, Django manages the database table’s lifecycle. If you set this to False, however, no database table creating or deletion will be automatically performed for this model. This is useful if the model represents an existing table or a database view that has been created by some other means.</p>
+</blockquote>
+
+<p>I particularly like this addition. One of the issues I had with Django was some of the built in assumptions, in particular that you&rsquo;d be using a SQL database backend. Using unmanaged models looks like a great approach to using an alternative database like couchdb, tokyotyrant or mongodb or representing a webservice interface in your application.</p>
+
+<p>I&rsquo;m sure I&rsquo;ll have missed a few other interesting changes or additions. Anyone else have a favourite?</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

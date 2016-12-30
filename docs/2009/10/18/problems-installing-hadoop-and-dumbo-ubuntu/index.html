@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Problems Installing Hadoop 0.20 and Dumbo 0.21 on Ubuntu &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Problems Installing Hadoop 0.20 and Dumbo 0.21 on Ubuntu</h1>
+    <span class="post-date">Oct 18, 2009 &middot; 2 minute read
+    </span>
+    <p>The Hadoop wiki has a great introduction to <a href="http://wiki.apache.org/hadoop/Running_Hadoop_On_Ubuntu_Linux_(Single-Node_Cluster)">installing this piece of software</a>, which I wanted to do to have a play with <a href="http://klbostee.github.com/dumbo/">Dumbo</a>. The Dumbo docs also have a good <a href="http://wiki.github.com/klbostee/dumbo/building-and-installing">getting started</a> section which includes a few patches than need to be applied.</p>
+
+<blockquote>
+<p>Dumbo can be considered to be a convenient Python API for writing MapReduce programs</p>
+</blockquote>
+
+<p>Unfortunately it&rsquo;s not quite that simple, at least on Ubuntu Jaunty. Hadoop now uses Java6, but if you just follow the instructions on the wikis you&rsquo;ll hit a problem when you run &ldquo;ant package&rdquo;, namely that a third party application (<a href="http://forrest.apache.org/">Apache Forrest</a>) requires Java 1.5. Once you fix that, the build script will complain again that you need to install Forrest. Here&rsquo;s what I did to get everything working:</p>
+
+<p>pre. sudo apt-get install ant sun-java5-jdk</p>
+
+<p>pre. su - hadoop
+wget <a href="http://mirrors.dedipower.com/ftp.apache.org/forrest/apache-forrest-0.8.tar.gz">http://mirrors.dedipower.com/ftp.apache.org/forrest/apache-forrest-0.8.tar.gz</a>
+tar xzf apache-forrest-0.8.tar.gz
+cd /usr/local/hadoop
+patch -p0 &lt; /path/to/HADOOP-1722.patch
+patch -p0 &lt; /path/to/HADOOP-5450.patch
+patch -p0 &lt; /path/to/MAPREDUCE-764.patch
+ant package -Djava5.home=/usr/lib/jvm/java-1.5.0-sun -Dforrest.home=/home/hadoop/apache-forrest-0.8/</p>
+
+<p>With all that out of the way you should be able to run the <a href="http://dumbotics.com/2009/05/31/dumbo-on-clouderas-distribution/">simple examples</a> found on the rather excellent <a href="http://dumbotics.com">dumbotics</a> blog. If you&rsquo;re using the Cloudera distribution, or when the Hadoop 0.21 gets a release, these problems will disappear but in the meantime hopefully this saves someone else a bit of head scratching.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

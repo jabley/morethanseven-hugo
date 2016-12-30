@@ -1,0 +1,24 @@
+---
+comments: true
+created_at: 2007/02/11}
+date: 2007-02-11T00:00:00Z
+title: Shiny Content Management
+url: /2007/02/11/shiny-content-management/
+---
+
+<p>
+Well, my presentation over at the local <a href="http://rubyandrails.org/usergroups/newcastle/">Ruby on Rails Usergroup</a> went down OK last Thursday. I could have done with some more time to prepare and do up some nicer slides but most of the presentation was quite hands on with me coding and talking, which was a first for me.
+
+</p>
+<p>
+My presentation was basically a whistle stop tour of <a href="http://radiantcms.org">Radiant</a>. I rambled on for about fifty minutes or so, quickly going through the basic concepts of Pages, Layouts and Snippets and then on to an example site which I built from scratch in front of everyone – with only a few obvious errors and obvious mistakes.
+
+</p>
+<p>
+I ended up talking some about ommissions in Radiant, which I’m not sure I got across as the positive that I feel they are (at least for me). I dont want a fully featured blogging system, rather something that’s easy enought to jump into somewhere and see how it works. A few ideas came up from this discussion that, given the chance, I’ll mention on the Radiant mailing lists, or give them a go myself – like the ability to save configurations of pages, snippets and layouts and then load then instead of one of the three default prepopulation options. Though I’m busy modding the Radiant commentable behaviour and pondering a move to the Mental release candidate at the moment.
+
+</p>
+<p>
+It at least got me back in to presenting to an industry audience, quite different from the teaching I’d been doing. Hopefully a good thing ahead of <a href="http://barcamp.org/BarCampLondon2">BarCamp</a> in a weeks time.
+
+</p>

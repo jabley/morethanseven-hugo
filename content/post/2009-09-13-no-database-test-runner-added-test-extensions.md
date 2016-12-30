@@ -1,0 +1,9 @@
+---
+comments: true
+created_at: 2009/09/13}
+date: 2009-09-13T00:00:00Z
+title: No database test runner added to test extensions
+url: /2009/09/13/no-database-test-runner-added-test-extensions/
+---
+
+Thanks to [Brad](http://intranation.com/) I've just released a new version of [Django Test Extensions](http://pypi.python.org/pypi/django-test-extensions/0.5) (also on [GitHub](http://github.com/garethr/django-test-extensions) with support for running tests without the overhead of setting up and tearing down the database. Django still has a few places were it assumes you'll have a database somewhere in your project - and the default test runner is one of them.

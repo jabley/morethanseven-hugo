@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/13/on-process-and-design/">On Process and Design</a>
+      </h1>
+      <span class="post-date">Jan 13, 2008 &middot; 2 minute read
+      </span>
+      
+      <p>I consider myself something of a hybrid, flirting with both the design and development side of things. I also like to think of myself as something of a student of the discipline; reading and consuming as much knowledge as possible on the process as well as the practice. Something I took to pondering while reading <a href="http://www.pragprog.com/titles/mjwti">My Job Went to India</a> was why the majority of theory books tend to be from the software side?</p>
+
+<p>It&rsquo;s appears the same when it comes to discussions of process, and in turn innovation within process. Their is lots of talk around Agile processes and practices amongst software developers, but I don&rsquo;t see lots of designers discussing the how. User Centred Design is maybe a slight exception, but again it seems to be the software people and information architects, as apposed to those who consider themselves designers, who talk about this. I&rsquo;m just wondering whether others have found this too?</p>
+
+<p>The <a href="http://www.designcouncil.org.uk">Design Council</a> published a pretty good resource <a href="http://www.designcouncil.org.uk/en/About-Design/">About Design</a> but I haven&rsquo;t seen much other real literature on a modern design process. <a href="http://www.communicatingdesign.com/">Communicating Design</a> is a fantastic book on design documentation, but doesn&rsquo;t frame this in terms of a discussion of process. If anyone knows of any books or blogs out their on the subject I&rsquo;d love to know about them. I&rsquo;d love to be proved wrong and end up with a good reading list.</p>
+
+<p><a href="http://www.pragprog.com/titles/mjwti">My Job Went to India</a> (which is excellent by the way) contains 52 hints and tips for your career as a programmer. In reality most of these ideas apply to any creative discipline, only the examples and analogies need changing. You could probably argue the same for books like <a href="http://pragmaticprogrammer.com/the-pragmatic-programmer">The Pragmatic Programmer</a>, <a href="http://www.pragprog.com/titles/pad">Practices of an Agile Developer</a> and <a href="http://en.wikipedia.org/wiki/Peopleware">Peopleware</a>. I&rsquo;m also thinking whether or things like <a href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">the mythical man month</a> apply? Or if other <em>truths</em> of the design practice exist?</p>
+
+<p>The importance of design in any discipline is becoming increasingly well recognised. But where will the next generation of managers learn about how to manage designers and the design process? One of the problems with front end web development and design work has been the difficulty of learning the craft. Is this the same for managing the web design process?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/07/how-to-deploy-php-sites-with-the-pake-build-tool/">How to deploy PHP sites with the Pake build tool</a>
+      </h1>
+      <span class="post-date">Jan 7, 2008 &middot; 5 minute read
+      </span>
+      
+      <p>So in case you hadn&rsquo;t guessed project automation is the new black. I&rsquo;ve been getting back into some development work recently with <a href="http://isitbirthday.com">Is it Birthday?</a> and <a href="http://getjobsin.com">getjobsin</a> and trying to automate as much of the repetitive and boring work as possible.</p>
+
+<p>I&rsquo;m not absolutely sure that that many people outside large or particularly organised teams realise that large web sites are not generally <em>deployed</em> by someone with an FTP client and crossed fingers. This sort of effort, along with other repetitive tasks like running tests or generating documentation, can be automated. This is a win-win for everyone. It&rsquo;s more reliable (scripts don&rsquo;t forget to restart a service before they go home), quicker and removes the need for having one person in charge of deployments.</p>
+
+<p>Even where people know about this build process idea they might not use it for their projects, probably for similar reasons why not everyone uses source control. I think the reason is probably that most web designers and developers (even particularly geeky ones) thing this software engineering stuff is maybe a step too far. Their is also something of a barrier to entry, knowing where to look and how to get started without reading lots of documentation (often filled with XML examples) and trial and error. Also project automation is apparently not sexy?</p>
+
+<p>Anyway, if you&rsquo;ve been working with Rails you will have come across <a href="http://rake.rubyforge.org/">Rake</a>, which is a build tool used to automate various tasks. Well the nice <a href="http://www.symfony-project.org/">symfony</a> people have written a PHP version called <a href="http://www.pake-project.com/">Pake</a> for use as part of the framework. It&rsquo;s used for all the command line action, from running tests to clearing the cache and <a href="http://www.symfony-project.org/book/1_0/16-Application-Management-Tools#Using%20rsync%20for%20Incremental%20File%20Transfer">automating deployments</a>. Pake is however a separate tool that you can use in your own projects, whatever framework or hand rolled codebase you are using.</p>
+
+<p>Pake can be downloaded using <a href="http://pear.php.net">PEAR</a> on the command line:</p>
+
+<pre><code>&lt;code&gt;pear upgrade PEAR
+pear channel-discover pear.symfony-project.com
+pear install symfony/pake&lt;/code&gt;
+</code></pre>
+
+<p>The documentation for Pake is pretty much non-existent as far as I can tell, but it is a really handy tool so worth a little effort. The best source of knowledge is to look through the default Pake tasks that are provided as part of symfony. One of my favourites, which we&rsquo;ll look at now, allows for incremental deployments via Rsync over SSH. I&rsquo;ve been using this with non-symfony projects too.</p>
+
+<p>Rsync is a command line tool for syncronising two file structures. The Rsync command that does most of the heavy lifting for the deployment looks like the following. Note I&rsquo;ve used {} to denote placeholders in the following examples.</p>
+
+<pre><code>&lt;code&gt;rsync --progress --azC --force \
+--delete -e ssh ./ {user}@{host}:{dir}&lt;/code&gt;
+</code></pre>
+
+<p>The sync task I&rsquo;m using is straight from symfony, but the licence allows for distribution so here is an <a href="http://morethanseven.net/_assets/downloads/pake/pake.zip">example zip of all the files needed to follow along</a>. You&rsquo;ll need these to follow along as I haven&rsquo;t printed the full sourcecode for the pakefile here.</p>
+
+<p>First a little configuration. Using <a href="http://www.yaml.org/">YAML</a> we define an environment, <em>staging</em> in this case_ and specify a host, port, user and the full path on the remote server. You can of course specify multiple environments in this file, we&rsquo;ll see how to use them shortly.</p>
+
+<pre><code>&lt;code&gt;[staging]
+  host={host}
+  port=22
+  user={user}
+  dir={dir}&lt;/code&gt;
+</code></pre>
+
+<p>You can also include an <em>rsync_exclude.txt</em> or an <em>rsync_include.txt</em> file. This gives you control over the files being synced when you run the Pake task. The following example is a good starting point, it stops you pushing those pesky .DS_Store files that OSX creates to you web server, as well as avoiding subversion metadata and the configuration files for the Pake task.</p>
+
+<pre><code>&lt;code&gt;.svn
+.DS_Store
+/config/properties.ini
+/config/rsync_exclude.txt
+/config/rsync_include.txt
+/config/rsync.txt&lt;/code&gt;
+</code></pre>
+
+<p>We can now run the following command, from the directory containing the pakefile.php script, using Pake. The first example will do a dry run, showing you what will happen. You&rsquo;ll be prompted for your SSH password as part of the command unless you&rsquo;re using keys for authentication.</p>
+
+<pre><code>&lt;code&gt;pake sync staging&lt;/code&gt;
+</code></pre>
+
+<p>When you&rsquo;re happy you can run the sync command with the go option which will instruct Rsync to do it&rsquo;s thing.</p>
+
+<pre><code>&lt;code&gt;pake sync staging go&lt;/code&gt;
+</code></pre>
+
+<p>Pake has a handy flag to find out what tasks are available.</p>
+
+<pre><code>&lt;code&gt;pake -T&lt;/code&gt;
+</code></pre>
+
+<p>This should give you a list of tasks and a brief description, useful to find out what you can do if you&rsquo;ve been away from a project for a while.</p>
+
+<p>This is a pretty simple example but one I&rsquo;m already finding useful. Rsync is but one way of deploying apps but with Pake has the advantage of being simple and in lots of situations good enough. It&rsquo;s certainly better than a manual deployment process. It would be simple enough to build into the task a simple logging system so you have a log of all deployments; when they happened and who did them for instance.</p>
+
+<p>If that has whet your appetite then their are other deployment tools you might want to look into; <a href="http://www.capify.org/">Capistrano</a> (Ruby), <a href="http://ant.apache.org/">Ant</a> (Java), <a href="http://maven.apache.org/">Maven</a> (Java) and <a href="http://phing.info">Phing</a> (PHP) spring to mind. If anyone knows of a Python equivalent that would be useful too? I&rsquo;m also using Phing for a few tasks on projects at the moment, mainly for some nifty Subversion tasks (and you can use Phing with Pake as symfony does), but that will have to wait until another post.</p>
+
+<p>So, what are peoples experiences of build tools? Any good pointers? Or maybe reasons why you don&rsquo;t use them in your projects?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/05/refresh-map/">Refresh Map</a>
+      </h1>
+      <span class="post-date">Jan 5, 2008 &middot; 1 minute read
+      </span>
+      
+      <p>It turns out that their are now nearly 40 <a href="http://www.refreshingcities.org/">Refresh</a> groups scattered around and about. Here&rsquo;s a <a href="http://maps.google.co.uk/maps/ms?ie=UTF8&amp;hl=en&amp;msa=0&amp;ll=43.580391,-56.25&amp;spn=98.199649,202.5&amp;z=2&amp;om=1&amp;msid=103845568847240179832.000442fedc66a55c4744b">quick map of them all</a>. It&rsquo;s pretty interesting how all these groups have picked up on a simple word.</p>
+
+<p><iframe width="560" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps/ms?ie=UTF8&amp;hl=en&amp;om=1&amp;s=AARTsJpLByU1_UoXjtzM2l03IoKFmn1HHw&amp;msa=0&amp;msid=103845568847240179832.000442fedc66a55c4744b&amp;ll=38.891033,-76.992187&amp;spn=90.392203,196.875&amp;z=2&amp;output=embed">
+</iframe>
+For anyone in the Newcastle are we&rsquo;re having a meetup next week, on Thursday evening, as it happens, the <a href="http://upcoming.yahoo.com/event/396927/">details are on Upcoming</a> if you fancy coming along.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/04/things-to-entertain-us-in-2008/">Things to entertain us in 2008 </a>
+      </h1>
+      <span class="post-date">Jan 4, 2008 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>This being a blog and it being the start of a new year (2008 for those not following closely) I feel obliged to list of few predictions of sorts. Rather than concrete <em>this will happen</em> things here are a few bits and pieces I think will be interesting over the next year.</p>
+
+<h2 id="site-specific-browsers">Site Specific Browsers</h2>
+
+<p>A <a href="http://blog.whatfettle.com/2008/01/04/a-vision-of-the-web-in-2008/">few</a> <a href="http://factoryjoe.com/blog/2007/12/28/fluid-prism-mozpad-and-site-specific-browsers/">people</a> have already waxed lyrical about Site Specific Browsers and after trying out <a href="&quot;Prism&quot;:http://labs.mozilla.com/2007/10/prism/">Prism</a> for a few weeks I can say I really like the idea. Their are a couple of teething problems, both with the idea and the current implementations, but all seem solvable with a little focus. Security (sandbox everything), memory footprint (as small as possible) and integration with the desktop (local storage, <a href="http://gears.google.com/?">Google Gears</a>).</p>
+
+<p>I think their are already a couple of extreme examples of this idea in the wild, both of which I&rsquo;m already pretty interested in. <a href="http://www.joost.com/">Joost</a> are doing some pretty cool things with their bespoke application and web site backend and <a href="http://www.songbirdnest.com/">Songbird</a> just hit version 0.4 and is looking pretty nice.</p>
+
+<h2 id="mobile">Mobile</h2>
+
+<p>We&rsquo;ll see more and more people playing with mobile apps next year I&rsquo;m thinking. Mobile browsers (special mentions to <a href="http://www.operamini.com/">Opera Mini</a> and Mobile Safari here) are getting better and better and the iPhone (at least in the UK) has hopefully started something with regards fixed cost unlimited data. With some good <a href="http://mobilewebbook.com/">materials</a> already in print, next years <a href="http://future-of-mobile.com/">Future of Mobile</a> likely to be bigger and better than before and half the web developers I know pondering how they get to work with mobile I see more cool stuff happening here.</p>
+
+<h2 id="the-backend">The Backend</h2>
+
+<p><a href="http://www.wait-till-i.com/">Chris</a> has made a <a href="http://www.wait-till-i.com/2007/12/30/lets-make-2008-the-year-of-embracing-the-server-side-with-ajax">call to arms</a>
+(of sorts) and I&rsquo;m hoping this comes to pass. It&rsquo;s becoming more and more apparent that the best teams are agile and multi-disciplinary and both sides of this divide have lots to gain from each other. For starters most front end people could probably do with learning some good old fashioned software engineering stuff; build tools, source control, deployment, testing, etc. As for the backend guys; how about unobtrusive applications, accessibility and the importance of good quality markup? Apologies for the huge generalisations here, but hopefully you know what I&rsquo;m getting at.</p>
+
+<h2 id="software-as-infrastructure">Software as Infrastructure</h2>
+
+<p><a href="http://blog.gardeviance.org/">Simon Wardley</a> and others have been talking about software systems as infrastructure for a good while and I think we&rsquo;ve seen glimpses of this in the last year. Whether it&rsquo;s people using <a href="http://twitter.com">Twitter</a> for interesting projects (<a href="http://foamee.com">Foamee</a> for instance) or Amazon and their web service platform (<a href="http://aws.amazon.com/s3">S3</a>, <a href="http://aws.amazon.com/ec2">EC2</a>, <a href="http://www.amazon.com/b?ie=UTF8&amp;node=342335011">SimpleDB</a>, <a href="http://www.amazon.com/b?ie=UTF8&amp;node=342429011">DevPay</a>) we have a start. I think we&rsquo;ll see lots more of this sort of drop in web based software over the next year. The key seems to be thinking about things in a RESTful manner, and throwing in as much publicly exposed JSON, RSS and Microformats as possible. It will also be interesting to see if the <a href="http://bitworking.org/projects/atom/draft-ietf-atompub-protocol-09.html">Atom Publishing Protocol</a> takes off next year too.</p>
+
+<h2 id="education">Education</h2>
+
+<p>Education is coming up more and more in conversation between people involved in web design and development it seams, both off and <a href="http://www.airbagindustries.com/archives/airbag/help.php">online</a>. I had a great conversation with <a href="http://www.rachelandrew.co.uk/">Rachel</a> and <a href="http://www.contentwithstyle.co.uk">Mike</a> after @media and then another good discussion with Dan Dixon, <a href="http://andybudd.com/">Andy</a>, <a href="http://kid666.com/">Tom</a> and others at barcamp and know other smart people are thinking about this too. I&rsquo;m hoping to get something off the group here in the next month or so but would love to know about any other industry driven initiatives anyone might know about?</p>
+
+<p>Ok, so that&rsquo;s more a list of things I <em>think</em> I&rsquo;ll end up focusing on (as much as I ever focus on anything) over the next year. We&rsquo;ll see how that goes and if other things crop up that are more interesting. What about you? Anything you think is going to be play worthy next year?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/12/28/is-it-birthday/">Is it Birthday?</a>
+      </h1>
+      <span class="post-date">Dec 28, 2007 &middot; 1 minute read
+      </span>
+      
+      <p>Did you love the simplicity of <a href="http://isitchristmas.com">Is it Christmas?</a> but feel left out, wondering why Christmas should be more important than, say, <em>you</em>? Well here&rsquo;s your answer; <a href="http://isitbirthday.com">Is it Birthday?</a></p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgIsitbirthday.png" alt="Is it Birthday? home page" title="Is it Birthday? home page" />:<a href="http://isitbirthday.com">http://isitbirthday.com</a></p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/12/26/nice-bits-of-symfony-web-debug-toolbar/">Nice bits of symfony: Web Debug Toolbar</a>
+      </h1>
+      <span class="post-date">Dec 26, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>I <a href="http://morethanseven.net/posts/getting-going-with-symfony/">mentioned previously</a> that I&rsquo;d been playing with the <a href="http://www.symfony-project.org/">symfony</a> framework on a couple of projects and I have to admit to being more and more impressed as I wade in looking for things. I&rsquo;ve worked with enough MVC-like frameworks to know they are all quite similar in more ways than they are dramatically different. So it&rsquo;s the little bits and pieces that win you over.</p>
+
+<p>One of my favourite little bits in symfony has to be the Web Debug Toolbar. When running in development mode you get a little menu floating above your application like so (top right hand corner).</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgSymfonyToolbar.png" alt="Web page showing the symfony web debug toolbar in the top right corner" title="Web page showing the symfony web debug toolbar in the top right corner" /></p>
+
+<p>This gives you all sorts of useful information as you&rsquo;re developing your application - from the number of database queries to the rendering time, with a full logger built in. It&rsquo;s also been particularly useful in learning symfony - being able to follow the entire request through the stack from the logger is really handy when you don&rsquo;t know what is going on.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgSymfonyToolbar2.png" alt="Web page showing the symfony web debug toolbar fully expanded" title="Web page showing the symfony web debug toolbar fully expanded" /></p>
+
+<p>With the increasing use of object relational mapping in web frameworks it&rsquo;s quite easy to end up with a <em>working</em> application on your development box that turns out to absolutely hammer your database when used in the real world by only a few hundred people (I&rsquo;m looking at you tagging). The database utilities, showing the number of queries and the SQL for those queries, is particularly handy for finding bottlenecks here.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgSymfonySQL.png" alt="Web page showing the symfony web debug toolbar SQL view" title="Web page showing the symfony web debug toolbar SQL view" /></p>
+
+<p>I&rsquo;ve not come across something similar in other frameworks, PHP or otherwise. I&rsquo;d be interested to know if similar things do exist for Rails or Django in particular.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/12/23/happy-with-my-eeepc/">Happy with my eeepc</a>
+      </h1>
+      <span class="post-date">Dec 23, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>I like small. I have a macbook rather than a macbook pro because it&rsquo;s smaller. Especially now I&rsquo;m wandering about more often with work (and play) lugging a machine around is less and less appealing. So, armed with that excuse I felt justified in going out and buying a new <a href="http://eeepc.asus.com">Asus Eee PC</a>. I managed to just walk in to <a href="www.microanvika.com/">Micro Anvika</a> in Newcastle and buy one from a bemused staff member who was pretty shocked to find one in stock and not allocated (sorry <a href="http://www.reyhan.org/">Rey</a>).</p>
+
+<p>For anyone who hasn&rsquo;t seen one before, the Eee PC is a tiny linux laptop a little like the One Laptop Per Child machine but aimed more at traditional computer users (at the moment read <em>early adopting geeks</em>). The distro is setup to be pretty user friendly for those pesky Windows users but a little hacking turns it into a pretty darn nice machine.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgEeepcApple.jpg" alt="My new eeepc with an apple logo on the back" title="My new eeepc with an apple logo on the back" /></p>
+
+<p>And yes, I have stuck an apple sticker on back. I&rsquo;m sure that should get some entertained looks next time I&rsquo;m at a relevant event! I think the machine itself is actually pretty good looking, but the default desktop themes are all pretty uninspiring.</p>
+
+<p>I&rsquo;ve stuck with the appliance like IceWM window manager and the launcher application as it makes starting things up from the keyboard with one hand pretty fast. I then jumped into various hidden away files to get the desktop setup how I like. The <a href="http://wiki.eeeuser.com">wiki</a> over on <a href="http://eeeuser.com">eee user</a> has a number of useful tutorials; <a href="http://wiki.eeeuser.com/howto:customizeeasymode">customising easy mode</a> and the debian repo from <a href="http://wiki.eeeuser.com/howto:installruby">a ruby tutorial</a> were particularly handy.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgEeepcDesktop.jpg" alt="Minimal IceWM desktop with Asus Launcher" title="Minimal IceWM desktop with Asus Launcher" /></p>
+
+<p>Still lots more I could install (this is Linux after all) but so far have installed Ruby, Rails, Python, Django, Erlang, MySQL, SQLite, Apache2, PHP5, PEAR and symfony all without a hitch. I do love apt when it just works. I&rsquo;ll try and get Mono and Java on their as well just for completeness when I get a moment.</p>
+
+<p>The only thing I can think of that I&rsquo;ll really miss at the moment is Keynote. It has a VGA out port (which not even the macbook has) which will support a decent resolution for presentations. But Keynote is so pretty and easy to use compared to the alternatives. We&rsquo;ll have to see next time I have to do a presentation.</p>
+
+<p>I can see lots of places (past the obsessive tech geeks like me) where a machine like this will be really interesting. Obviously the low cost of the machine means that schools might just get interested in Linux. For people who prefer a desktop machine as their main computer and only occasionally need a laptop it&rsquo;s a pretty cost effective option. As a machine to experiment with Linux it&rsquo;s pretty useful too - I&rsquo;d recommend being familiar with basic commands on Linux to anyone doing web development work for instance. With so many possible audiences, and what is already a pretty nice machine, Asus might be onto something here.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/12/17/css-uprising/">CSS Uprising</a>
+      </h1>
+      <span class="post-date">Dec 17, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>For those not following along closely I thought it worth highlighting some interesting goings on around the web. <a href="http://www.stuffandnonsense.co.uk/">Andy Clarke</a> put the CSS cat amongst the W3C pigeons with a couple of posts; <a href="http://www.stuffandnonsense.co.uk/malarkey/more/css_unworking_group/">CSS Unworking Group</a> and a following up <a href="http://www.stuffandnonsense.co.uk/malarkey/more/csswg_proposals/">CSSWG Proposals</a></p>
+
+<p>How I&rsquo;ve had a <a href="http://morethanseven.net/posts/css-snapshots-css3-modules-and-an-agile-way-forward/">few ideas</a> myself previously around what I&rsquo;d like to see from the CSS3 working group. I&rsquo;m now avidly following along with <a href="http://www.stuffandnonsense.co.uk/malarkey/comments/csswg_proposals/">the comments</a> and I&rsquo;d urge anyone working even on an occasional basis with CSS to do the same.</p>
+
+<p><a href="http://webkit.org/blog/">Maciej Stachowiak</a> said a few very interesting things in the comments I thought worth commenting on:</p>
+
+<blockquote>
+<p>Being an expert user is not necessarily enough to know how to extend it. A key part of extending a technology is knowing how it works on the inside.</p>
+</blockquote>
+
+<p>I think their-in lies an opportunity. The weight of comments on this issue, and the heat of the argument, would suggest people are interested. But I think a-lot of those interested parties are those working day-in with CSS (rather than on it) and lack this critical information. As a web designer how do I find this information out? Who are the interesting bloggers in the area of standardisation? Is their are good reference site? Or a wiki? Or an active friendly mailing list of people willing to answer simple questions? The web (standards) design community is used to open discussion and debate - whether from blogs or projects like <a href="http://microformats.org">microformats</a>.</p>
+
+<p>You could of course also argue that <em>being an expert implementer is not necessarily enough to know what needs extending. A key part of extending a technology is knowing what is needed first in the real world</em>.</p>
+
+<blockquote>
+<p>But the cost of a serious mistake in a standard is much higher than the cost of an implementation bug.</p>
+</blockquote>
+
+<p>I think this depends on the software in question - what about critical military systems, satellites or space shuttles, power stations, etc. - but I agree in principle. Most web designers do not have the experience of working on this sort of software project. But then Andy is not putting himself up as a project management guru.</p>
+
+<p>Their are obviously strong feelings on both sides of this debate. But something I would be interested to hear - from someone with a standards focus - is whether you think their is a fundamental problem at the moment with regards CSS? If not then why not? If so then what are your ideas for moving forward?</p>
+
+<p>And feel free to say you don&rsquo;t know yet. I think what Andy has done is put down his ideas. If you don&rsquo;t like them then suggest better ones. If that&rsquo;s sticking to the status quo then say why you it feel will work out.</p>
+
+<p>(I&rsquo;ve posted the above in the comments to the original post, but wanted to repeat it here more in the hope of getting more interested people involved in that thread.)</p>
+
+<p>I don&rsquo;t really expect Andy to have the answers to this issue, but by him kicking the discussion off in such a public way the least we can <em>all</em> do is have the debate we need and come up with the solutions for everyone. Especially on the list of <em>getting started with standards</em> links and reading materials alluded to above, if someone has this information but not the time to get it online in a coherent fashion, or to present it to the wider community then please get in touch.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/12/11/using-curl-to-play-with-couchdb/">Using Curl to play with CouchDB</a>
+      </h1>
+      <span class="post-date">Dec 11, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>As a big big fan of all things HTTP, the new <a href="http://www.erlang.org/">Erlang</a> based database, <a href="http://couchdb.org">CouchDB</a>, piqued my interest. With the recent <a href="http://damienkatz.net/2007/11/couchdb_070.html">release of 0.7</a> it&rsquo;s now intended for widespread use. Now I&rsquo;m a fan of databases as long as I don&rsquo;t have to go too near them. SQL, triggers and stored procedures are all a little too close to magic for me.</p>
+
+<p>The reason CouchDB looks particularly good fun was it&rsquo;s build around a REST API using JSON for data transport. I&rsquo;m generally not an acronym guy, but REST, JSON, API and HTTP in one open source piece of code? Sounds like fun to me.</p>
+
+<p>The CouchDB community have built up an already <a href="http://www.couchdbwiki.com/">excellent wiki</a> with all the information you need to get started and get the <a href="http://www.couchdbwiki.com/index.php?title=Installation">software installed</a>. I just used the magic of <a href="http://www.macports.org/">MacPorts</a> but the page covers all the various dependencies and setups (though nothing on their yet about the N800).</p>
+
+<pre><code>&lt;code&gt;sudo port install couchdb&lt;/code&gt;
+</code></pre>
+
+<p>You might then need to set-up a user and some permissions. Again the wiki has more <a href="http://www.couchdbwiki.com/index.php?title=Installation#Security_Considerations">detailed installation instructions</a>. All being well you should then be able to fire up CouchDB:</p>
+
+<pre><code>&lt;code&gt;sudo -u couchdb couchdb&lt;/code&gt;
+</code></pre>
+
+<p>So first things first. Their are getting started code examples on the wiki in all the usual languages so you can just dive in. CouchDB also comes with a few in-build tools which are both pretty attractive and useful. You have a <a href="http://localhost:8888/_utils/browse/index.html">database browser</a>, a full <a href="http://localhost:8888/_utils/couch_tests.html">test suite</a> and a <a href="http://localhost:8888/_utils/shell.html">command shell</a>.</p>
+
+<p><a href="http://curl.haxx.se/">Curl</a>, for those not familiar with it, is a fantastic command line utility for throwing around HTTP requests. I already use it for testing and generally prodding sites but it&rsquo;s absolutely perfect for demonstrating CouchDB. Let&rsquo;s start with creating a database called <em>test</em>:</p>
+
+<pre><code>&lt;code&gt;curl -X PUT http://localhost:8888/test/&lt;/code&gt;
+</code></pre>
+
+<p>That should have created the database. Let&rsquo;s get some information back about the database:</p>
+
+<pre><code>&lt;code&gt;curl -X GET http://localhost:8888/test/&lt;/code&gt;
+</code></pre>
+
+<p>Everything should be returning JSON strings telling us something about what it finds. Let&rsquo;s add a blank document to the database:</p>
+
+<pre><code>&lt;code&gt;curl -X POST http://localhost:8888/test/ \
+-H &quot;Content-Type: application/json&quot; -d {}&lt;/code&gt;
+</code></pre>
+
+<p>Note the blank JSON object <em>{}</em> passed as Post data. What about retrieving a list of document from the database?</p>
+
+<pre><code>&lt;code&gt;curl -X GET http://localhost:8888/test/_all_docs&lt;/code&gt;
+</code></pre>
+
+<p>We&rsquo;re now done with that database so let&rsquo;s delete it.</p>
+
+<pre><code>&lt;code&gt;curl -X DELETE http://localhost:8888/test/&lt;/code&gt;
+</code></pre>
+
+<p>I&rsquo;ve just done the basics here, but the APIs are simple and nicely documented enough for you easily to find out more. This is the beauty of RESTfully designed APIs, they are just about self documenting. For the most part you just have a predefined HTTP method and a defined URL.</p>
+
+<ul>
+<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_View_API">HTTP View API</a></li>
+<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_Doc_API">HTTP Doc API</a></li>
+<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_Db_API">HTTP DB API</a></li>
+</ul>
+
+<p>The Erlang base of CouchDB makes for some interesting horizontal scaling possibilities (as well as a good excuse to play with Erlang.) Even if CouchDB wasn&rsquo;t cool enough already, it comes with probably the best start-up message I&rsquo;ve seen in software for ages:</p>
+
+<pre><code>&lt;code&gt;CouchDB has started. Time to relax.&lt;/code&gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/12/08/insert-dojo-and-yui-bookmarklets/">Insert Dojo and YUI bookmarklets</a>
+      </h1>
+      <span class="post-date">Dec 8, 2007 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve talked about <a href="http://morethanseven.net/posts/debug-web-pages-with-jquery-and-jash/">having fun with jQuery</a> using <a href="http://www.billyreisinger.com/jash/">Jash</a> and Firebug before after seeing <a href="http://simonwillison.net">Simon</a> throw the Google homepage around at barcamp. I&rsquo;m no more a one javascript framework person than a one programming language person and recently I&rsquo;ve seen cool things I want to play with in lots of the main contenders.</p>
+
+<p>I&rsquo;ve put together a couple of bookmarklets which load <a href="http://developer.yahoo.com/yui/">YUI</a> or <a href="http://dojotoolkit.org/">Dojo</a> from their respective content delivery networks and insert them into your current browser context. You can then play around with them in Jash or Firebug or any other Javascript console.</p>
+
+<p>Dojo is particularly interesting here due to it&rsquo;s cunning loading mechanism for additional parts of the framework. Basically you can gain access to the entire (huge) framework simply by using the bookmarklet and then dynamically loading the rest via the command line.</p>
+
+<p><a href="javascript:void(function(){var%20s=document.createElement('script');s.src='http://o.aolcdn.com/dojo/1.0.0/dojo/dojo.xd.js';document.getElementsByTagName('head')[0].appendChild(s);}())">Insert Dojo</a></p>
+
+<pre><code>&lt;code&gt;javascript:void(function(){
+ var%20s=document.createElement('script');
+ s.src='http://o.aolcdn.com/dojo/1.0.0/dojo/dojo.xd.js';
+ document.getElementsByTagName('head')[0].appendChild(s);
+}())&lt;/code&gt;
+</code></pre>
+
+<p><a href="javascript:void(function(){var%20s=document.createElement('script');s.src='http://yui.yahooapis.com/2.4.0/build/yahoo-dom-event/yahoo-dom-event.js';document.getElementsByTagName('head')[0].appendChild(s);}())">Insert YUI</a></p>
+
+<pre><code>&lt;code&gt;javascript:void(function(){
+ var%20s=document.createElement('script');
+ s.src='http://yui.yahooapis.com/2.4.0/build/yahoo-dom-event/yahoo-dom-event.js';
+ document.getElementsByTagName('head')[0].appendChild(s);
+}())&lt;/code&gt;
+</code></pre>
+
+<p>The code simply inserts a script element into the page which loads the relevant framework. I&rsquo;ve shown the code on multiple lines for the sake of the example, but your bookmarklet should be on one line. Alternatively you can drag the <a href="javascript:void(function(){var%20s=document.createElement('script');s.src='http://yui.yahooapis.com/2.4.0/build/yahoo-dom-event/yahoo-dom-event.js';document.getElementsByTagName('head')[0].appendChild(s);}())">Insert YUI</a> or <a href="javascript:void(function(){var%20s=document.createElement('script');s.src='http://o.aolcdn.com/dojo/1.0.0/dojo/dojo.xd.js';document.getElementsByTagName('head')[0].appendChild(s);}())">Insert Dojo</a> links to your bookmark bar.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/23/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        class="active"><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/25/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/06/17/less-css/">Less CSS</a>
+      </h1>
+      <span class="post-date">Jun 17, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Ruby people <em>really</em> don&rsquo;t like CSS do they? But <a href="http://lesscss.org/">Less</a> is actually pretty cool. It&rsquo;s basically an attempt to bootstrap features, specifically Variables, Mixins, Operations and Nested Rules, into CSS. The best part about this is it uses CSS syntax and a simple one step compiler. I&rsquo;d be interested to know what the folks at the W3C think about this.</p>
+
+<p>So for instance you can do:</p>
+
+<p>pre. /* LESS */
+<code>brand_color: #4D926F;
+#header {
+  color:</code>brand_color;
+}
+h2 {
+color: @brand_color;
+}</p>
+
+<p>and compile it down to:</p>
+
+<p>pre. /* CSS */
+#header {
+color: #4D926F;
+}
+h2 {
+color: #4D926F;
+}</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/06/11/message-queues-cambridge-geek-night/">Message Queues at Cambridge Geek Night</a>
+      </h1>
+      <span class="post-date">Jun 11, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Last night was the first Cambridge Geek Night and saw 35 people or so fill a room above a pub to listen to a few short talks and converse with fellow geeks. I had the pleasure of giving the first talk, a short introduction to using message queues for web developers.</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=messagequeues-090611064000-phpapp01&stripped_title=message-queues-for-web-applications" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=messagequeues-090611064000-phpapp01&stripped_title=message-queues-for-web-applications" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I got lots of good questions from interested people and by the sounds of things it had the desired effect - for people unfamiliar with using a message queue to go out and have a play with some of the cool software available to solve your problems.</p>
+
+<p>Overall the night was definitely a success. Suitably geeky conversations. A chance to meet new people as well as old friends. Good job <a href="http://www.thatcanadiangirl.co.uk/">Vero</a> and <a href="http://blog.fatbusinessman.com/">David</a> for organising the event and here&rsquo;s to the next one.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/06/10/how-decide-your-next-programming-language/">How to Decide on Your Next Programming Language</a>
+      </h1>
+      <span class="post-date">Jun 10, 2009 &middot; 3 minute read
+      </span>
+      
+      <p><a href="http://neilcrosby.com/">Neil Crosby</a> got me thinking yesterday about which language to learn/play with next by <a href="http://twitter.com/NeilCrosby/statuses/2090500164">tweeting</a></p>
+
+<blockquote>
+<p>so, lovely people of the interwebs. What webly language should I be spending my time learning then? Right now, I&rsquo;m all about the PHP.</p>
+</blockquote>
+
+<p>Neil appears to have gone for Python, but more specifically I&rsquo;m interested in how you decide what to learn next? And improving the likelihood of you seeing it through and being able to add it to you toolbox. Personally I&rsquo;ve messed around with a wide range of languages but I would say I&rsquo;m proficient in only a few of those.</p>
+
+<p>So here goes with a list of questions to ask yourself.</p>
+
+<ul>
+<li>Do you have a small pet project you can use the new language on straight away?</li>
+<li>Is the language increasing or decreasing in popularity?</li>
+<li>Does the language overlap with what you already know in terms of applicability?</li>
+<li>Is it a different style of programming to what you&rsquo;re used to? Say a pure functional language if all you normally do is object orientated.</li>
+<li>Is the language in demand in the jobs market? If not why not?</li>
+<li>Could you use the language in your current job if you were allowed to?</li>
+<li>What are the learning materials like? Are there books or websites that teach the language without passing on bad practices.</li>
+<li>What is the community around a language like? Do they have an IRC room where beginners can ask questions without being mocked?</li>
+<li>Does the language have an interactive mode? Sorry but I find anything without to be a chore to learn.</li>
+<li>What is it going to cost you in terms of time? Remember some languages are bigger that others.</li>
+<li>What is it going to cost you in terms of money? Do you need specialist software, or hardware, or licenses?</li>
+<li>Do you have friends or acquaintances who use the language and who will help you out with pointing you in the right direction of resources or helping review your code?</li>
+<li>Do you have somewhere you can go to meet other people who write the language. That might be a formal user group or it might just be a more general pub meetup that you know a few people attend.</li>
+<li>How is the language represented on GitHub? Seeing what other people build and being able to read working code is hugely useful when learning anything.</li>
+</ul>
+
+<p>I don&rsquo;t think all of these apply to everyone or apply all the time, but it&rsquo;s worth considering and rejecting them when they don&rsquo;t.</p>
+
+<p>Feel free to disagree in the comments or, even better, add extra ones. Or alternatively just cut to the chase and tell me what I should learn next.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/06/08/garethrushgrovecom-update/">garethrushgrove.com update</a>
+      </h1>
+      <span class="post-date">Jun 8, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve updated my vanity domain at <a href="http://garethrushgrove.com">garethrushgrove.com</a> with a bit of information in case anyone might be interested in my services.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRjDPgw" alt="my personal site"/></p>
+
+<p>The short version is I&rsquo;m on the lookout for future projects, probably of a freelance or contract basis but if it&rsquo;s particularly interesting then maybe a full time position. Basically I&rsquo;m in quite a nice position and able to wander about a bit looking for something cool to do.</p>
+
+<p>If you reading this site then you know what floats my boat. Python, testing, automation, system design, maybe get into Ruby or another language properly, etc. I&rsquo;d particularly like to help people get started with testing, continuous integration or automated deployment and the like.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/06/05/cambridge-geek-night/">Cambridge Geek Night</a>
+      </h1>
+      <span class="post-date">Jun 5, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>It&rsquo;s the first <a href="http://cambridgegeeknights.net/">Cambridge Geek Night</a> next week, on Wednesday the 10th to be precise. You can find more information on <a href="http://upcoming.yahoo.com/event/2735951/">Upcoming</a> or on the <a href="http://cambridgegeeknights.wordpress.com/">Cambridge Geek Night blog</a>. The event also has a <a href="http://twitter.com/camgeeknights">twitter feed</a> to keep up with goings on. If you&rsquo;re in Cambridge you don&rsquo;t want to miss the perfect combination of geeks and beer.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/06/04/testing-wsgi-application-urltest/">Testing WSGI Application with Urltest</a>
+      </h1>
+      <span class="post-date">Jun 4, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I found myself wanted something to make writing high level, functional tests for WSGI application easier and quicker. If I liked the term I&rsquo;d call it a domain specific language for testing URLs. Basically I found myself writing a lot of tests like:</p>
+
+<p>pre. def test_404_handler(self):
+response = self.app.get(&lsquo;/does-not-exist&rsquo;, expect_errors=True)
+self.assertEquals(&ldquo;404 Not Found&rdquo;, response.status)</p>
+
+<p>Testing more than a view URLs like this got boring quickly. What I wanted was a short hand syntax for defining this sort of simple test and then running them all individually. So was born <a href="http://github.com/garethr/urltest/tree/master">Urltest</a>. It uses the rather nifty <a href="http://pypi.python.org/pypi/WebTest/0.9">Webtest</a> module and hooks into unittest from the standard library. You&rsquo;re test script then looks a little like:</p>
+
+<p>pre. #!/usr/bin/env python
+from example_app import application
+from urltest import verify_urls
+if <em>name</em> == &ldquo;<em>main</em>&ldquo;:
+urls = (
+{&lsquo;url&rsquo;:&ldquo;/&rdquo;, &lsquo;code&rsquo;:200},
+{&lsquo;url&rsquo;:&ldquo;/bob&rdquo;, &lsquo;code&rsquo;:200},
+{&lsquo;url&rsquo;:&ldquo;/jim&rdquo;, &lsquo;code&rsquo;:404},
+{&lsquo;url&rsquo;:&ldquo;/jim&rdquo;, &lsquo;method&rsquo;: &ldquo;POST&rdquo;, &lsquo;code&rsquo;:405},
+)
+verify_urls(urls, application)</p>
+
+<p>Let me know if you use it as at the moment this is <em>works for me</em> ware, although it&rsquo;s reasonably well tested and commented.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/05/28/another-glue-python-framework-mnml/">Another Glue Python Framework - MNML</a>
+      </h1>
+      <span class="post-date">May 28, 2009 &middot; 3 minute read
+      </span>
+      
+      <p>Although still a big fan of Django, but for some problems I&rsquo;m finding more and more cases where I prefer less code and more freedom. My biggest issue for some types of problems being Django&rsquo;s assumption that you&rsquo;ll be using a relational database, or a database at all. Django wasn&rsquo;t the reason I started using webapp for App Engine stuff, but in doing so I found that webapp often did all that I needed.</p>
+
+<p>So when I small, non appengine project cropped up I started looking at the <a href="http://wiki.python.org/moin/WebFrameworks">different options available</a> and played with a few of them.</p>
+
+<ul>
+<li>I played with Pylons but again got lost in code. I&rsquo;ll probably play with Pylons more in the future and for bigger, team based, projects it looks a good mix of component parts and shared conventions.</li>
+<li>Web.py - I&rsquo;d used web.py before I started with Django (I even wrote a very <a href="http://morethanseven.net/2007/01/03/webphp/">basic PHP clone</a>) and although I still like somethings about it, it felt like more code than was required for what I wanted.</li>
+<li><a href="http://github.com/breily/juno/tree/master">Juno</a> is similar in design to Sinatra but again it wasn&rsquo;t really what I was after this time. I prefer separating my routing from my code and I&rsquo;m not sure I like that it comes with it&rsquo;s own templating engine.</li>
+<li><a href="http://github.com/JaredKuolt/newf/tree/master">Newf</a> was more like it. Basically a hugely stripped down WSGI framework which provides the very basic building blocks. Something to build on perhaps?</li>
+<li><a href="http://github.com/bradleywright/mnml/tree/master">MNML</a> (by an ex-colleague <a href="http://intranation.com/">Brad Wright</a>) is build atop Newf adding a few more features and cleaning up some of the interfaces. My only problems here were that I prefer regex based routes and wanted individual methods for each HTTP verb. The former was a specific design decision Brad had made in order to be able to reverse routes, the later was on the todo list.</li>
+</ul>
+
+<p>So, I set <a href="http://github.com/garethr/mnml/tree/master">about forking MNML to create my own branch</a>. I added extra comments as I was making my way through the code, wrote a few tests to checks thinks worked and allowed for pluggable routing mechanisms. MNML applications look a bit like the following:</p>
+
+<p>pre. from mnml import RegexBasedApplication, RequestHandler, HttpResponse, development_server
+class HelloWorld(RequestHandler):
+def GET (self):
+return HttpResponse(&rdquo;</p>
+
+<p><h1>
+Hello World</p>
+
+<p></h1>
+&ldquo;)
+routes = (
+(r&rsquo;^/$&lsquo;, HelloWorld),
+)
+application = RegexBasedApplication(routes)
+if <em>name</em> == &lsquo;<em>main</em>&lsquo;:
+development_server(application)</p>
+
+<p>If you want to use the token based routing you would substitute in something like the following:</p>
+
+<p>pre. routes = (
+(&lsquo;/&rsquo;, Foo),
+(&lsquo;/myview/:stuff/&lsquo;, Bar)
+)
+application = TokenBasedApplication(routes)</p>
+
+<p>The best bit is that it&rsquo;s only about 350 lines of code, a great deal of which is accounted for by comments. It&rsquo;s also really quite fast - especially using something like spawning to run the WSGI application. The other thing I like is the ease with which you can add WSGI middleware into the mix.</p>
+
+<p>So, if you have a small scale problem where simple and fast beats everything else then have a look and let me know what you think. It will take less time to read the code and tests than it will be read the introductory chapter on whichever larger framework you choose to look at.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/05/25/beyond-basic-web-development/">Beyond Basic Web Development</a>
+      </h1>
+      <span class="post-date">May 25, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I did a talk at the recent barcamp North East on web development tools. Specifically I wanted to talk about the fact that an awful lot of people just use the basic stack of tools they are familiar with. So Microsoft people will just use C#, MSSQL and ISS and lots of people just use PHP, MySQL and Apache. I&rsquo;m not saying their is anything wrong with those tools, but if they are all you have in your tool box you&rsquo;re limited how well designed your software can be.</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=beyondbasicwebdev-090525052654-phpapp02&stripped_title=beyond-basic-web-development" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=beyondbasicwebdev-090525052654-phpapp02&stripped_title=beyond-basic-web-development" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I&rsquo;d knocked the presentation together in my hotel room pretty quickly before heading down to barcamp and the lack of an internet connection meant I didn&rsquo;t have links and didn&rsquo;t cover a few tools I should have. It did seem to have the desired result in any case as several people spoke to me afterwards about wanting to use one of the tools I mentioned for something specific.</p>
+
+<ul>
+<li><a href="http://www.danga.com/memcached/">Memcached</a></li>
+<li>Non relational databases (<a href="http://hadoop.apache.org/hbase/">Hbase</a>, <a href="http://couchdb.apache.org/">Couchdb</a>)</li>
+<li><a href="http://tokyocabinet.sourceforge.net/tyrantdoc/">Tokyo Tyrant</a></li>
+<li><a href="http://httpd.apache.org/docs/2.0/programs/ab.html">Apache Bench</a></li>
+<li><a href="http://integrityapp.com/">Continuous Integration</a></li>
+<li><a href="http://djangoproject.com/">Django</a> (specifically for nearly free admin interfaces)</li>
+<li>Small web servers - <a href="http://nginx.net/">Nginx</a>, <a href="http://code.macournoyer.com/thin/">Thin</a> and <a href="http://pypi.python.org/pypi/Spawning/0.7">Spawning</a></li>
+<li>Message queues - <a href="http://www.rabbitmq.com/">RabbitMQ</a> and <a href="http://stompserver.rubyforge.org/">Stompserver</a></li>
+<li>HTTP tools - <a href="http://www.apsis.ch/pound/">Pound</a>, <a href="http://varnish.projects.linpro.no/">Varnish</a> and <a href="http://www.squid-cache.org/">Squid</a></li>
+<li><a href="http://hadoop.apache.org/core/">Hadoop</a></li>
+</ul>
+
+<p>We also had a good discussion afterwards and people mentioned a few other tools.</p>
+
+<ul>
+<li><a href="http://reductivelabs.com/products/puppet/">Puppet</a></li>
+<li><a href="http://www.nagios.org/">Nagios</a></li>
+<li><a href="http://ganglia.info/">Ganglia</a></li>
+<li><a href="http://www.mortbay.org/jetty/">Jetty</a></li>
+<li><a href="http://lucene.apache.org/solr/">Solr</a></li>
+</ul>
+
+<p>Now it&rsquo;s possible to spend too much time playing with small tools that are likely to be peripheral to the bulk of your application. But the number of stories I&rsquo;ve head of people writing their own messages queuing systems in PHP, or using PHPMyAdmin as an application admin interface or ignoring the fact that their fancy new application only supports a few people at once.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/05/21/universal-ie6-css-and-different-types-of-sites/">Universal Internet Explorer 6 CSS and different types of sites</a>
+      </h1>
+      <span class="post-date">May 21, 2009 &middot; 4 minute read
+      </span>
+      
+      <p>Andy Clarke, as only he can, has started something of a slagging match with his proposals for a <a href="http://forabeautifulweb.com/blog/about/universal_internet_explorer_6_css/">single, central IE6 stylesheet</a>. My first impression was that this is basically a much better version of the browser defaults.</p>
+
+<p>Between backslapping and shouts of heresy there are a few good comments floating on the post so far (I&rsquo;d expect more). But most of them seem to assume only two types of website exist:</p>
+
+<ol>
+<li>Websites for <em>clients</em>. You know, business to business or business to consumer sorts of things. Online stores, radio station websites, newspapers, company brochures, etc.</li>
+<li>Personal blogs</li>
+</ol>
+
+<p>Obviously that covers only a fraction of web pages, but it covers a much larger proportion of web sites. What do I mean by that?</p>
+
+<ol>
+<li>Admin interfaces. Available all over the place and often used by a very small number of people.</li>
+<li>Intranets. If your company default browser isn&rsquo;t IE6 then don&rsquo;t spend more time that you have to supporting it.</li>
+<li>Internal application interfaces. Everything from holiday to payroll to IT helpdesk requests are often built as well apps. Again if the audience using them isn&rsquo;t using IE6 then don&rsquo;t waste you&rsquo;re time.</li>
+</ol>
+
+<p>Most people (ok so this might be my opinion) seem to work within small to medium sized agency style places. Smallish companies need to rely more on employees as part of their marketing effort, younger people tend to be more militant and people working for smaller organisations (like Andy) tend to benefit more from a little celebrity. But that ignores an army of people who work in house or in other types of company that just happen to build top notch web sites or applications. I&rsquo;ve now worked in everything from small agencies, via medium sized agencies to freelance and inhouse. They are all different and all place different types of time pressure on the people involved.</p>
+
+<p>Another argument to be had here is summed up by Sion (<a href="http://twitter.com/sionnnn/status/1872141409">http://twitter.com/sionnnn/status/1872141409</a>)</p>
+
+<blockquote>
+<p>if u write code with all browsers in mind from the offset it doesn&rsquo;t take any longer though? hows that commercially unsound?</p>
+</blockquote>
+
+<p>And this is pretty much how I used to work. But this means ignoring whole swathes of the unsupported parts of CSS2 and in particular CSS3. CSS3 doesn&rsquo;t really allow you to make designs that you couldn&rsquo;t make before (ok, that&rsquo;s a little unfair, maybe) but it does allow you to do what you did before <em>much more efficiently</em>. Multi-column layout stuff, multiple background, rounded corners, opacity, RGBa. Smaller stylesheets are easier and quicker to write, test and maintain. And sometimes the time saved is worth more than the additional overhead of writing and maintaining CSS for IE6. Maybe not for a decent sized consumer project with a reasonable team and a few hundred thousand budget. Maybe not for a local council or government site. But for a surprisingly large range of other types of projects this might be a worthwhile approach.</p>
+
+<p>Something else I think that comes through in many of the comments is that it&rsquo;s often seen as the web designers job to fight for things. So we fight to ensure time is spend on making something accessible. We fight to make sure we use valid code wherever possible. We fight for sensible fallbacks when javascript isn&rsquo;t available. But we also get accused of not being able to see both sides and at times being unrealistic. Worth considering with regards peoples initial reactions to this, mine included.</p>
+
+<p>The only thing I would say to anyone looking to use this is don&rsquo;t create your own version. Use the <a href="http://code.google.com/p/universal-ie6-css/">one from google code</a>. As Andy suggests, do suggest improvements, ideally by making the changes yourself presumably along with a solid test case. The time saving benefits basically disappear if we all have to maintain our own versions, before that means we have to test our own versions.</p>
+
+<p>I&rsquo;m not saying <em>ignore IE6</em>, and neither is Andy (I don&rsquo;t think). I&rsquo;m saying pick your battles. I&rsquo;ve build websites to support everything under the sun. Sometimes it&rsquo;s been absolutely the right thing to do, sometimes in hindsight it&rsquo;s probably been a little bit of wasted time. I&rsquo;m sure you can think of similar times from the sites you&rsquo;ve been involved in.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2009/05/14/back-toon-thinking-digital/">Back in Toon - Thinking Digital </a>
+      </h1>
+      <span class="post-date">May 14, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>After what seems like longer than a year I&rsquo;ve finally managed to make it back up to Newcastle. It&rsquo;s the <a href="http://www/thinkingdigital.com">Thinking Digital</a> conference again this year and so far it&rsquo;s been a hoot. A mix of practical, inspirational and just odd speakers (and acts) suits me pretty well. Lots of <a href="http://search.twitter.com/search?q=%23tdc">twitter activity</a> too.</p>
+
+<p>The highlights for me so far I think has been Dan Lyons talking about the future of media and print businesses. Basically a somewhat rambling attempt to describe where newspapers and print publications find themselves in this day and age (in trouble) and where they might head for salvation (either dumbing down or becoming more exclusive/expensive). Throw in interesting stories and anecdotes, the odd joke and some personal thoughts on the future for journalists and everyone&rsquo;s happy.</p>
+
+<p>An honorable mention goes to Johnny Lee Chung as well for showing off drag and drop between a laptop and a table. Oh, and everything else has been pretty interesting as well and it&rsquo;s not even the end of day one yet.</p>
+
+<p>I&rsquo;m around until next week too, which means I should be able to get along to barcamp - assuming my mind hasn&rsquo;t melted with all the stuff to take in.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/13/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        class="active"><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/15/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

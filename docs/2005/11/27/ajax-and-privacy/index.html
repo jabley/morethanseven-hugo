@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>AJAX and Privacy &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">AJAX and Privacy</h1>
+    <span class="post-date">Nov 27, 2005 &middot; 3 minute read
+    </span>
+    <p>
+Ok, so everyone by now has no doubt had a play with <acronym>XML"&gt;AJAX</acronym> in some shape or form, and their are lots of good <a href="http://rajshekhar.net/blog/archives/85-Rasmus-30-second-AJAX-Tutorial.html">tutorials</a> and <a href="http://dhtmlnirvana.com/ajax/ajax_tutorial/">articles</a> around. I’m not going to add to the pile, but on my travels I did do something that raised a couple of questions. Let me know if anyone has any answers.
+
+</p>
+<p>
+The questions are more ethical than technological however and came about when considering online advertising and it’s never ending need for metrics – at the moment that generally means impressions and click throughs (maybe also including converting click throughs). These two states are imposed to some extent by the stateless nature of most web pages. We can tell what gets shown to the visitor. But they then disappear from our radar until they do something – in this case click on an advert (or dont).
+
+</p>
+<p>
+But what about the asynchronous nature of our new toy AJAX? We are starting to break out from the constrains of the stateless web so can anything be added to our add example? Why yes of course it can.
+
+</p>
+<p>
+I’ve set up a quick working example that should hopefully make my point a little clearer. Open in a new tab (I know 80% of you can – <a href="http://haveamint.com">mint</a> is great) if you will – <a href="http://morethanseven.net/monitor">morethanseven.net/monitor</a>
+
+</p>
+<p>
+Mouse over the two <em>Ad</em> areas a few times. Click on them a few times too. Obviously the appearing message telling you what you have done is hardly exciting but it’s actually a response from an AJAX (actually it’s not returning XML so is that AJ?) call. All the call does is log the action inn a text file and return a success or failure. This isn’t high tech stuff – it’s proof of concept remember, it gets interesting a couple of jumps forwards.
+
+</p>
+<p>
+The two buttons at the bottom, clear log and view log, allow you to see the log of actions (and delete them). I dont imagine this attracting high but the log file will log everyone’s actions not just yours, so you might want to clear the log first to more easily see your actions appear.
+
+</p>
+<p>
+OK, so what? Well lets imagine instead of just the actions I log your IP address, some date details, maybe store a cookie on your computer while I’m at it. Also as well as hooking up two add areas as in the example I hook up <em>everything</em> on the page. Not only can I build up a picture of your activities between pages (your path through the site), I can build up a picture of what your mouse was doing on a given page. Now where stalking.
+
+</p>
+<p>
+OK, so I’m not sure if their is a correlation between a web users mouse pointer and what they intend but think of other examples – I could trigger the events on focus for form elements. You might get half way through registering or purchasing (you’ve entered your name and an email address) and then decide against it. Normally all I’d be able to get would be someone went to the page in question and did not complete the required actions – with AJAX I could log who you where and were you got to in the process (and then email you to ask why).
+
+</p>
+<p>
+Ethics anyone? Anyone else see problems? Let me know.
+
+</p>
+<p>
+<em>Note. The javascript examples are not great and I’ve testing in recent versions of IE and Firefox only. It’s a proof of concept rather than tutorial.</em>
+
+</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

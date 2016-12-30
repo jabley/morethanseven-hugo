@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2012/06/05/Static-sites-with-nginx-on-heroku/">Static Sites With Nginx On Heroku</a>
+      </h1>
+      <span class="post-date">Jun 5, 2012 &middot; 2 minute read
+      </span>
+      
+      <p>I have a few static sites on Heroku but in one case in particular I already had quite an involved nginx configuration - mainly 410s for some previous content and a series of redirects from older versions of the site. The common way of having static sites on Heroku appears to be to use a simple Rack middleware, but that would have meant reimplementing lots of boring redirect logic.</p>
+
+<p>Heroku <a href="https://devcenter.heroku.com/articles/buildpacks">buildpacks</a> are great. The newer cedar stack is no longer tied to a particular language or framework, instead all of the discovery and knowledge about particular software is put into a buildpack. As well as the Heroku provided list it&rsquo;s possible to write you&rsquo;re own. Or in this case use one someone has <a href="https://github.com/essh/heroku-buildpack-nginx">created earlier</a>.</p>
+
+<p>I&rsquo;ve just moved <a href="http://www.vagrantbox.es/">Vagrantbox.es</a> over to Heroku due to the closure of a previous service. In doing that, instead of the simple database backed app, I&rsquo;ve simply thrown all the content onto <a href="https://github.com/garethr/vagrantboxes-heroku">GitHub</a>. This means anyone can fork the content and send pull requests. Hopefully this should mean I pay a bit more attention to suggestions and new boxes.</p>
+
+<p>The repository is a nice simple example of using the mentioned Heroku Nginx buildpack too. You just run the following command to create a new Heroku application.</p>
+
+<pre><code>heroku create --stack cedar --buildpack http://github.com/essh/heroku-buildpack-nginx.git
+</code></pre>
+
+<p>And then in typical Heroku fashion use a git remote to deploy changes and updates. The repository is split into a <em>www</em> folder with the site content and a <em>conf</em> folder with the nginx configuration. The only clever parts involve the use of an ERB template for the nginx configuration file so we can pickup the correct port. We also use 1 worker process and don&rsquo;t automatically daemonize the process - Heroku deals with this itself.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2012/04/06/Self-contained-jruby-web-applications/">Self Contained Jruby Web Applications</a>
+      </h1>
+      <span class="post-date">Apr 6, 2012 &middot; 4 minute read
+      </span>
+      
+      <p>Several things seemed to come together at once to make me want to hack on this particular project. In no particular order:</p>
+
+<p>The <a href="http://www.thoughtworks.com/articles/technology-radar-march-2012">Thoughtworks Technology Radar</a> said the following:</p>
+
+<blockquote>
+<p>Embedding a servlet container, such as Jetty, inside a Java application has many advantages over running the application inside a container. Testing is relatively painless because of the simple startup, and the development environment is closer to production. Nasty surprises like mismatched versions of libraries or drivers are eliminated by not sharing across multiple applications. While you will have to manage and monitor multiple Java Virtual Machines in production using this model, we feel the advantages offered by the simplicity and isolation are significant.</p>
+</blockquote>
+
+<p>I&rsquo;ve been getting more interested in JRuby anyway, partly because we&rsquo;re finding ourselves using both Ruby and Scala at work, and maintaining a single target platform makes sense to me. Throw in the potential for interop between those languages and it&rsquo;s certainly worth investigating.</p>
+
+<p><a href="http://www.playframework.org/">Play 2.0</a> shipped and currently only provides the ability to create a self contained executable with bundled web server. Creating WAR files for more traditional application servers is on the roadmap but interestingly wasn&rsquo;t deemed essential for the big 2.0 release. I had a nice chat with <a href="https://twitter.com/minglis">Martyn Inglis</a> at work about some of the nice side effects of this setup.</p>
+
+<p>And throw in every time I have to configure straight Ruby applications for production environments I get cross. I know where all the bits and pieces are buried and can do it well, but with so many moving parts it&rsquo;s absolutely no fun whatsoever.</p>
+
+<p>Warbler, the JRuby tool for creating WAR files from Ruby source, has just added the ability to <a href="https://github.com/jruby/warbler/commit/0558a285eb59a0801cf7c0f274777b06b63883b3">embed Jetty to the master branch</a>.</p>
+
+<p>I decided to take all of this for a quick spin, and the <a href="https://github.com/garethr/jruby-embedded-jetty">resulting code is up on GitHub</a>.</p>
+
+<p>This is the simplest Rack application possible, it just prints <em>Hello Jetty</em>. And the README covers how to install and run it so I won&rsquo;t duplcate that information here.</p>
+
+<p>But I will print some nearly meaningless and unscientific benchmarks because, hey, who doesn&rsquo;t like those?</p>
+
+<pre><code>⚡ ab -c 50 -n 5000 http://localhost:8090/
+
+Server Software:        Jetty(8.y.z-SNAPSHOT)
+Server Hostname:        localhost
+Server Port:            8090
+
+Document Path:          /
+Document Length:        16 bytes
+
+Concurrency Level:      50
+Time taken for tests:   1.827 seconds
+Complete requests:      5000
+Failed requests:        0
+Write errors:           0
+Total transferred:      555999 bytes
+HTML transferred:       80144 bytes
+Requests per second:    2736.47 [#/sec] (mean)
+Time per request:       18.272 [ms] (mean)
+Time per request:       0.365 [ms] (mean, across all concurrent requests)
+Transfer rate:          297.16 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    2   2.2      1      18
+Processing:     1   16   7.7     15      61
+Waiting:        0   14   7.2     13      57
+Total:          2   18   7.5     17      61
+
+Percentage of the requests served within a certain time (ms)
+  50%     17
+  66%     19
+  75%     21
+  80%     22
+  90%     27
+  95%     30
+  98%     42
+  99%     52
+ 100%     61 (longest request)
+</code></pre>
+
+<p>Running the same test on the same machine but using Ruby 1.9.2-p290 and Thin gives.</p>
+
+<pre><code>Server Software:        thin
+Server Hostname:        localhost
+Server Port:            9292
+
+Document Path:          /
+Document Length:        16 bytes
+
+Concurrency Level:      50
+Time taken for tests:   3.125 seconds
+Complete requests:      5000
+Failed requests:        0
+Write errors:           0
+Total transferred:      620620 bytes
+HTML transferred:       80080 bytes
+Requests per second:    1600.16 [#/sec] (mean)
+Time per request:       31.247 [ms] (mean)
+Time per request:       0.625 [ms] (mean, across all concurrent requests)
+Transfer rate:          193.96 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.3      0       9
+Processing:     3   31   6.4     33      52
+Waiting:        3   25   6.4     28      47
+Total:          4   31   6.4     33      52
+
+Percentage of the requests served within a certain time (ms)
+  50%     33
+  66%     34
+  75%     34
+  80%     35
+  90%     38
+  95%     41
+  98%     46
+  99%     50
+ 100%     52 (longest request)
+</code></pre>
+
+<p>2736 requests per second on JRuby/Jetty vs 1600 on Ruby/Thin. As noted this isn&rsquo;t meaningfully useful, in that it&rsquo;s a hello world example and I&rsquo;ve not tried to pick the fastest stacks on either side. I&rsquo;m more bothered about it not being slower, because the main reason to pursue this approach is simplicity. Having a single self contained artefact that contains all it&rsquo;s dependencies including a production web server is very appealing.</p>
+
+<p>I&rsquo;m hoping to give this a go with some less trivial applications, and probably more importantly look to compare a production stack based around these self-contained executables vs the dependency chain that is modern Ruby application stacks.</p>
+
+<p>Thanks to <a href="http://blog.nicksieger.com/">Nick Sieger</a> for both writing Warbler and for helping with a few questions on the JRuby mailing list and on Twitter. Thanks also to <a href="https://twitter.com/jabley">James Abley</a> for a few pointers on Java system properties.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2012/03/31/Recent-projects-and-talks/">Recent Projects And Talks</a>
+      </h1>
+      <span class="post-date">Mar 31, 2012 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve been pretty busy with all things <a href="https://www.gov.uk">GOV.UK</a> recently but I&rsquo;ve managed to get a few bits of unrelated code up and a few talks in. I&rsquo;m <em>still</em> pretty busy so here&rsquo;s a list of some of them rather than a proper blog post.</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/garethr/mining-puppet">Puppet Data Mining</a> talk from last weeks PuppetCamp in Edinburgh.</li>
+<li><a href="http://www.slideshare.net/garethr/web-operations">Introducting Web Operations</a> talk I gave at work to give my mainly non-development colleagues an idea about what it&rsquo;s all about.</li>
+<li><a href="http://www.slideshare.net/garethr/learnings-from-govuk">Learning from building GOV.UK</a> talk I gave a month back or so to Cambridge Geek Night. We did an excellent full project retrospective after the beta launch and this lists some of the things we learnt.</li>
+</ul>
+
+<p>After someone bugged me on Twitter I realised the small bit of code we&rsquo;ve been using for our Nagios dashboard wasn&rsquo;t out in the wild. So introducing <a href="https://github.com/garethr/nash">Nash</a>, a very simple high level check dashboard which screenscrapes nagiosand runs happily on Heroku.</p>
+
+<p>Although I&rsquo;ve not been writing too much on here I&rsquo;ve been keeping <a href="http://devopsweekly.com/">Devops Weekly</a> going each week for over a year now. I&rsquo;ve just crossed 3000 subscribers which is pretty neat for a pet project.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2012/02/19/Dashboards-at-govuk/">Dashboards At Gov.Uk</a>
+      </h1>
+      <span class="post-date">Feb 19, 2012 &middot; 1 minute read
+      </span>
+      
+      <p>This is a bit of a cheat blog post really. I&rsquo;ve been crazy busy all month with little time for anything except work (specifically shipping the first release of <a href="https://www.gov.uk/">www.gov.uk</a>). I have had a little time to blog over on the Cabinet Office blog though, about work we&rsquo;ve done with dashboards.</p>
+
+<p><a href="http://digital.cabinetoffice.gov.uk/2012/02/08/radiating-information/">http://digital.cabinetoffice.gov.uk/2012/02/08/radiating-information/</a></p>
+
+<p>If you&rsquo;re ever looking for good little hack projects dashboards are perfect, and often hugely useful once up and running. Convincing people of this before you have a few in the office might be hard - so just build something simple in a lunch break and find a screen to put it on. We&rsquo;ve had great feedback from ours, both from people wandering through the office and from our colleagues who have a better idea of what&rsquo;s going on.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2012/02/06/whats-jekyll/">What&#39;s Jekyll?</a>
+      </h1>
+      <span class="post-date">Feb 6, 2012 &middot; 1 minute read
+      </span>
+      
+      <p><a href="http://jekyllrb.com">Jekyll</a> is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From <a href="https://github.com/mojombo/jekyll/blob/master/README.markdown">the project&rsquo;s readme</a>:</p>
+
+<blockquote>
+<p>Jekyll is a simple, blog aware, static site generator. It takes a template directory [&hellip;] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.</p>
+</blockquote>
+
+<p>It&rsquo;s an immensely useful tool and one we encourage you to use here with Hyde.</p>
+
+<p>Find out more by <a href="https://github.com/mojombo/jekyll">visiting the project on GitHub</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2012/01/06/Talking-to-jenkins-from-campfire-with-hubot/">Talking To Jenkins From Campfire With Hubot</a>
+      </h1>
+      <span class="post-date">Jan 6, 2012 &middot; 2 minute read
+      </span>
+      
+      <p>In what turned out to be a productive holiday hacking with languages I&rsquo;d not used before, I got round to writing some coffeescript on node.js. This was more to do with scratching a personal itch that pure experimentation. I had a play with <a href="https://github.com/github/janky">Janky</a> (Github&rsquo;s Jenkins/Hubot mashup) but found it a little opinionated on the Jenkins side, but the campfire integration is excellent. Looking at the Jenkins commands in <a href="https://github.com/github/hubot-scripts/">hubot-scripts</a> though I found those even more opinionated.</p>
+
+<p>The magic of open source though is you can just fix things, then ask nice people if they like what you&rsquo;ve done. I set about writing a few more general commands and lo, the&rsquo;ve been quickly <a href="https://github.com/github/hubot-scripts/pull/23840h">merged upstream</a>.</p>
+
+<p>These add:</p>
+
+<ul>
+<li>A command to list all your Jenkins jobs and the current state</li>
+<li>A command to trigger a normal build</li>
+<li>A command to trigger a build with a list of parameters</li>
+</ul>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRipwAIM" alt="campfire window showing jenkins tasks"/></p>
+
+<p>This was made much easier by first looking at the previous Jenkins commands, and then looking at other scripts in the hubot-scripts repository. The best way of learning a new language/framework is still on the shoulders of others.</p>
+
+<p>I&rsquo;ve got a few other good ideas for Jenkins related commands. I want to add a filter command to the jobs list, both by name and by current state. For longer running jobs I also want to report whether a build is currently running. And then maybe get information about a specific job, like the last few runs or similar. Any other requests or ideas most welcome.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/12/31/Ec2-tasks-for-fabric/">EC2 Tasks For Fabric</a>
+      </h1>
+      <span class="post-date">Dec 31, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>For running ad-hoc commands across a small number of servers you really can&rsquo;t beat <a href="http://fabfile.org">Fabric</a>. It requires nothing other than ssh installed on the servers, is generally just a one-line install and requires next to no syntaxtic fluff between you and the commands you want running. It&rsquo;s much more of a swiss army knife to Capistranos bread knife.</p>
+
+<p>I&rsquo;ve found myself doing more and more EC2 work of late and have finally gotten around to making my life easier when using Fabric with Amazon instances. The result of a bit of hacking is <a href="https://github.com/garethr/cloth">Cloth</a> (also <a href="http://pypi.python.org/pypi/cloth">available on PyPi</a>). It contains some utility functions and a few handy tasks for loading host details from the EC2 API and using them in your Fabric tasks. No more static lists of host names that constantly need updating in your fabfile.</p>
+
+<p>Specifically, with a fabfile that looks like:</p>
+
+<pre><code>#! /usr/bin/env python
+from cloth.tasks import *
+</code></pre>
+
+<p>You can run:</p>
+
+<pre><code>fab all list
+</code></pre>
+
+<p>And get something like:</p>
+
+<pre><code>instance-name-1 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-2 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-3 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-4 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-5 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-6 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-7 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-8 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+...
+</code></pre>
+
+<p>And then you could run:</p>
+
+<pre><code>fab -P all uptime
+</code></pre>
+
+<p>And you&rsquo;d happily get the load averages and uptime for all your EC2 instances.</p>
+
+<p>A few more tricks are documented in the <a href="https://github.com/garethr/cloth">GitHub README</a>, including filtering the list by a regex and some convention based mapping to Fabric roles. I&rsquo;ll hopefully add a few more features as I need them and generally tidy up a few things but I&rsquo;m pretty happy with it so far.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/12/26/First-experience-building-something-with-clojure/">First Experience Building Something With Clojure</a>
+      </h1>
+      <span class="post-date">Dec 26, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>I nearly always try and grab some time over Christmas to try something new and this year I&rsquo;d been planning on spending some time with Clojure. I have several friends who are big fans, but dipping in and out of a book hadn&rsquo;t really worked. What I needed was an itch to scratch.</p>
+
+<p>I stuck with a domain I&rsquo;m pretty familiar with for this first project, namely building a little web application. It renders a web page, makes HTTP requests, parses JSON into native data structures and does a bit of data juggling. Nothing fancy or overly ambitious, I was mainly interested in picking up the syntax, understanding common libraries and getting something built. Here&rsquo;s what I&rsquo;ve got:</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjBuAIM" alt="Dasboard for Jenkins builds"/></p>
+
+<p>Jenkins has various API endpoints, but most dashboards I&rsquo;ve seen concentrate on showing you the current status of all the builds. This is hugely useful when it comes to the simple case of continuous integration, but I&rsquo;ve also been using Jenkins for other automation tasks, and making extensive use of parameterized builds. What the dashboard above concentrates on is showing recent builds for a specific job, along with the parameters used to run them.</p>
+
+<p>Overall it was a fun project. Clojure made much more sense to me building this application than it had from simple examples. The <a href="http://webnoir.org/">Noir</a> web framework is excellent and proved easy enough to jump into and simple enough that I could read the source code if I was interested in how something worked. The <a href="https://github.com/technomancy/leiningen">Leiningen</a> build tool made getting started, downloading and managing dependencies and running tests and the application itself easy.</p>
+
+<p>What I didn&rsquo;t find particularly appealing was the lack of a strong standard library coupled with the difficulty of tracking down suitable libraries. JSON parsing, dealing with HTTP requests and date handing are very common activities in web programming and all needed me to jump around looking at the best way of dealing with the common case. I settled on <a href="https://github.com/dakrone/clj-http">clj-http</a>, <a href="https://github.com/dakrone/cheshire">chesire</a> and using Java interop for date formatting. clj-http suffered from having lots of forks on GitHub to navigate through. I started with clojure-json before discovering it had been deprecated. And neither clj-time or date-clj appeared to support unix timestamps as far as I could tell from the source. Throw in some uncertainty over the status of clojure-contrib that isn&rsquo;t well documented on the official site and it needs some effort to get started.</p>
+
+<p>The working code for this is already up on <a href="https://github.com/garethr/jenkins-build-list">GitHub</a> and I&rsquo;d be interested in any Clojure experts showing me the error of my ways.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/12/13/Setting-puppet-class-using-environment-variables/">Setting Puppet Class Using Environment Variables</a>
+      </h1>
+      <span class="post-date">Dec 13, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m not sure how novel this approach is but a few folks at work hadn&rsquo;t seen it before so I thought it worth jotting down.</p>
+
+<p>If you have even a small but dynamic set of servers then a problem arises with how those nodes are defined in puppet. A node remember is defined in puppet like so:</p>
+
+<pre><code>node web3.example.com {
+  include web_server
+}
+</code></pre>
+
+<p>The problem is twofold. If you have a growing infrastructure, that list of nodes is going to get quickly out of hand. The other problem is around provisioning new hosts, the obvious approach to which is something like:</p>
+
+<ol>
+<li>Summon new EC2 instance</li>
+<li>Change the node definition to include the new hostname</li>
+<li>Install puppet on instance and so the ssl certificate signing dance</li>
+<li>Run puppet</li>
+</ol>
+
+<p>Step 2 stands out. The others are easily automated, but do you want to automate a change to your puppet manifests and a redeploy to the puppetmaster for a new instance? Probably not.
+Puppet has the concept of an external node classifier which can be used to solve this problem, but another simpler approach is to use an environment variable on the new machine.</p>
+
+<p>Lets say we define our nodes something like this instead:</p>
+
+<p>{% codeblock %}node default {
+case $machine_role {
+frontend: { include web_server }
+backend: { include app_server }
+data: { include db_server }
+monitoring: { include monitoring_server }
+development: { include development }
+default: { include base }
+}
+}{% endcodeblock %}</p>
+
+<p>If a machine runs and sets the $machine_role variable to frontend it includes the web_server class, if that variable equals &lsquo;data&rsquo; it&rsquo;s going to include the db_server class instead. Much cleaner and more maintainable in my view. Now to set that variable.</p>
+
+<p>Facter is the tool used by Puppet to get system information like the operating system or processor count. You can use these facter provided variables anywhere in your manifests. And one way of adding a new fact is via an environment variable on the client. Any environment variable prefixed with FACTER_ will be available in Puppet manifests. So in this case we can:</p>
+
+<pre><code>export FACTER_machine_role=frontend
+</code></pre>
+
+<p>So our steps from above become something like:</p>
+
+<ol>
+<li>Summon new machine</li>
+<li>echo &ldquo;export FACTER_machine_role=backend&rdquo; &gt;&gt; /etc/environment</li>
+<li>Install puppet on instance and so the ssl certificate signing dance</li>
+<li>Run puppet</li>
+</ol>
+
+<p>Much easier to automate. And if you&rsquo;re looking at a box and want to know what it&rsquo;s role is you can check the relevant environment variable.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/11/16/Jenkins-parameterized-builds/">Jenkins Parameterized Builds</a>
+      </h1>
+      <span class="post-date">Nov 16, 2011 &middot; 5 minute read
+      </span>
+      
+      <p>I&rsquo;m a huge Jenkins fan now, but that wasn&rsquo;t always the case. I started (and still have a soft spot for) Cruise Control, mainly building .NET and PHP applications. I then jumped to much simpler projects like <a href="http://integrityapp.com/">Integrity</a> mainly for Python and Ruby projects. I reasoned I didn&rsquo;t need the complexity of Cruise or Hudson, I just wanted to be able to run my tests on a remote machine and have something go green or red. I then worked out that wasn&rsquo;t quite the case, and ended up committing webhook like functionality to Integrity so I could chain builds together. And then I eventually tried Jenkins and found it&rsquo;s power mixed with flexibility won me over. That&rsquo;s really all just context, but hopefully explains a little about why I like a few Jenkins features in particular, one of which is <a href="https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Build">Parameterized builds</a>.</p>
+
+<p>The Jenkins wiki describes this by saying:</p>
+
+<blockquote>
+<p>Sometimes, it is useful/necessary to have your builds take several &ldquo;parameters.&rdquo;</p>
+</blockquote>
+
+<p>But then goes onto a usecase that probably won&rsquo;t mean much to dynamic language folk. This is one failing of much of the documentation around Jenkins, it often feels geared towards developers of certain languages when in reality the tool is useful everywhere. The important take away here is that builds can take arguments, which can have default values. Here&rsquo;s an example:</p>
+
+<p>Imagine we have a build which runs a set of simple tests against a live system . And further imagine that said system is composed of a number of different web services. Oh, and we&rsquo;re running a few different parrallel versions of the entire system for testing and staging purposes. We could have one Jenkins job per application/environment combination. Or we could have one parameterized build.</p>
+
+<p>Lets first specify our parameters from the Configure build screen of our Job.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjZsAIM"/></p>
+
+<p>Here we&rsquo;re specifying a TARGET_APPLICATION and TARGET_PLATFORM parameter. These are going to turn into environment variables we can use in our build steps. We can specify default values for these if we like too. I&rsquo;m just using strings here, but I could also use a select box or file dialog, or other options provided by various plugins.</p>
+
+<p>Now when we hit the build button, instead of the build just starting, we&rsquo;re propted for these values.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjxqAIM"/></p>
+
+<p>So with our new build if we want it to run against the staging environment and just for the foobar application we enter those values and hit build. That on it&rsquo;s own can be used to drastically cut down on the number of individual builds you have to manage in Jenkins. And we&rsquo;re not just restricted to text inputs, we can use boolean values or even prompt for file uploads at build time. But throw in a few plugins and things get even more interesting.</p>
+
+<p>Jenkins has an overwhelming number of plugin available. If you haven&rsquo;t spent the good half hour it takes to go down the list I&rsquo;d highly recommend it. One of Jenkins best features is the ability to trigger a build after the successful run of another job. It allows you to chain things like test runs to integration deployments to smoke tests to production deploys. Basically your modern continuous deployment/delivery pipeline. The <a href="https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin">Build Pipeline</a> plugin is excellent for visuallising this and introducing human gates if needed. Another useful plugin in this context is the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin">Parameterized Trigger</a> plugin. A limitation of Jenkins is that downstream builds can&rsquo;t pass parameters, but this plugin works around that. Instead of ticking the <em>Build other projects</em> option you go for the <em>Trigger parameterized build on other projects</em> box. This allows you to select the project and to specify parameters to pass. This could be hard coded values, paramaters already passed into the pipeline, or things from other plugins like the git sha1 hash or subversion version number.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjyqAIM"/></p>
+
+<p>Combine all this together and it&rsquo;s simple to have a per project continuous integration build running a test suite, kicking off a standard set of downsteam jobs for deploying to a test environment (by passing th relevant parameters), running some basic smoke tests and allowing someone to click a button to deploy to production. Or going the whole continuous deployment, I trust my test suite route, and deploying automatically. All within Jenkins. Getting this working requires a bit of planning. You want all of your projects to be deployed the same way but you probably want this to be the case anyway.</p>
+
+<p>Providing flexible push button builds/deploys and reducing the number of nearly identical jobs in Jenkins are just two advantages to using parameterized builds. Most of the tricks come from thinking about Jenkins as much more than a continuous integration tool and more of an automation framework - I know at least one large organisation who have pretty much replaced cron for many tasks with Jenkins for instance. Running tests automatically, and in a central environment as close to production as possible, is important. But it&rsquo;s just a sanity check if you&rsquo;re doing everything right already. Centralising activity on a build pipeline requires you to be doing all that anyway, but in my opinion gives way more useful and rapid feedback about the state of the code your team is writing.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/4/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        class="active"><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/6/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

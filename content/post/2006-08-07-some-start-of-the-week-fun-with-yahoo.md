@@ -1,0 +1,36 @@
+---
+comments: true
+created_at: 2006/08/07}
+date: 2006-08-07T00:00:00Z
+title: Some start of the week fun with Yahoo!
+url: /2006/08/07/some-start-of-the-week-fun-with-yahoo/
+---
+
+<p>
+Well, Christian’s book, <a href="http://www.beginningjavascript.com">Begining Javascript with DOM Scripting and Ajax</a> is out and, as of writing this <a href="http://www.amazon.co.uk/gp/product/1590596803/202-8465886-9794241?v=glance&#38;n=266239">Amazon UK</a> only have four copies left so hopefully that’s a good sign.
+
+</p>
+<p>
+A quick competition on the site peaked my amusometer and I couldn’t resist.
+
+</p>
+<p>
+<img src="http://static.flickr.com/97/209018272_66abe7c6ea.jpg?v=0" alt="" />
+
+</p>
+<p>
+Keep an eye on <a href="http://flickr.com/photos/tags/newcoverforbeginningjavascript/">flickr</a> for more hopefully.
+
+</p>
+<p>
+<a href="http://simon.incutio.com/">Everyone</a> <a href="http://www.wait-till-i.com">who</a> <a href="http://www.paulhammond.org/journal/">is</a> <a href="http://cackhanded.net/">everyone</a> already resides at YAHOO!, with more <a href="http://allinthehead.com/">recent</a> <a href="http://muffinresearch.co.uk/">movers</a> that you can shake a stick at. I’d just like to make a couple of observations:
+
+</p>
+<p>
+Both <a href="http://allinthehead.com/retro/297/joining-yahoo">Drew</a> and <a href="http://muffinresearch.co.uk/archives/2006/07/12/joining-yahoo/">Stuart</a> posted posts titled <strong>Joining Yahoo!</strong>. The brain washing obviously starts in the interviews so you have been warned!
+
+</p>
+<p>
+The upcoming <a href="http://barcamp.org/BarCampLondon">BarCampLondon</a> event is being held at the Yahoo offices in London. I’m thinking about going along, but I’m scared Yahoo might not let all those talented developers leave on the sunday?
+
+</p>

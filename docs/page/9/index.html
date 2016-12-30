@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/12/20/Smoke-testing-with-cucumber-on-sysadvent/">Smoke Testing With Cucumber On Sysadvent</a>
+      </h1>
+      <span class="post-date">Dec 20, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>I wrote a quick article last week for the excellent <a href="http://sysadvent.blogspot.com">sysadvent</a> advent calendar, <a href="http://sysadvent.blogspot.com/2010/12/day-17-smoke-testing-deployments-using.html">Smoke Testing Deployments with Cucumber</a> talks a bit more about using a few of my favourite tools to check whether a deployment just broke anything important.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/11/28/Sinatra-on-glassfish-example/">Sinatra On Glassfish Example</a>
+      </h1>
+      <span class="post-date">Nov 28, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I magically turned into a Java developer last week for a bit when I had to do some integration with a SOAP based API that really really wanted me to write Java on client as well. That led me down the route of having a good look at Jruby (which I&rsquo;ve used before, mainly for testing using celerity) and in particular how easy it was to use native Java classes in Jruby (very, very easy as it turns out).</p>
+
+<p>All that meant I&rsquo;ll probably end up writing a nice Jruby application in the not too distant future, and not knowing too much about running such a thing in a production environment I thought I&rsquo;d take a quick look. I went with Glassfish as the application server for no other reason that it took my fancy. I&rsquo;d definately be interested in hearing about any positive or negative experiences people may have with it or other similar servers. My quick look turned into running a tiny Sinatra application.</p>
+
+<p>First install the required gems for our little experiment. You&rsquo;ll obviously need jruby which is sort of the point, I&rsquo;d recommend using RVM for that.</p>
+
+<pre><code>&lt;code&gt;gem install sinatra warbler
+</code></pre>
+
+<p></code></p>
+
+<p>Now create a sinatra app. OK, it could be any Ruby rack based application but I like Sinatra. First we need a rackup file.</p>
+
+<pre><code>&lt;code&gt;# config.ru
+require 'init'
+
+set :run, false
+set :environment, :production
+
+run Sinatra::Application
+</code></pre>
+
+<p></code></p>
+
+<p>Now for our application itself.</p>
+
+<pre><code>&lt;code&gt;# init.rb
+require 'rubygems'
+require 'sinatra'
+get '/' do
+  &quot;Hello World!&quot;
+end
+</code></pre>
+
+<p></code></p>
+
+<p>Warble is the gem we&rsquo;re going to use to create a WAR file, which is basically an all in one bundle of our application and it&rsquo;s dependencies which we can deploy to a java application server.</p>
+
+<pre><code>&lt;code&gt;# config/warble.rb
+Warbler::Config.new do |config|
+  config.dirs = %w(config)
+  config.includes = FileList[&quot;init.rb&quot;]
+  config.gems += [&quot;sinatra&quot;]
+  config.gems -= [&quot;rails&quot;]
+  config.gem_dependencies = true
+end
+</code></pre>
+
+<p></code></p>
+
+<p>Now we&rsquo;re ready to generate our WAR file.</p>
+
+<pre><code>&lt;code&gt;warble
+</code></pre>
+
+<p></code></p>
+
+<p>This should create a file called sample.war or similar. Then just deploy that to your application server and away you go. I got this working very easily with Glassfish which seemed to be the recommended tool for such things. Installing Glassfish was time consuming but <a href="http://www.nabisoft.com/tutorials/glassfish/installing-glassfish-301-on-ubuntu">well documented here</a>. Uploading to Glassfish was done via the web interface for the moment. I just selected a Ruby project from the deployment drop down and uploaded the war file.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/11/21/Devops-weekly/">Devops Weekly</a>
+      </h1>
+      <span class="post-date">Nov 21, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve really been enjoying <a href="http://rubyweekly.com">Ruby Weekly</a> recently, it&rsquo;s an email newsletter by <a href="http://peterc.org/">Peter Cooper</a> which brings the latest Ruby related news and articles to your inbox.</p>
+
+<p>I have to admit to being sceptical at first about the format, I think I unsubscribed from most email newsletters many years ago, moving my reading to RSS and then Twitter. But I&rsquo;ve actually found a regularly appearing email a great way to catch up with the goings on. A think the reasons for that change of heart are:</p>
+
+<ul>
+<li>Their is simply more being written now that even a few years ago, and I&rsquo;m interested in more topics.</li>
+<li>For a short time Hacker News solved this problem for me, but now it&rsquo;s too high volume for me to subscribe and read everything.</li>
+<li>I now manage my email inbox pretty well, I&rsquo;m not always at inbox zero but I can&rsquo;t remember the last time it was over 20.</li>
+<li>RSS is great, but it&rsquo;s always a limited view unless you follow 1000s of feeds.</li>
+<li>Twitter is great but unless you read every tweet you&rsquo;ll miss some important bit of new.s</li>
+</ul>
+
+<p>I think Ruby Weekly works because it&rsquo;s collated by someone with taste. Peter spends a bit of time putting together a small number of high quality links so I don&rsquo;t have to. With <a href="http://devopsweekly.com">Devops Weekly</a> I&rsquo;m hoping to do the same for a different niche.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjxqwEM"/></p>
+
+<p>So head over to <a href="http://devopsweekly.com">devopsweekly.com</a> to sign up. I&rsquo;m not 100% sure yet when the first issue will go out but expect it in the next few weeks, and after that I&rsquo;ll try and get one issue out each week. Any ideas are more than welcome, as are any news or articles that you think should go in.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/11/07/Books-for-people-interested-in-devops/">Books For People Interested In Devops</a>
+      </h1>
+      <span class="post-date">Nov 7, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>Before starting with FreeAgent I decided I should spend a bit more time with Ruby and set about building something I&rsquo;d been thinking about for a while. I&rsquo;ve just launched the first one of my related pet projects so thought I better link to it from here.</p>
+
+<p><a href="http://devopsbooks.com"><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRihnAEM"/></a></p>
+
+<p><a href="http://devopsbooks.com">Devops Books</a> is exactly what it sounds like; a list of books that people interested in the whole devops concept should read. It&rsquo;s not a complete list just yet and I&rsquo;ll try and keep it up to date as new interesting books get released. Any suggestions to add to the list most welcome.</p>
+
+<p>It gave me a proper excuse to use <a href="http://heroku.com">Heroku</a> which has been very pleasant. Under the hood it&rsquo;s a very simple sinatra application using the Mustache template language. The majority of the code is a build script that pulls down information from the Amazon API and mixes it with my own content. It then creates a JSON document that is used as the basis for generating the pages. I love static generators and hand rolling your own for a particular domain is often worthwhile. It means I have the json already lying around if I want to make a JSONP style badge for instance.</p>
+
+<p>I plan on using the code as a bit of learning tool. Try out some different testing approaches, maybe add in GEOIP detection, make some of the commands I&rsquo;m running into Rake tasks, that sort of thing. Given how easy it will be to throw up little sites like this using the generator I have a few other similar things in mind too.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/11/04/Why-you-should-be-using-virtualisation/">Why You Should Be Using Virtualisation</a>
+      </h1>
+      <span class="post-date">Nov 4, 2010 &middot; 10 minute read
+      </span>
+      
+      
+
+<p>My main development machine for a while has been an apple laptop. From looking around at conferences, offices and usergroups I know I&rsquo;m not alone. But I don&rsquo;t really <em>run</em> code on my mac very often, certainly not for work. I might edit the code on my mac but I execute it running in a virtualised Linux environment matching (as close as possible) the production environment it&rsquo;s going to end up in. This blog post is an attempt to explain why this is a good idea to the majority of people who develop on a mac (or a windows machine) and deploy to something else. This isn&rsquo;t language specific either. You might be working on small PHP web sites or huge Python applications, you&rsquo;ll still one day run into the same issues.</p>
+
+<h2 id="why-is-virtualisation-a-good-idea">Why is virtualisation a good idea?</h2>
+
+<p>Bugs happen, but catching them early, way before they even hit your shared source code repository makes them much less of an issue. Catching bugs only after a live release, when they affect customers and cost someone money is bad. And if your release is a long period of time after the work was done then fixing them is harder to boot. These are just some of the reasons we&rsquo;re all fond of unit testing and continuous integration.</p>
+
+<p>But if you&rsquo;re running those tests against code executing on different hardware, on a different operating system, with different low level libraries or a different web server version or a different database server then you are not going to catch all the problems. If you take this to an extreme then you can only get rid of all of these problems by giving each developer a full production stack of their very own. This is obviously impossibly expensive for anything past the most trivial setup. But eliminating even some of these issues makes it more likely you&rsquo;ll catch bugs early and less likely you&rsquo;ll have a bug on your hands that you can&rsquo;t recreate locally. So we&rsquo;ll aim for production like rather than a 100% copy.</p>
+
+<p>Here&rsquo;s a real example, a case insensitive file system. Grab a terminal prompt on your mac and type the following in an empty directory. Then do the same on a typical linux machine. All we&rsquo;re doing is using touch to create a file.</p>
+
+<pre><code>touch Test
+touch test
+ls
+</code></pre>
+
+<p>On you&rsquo;re mac you&rsquo;ll probably see:</p>
+
+<pre><code>Test
+</code></pre>
+
+<p>On your linux box you&rsquo;re more likely to get:</p>
+
+<pre><code>Test
+test
+</code></pre>
+
+<p>What? The mac treated Test and test as meaning the same thing. It wont let you have a file called test and one called Test in the same place. It&rsquo;s case insensitive. But the linux machine didn&rsquo;t have this problem. Now imagine we&rsquo;re not dealing with empty files called test but either files you&rsquo;re running code is creating at run time (a file cache maybe or a user uploaded file) or even more interestingly your source code files. Lets say you have git on a linux box in the corner of the office and someone checks in two files from a linux machine called Pages_controller.rb and pages_controller.rb. What happens when you get these to you&rsquo;re mac? I haven&rsquo;t actually tried this but it&rsquo;s not going to end well. And imagine debugging this sort of issue? If you think this is all hypothetical I know about this little quirk exactly because I saw someone trying to fix a bug related to it.</p>
+
+<p>What if the bug was because you had one version of lib_xml on your local development machine and a different one on production. Up to that point you might not even know what libxml was or how it got on your shiny apple laptop.</p>
+
+<p>How many people can genuinely say they have never had a bug they could recreate on live and not on their development machine? Same code, different behaviour. Load and data often play a part in bugs like this as well but these can be isolated and tests created in at least some cases. Being pragmatic what we&rsquo;re aiming for isn&rsquo;t to eliminate all differences, it&rsquo;s to get rid of those that are easy to eliminate.</p>
+
+<h2 id="how-can-i-do-this">How can I do this?</h2>
+
+<p>Virtualisation tools used to be cumbersome and expensive and generally not aimed at consumers. I&rsquo;ve used both VMWare Fusion and VirtualBox on my mac and even compared to a few years ago these tools are increasingly easy to use. And VirtualBox is free and open source too. On top of that we now have tools like vagrant which I&rsquo;ll give a quick example of here.</p>
+
+<p><a href="http://vagrantup.com">Vagrant</a> for those that haven&rsquo;t come across it yet describes itself thus:</p>
+
+<blockquote>
+<p>Vagrant uses Oracle’s VirtualBox to build configurable, lightweight, and portable virtual machines dynamically</p>
+</blockquote>
+
+<p>What it really is is a tool for quickly and painlessly building virtual machines based on sensible default configurations, and then providing programatic hooks for more advanced configuration. For instance you&rsquo;ll have a configuration file to describe which ports you want forwarded and you can use Chef to install packages when the VM first boots. Once you have it installed it&rsquo;s as easy as this to use</p>
+
+<pre><code>vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
+vagrant init lucid32
+vagrant up
+</code></pre>
+
+<p>The first line downloads a 32bit Ubuntu disk image but you&rsquo;ll only need to do that once. You&rsquo;ll find lots of images for different distros too. The next two lines create and then boot a new headless virtual machine. That&rsquo;s it.</p>
+
+<pre><code>vagrant ssh
+</code></pre>
+
+<p>Will let you jump straight into a ssh session with the new machine, for an idea of what else it can do here&rsquo;s the help output:</p>
+
+<pre><code>Tasks:
+  vagrant box                        # Commands to manage system boxes
+  vagrant destroy                    # Destroy the environment, deleting the create...
+  vagrant halt                       # Halt the running VMs in the environment
+  vagrant help [TASK]                # Describe available tasks or one specific task
+  vagrant init [box_name] [box_url]  # Initializes the current folder for Vagrant u...
+  vagrant package                    # Package a Vagrant environment for distribution
+  vagrant provision                  # Rerun the provisioning scripts on a running VM
+  vagrant reload                     # Reload the environment, halting it then rest...
+  vagrant resume                     # Resume a suspended Vagrant environment.
+  vagrant ssh                        # SSH into the currently running Vagrant envir...
+  vagrant ssh_config                 # outputs .ssh/config valid syntax for connect...
+  vagrant status                     # Shows the status of the current Vagrant envi...
+  vagrant suspend                    # Suspend a running Vagrant environment.
+  vagrant up                         # Creates the Vagrant environment
+  vagrant version                    # Prints the Vagrant version information
+</code></pre>
+
+<p>I&rsquo;ll leave it their as this post is more of a rant than a tutorial, but I might write more about using vagrant later. But in the meantime read the web site for a pretty simple walkthrough. And don&rsquo;t be put off by the fact it&rsquo;s written in Ruby or that the example shows a Rails app, this is a great tool whatever language you&rsquo;re going to be using on the virtual machine.</p>
+
+<h2 id="arguments-against">Arguments against</h2>
+
+<p>I see too few developers doing this for it to just be about a lack of awareness. Lots of developers not doing this might be running local virtual machines for cross browser testing for instance. Here&rsquo;s a few complaints I&rsquo;ve heard and what I think the answer is.</p>
+
+<h3 id="speed">Speed</h3>
+
+<p>If something is slow and you don&rsquo;t have as much RAM as you can get into your machine then do that before complaining about anything. Running a few extra operating systems inside your main operating system is obviously going to be intensive so don&rsquo;t scrimp on your tools. Also the defaults when setting up new virtual machines in VirtualBox or VMWare Fusion at least are quite minimal. Try increasing the ammount of RAM you let them use or give them access to more processes. I can genuinely say I&rsquo;ve had a problem with this once and the real solution was changing the code, not throwing away all the advantages of virtualisation. If you&rsquo;re doing some crazy real time video processing thing then your mileage will vary, but then you probably want a faster machine anyway.</p>
+
+<h3 id="lower-level-that-you-re-used-to">Lower level that you&rsquo;re used to</h3>
+
+<blockquote>
+<p>As a PHP/Ruby/Python developer why should I have to care about Apache? I just write code!</p>
+</blockquote>
+
+<p>This argument just bugs me, but I do know part of that is me. I need to know how all the bits work and fit together and I accept not everyone does, or indeed needs to understand everything. But someone on your team probably wants to know this stuff and importantly be able to tell others how they should do things. It&rsquo;s pretty common for developers to setup a development environment for a pure frontend developer or a designer so they can make changes and commit CSS or new templates. This is no different. Most designers don&rsquo;t need to know about the software environment in detail, it&rsquo;s easier for them to defer to a domain expert. If a developer just wants to write code then they too should defer to someone who does know about the lower level when it comes to their development environment too.</p>
+
+<h3 id="something-else-to-setup">Something else to setup</h3>
+
+<p>This argument has some merit. We&rsquo;re all busy and downing tools to setup something for you and your team is time consuming. And I think until pretty recently the time taken and the knowledge needed was a genuine barrier. Personally I&rsquo;ve tended to have few problems, but then I&rsquo;m familiar enough with Linux administration to avoid some common pitfalls. But problems with setting up port forwarding or shared folders can be pretty irritating when you want to work on a pressing bug or shiny new feature. But with tools like vagrant providing a simple interface to do this I think this is hopefully a thing of the past.</p>
+
+<h3 id="developers-workstations-should-be-personal">Developers workstations should be personal</h3>
+
+<p>I agree up to a point here. Discussions of standardising individual developer tools turn into holy flame wars over whether everyone should use some IDE, Vim or Emacs (answer: Vim). This is pointless. File managers, utilities, test editors, terminal styles, host operating system. All of these and more should be up to the individual developers. But in the same way you generally don&rsquo;t allow individual developers to use a new language no one knows without at least some discussion, why would this be different for the web server or operating system on which you&rsquo;ll be running that code in production. Most of the time it&rsquo;s not that developers make a consious decision to use a different version either. It&rsquo;s more likely that they will take the path of least resistance and follow a tutorial or just use a package manager. It&rsquo;s more likely if you ask the question &ldquo;what specific version of Apache are you using on your development machine&rdquo; they won&rsquo;t know the answer.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>I&rsquo;ve not even gone into some of the other advantages of virtualisation here. Being able to snapshot your environment at any point and roll back an entire virtual machine like you do your code is hugely handy. As is the ability to create virtual machines that you can share with other members of your team. No more do new employees have to spend the first week installing dependencies and just getting code running.</p>
+
+<p>I&rsquo;m certainly not the only person doing this and it&rsquo;s not a new idea. But it&rsquo;s never been easier or cheaper. And with an increasing move towards virtualisation or cloud computing production environments it&rsquo;s even easier to share good practices with your friendly systems administrators.</p>
+
+<p>I&rsquo;ve renabled comments on this blog after something of a break and I&rsquo;d love to hear what people think, positive and negative.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/10/30/Chef-hello-world/">Chef Hello World</a>
+      </h1>
+      <span class="post-date">Oct 30, 2010 &middot; 3 minute read
+      </span>
+      
+      <p>I&rsquo;ve been playing with Chef recently, in particular the solo variant. The new job at FreeAgent meant setting up new development virtual machines and rather than just jot down instructions I decided to script everything. I&rsquo;d been wanting an excuse to take a look at Chef for a while and it&rsquo;s certainly suited to this sort of job.</p>
+
+<p>Unfortunately the <em>getting started</em> documentation isn&rsquo;t yet great. I&rsquo;m pretty sure this will improve over time, I had exactly the same problem with the Puppet docs a year ago. The main problem I had was I wanted to know how to use it, not just how to download someone elses cookbook. What I wanted was the following, the absolute simplest thing that will work. A Hello World example for Chef if you will. I&rsquo;ll say now that I&rsquo;m not an expert, their may be ways of doing this that are even simpler, but this works for me. And before someone mentions knife or rake tasks a generator isn&rsquo;t simpler. It might be better when you know what&rsquo;s going on but until you do it&rsquo;s a big ass abstraction that will just get in the way.</p>
+
+<p>All my sample cookbook is going to do is install a single package, curl. I&rsquo;m going to assume you have chef installed for this already. The documentation did an OK job of that, although I&rsquo;m relativly familiar with installing gems. I did find that the default system packages on Ubuntu at least were way out of date. Either get the packages direct from opscode or use the gem.</p>
+
+<p>First create a directory and file structure that looks like this:</p>
+
+<pre><code>-- config
+   -- node.json
+   -- solo.rb
+-- cookbooks
+   -- example
+      -- recipes
+         -- default.rb
+</code></pre>
+
+<p>When you run the chef-solo command you need to tell it a few bits of information. The minimum appears to be just telling it where to find the cookbook we&rsquo;re going to create. I think you can call this file anything you like but in the tree above it&rsquo;s called solo.rb.</p>
+
+<pre><code>cookbook_path File.expand_path(File.join(File.dirname(__FILE__), '..', &quot;    cookbooks&quot;))
+</code></pre>
+
+<p>Next up is the details of the given node. This in our very simple case is just a list of the recipes we want to run when we execure chef-solo. Put the following content in the node.json file in the config directory as indicated above:</p>
+
+<pre><code>{
+  &quot;run_list&quot;: [ &quot;recipe[example]&quot; ]
+}
+</code></pre>
+
+<p>Last up we want to create a cookbook. Now you can go and download example cookbooks from all over the place. This is great for learning new tricks and commands but for me at least to begin with most of them were more complicated than I needed for my simple usecase. Lots of options. Lots of knowing the package names on different distros. I&rsquo;m just calling this cookbook <em>example</em>. That means the folder in the cookbooks folder is called example and the run list above references example. Feel free to change this to whatever you like, or create new cookbooks with different names. Inside that folder we create a recipes folder and inside that we create a default.rb file with the following content.</p>
+
+<pre><code>package &quot;curl&quot;
+</code></pre>
+
+<p>And that&rsquo;s it. A bigish directory structure, three files, each with about one line of content. Simple.</p>
+
+<p>Now to run all that just issue the following command:</p>
+
+<pre><code>sudo chef-solo -c config/solo.rb -j config/node.json
+</code></pre>
+
+<p>This should output various messages to the console about what chef is doing and, when it&rsquo;s finished, you should find curl has been installed. Try and add another line to the recipe for another package (or even a gem) and rerun the chef-solo command. Now go read the docs for all the other cool things you can do.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/09/13/Working-for-freeagent/">Working For Freeagent</a>
+      </h1>
+      <span class="post-date">Sep 13, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>So, I&rsquo;ve just accepted a new job at <a href="http://freeagentcentral.com">FreeAgent</a>, the rather snappy online small business accounting startup. I&rsquo;ll be starting in about a month, when I get back from devopsdays in Hamburg.</p>
+
+<p>I&rsquo;m joining a pretty well knit group of designers and developers working on a pretty well loved piece of software. I&rsquo;ve known Roan (one of the directors) for years, ever since the first Highland Fling conference I think. And the rest of the team seem a good mix of technical smarts and professionalism. Hopefully I can live up to their already high standards.</p>
+
+<p>I&rsquo;m looking forward to jumping into a decent sized Ruby project and getting properly reacquainted with Rails as well. I&rsquo;ve spent most of the previous few years in the Python world so that should be a nice challenge. I&rsquo;m constantly impressed with the number of high quality tools written in Ruby andRails 3 looks a genuinely nice piece of software. Hopefully with a bit more idiomatic ruby under my belt, more time on my hands and some new real world problems to solve I&rsquo;ll increase my open source contributions and get back to writing again as well. I&rsquo;ll likely be spending most of my time on those good developer staples new feature development, supporting existing code and scaling systems. I&rsquo;ll also be involved in some operations stuff if I get chance, introducing software I&rsquo;m a huge fan of and automating everything I can get my hands on.</p>
+
+<p>The rest of the team are based up in Edinburgh but I&rsquo;ll be working from home most of the time. I&rsquo;m quite looking forward to working from Cambridge after having lived here for a few years. I&rsquo;ll also get to see various friends in Edinburgh that I don&rsquo;t get chance to meet up with very often and still have time to make it to London for the odd event or get together. I&rsquo;ll likely be looking into coworking spaces or desk shares in and around Cambridge so if anyone has any recommendations.</p>
+
+<p>Given this weeks pubstandards is apparently all about weddings, birthdays and new jobs (and I have all 3 within a month) it would be rude not to go along for at least one drink. If you&rsquo;re around London I might see you there.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/09/09/Script-running-web-interface-with-websockets/">Script Running Web Interface With Websockets</a>
+      </h1>
+      <span class="post-date">Sep 9, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>After something of a break I found a bit of time for some hacking at the weekend and decided to scratch a personal itch. I like writing shell scripts for everything from checking on things to deploying code. For anything that is more than just executing one command, or anything with detailed output or that takes a while I like to be able to see what&rsquo;s going on. I also like to (OK, only sometimes) let other people run those commands and not all those people want to check something out and run a console. The web maks a pretty good interface for this sort of situation.</p>
+
+<p>Enter <a href="http://github.com/garethr/bolt/">Bolt</a>. It&rsquo;s my first proper go at using websockets for the communication between client and server, and my first stab at EventMachine. The code at the moment needs some improvement (tests, configurability, deployment options) but it works as a proof of concept.</p>
+
+<p>It&rsquo;s pretty simple, designed for running a single command at the push of a button and showing the results scroll past as they happen.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRi5lAEM" alt="Bolt script running interface"/></p>
+
+<p>Hopefully it&rsquo;s useful to a few more people, or at least it will be when I clean it up a bit. For more information head over to the <a href="http://github.com/garethr/bolt/">GitHub page</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/07/11/Git-pre-recieve-hook-for-integrity/">Git Pre Recieve Hook For Integrity</a>
+      </h1>
+      <span class="post-date">Jul 11, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;m getting married rather soon so time has been somewhat short (in a good way) for just hacking on stuff, but I&rsquo;ve finally found a little bit of time to play with something I&rsquo;ve been mulling over for a while. Namely a continuous deployment workflow using the integrity continous integration server.</p>
+
+<p>I&rsquo;m hoping to have an incredibly simple but fully operation example available at some point - mainly to act as a good discussion point. For now here&rsquo;s my current pre-receive hook.</p>
+
+<script src="http://gist.github.com/471711.js?file=pre-receive">
+</script>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2010/06/29/Python-what-to-use/">Python: What To Use?</a>
+      </h1>
+      <span class="post-date">Jun 29, 2010 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>My friend <a href="http://jamieonsoftware.com">Jamie Rumbelow</a> has started a new project and decided to use Python. He asked a great question over on <a href="http://stackoverflow.com/questions/3143115/architecting-from-scratch-in-python-what-to-use">Stack Overflow</a> which basically came down to <em>what should I use for my first proper Python web application project</em>. After a quick prompting on twitter I decided to have a go. I&rsquo;ve cross posted my anwser below more because it took as long as a typical blog post to write.</p>
+
+<h2 id="frameworks">Frameworks</h2>
+
+<p>OK, so I&rsquo;m a little biased here as I currently make extensive use of Django and organise the Django User Group in London so bear that in mind when reading the following.</p>
+
+<p>Start with Django because it&rsquo;s a great gateway drug. Lots of documentation and literature, a very active community of people to talk to and lots of example code around the web.</p>
+
+<p>That&rsquo;s a completely non-technical reason. Pylons is probably purer in terms of Python philosophy (being much more a collection of discrete bits and pieces) but lots of the technical stuff is personal preference, at least until you get into Python more. Compare the very active Django tag on Stack Overflow with that of pylons or turbogears though and I&rsquo;d argue getting started is simply easier with Django irrespective of anything to do with code.</p>
+
+<p>Personally I default to Django, but find that an increasing amount of time I actually opt for writing using simpler micro frameworks (think Sinatra rather than Rails). Lots of things to choose from (<a href="http://fewagainstmany.com/blog/python-micro-frameworks-are-all-the-rage">good list here</a>). I tend to use MNML (because I wrote parts of it and it&rsquo;s tiny) but others are actively developed. I tend to do this for small, stupid web services which are then strung together with a Django project in the middle serving people.</p>
+
+<p>Worth noting here is appengine. You have to work within it&rsquo;s limitations and it&rsquo;s not designed for everything but it&rsquo;s a great way to just play with Python and get something up and working quickly. It makes a great testbed for learning and experimentation.</p>
+
+<h2 id="mongo-orm">Mongo/ORM</h2>
+
+<p>On the MongoDB front you&rsquo;ll likely want to look at the <a href="http://api.mongodb.org/python/">basic python mongo library</a> first to see if it has everything you need. If you really do want something a little more ORM like then <a href="http://hmarr.com/mongoengine/">mongoengine</a> might be what you&rsquo;re looking for. A bunch of folks are also working on making Django specifically integrate more seamlessly with nosql backends. Some of that is for future Django releases, but <a href="http://www.allbuttonspressed.com/projects/django-nonrel">django-norel</a> has code now.</p>
+
+<p>For relational data <a href="http://www.sqlalchemy.org/">SQLAlchemy</a> is good if you want something standalone. Django&rsquo;s ORM is also excellent if you&rsquo;re using Django.</p>
+
+<h2 id="api">API</h2>
+
+<p>The most official Oauth library is <a href="http://github.com/simplegeo/python-oauth2">python-oauth2</a>, which handily has a Django example as part of it&rsquo;s docs.</p>
+
+<p><a href="http://bitbucket.org/jespern/django-piston/wiki/Home">Piston</a> is a Django app which provides lots of tools for building APIs. It has the advantage of being pretty active and well maintained and in production all over the place. Other projects exist too, including <a href="http://zacharyvoase.github.com/dagny/">Dagny</a> which is an early attempt to create something akin to RESTful resources in Rails.</p>
+
+<p>In reality any Python framework (or even just raw WSGI code) should be reasonably good for this sort of task.</p>
+
+<h2 id="testing">Testing</h2>
+
+<p>Python has unittest as part of it&rsquo;s standard library, and unittest2 is in python 2.7 (but <a href="http://pypi.python.org/pypi/unittest2/0.1.4">backported to previous versions too</a>). Some people also like <a href="http://code.google.com/p/python-nose/">Nose</a>, which is an alternative test runner with some additional features. <a href="http://twill.idyll.org/">Twill</a> is also nice, it&rsquo;s a &ldquo;a simple scripting language for Web browsing&rdquo;, so handy for some functional testing. <a href="http://github.com/rlisagor/freshen">Freshen</a> is a port of cucumber to Python. I haven&rsquo;t yet gotten round to using this in anger, but a quick look now suggests it&rsquo;s much better than when I last looked.</p>
+
+<p>I actually also use Ruby for high level testing of Python apps and apis because I love the combination of celerity and cucumber. But I&rsquo;m weird and get funny looks from other Python people for this.</p>
+
+<h2 id="message-queues">Message Queues</h2>
+
+<p>For a message queue, whatever language I&rsquo;m using, I now always use RabbitMQ. I&rsquo;ve had some success with stompserver in the past but Rabbit is awesome. Don&rsquo;t worry that it&rsquo;s not itself written in Python, neither is PostgresSQL, Nginx or MongoDB - all for good reason. What you care about are the libraries available. What you&rsquo;re looking for here is <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> which is a low level library for talking amqp (the protocol for talking to rabbit as well as other message queues). I&rsquo;ve also used <a href="http://github.com/ask/carrot/">Carrot</a>, which is easier to get started with and provides a nicer API. Think bunny in Ruby if you&rsquo;re familiar with that.</p>
+
+<h2 id="environment">Environment</h2>
+
+<p>Whatever bits and pieces you decide to use from the Python ecosystem I&rsquo;d recommend getting to who <a href="http://clemesha.org/blog/2009/jul/05/modern-python-hacker-tools-virtualenv-fabric-pip/">pip and virtualenv</a> - note that fabric is also cool, but not essential and these docs are out of date on that tool). Think about using Ruby without gem, bundler or rvm and you&rsquo;ll be in the right direction.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/8/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        class="active"><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/10/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

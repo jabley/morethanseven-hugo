@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Exposing Puppet And Facter Information On The Web &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Exposing Puppet And Facter Information On The Web</h1>
+    <span class="post-date">Nov 2, 2011 &middot; 2 minute read
+    </span>
+    <p>I don&rsquo;t appear to have been in a writing mood recently but I&rsquo;ve been getting back into hacking on a couple of pet projects. The first fruits of this coding (mainly backwards and forwards on the train) I&rsquo;ve just made available to anyone interested.</p>
+
+<p><a href="https://github.com/garethr/web-puppet">Web Facter</a> is a gem which takes the output from <a href="https://github.com/puppetlabs/facter">Facter</a> and exposes this as JSON over HTTP. In theory you could run this on a configurable port on each of your machines and have a URL you can hit to get information on uptime, networking setup, hostnames or anything else exposed by Facter. It comes with a simple built-in web server and optional http basic authentication if you&rsquo;re not going to do this via a proxy. The JSON display should be both human and machine readable, and I have a few ideas for projects which needed this information.</p>
+
+<p>The other project is very similar, and even has a similar name, <a href="https://github.com/garethr/web-facter">Web Puppet</a>. You can run this on your puppet master and it exposes the node information (currently including the facts and tags) again as JSON over HTTP. I&rsquo;m still working on this to make it a little more usable. At the moment it just shows you all nodes and all information, if you&rsquo;re working with a larger cluster this isn&rsquo;t really sensible. Recent versions of Puppet do have an <a href="http://docs.puppetlabs.com/guides/rest_api.html">HTTP based API</a> but it requires some hoops to be jumped through and I&rsquo;m not quite sure from the docs it lets me do what I want (I have a specific usecase, of which more soon all being well).</p>
+
+<p>Both projects have had me reading the source code of Puppet and Facter, which for the most part has been enjoyable and informative. Puppet in particular has some great comments lying around :) Both of the above projects are available as gems for anyone else to play around with and build on, but my main aim is a little more high level. All being well I&rsquo;ll have a couple of projects built atop these APIs shortly.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

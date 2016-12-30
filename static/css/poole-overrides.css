@@ -1,0 +1,27 @@
+@media (max-width: 775px) {
+  #carbonads {
+    display: none;
+  }
+}
+#carbonads {
+  background: #ac4142;
+  border: 1px solid #953030;
+  font-size: 13px;
+  padding: 10px;
+  position: relative;
+  height: 125px;
+}
+
+#carbonads .carbon-text {
+  color: #FFFFFF;
+  position: absolute;
+  top: 10px;
+  left: 150px;
+}
+
+#carbonads .carbon-poweredby {
+  position: absolute;
+  bottom: 10px;
+  left: 150px;
+  color: #FFAAAA;
+}

@@ -1,0 +1,54 @@
+---
+comments: true
+created_at: 2006/01/14}
+date: 2006-01-14T00:00:00Z
+title: More to come/statement of intent
+url: /2006/01/14/more-to-comestatement-of-intent/
+---
+
+<p>
+More of a statement of intend, for posterity’s sake hopefully. Something I can look back on and think “Oh, yeah, I meant to do that” later in the year. Also so I dont forget, or just decide I couldn’t be bothered. Why this all of a sudden? Well, it’s the start of the new year anyway, but in particular the first meetup of people from the <a href="http://newcastlenewmedia.org">Newcastle New Media</a> list got me thinking. And in particular more than thinking, wanting to act on existing thoughts.
+
+</p>
+<p>
+So, without further ado, here is a brief list of thinks I’m going to do this year – fingers crossed, in no partricular order and missing several things that no one reading this will care about:
+
+</p>
+<ul>
+<li>
+Get as much out of the <a href="http://carsonworkshops.com/summit">Future of Web Apps Summit</a> as possible. I’m pretty interested in the <em>design</em> of applications at the moment.
+
+</li>
+<li>
+Not still have a hangover for the <a href="http://clearleft.com">Clearleft</a> <a href="http://www.clearleft.com/services/training/ajax.php">Ajax training session</a> with <a href="http://adactio.com/">Jeremy</a> two days after the summit.
+
+</li>
+<li>
+Get an article written and published in something I read.
+
+</li>
+<li>
+Package up the <a href="http://morethanseven.net/atmedia2006">feed syndicator</a> code base under a decent name and release it for anyone to use.
+
+</li>
+<li>
+Produce a real application using <a href="http://rubyonrails.com">Rails</a>.
+
+</li>
+<li>
+Somehow get to all four (or is it five, I can’t remember) of the <a href="http://vivabit.com/atmedia2006">`media</a> themed nights out &#8211; as well as as many of the workshops and presentations one personn can get to without <a href="http://www.muffinresearch.co.uk/archives/2006/01/5/`media2006.php"&gt;cloning</a>
+
+</li>
+<li>
+On the back of our first real local meetup get a few projects moving. Everyone put email addresses to faces, which I think was important, and should make getting together doing something active easier from now on.
+
+</li>
+<li>
+And finally something vague; (note that this isn’t me with an idea under wraps, this is as far as I’ve got!) Design and build something <em>of use</em> to the wider web community.
+
+</li>
+</ul>
+<p>
+I may have forgetten a couple of things, I’ll add them as I see fit. Anyone else got a list that they would like to share? Either on here or post a link to your own site.
+
+</p>

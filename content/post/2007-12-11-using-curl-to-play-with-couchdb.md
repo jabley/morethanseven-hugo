@@ -1,0 +1,52 @@
+---
+comments: true
+created_at: 2007/12/11}
+date: 2007-12-11T00:00:00Z
+title: Using Curl to play with CouchDB
+url: /2007/12/11/using-curl-to-play-with-couchdb/
+---
+
+As a big big fan of all things HTTP, the new [Erlang](http://www.erlang.org/) based database, [CouchDB](http://couchdb.org), piqued my interest. With the recent [release of 0.7](http://damienkatz.net/2007/11/couchdb_070.html) it's now intended for widespread use. Now I'm a fan of databases as long as I don't have to go too near them. SQL, triggers and stored procedures are all a little too close to magic for me.
+
+The reason CouchDB looks particularly good fun was it's build around a REST API using JSON for data transport. I'm generally not an acronym guy, but REST, JSON, API and HTTP in one open source piece of code? Sounds like fun to me.
+
+The CouchDB community have built up an already [excellent wiki](http://www.couchdbwiki.com/) with all the information you need to get started and get the [software installed](http://www.couchdbwiki.com/index.php?title=Installation). I just used the magic of [MacPorts](http://www.macports.org/) but the page covers all the various dependencies and setups (though nothing on their yet about the N800).
+
+    <code>sudo port install couchdb</code>
+
+You might then need to set-up a user and some permissions. Again the wiki has more [detailed installation instructions](http://www.couchdbwiki.com/index.php?title=Installation#Security_Considerations). All being well you should then be able to fire up CouchDB:
+
+    <code>sudo -u couchdb couchdb</code>
+
+So first things first. Their are getting started code examples on the wiki in all the usual languages so you can just dive in. CouchDB also comes with a few in-build tools which are both pretty attractive and useful. You have a [database browser](http://localhost:8888/_utils/browse/index.html), a full [test suite](http://localhost:8888/_utils/couch_tests.html) and a [command shell](http://localhost:8888/_utils/shell.html).
+
+[Curl](http://curl.haxx.se/), for those not familiar with it, is a fantastic command line utility for throwing around HTTP requests. I already use it for testing and generally prodding sites but it's absolutely perfect for demonstrating CouchDB. Let's start with creating a database called *test*:
+
+    <code>curl -X PUT http://localhost:8888/test/</code>
+
+That should have created the database. Let's get some information back about the database:
+
+    <code>curl -X GET http://localhost:8888/test/</code>
+
+Everything should be returning JSON strings telling us something about what it finds. Let's add a blank document to the database:
+
+    <code>curl -X POST http://localhost:8888/test/ \
+    -H "Content-Type: application/json" -d {}</code>
+
+Note the blank JSON object *{}* passed as Post data. What about retrieving a list of document from the database?
+
+    <code>curl -X GET http://localhost:8888/test/_all_docs</code>
+
+We're now done with that database so let's delete it.
+
+    <code>curl -X DELETE http://localhost:8888/test/</code>
+
+I've just done the basics here, but the APIs are simple and nicely documented enough for you easily to find out more. This is the beauty of RESTfully designed APIs, they are just about self documenting. For the most part you just have a predefined HTTP method and a defined URL.
+
+-   [HTTP View API](http://www.couchdbwiki.com/index.php?title=HTTP_View_API)
+-   [HTTP Doc API](http://www.couchdbwiki.com/index.php?title=HTTP_Doc_API)
+-   [HTTP DB API](http://www.couchdbwiki.com/index.php?title=HTTP_Db_API)
+
+The Erlang base of CouchDB makes for some interesting horizontal scaling possibilities (as well as a good excuse to play with Erlang.) Even if CouchDB wasn't cool enough already, it comes with probably the best start-up message I've seen in software for ages:
+
+    <code>CouchDB has started. Time to relax.</code>

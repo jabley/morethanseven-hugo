@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>RabbitMQ support for Cucumber-nagios &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">RabbitMQ support for Cucumber-nagios</h1>
+    <span class="post-date">Jan 30, 2010 &middot; 2 minute read
+    </span>
+    <p>I&rsquo;ve been doing more operations related work of late and am starting to use <a href="http://auxesis.github.com/cucumber-nagios/">Cucumber-nagios</a> for various monitoring tasks. <a href="http://www.nagios.org/">Nagios</a> might not be the most attractive of web interfaces but it&rsquo;s so simple to get clients up and running and extend to do what you need. Cucumber however has a lovely, text based, user interface. And although I&rsquo;m mainly working with Python at the moment cucumber-nagios (written in Ruby) really is the easiest way I&rsquo;ve found of writing simple functional tests.</p>
+
+<p>Cucumber-nagios is the creation of <a href="http://holmwood.id.au/~lindsay/">Lindsay Holmwood</a> and after several brief conversations over Twitter I set about adding a feature I wanted for my own monitoring setup. Namely support for keeping an eye on RabbitMQ.</p>
+
+<p>At the moment the code is in a <a href="http://github.com/garethr/cucumber-nagios">fork on GitHub</a> but I&rsquo;m hoping that once any rough edges have been ironed out and a few people have kicked the tyres then it will make it&rsquo;s way into trunk. If you want to use this with an existing project straight away you can always drop the contents of <a href="http://github.com/garethr/cucumber-nagios/blob/master/lib/generators/project/features/steps/amqp_steps.rb">amqp_steps.rb</a> into your feature steps file after installing the <a href="http://gems.rubyforge.org/gems/amqp">amqp gem</a>.</p>
+
+<p>I&rsquo;ve included a little documentation in the fork as well with a quick example:</p>
+
+<pre><code>Feature: github.com
+  To make sure the rest of the system is in order
+  All our message queues must not be backed up
+  Scenario: test queue
+    Given I have a AMQP server on rabbit.github.com
+    And I want to check on the fork queue
+    Then it should have less than 400 messages
+    Then it should have at least 5 consumers
+    Then it should have less than 50 messages per consumer
+</code></pre>
+
+<p>My main usecase was to keep an eye on a known queue size and number of consumers. I&rsquo;m sure I&rsquo;m missing some features at the moment so any feedback much appreciated.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

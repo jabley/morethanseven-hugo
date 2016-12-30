@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>You&#39;re Going To Need A Bigger Toolbox &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">You&#39;re Going To Need A Bigger Toolbox</h1>
+    <span class="post-date">Apr 29, 2010 &middot; 3 minute read
+    </span>
+    
+
+<p>I&rsquo;m just getting back from Newcastle after getting to present at the first Design It Build It conference. It was great to be back up in Newcastle and to see lots of familiar faces. As with most conferences it was also good to meet new people (especially those for whom it was their first conference) and to listen to people talking about interesting stuff. Personal highlights for me were David Singleton from Last.fm and Michael Brunton Spall from The Guardian going through really interesting case studies from their respective organisations. It&rsquo;s the sort of gritty content it&rsquo;s often hard to come by. Speaking did mean I missed out on most of the design track unfrotunately, but videos should be available soon and by all accounts it sounds like the larger designer crowd went home happy.</p>
+
+<p><object id="__sse3884141" width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=biggertoolbox-100428092640-phpapp02&stripped_title=youre-going-to-need-a-bigger-toolbox" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse3884141" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=biggertoolbox-100428092640-phpapp02&stripped_title=youre-going-to-need-a-bigger-toolbox" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I think my presentation at <a href="http://dibiconference.co.uk">DIBI</a> went OK. I&rsquo;d got a little bit carried away with cramming content in, which meant it felt rushed at times and I still went over by 5 minutes into my Q&amp;A time. But hey, a few people said nice things afterwards.</p>
+
+<p>I wanted to tell the world (of web developers) about as many different tools as I could. I think most people who read this blog have probably come across most of this software, heck you might be commiting code to it or already using it in production. But lots of people haven&rsquo;t ever heard of Memcached, never mind Cassandra or RabbitMQ. And more inportant than the specific software is the differnt types of tools available. Small web servers, message queues, HTTP caches, etc. Conferences are a good place to find and educate people. Hopefully I managed to do just that.</p>
+
+<p>One thing I hope I got across, I&rsquo;m not for a moment saying you shouldn&rsquo;t be using tools you know and love. Nor am I saying you should jump in and start using lots of crazy software. But keeping an eye on new developments can serve you well when it comes to deciding whether the best approach is really to build something from scratch. I&rsquo;ve spoken to several people over the last few weeks who where starting to write simple queing systems using cron and mysql, or using a hand rolled file system based caching setup. And in both cases I think they would be better served by existing tools.</p>
+
+<p>My slides had <em>a lot</em> of links in them and I mentioned during my talk I&rsquo;m put a list of them somewhere:</p>
+
+<h2 id="small-web-servers">Small Web Servers</h2>
+
+<ul>
+<li>Nginx - <a href="http://wiki.nginx.org">http://wiki.nginx.org</a></li>
+<li>Thin - <a href="http://code.macournoyer.com/thin/">http://code.macournoyer.com/thin/</a></li>
+<li>Mongrel - <a href="http://github.com/fauna/mongrel/">http://github.com/fauna/mongrel/</a></li>
+<li>Spawning - <a href="http://pypi.python.org/pypi/Spawning/">http://pypi.python.org/pypi/Spawning/</a></li>
+<li>Unicorn - <a href="http://github.com/defunkt/unicorn/">http://github.com/defunkt/unicorn/</a></li>
+</ul>
+
+<h2 id="caching">Caching</h2>
+
+<ul>
+<li>Memcached - <a href="http://memcached.org">http://memcached.org</a></li>
+<li>Squid - <a href="http://www.squid-cache.org">http://www.squid-cache.org</a></li>
+<li>Varnish - <a href="http://varnish-cache.org">http://varnish-cache.org</a></li>
+</ul>
+
+<h2 id="search-engines">Search Engines</h2>
+
+<ul>
+<li>Solr - <a href="http://lucene.apache.org/solr/">http://lucene.apache.org/solr/</a></li>
+<li>Xapian - <a href="http://xapian.org">http://xapian.org</a></li>
+<li>Sphinx - <a href="http://sphinxsearch.com">http://sphinxsearch.com</a></li>
+<li>Nutch - <a href="http://lucene.apache.org/nutch/">http://lucene.apache.org/nutch/</a></li>
+<li>Whoosh - <a href="http://whoosh.ca">http://whoosh.ca</a></li>
+</ul>
+
+<h2 id="message-queues">Message Queues</h2>
+
+<ul>
+<li>RabbitMQ - <a href="http://rabbitmq.com">http://rabbitmq.com</a></li>
+<li>Apache ActiveMQ - <a href="http://activemq.apache.org">http://activemq.apache.org</a></li>
+<li>Beanstalk - <a href="http://kr.github.com/beanstalkd/">http://kr.github.com/beanstalkd/</a></li>
+<li>Stomp Server - <a href="http://stomp.codehaus.org">http://stomp.codehaus.org</a></li>
+<li>MemcacheQ - <a href="http://memcachedb.org/memcacheq/">http://memcachedb.org/memcacheq/</a></li>
+</ul>
+
+<h2 id="non-relational-data-stores">Non-relational Data Stores</h2>
+
+<ul>
+<li>CouchDB - <a href="http://couchdb.apache.org">http://couchdb.apache.org</a></li>
+<li>MongoDB - <a href="http://www.mongodb.org">http://www.mongodb.org</a></li>
+<li>Tokyo Tyrant - <a href="http://1978th.net/tokyotyrant/">http://1978th.net/tokyotyrant/</a></li>
+<li>Cassandra - <a href="http://cassandra.apache.org">http://cassandra.apache.org</a></li>
+<li>Redis - <a href="http://code.google.com/p/redis/">http://code.google.com/p/redis/</a></li>
+</ul>
+
+<h2 id="data-mining">Data Mining</h2>
+
+<ul>
+<li>Hadoop - <a href="http://hadoop.apache.org">http://hadoop.apache.org</a></li>
+<li>Hive - <a href="http://wiki.apache.org/hadoop/Hive/">http://wiki.apache.org/hadoop/Hive/</a></li>
+<li>Pig - <a href="http://hadoop.apache.org/pig/">http://hadoop.apache.org/pig/</a></li>
+<li>Dumbo - <a href="http://lastfm.com/dumbo/">http://lastfm.com/dumbo/</a></li>
+<li>Disco - <a href="http://discoproject.org">http://discoproject.org</a></li>
+</ul>
+
+<h2 id="functional-testing">Functional Testing</h2>
+
+<ul>
+<li>Cucumber - <a href="http://cukes.info">http://cukes.info</a></li>
+<li>Cucumber-Nagios - <a href="http://auxesis.github.com/cucumber-nagios/">http://auxesis.github.com/cucumber-nagios/</a></li>
+</ul>
+
+<h2 id="server-provisioning">Server Provisioning</h2>
+
+<ul>
+<li>Puppet - <a href="http://puppetlabs.com">http://puppetlabs.com</a></li>
+<li>Chef - <a href="http://wiki.opscode.com/display/chef/Home/">http://wiki.opscode.com/display/chef/Home/</a></li>
+</ul>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

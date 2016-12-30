@@ -1,0 +1,16 @@
+---
+comments: true
+created_at: 2006/12/25}
+date: 2006-12-25T00:00:00Z
+title: Backgarden
+url: /2006/12/25/backgarden/
+---
+
+<p>
+I’m a fan of <a href="http://backpackit.com">Backpack</a> from <a href="http://37signals.com">37signals</a>. Although you <em>can</em> make pages public their is currently no way to style those differently, or to add content from outside Backpack. That’s where Backgarden comes in. It’s a simple PHP (4 and 5, the XML/XSL implementations are slighly different) application that builds a page via the Backpack API and some XSL magic that you can put on your site. You just enter the page address and your API key.
+
+</p>
+<p>
+<a href="/_assets/downloads/backgarden/backgarden.zip">Download Zip</a>
+
+</p>

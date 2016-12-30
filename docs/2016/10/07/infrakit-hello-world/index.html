@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>InfraKit Hello World &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">InfraKit Hello World</h1>
+    <span class="post-date">Oct 7, 2016 &middot; 3 minute read
+    </span>
+    <p>Docker just shipped <a href="https://github.com/docker/infrakit">InfraKit</a> a few days ago at LinuxCon and, while at the Docker Distributed Systems Summit, I wanted to see if I could get a hello world example up and running. The documentation is lacking at the moment, epecially around how to tie the different components like instances and flavors together.</p>
+
+<p>The following example isn&rsquo;t going to do anything particularly useful, but it&rsquo;s hopefully simple enough to help anyone else trying to get started. I&rsquo;m assuming you&rsquo;ve checked out and built the binaries as described in the <a href="https://github.com/docker/infrakit#building">README</a>.</p>
+
+<p>First create a directory. We&rsquo;re going to be using InfraKit to manage local files in that directory as part of the demo.</p>
+
+<pre><code>mkdir test
+</code></pre>
+
+<p>Now create an InfraKit configuration file. We&rsquo;re going to use the <code>file</code> instance plugin to manage files in out directory. This means everything works on the local machine, rather than trying to launch real infrastructure in AWS or similar. InfraKit also requires a <code>flavor</code> plugin. I&rsquo;m using <code>vanilla</code> here just to meet the requirement for a flavor plugin, but it&rsquo;s not going to actually do anything in this demo. It might be useful to write a noop flavor plugin or similar.</p>
+
+<pre><code>cat garethr.json
+</code></pre>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>{
+    <span style="color: #bb0066; font-weight: bold">&quot;ID&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;garethr&quot;</span>,
+    <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+        <span style="color: #bb0066; font-weight: bold">&quot;Instance&quot;</span> : {
+            <span style="color: #bb0066; font-weight: bold">&quot;Plugin&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;instance-file&quot;</span>,
+            <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+            }
+        },
+        <span style="color: #bb0066; font-weight: bold">&quot;Flavor&quot;</span> : {
+            <span style="color: #bb0066; font-weight: bold">&quot;Plugin&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;flavor-vanilla&quot;</span>,
+            <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+                <span style="color: #bb0066; font-weight: bold">&quot;Size&quot;</span>: <span style="color: #0000DD; font-weight: bold">1</span>
+            }
+        }
+    }
+}
+</pre></div>
+
+<p>InfraKit is based on running separate plugins. Each plugin runs as a separate process and provides a filesystem socket in /run/infrakit/plugins. First start up the file plugin:</p>
+
+<pre><code>$ ./infrakit/file --dir=./test
+INFO[0000] Starting plugin
+INFO[0000] Listening on: unix:///run/infrakit/plugins/instance-file.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/instance-file.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>Next, in a separate terminal run the vanilla plugin:</p>
+
+<pre><code>$ ./infrakit/vanilla
+INFO[0000] Starting plugin
+INFO[0000] Listening on: unix:///run/infrakit/plugins/flavor-vanilla.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/flavor-vanilla.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>An finally run the group plugin. I&rsquo;m passing <code>--log=5</code> to enable more verbose outout so it&rsquo;s easier to see what&rsquo;s going on with the group.</p>
+
+<pre><code>$ ./infrakit/group --log=5
+INFO[0000] Starting discovery
+DEBU[0000] Opening: /run/infrakit/plugins
+DEBU[0000] Discovered plugin at unix:///run/infrakit/plugins/instance-file.sock
+INFO[0000] Starting plugin
+INFO[0000] Starting
+INFO[0000] Listening on: unix:///run/infrakit/plugins/group.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/group.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>With that all setup we can create a group based on our configuration file from above.</p>
+
+<pre><code>$ ./infrakit/cli group --name group watch garethr.json
+watching garethr
+</code></pre>
+
+<p>Have a look in the test directory. You should see a single file has been created.</p>
+
+<pre><code>$ ls test
+instance-1475833380
+</code></pre>
+
+<p>Let&rsquo;s delete that file and see what happens:</p>
+
+<pre><code>rm test/*
+</code></pre>
+
+<p>Hopefully InfraKit will spot the instance (a file in this case) no longer exists and recreate it. You should see something like the following in the logs:</p>
+
+<pre><code>INFO[0612] Created instance instance-1475833820 with tags map[infrakit.config_sha:B2MsacXz8V_ztsjAzu3tu3zivlw= infrakit.group:garethr]
+</code></pre>
+
+<p>This is obviously a less-than-useful example but hopefully provides a good hello world example for anyone trying to run InfraKit in it&rsquo;s current early stage.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

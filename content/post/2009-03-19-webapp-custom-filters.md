@@ -1,0 +1,9 @@
+---
+comments: true
+created_at: 2009/03/19}
+date: 2009-03-19T00:00:00Z
+title: Webapp custom filters
+url: /2009/03/19/webapp-custom-filters/
+---
+
+The webapp framework wish ships with App Engine uses the Django templating system by default, but without Django apps doesn't support the same mechanism for loading template tags and filters. [This is how to do it though](http://javawonders.blogspot.com/2009/01/google-app-engine-templates-and-custom.html) using a few webapp.template methods.

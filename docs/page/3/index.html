@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2014/02/05/a-template-for-puppet-modules/">A template for Puppet modules</a>
+      </h1>
+      <span class="post-date">Feb 5, 2014 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>A little while ago I published a <a href="https://github.com/garethr/puppet-module-skeleton">template writing your own puppet modules</a>. It&rsquo;s
+very opinionated but comes out of the box with lots of the tools you
+eventually find and add to your tool box. I&rsquo;m posting this as it came
+up at the recent <a href="http://cfgmgmtcamp.eu">Configuration Management Camp</a>
+and after discussing it I realised I hadn&rsquo;t actually wrote anything
+about it anywhere.</p>
+
+<h2 id="what-do-you-get">What do you get?</h2>
+
+<ul>
+<li>A simple install, config, service class pattern</li>
+<li>Unit tests with <a href="https://github.com/rodjek/rspec-puppet">rspec-puppet</a></li>
+<li>Rake tasks for <a href="https://github.com/rodjek/puppet-lint">linting</a> and <a href="https://github.com/gds-operations/puppet-syntax">syntax checking</a></li>
+<li>Integration tests using <a href="https://github.com/puppetlabs/beaker">Beaker</a></li>
+<li>A Modulefile to provide Forge metadata</li>
+<li>Command line tools to upload to the Forge with <a href="https://github.com/maestrodev/puppet-blacksmith">blacksmith</a></li>
+<li>A README based on the Puppetlabs documentation standards</li>
+<li><a href="https://travis-ci.org">Travis CI</a> configuration based on the official
+Puppetlabs support matrix</li>
+<li>A Guardfile which can run all the tests when you change manifests</li>
+</ul>
+
+<p>Obviously you can choose not to use parts of this, or even delete
+aspects, but I find that approach much quicker than starting from scratch
+or copying files from previous modules and changing names.</p>
+
+<h2 id="how-can-i-use-it">How can I use it?</h2>
+
+<p>Simple. The following will install the module skeleton to
+<code>~/.puppet/var/puppet-module/skeleton</code>. This turns out to be picked up
+by the Puppet module tool.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>git clone https://github.com/garethr/puppet-module-skeleton 
+<span style="color: #003388">cd</span> puppet-module-skeleton
+find skeleton -type f | git checkout-index --stdin --force --prefix=<span style="color: #dd2200; background-color: #fff0f0">&quot;</span><span style="color: #336699">$HOME</span><span style="color: #dd2200; background-color: #fff0f0">/.puppet/var/puppet-module/&quot;</span> --
+</pre></div>
+
+<p>With that in place you can then just run the following to create a new
+module, where puppet-ntp is the name of our new module.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>puppet module generate puppet-ntp
+</pre></div>
+
+<p>We use <code>puppet module</code> like this rather than just copying the files
+because otherwise you would have to rename everything from class names
+to test assertions. The skeleton actually contains erb templates in
+places, and running <code>puppet module generate</code> results in the module name
+being available to those templates.</p>
+
+<h2 id="now-what">Now what?</h2>
+
+<p>Assuming you have run the above commands you should have a folder called
+<code>puppet-ntp</code> in your current directory. <code>cd</code> into that and then install
+the dependencies:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>bundle install
+</pre></div>
+
+<p><a href="http://bundler.io/">Bundler </a>is a dependency manager for Ruby. If you
+don&rsquo;t already have it installed you should be able to do so with the
+following:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>gem install bundler
+</pre></div>
+
+<p>Now you have the dependencies why not run the full test suite? This
+checks syntax, lints the Puppet code and runs the unit tests.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>bundle <span style="color: #003388">exec</span> rake <span style="color: #003388">test</span>
+</pre></div>
+
+<p>Unit tests give fast feedback and help make sure the code you write is
+going to do what you intend, but they aren&rsquo;t actually applying the
+manifests to a real machine. For that you want an integration test.
+You&rsquo;ll need <a href="http://vagrantup.com">Vagrant</a> installed for this next
+step. Lets run those as well with:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>bundle <span style="color: #003388">exec</span> rspec spec/acceptance
+</pre></div>
+
+<p>This will take a while, especially the first time. This uses Beaker to
+download a virtual machine from Puppetlabs (if you don&rsquo;t already have
+it) and then brings up a new machine, applies a simple manifest, runs
+the acceptance tests and then destroys the machine.</p>
+
+<p>The <code>CONTRIBUTING.md</code> file has more information for running the test
+suite.</p>
+
+<h2 id="what-s-new">What&rsquo;s new?</h2>
+
+<p>I&rsquo;ve recently added a <a href="https://github.com/guard/guard">Guardfile</a> to
+help with testing. You can run this with:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>bundle <span style="color: #003388">exec</span> guard
+</pre></div>
+
+<p>Now in a separate tab or pane make a change to any of the manifests. The
+tests should run automatically in the tab or pane where guard is
+running.</p>
+
+<h2 id="can-you-add-this-new-tool">Can you add this new tool?</h2>
+
+<p>Probably. Although I started the repo a few other people have
+contributed code or made improvements already. Just sent a pull request
+or open an issue.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2014/01/25/code-coverage-for-puppet-modules/">Code coverage for Puppet modules</a>
+      </h1>
+      <span class="post-date">Jan 25, 2014 &middot; 2 minute read
+      </span>
+      
+      
+
+<p>One of my favourite topics for a while now has been <em>infrastructure as
+code</em>. Part of that involves introducing well understood programming
+techniques to infrastructure - from test driven design, to refactoring
+and version control. One tool I&rsquo;m fond of (even with it&rsquo;s potential to
+be misused) is <a href="http://en.wikipedia.org/wiki/Code_coverage">code coverage</a>. I&rsquo;d been meaning
+to go code spelunking to see if this could be done for testing Puppet
+modules.</p>
+
+<p>The functionality is now in <a href="https://github.com/rodjek/rspec-puppet#producing-coverage-reports">master for rspec-puppet</a>
+and so anyone feeling brave can use it now, or if you must wait for the
+2.0.0 release. The actual implementation is inspired by the same functionality in
+<a href="https://github.com/sethvargo/chefspec#reporting">ChefSpec</a>
+written by <a href="https://sethvargo.com/">Seth Vargo</a>. Lots of the how came
+from here, and the usage is very similar.</p>
+
+<h2 id="how-to-use-it">How to use it?</h2>
+
+<p>First add (or hopefully change) your Gemfile line item for rspec-puppet
+to the following:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>gem <span style="color: #dd2200; background-color: #fff0f0">&quot;rspec-puppet&quot;</span>, <span style="color: #aa6600; background-color: #fff0f0">:git</span> =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;https://github.com/rodjek/rspec-puppet.git&#39;</span>
+</pre></div>
+
+<p>Then all you need to do is include the following line anywhere in a
+spec.rb file in your spec directory.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #336699">at_exit</span> { <span style="color: #336699">RSpec</span>::<span style="color: #336699">Puppet</span>::<span style="color: #336699">Coverage</span><span style="color: #a61717; background-color: #e3d2d2">.</span><span style="color: #336699">report</span>! }
+</pre></div>
+
+<h2 id="what-do-i-get">What do I get?</h2>
+
+<p>Here&rsquo;s an <a href="https://github.com/garethr/garethr-nginx">example module</a>,
+including a file called
+<a href="https://github.com/garethr/garethr-nginx/blob/master/spec/classes/coverage_spec.rb">coverage_spec.rb</a>.
+When running the test suite with <code>rake spec</code> you now get coverage
+details like so:</p>
+
+<pre><code>Total resources:   24
+Touched resources: 8
+Resource coverage: 33.33%
+
+Untouched resources:
+  Class[Nginx]
+  File[preferences.d]
+  Anchor[apt::update]
+  Class[Apt::Params]
+  File[sources.list]
+  Exec[Required packages: 'debian-keyring debian-archive-keyring' for nginx]
+  Anchor[apt::source::nginx]
+  Class[Apt::Update]
+  File[configure-apt-proxy]
+  Apt::Key[Add key: 7BD9BF62 from Apt::Source nginx]
+  Anchor[apt::key/Add key: 7BD9BF62 from Apt::Source nginx]
+  Anchor[apt::key 7BD9BF62 present]
+  File[nginx.list]
+  Exec[apt_update]
+  File[sources.list.d]
+  Exec[e407f76c6e349fc397947a4a49260a9320196cb1]
+</code></pre>
+
+<p>Here&rsquo;s the output on <a href="https://travis-ci.org/garethr/garethr-nginx/jobs/17597307#L105">Travis CI</a> as
+well for a recent build.</p>
+
+<h2 id="why-is-this-useful">Why is this useful?</h2>
+
+<p>I&rsquo;ve already found coverage useful when writing tests for a few of my
+puppet modules. The information about the total number of resouces is
+interesting (and potentially an indicator of complexity) but the list of
+untouched resources is the main useful part. These represent both
+information about what your module is doing, and potential things you
+might want to test.</p>
+
+<p>I&rsquo;m hoping to find some more time to make this even better, providing
+more information about untouched resources, adding some configuration
+options and hopefully to integrate with the <a href="https://coveralls.io/docs/api">Coveralls API</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2014/01/12/shell-provisioner-for-test-kitchen/">Shell provisioner for Test Kitchen</a>
+      </h1>
+      <span class="post-date">Jan 12, 2014 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>As of a few weeks ago <a href="http://kitchen.ci/">Test Kitchen</a> has a <a href="https://github.com/test-kitchen/test-kitchen/blob/master/lib/kitchen/provisioner/shell.rb">shell provisioner</a> as well as the original Chef provisioners. This opens up all sorts of interesting testing potential.</p>
+
+<p>If you&rsquo;ve not already seen Test Kitchen, probably because you&rsquo;re not using Chef, it&rsquo;s a tool for integration testing infrastructure code. Configured by a simple YAML file it will setup a matrix of virtual machines, using Virtualbox, AWS, OpenStack and more, run some setup code (normally applying Chef recipes) and then run a test suite (with support for Bats, ShUnit2, Rspec and Serverspec). It&rsquo;s all very pluggable. With the addition of the shell provisioner it&rsquo;s useful to just about anyone. To try and prove that here&rsquo;s a hello world style example.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>First we need to install Test Kitchen. We&rsquo;ll use vagrant and virtualbox for our example too so we need a few extra dependencies. I&rsquo;m going to assume you have bundler installed, if not you may be able to do so with <code>gem install bundler</code> but as the number of ways of setting a ruby environment up is greater than the number of people on the planet I&rsquo;ll have to defer to instructions elsewhere for getting that far.</p>
+
+<p>First create a file called <code>Gemfile</code> with the following contents:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>source <span style="color: #dd2200; background-color: #fff0f0">&quot;https://rubygems.org&quot;</span>
+
+gem <span style="color: #dd2200; background-color: #fff0f0">&quot;test-kitchen&quot;</span>, <span style="color: #aa6600; background-color: #fff0f0">:git</span> =&gt; <span style="color: #dd2200; background-color: #fff0f0">&quot;https://github.com/test-kitchen/test-kitchen.git&quot;</span>
+gem <span style="color: #dd2200; background-color: #fff0f0">&quot;kitchen-vagrant&quot;</span>
+gem <span style="color: #dd2200; background-color: #fff0f0">&quot;vagrant-wrapper&quot;</span>
+</pre></div>
+
+<p>Then run:</p>
+
+<pre><code>bundle install
+</code></pre>
+
+<p>This should install the above software. Note that the shell provisioner is not yet in an official release so where installing direct from GitHub for the moment.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Next we&rsquo;ll tell Test Kitchen what we want to do. As much for demonstration purposes I&rsquo;m going to grab one of the Puppetlabs boxes. This is just plain <a href="http://vagrantup.com">Vagrant</a> so feel free to substitude the <code>box</code> and <code>box_url</code> for alternatives you already have installed locally. Otherwise the first run will take a little longer as it downloads a large file.</p>
+
+<p>Pull all of the following in a file called `.kitchen.yml&rsquo;.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #bb0066; font-weight: bold">---</span>
+driver:
+  name: vagrant
+
+provisioner:
+  name: shell
+
+platforms:
+  - name: puppet-precise64
+    driver_config:
+      box: puppet-precise64
+      box_url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box
+
+suites:
+  - name: default
+</pre></div>
+
+<p>The shell provisioner is going to look for a file called <code>bootstrap.sh</code> by default. You can overide this but we&rsquo;ll leave it for the moment. Our bootstrap script is going to do something very simple, install the ntp package. But the important part is it could do anything; run Salt, run Ansible, run Puppet, execute any arbitrary code we choose. In this case our script is completely self contained but if it needed some additional files we could put them in a directory called <code>data</code> and they would be copied to the newly created virtual machine under <code>/tmp/kitchen</code>.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #888888">#!/bin/bash</span>
+
+apt-get install ntp -y
+</pre></div>
+
+<h2 id="tests">Tests</h2>
+
+<p>The last step is to write a test. I&rsquo;m suddently finding lots of excuses to use <a href="http://serverspec.org/">Serverspec</a> so we&rsquo;ll use that, but if you prefer you can use pretty much anything. The following file should be saved as  <code>test/integration/default/serverspec/ntp_spec.rb</code>. Note the <code>default</code> in the path which matches our suite above in the <code>.kitchen.yml</code> file. Test Kitchen allows for multiple suites all with separate tests based on a strong set of file path conventions.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #003388">require</span> <span style="color: #dd2200; background-color: #fff0f0">&#39;serverspec&#39;</span>
+
+<span style="color: #008800">include</span> <span style="color: #003366; font-weight: bold">Serverspec</span>::<span style="color: #003366; font-weight: bold">Helper</span>::<span style="color: #003366; font-weight: bold">Exec</span>
+<span style="color: #008800">include</span> <span style="color: #003366; font-weight: bold">Serverspec</span>::<span style="color: #003366; font-weight: bold">Helper</span>::<span style="color: #003366; font-weight: bold">DetectOS</span>
+
+<span style="color: #003366; font-weight: bold">RSpec</span>.configure <span style="color: #008800; font-weight: bold">do</span> |c|
+  c.before <span style="color: #aa6600; background-color: #fff0f0">:all</span> <span style="color: #008800; font-weight: bold">do</span>
+    c.path = <span style="color: #dd2200; background-color: #fff0f0">&#39;/sbin:/usr/sbin&#39;</span>
+  <span style="color: #008800; font-weight: bold">end</span>
+<span style="color: #008800; font-weight: bold">end</span>
+
+describe package(<span style="color: #dd2200; background-color: #fff0f0">&#39;ntp&#39;</span>) <span style="color: #008800; font-weight: bold">do</span>
+  it { should be_installed }
+<span style="color: #008800; font-weight: bold">end</span>
+
+describe service(<span style="color: #dd2200; background-color: #fff0f0">&#39;ntp&#39;</span>) <span style="color: #008800; font-weight: bold">do</span>
+  it { should be_enabled }
+  it { should be_running }
+<span style="color: #008800; font-weight: bold">end</span>
+</pre></div>
+
+<h2 id="running-the-tests">Running the tests</h2>
+
+<p>With all of that in place we&rsquo;re ready to run our tests.</p>
+
+<pre><code>bundle exec kitchen test
+</code></pre>
+
+<p>This should:</p>
+
+<ul>
+<li>download the virtual machine image if you don&rsquo;t already have it locally</li>
+<li>create a new virtual machine based on the image</li>
+<li>run the bootstrap.sh script</li>
+<li>run our serverspec test suite</li>
+</ul>
+
+<p>The real power comes from doing this iteratively as you work on code, probably code more complex than a simple one-line bash script. You can also test across multiple virtual machines at a time, for instance different operating systems or different machine roles. The <code>kitchen</code> command line tool provides lots of help too, with the ability to login to machines, verify that specific combinations of platform and suite are working and print lots of diagnotic information to aid development.</p>
+
+<p>Hopefully this will make it into a release soon, and we&rsquo;ll see more involved examples using higher level tools and more documentation. But even now I&rsquo;d be looking at Test Kitchen for any infrastructure testing you might be doing.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2014/01/01/testing-packer-created-images-with-serverspec/">Testing Packer created images with serverspec</a>
+      </h1>
+      <span class="post-date">Jan 1, 2014 &middot; 2 minute read
+      </span>
+      
+      
+
+<p><a href="http://www.packer.io/">Packer</a> provides a great way of describing the steps for creating a virtual machine image. But it doesn&rsquo;t have a built-in way of verifying those images.</p>
+
+<p><a href="http://serverspec.org/">Serverspec</a> provides a nice framework for writing tests against infrastructure, asserting the operation of services or the installation of packages.</p>
+
+<p>I&rsquo;m interested at the moment in building continous delivery pipelines for infrastructure components and have a simple working example of <a href="https://github.com/garethr/packer-serverspec-example">testing Packer with Serverspec</a> on
+Github. The example uses the AWS builder and the Puppet provisioner but the approach should work with other combinations.</p>
+
+<p>This doesn&rsquo;t represent a complete infrastructure pipeline, but it does demonstrate an approach to automating one particular component - building base images.</p>
+
+<h2 id="testing">Testing</h2>
+
+<p>In our example I&rsquo;m using the <a href="https://github.com/puppetlabs/puppetlabs-ntp">Puppetlabs NTP</a> module to install and configure NTP. Once the Puppet provisioner has run, but before we build the AMI (or other virtal machine image) we run a test suite. For our example the tests are pretty simple:</p>
+
+<pre><code>describe package('ntp') do
+  it { should be_installed }
+end
+
+describe service('ntp') do
+  it { should be_enabled   }
+  it { should be_running   }
+end
+</code></pre>
+
+<p>If the tests fail, Packer will stop and the AMI won&rsquo;t be built. The combination of storing the code (Packer template) alongside a test suite (Serverspec) and building a new AMI whenever you change the code, makes this setup perfect for continuous integration.</p>
+
+<h2 id="wercker-builds">Wercker builds</h2>
+
+<p>As an example of a continuous integration setup the repository contains a <a href="https://github.com/garethr/packer-serverspec-example/blob/master/wercker.yml">wercker.yml</a> configuration file for the excellent <a href="http://devcenter.wercker.com/">Wercker</a> service. Wercker makes setting up multi-step built pipelines easy and nicely configurable via a simple text file in your repository.</p>
+
+<p>The Wercker <a href="https://app.wercker.com/#applications/52c450e489daaf145f001ad8">build for this project is public</a>. Currently the build involves downloading Packer, running <code>packer validate</code> to check the template and eventually running <code>packer build</code> to boot an instance and run our serverspec tests.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2013/12/29/making-the-web-secure/">Making the web secure, one unit test at a time</a>
+      </h1>
+      <span class="post-date">Dec 29, 2013 &middot; 6 minute read
+      </span>
+      
+      
+
+<p><em>Originally written as part of <a href="http://sysadvent.blogspot.co.uk/2013/12/day-21-making-web-secure-one-unit-test.html">Sysadvent 2013</a>.</em></p>
+
+<p>Writing automated tests for your code is one of those things that,
+once you have gotten into it, you never want to see code without tests
+ever again. Why write pages and pages of documentation about how
+something should work when you can write tests to show exactly how something does work? Looking at the number and quality of testing tools and frameworks (like cucumber,
+rspec, <a href="https://github.com/test-kitchen/test-kitchen">Test Kitchen</a>,
+<a href="http://serverspec.org/">Server Spec</a>,
+<a href="https://github.com/puppetlabs/beaker">Beaker</a>,
+<a href="http://casperjs.org/">Casper</a> and
+<a href="http://pivotal.github.io/jasmine/">Jasmine</a> to name a few) that have
+popped up in the last year or so I&rsquo;m obviously not the only person who
+has a thing for testing utilities.</p>
+
+<p>One of the other things I am interested in is web application
+security, so this post is all about using the tools and techniques
+from unit testing to avoid common web application security issues. I&rsquo;m
+using Ruby in the examples but you could quickly convert these to other languages if you desire.</p>
+
+<h2 id="any-port-in-a-storm">Any port in a storm</h2>
+
+<p>Lets start out with something simple. Accidentally exposing
+applications on TCP ports can lead to data loss or introduce a vector
+for attack. Maybe your main website is super secure, but you left the
+port for your database open to the internet. It&rsquo;s the server configuration equivalent of forgetting to lock the back door.</p>
+
+<p>Nmap is a tool lots of people will be familiar with for spanning for
+open ports. As well as a command line interface Nmap also has good
+library support in lots of languages so lets try and write a simple
+tests suite around it.</p>
+
+<pre><code>require &quot;tempfile&quot;
+require &quot;nmap/program&quot;
+require &quot;nmap/xml&quot;
+
+describe &quot;the scanme.nmap.org website&quot; do
+  file = Tempfile.new(&quot;nmap.xml&quot;)
+  before(:all) do
+    Nmap::Program.scan do |nmap|
+      nmap.xml = file.path
+      nmap.targets = &quot;scanme.nmap.org&quot;
+    end
+  end
+
+  @open_ports = []
+  Nmap::XML.new(&quot;scan.xml&quot;) do |xml|
+    xml.each_host do |host|
+      host.each_port do |port|
+        @open_ports &lt;&lt; port.number if port.state == :open
+      end
+    end
+  end
+end
+</code></pre>
+
+<p>With the above code in place we can then write tests like:</p>
+
+<pre><code>it &quot;should have two ports open&quot; do
+ @open_ports.should have(2).items
+end
+
+it &quot;should have port 80 open&quot; do
+ @open_ports.should include(80)
+end
+
+it &quot;should have port 22 closed&quot; do
+ @open_ports.should_not include(22)
+end
+</code></pre>
+
+<p>We can run these manually, but also potentially as part of a
+continuous integration build or constantly as part of a monitoring
+suite.</p>
+
+<h2 id="run-the-guantlt">Run the Guantlt</h2>
+
+<p>We had to do quite a bit of work wrapping Nmap before we could write
+the tests above. Wouldn&rsquo;t it be nice if someone had already wrapped
+lots of useful security minded tools for us? <a href="http://gauntlt.org/">Gauntlt</a> is pretty much just that, it&rsquo;s a security testing framework based on cucumber which currently supports curl, nmap, sslyze, sqlmap, garmr and a bunch more tools in master. Lets do something more advanced than our port scanning test above by testing a URL for a SQL injection vulnerability.</p>
+
+<pre><code>@slow
+Feature: Run sqlmap against a target
+  Scenario: Identify SQL injection vulnerabilities
+    Given &quot;sqlmap&quot; is installed
+    And the following profile:
+      | name       | value                                      |
+      | target_url | http://localhost/sql-injection?number_id=1 |
+    When I launch a &quot;sqlmap&quot; attack with:
+      &quot;&quot;&quot;
+      python &lt;sqlmap_path&gt; -u &lt;target_url&gt; —dbms sqlite —batch -v 0 —tables
+      &quot;&quot;&quot;
+    Then the output should contain:
+      &quot;&quot;&quot;
+      sqlmap identified the following injection points
+      &quot;&quot;&quot;
+    And the output should contain:
+      &quot;&quot;&quot;
+      [2 tables]
+      +-----------------+
+      | numbers         |
+      | sqlite_sequence |
+      +-----------------+
+      &quot;&quot;&quot;
+</code></pre>
+
+<p>The Gauntlt team publish <a href="https://github.com/gauntlt/gauntlt/tree/master/examples">lots of examples</a> like this one alongside the source code, so getting started is easy. Gauntlt is very powerful, but as you&rsquo;ll see from the example above you need to know quite a bit about the underlying tools it is using. In the case above you need to know the various arguments to sqlmap and also how to interpret the output.</p>
+
+<h2 id="enter-prodder">Enter Prodder</h2>
+
+<p><a href="https://github.com/garethr/prodder">Prodder</a> is a tool I put together
+to automate a few specific types of security testing. In many ways
+it&rsquo;s very similar to Gauntlt; it uses the cucumber testing framework
+and uses some of the same tools (like nmap and sslyze) under the hood.
+However rather than a general purpose security framework like Gauntlt,
+Prodder is higher level and very opinionated. Here&rsquo;s an example:</p>
+
+<pre><code>Feature: SSL
+  In order to ensure secure connections
+  I want to check the SSL configuration of my servers
+  Background:
+    Given &quot;sslyze.py&quot; is installed
+    Scenario: Check SSLv2 is disabled
+      When we test using the &quot;sslv2&quot; protocol
+      Then the exit status should be 0
+      And the output should contain &quot;SSLv2 disabled&quot;
+
+    Scenario: Check certificate is trusted
+      When we check the certificate
+      Then the output should contain &quot;Certificate is Trusted&quot;
+      And the output should match /OK — (Common|Subject
+</code></pre>
+
+<p>Alternative) Name Matches/
+          And the output should not contain &ldquo;Signature Algorithm: md5&rdquo;
+          And the output should not contain &ldquo;Signature Algorithm: md2&rdquo;
+          And the output should contain &ldquo;Key Size: 2048&rdquo;</p>
+
+<pre><code>    Scenario: Check certificate renegotiations
+      When we test certificate renegotiation
+      Then the output should contain &quot;Client-initiated
+</code></pre>
+
+<p>Renegotiations: Rejected&rdquo;
+          And the output should contain &ldquo;Secure Renegotiation: Supported&rdquo;</p>
+
+<pre><code>    Scenario: Check SSLv3 is not using weak ciphers
+      When we test using the &quot;sslv3&quot; protocol
+      Then the output should not contain &quot;Anon&quot;
+      And the output should not contain &quot;96bits&quot;
+      And the output should not contain &quot;40bits&quot;
+      And the output should not contain &quot; 0bits&quot;
+</code></pre>
+
+<p>This is a little higher level than the Gauntlt example — it&rsquo;s not
+exposing the workings of sslyze that is doing the actual testing. All
+you need is an understanding of SSL certifcates. Even if you&rsquo;re not an
+expert on SSL you can accept the aforementioned opinions of Prodder
+about what good looks like. Prodder currently contains steps and
+exampes for port scanning, SSL certificates and security minded HTTP
+headers. If you already have a cucumber based test suite (including
+one based on Gauntlt) you can reuse the step definitions in that too.</p>
+
+<p>I&rsquo;m hoping to build upon Prodder, adding more types of tests and
+getting agreement on the included opinions from the wider systems
+administration community. By having a default set of shared assertions
+about the expected security of out system we can more easily move onto
+new projects, safe in the knowledge that a test will fail if someone
+messes up our once secure configuration.</p>
+
+<h2 id="i-m-convinced-what-should-i-do-next">I&rsquo;m convinced, what should I do next?</h2>
+
+<p>As well as trying out some of the above tools and techniques for
+yourself I&rsquo;d recommend encouraging more security conversations in your
+development and operations teams. Here&rsquo;s a few  places to start with:</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/beehooze/devopsday-london-ben-hughes-security">Ben Hughes from Etsy talking about security culture at Devopsdays London</a></li>
+<li><a href="https://speakerdeck.com/garethr/security-monitoring-with-open-source-penetration-testing-tools">A presentation I gave at Velocity about using penetration testing tools for monitoring purposes</a></li>
+<li><a href="http://www.slideshare.net/wickett/gauntlt-velocity-eu2013">A workshop, again from Velocity all about getting started with Gauntlt</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2013/12/28/introducing-hyde/">Introducing Hyde</a>
+      </h1>
+      <span class="post-date">Dec 28, 2013 &middot; 2 minute read
+      </span>
+      
+      
+
+<p>Hyde is a brazen two-column <a href="http://jekyllrb.com">Jekyll</a> theme that pairs a prominent sidebar with uncomplicated content. It&rsquo;s based on <a href="http://getpoole.com">Poole</a>, the Jekyll butler.</p>
+
+<h3 id="built-on-poole">Built on Poole</h3>
+
+<p>Poole is the Jekyll Butler, serving as an upstanding and effective foundation for Jekyll themes by <a href="https://twitter.com/mdo">@mdo</a>. Poole, and every theme built on it (like Hyde here) includes the following:</p>
+
+<ul>
+<li>Complete Jekyll setup included (layouts, config, <a href="/404">404</a>, <a href="/atom.xml">RSS feed</a>, posts, and <a href="/about">example page</a>)</li>
+<li>Mobile friendly design and development</li>
+<li>Easily scalable text and component sizing with <code>rem</code> units in the CSS</li>
+<li>Support for a wide gamut of HTML elements</li>
+<li>Related posts (time-based, because Jekyll) below each post</li>
+<li>Syntax highlighting, courtesy Pygments (the Python-based code snippet highlighter)</li>
+</ul>
+
+<h3 id="hyde-features">Hyde features</h3>
+
+<p>In addition to the features of Poole, Hyde adds the following:</p>
+
+<ul>
+<li>Sidebar includes support for textual modules and a dynamically generated navigation with active link support</li>
+<li>Two orientations for content and sidebar, default (left sidebar) and <a href="https://github.com/poole/lanyon#reverse-layout">reverse</a> (right sidebar), available via <code>&lt;body&gt;</code> classes</li>
+<li><a href="https://github.com/poole/hyde#themes">Eight optional color schemes</a>, available via <code>&lt;body&gt;</code> classes</li>
+</ul>
+
+<p><a href="https://github.com/poole/hyde#readme">Head to the readme</a> to learn more.</p>
+
+<h3 id="browser-support">Browser support</h3>
+
+<p>Hyde is by preference a forward-thinking project. In addition to the latest versions of Chrome, Safari (mobile and desktop), and Firefox, it is only compatible with Internet Explorer 9 and above.</p>
+
+<h3 id="download">Download</h3>
+
+<p>Hyde is developed on and hosted with GitHub. Head to the <a href="https://github.com/poole/hyde">GitHub repository</a> for downloads, bug reports, and features requests.</p>
+
+<p>Thanks!</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2013/10/13/looking-into-monitoring-and-logging-tools/">Looking into monitoring and logging tools</a>
+      </h1>
+      <span class="post-date">Oct 13, 2013 &middot; 3 minute read
+      </span>
+      
+      <p><em>Originally published on <a href="https://medium.com/p/1cbb173faa3a">Medium</a>.</em></p>
+
+<p>We have a bunch of internal mailing lists at <a href="http://digital.cabinetoffice.gov.uk/">work</a>, and on one of them someone asked:</p>
+
+<blockquote>
+<p>we’re looking into monitoring/logging tools…</p>
+</blockquote>
+
+<p>I ended up writing a bit of a long reply which a few people found useful, so I thought I’d repost it here for posterity. I’m sure this will date but I think it’s a reasonable snapshot of the state of open source monitoring tools at the end of 2013.</p>
+
+<p>Simply put, think about four elements and you won’t be far off on the
+technical front. Miss one and you’re probably in trouble.</p>
+
+<ul>
+<li>logs</li>
+<li>metric storage</li>
+<li>metric collection</li>
+<li>monitoring checks</li>
+</ul>
+
+<p>For logs, some combination of syslog at one end and elasticsearch and
+<a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a> at the other are probably the state of the open source art at
+the moment. The shipping around is more interesting; <a href="http://logstash.net/">Logstash</a> is improving constantly, <a href="http://heka-docs.readthedocs.org/en/latest/">Heka</a> is an similar alternative from Mozilla, and <a href="http://fluentd.org/">Fluentd</a> looks nice too.</p>
+
+<p>For pure metrics it’s all about <a href="http://graphite.wikidot.com/">Graphite</a>, which is both awesome and
+perilous. Not much else really competes in the open source world at
+present. Maybe <a href="http://opentsdb.net/">OpenTSB</a> (is you’re into a Hadoop stack.)</p>
+
+<p>For collecting metrics on boxes I’d probably look at <a href="http://collectd.org/">collectd</a> or <a href="https://github.com/BrightcoveOS/Diamond">diamond</a> both of which have pros and cons but work well. <a href="https://github.com/etsy/statsd/">Statsd</a> is also useful here for different types of metric collection and aggregation. <a href="http://ganglia.sourceforge.net/">Ganglia</a> is interesting too, it combines some aspects of the metrics collection tools with an integrated storage and visualisation tool similar to Graphite.</p>
+
+<p>Monitoring checks is a bit more painful. I’ve been experimenting with <a href="http://sensuapp.org/">Sensu</a> in hope of not installing Nagios. Nagios works but it’s just a bit ungainly. But you do need somewhere to write checks against metrics or other aspects of your system and to issue alerts.</p>
+
+<p>At this point everyone loves dashboards, and <a href="http://shopify.github.io/dashing/">Dashing</a> is particularly lovely. <a href="https://github.com/paperlesspost/graphiti">Graphiti</a> and <a href="https://github.com/obfuscurity/tasseo">Tasseo</a> for Graphite are useful too.</p>
+
+<p>For bonus points things like <a href="http://flapjack.io/">Flapjack</a> and <a href="http://riemann.io/">Reimann</a> provide some interesting extra capabilities around alert control or real time monitoring respectively.</p>
+
+<p>And for that elusive top of the class grade take a look at <a href="http://codeascraft.com/2013/06/11/introducing-kale/">Kale</a>, which provides anomaly detection on top of Graphite and Elasticsearch .</p>
+
+<p>You might be thinking that’s a lot of moving parts and you’d be right. If you’re a small project running all of that is too much overhead, turning to something like Zabbix might be more sensible.</p>
+
+<p>Depending on money/sensitivity/control issues lots of nice and not so
+nice commercial products exist. <a href="http://www.circonus.com/">Circonus</a>, <a href="http://www.splunk.com/">Splunk</a>, <a href="http://newrelic.com/">New Relic</a>, <a href="http://boundary.com/">Boundary</a> and <a href="https://metrics.librato.com/">Librato Metrics</a> are all lovely in different ways and provide part of the puzzle.</p>
+
+<p>And that’s just the boring matter of tools. Now you get into alert design and other gnarly people stuff.</p>
+
+<p>If you got this far you should watch all the <a href="http://vimeo.com/monitorama">Monitorama videos</a> too.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2013/08/11/platform-as-a-service-and-the-network-gap/">Platform as a Service and the network gap</a>
+      </h1>
+      <span class="post-date">Aug 11, 2013 &middot; 5 minute read
+      </span>
+      
+      
+
+<p><em>Originally published on <a href="https://medium.com/p/817849715f0a">Medium</a>.</em></p>
+
+<p>I&rsquo;m a big fan of the Platform as a Service (PaaS) model of operating web
+application infrastructure. But I&rsquo;m a much bigger user and exponent of
+Infrastructure as a Service (IaaS) products within my current role
+working for the UK Government. This post describes why that is, and
+hopefully helps anyone else inside other large enterprise organisations
+reason about the advantages and disadvantages, and helps PaaS vendors
+and developers understand what I personally thing is a barrier to
+adoption in that type of organisation.</p>
+
+<p>A quick word of caution, I don’t know every product inside out. It’s
+very possible a PaaS product exists that deals with the problems I will
+describe. If you know of such a product do let me know.</p>
+
+<h2 id="a-simple-use-case">A simple use case</h2>
+
+<p>PaaS products make for the very best demos. Have a working application?
+Deployment is probably as simple as:</p>
+
+<pre><code>git push azure master 
+</code></pre>
+
+<p>Your app has started to run slowly because visitors are flooding in?
+Just scale out with something like:</p>
+
+<pre><code>heroku ps:scale web+2
+</code></pre>
+
+<p>The amount of complexity being hidden is astounding and the ability to
+move incredibly quickly is obvious for anyone with experience of doing
+this in a more traditional organisation.</p>
+
+<h2 id="a-not-so-simple-use-case">A not so simple use case</h2>
+
+<p>Even small systems are often being built out of many small services
+these days. Many large organisations have been up to this for a while
+under the banner of Service Orientated Architecture. I&rsquo;m a big fan of
+this approach, in my view it moves operational and organisational
+complexity back into the development team where its impact can often be
+minimised by automation. But that’s a topic for another post.</p>
+
+<p>In a PaaS world having many services is fine. We just have more
+applications running on the Platform which can be independently scaled
+out to meet our needs. But services need to communicate with each other
+somehow, and this is where our problems start. We’ll keep things simple
+here by assuming communication is over HTTPS (which should be pretty
+typical) but I don’t think other protocols make the problem I have go
+away. The same problem applies if you’re using a SaaS database for
+example.</p>
+
+<h2 id="it-s-the-network-stupid">It’s the network, stupid</h2>
+
+<p>Over what network does my HTTPS internal service call travel? The
+internet? The internal PaaS vendor’s network? If the latter, is my
+traffic travelling over the same network as other clients on the
+platform? Maybe I&rsquo;m running my own PaaS in-house. But do I trust
+everyone else in my very large organisation and want my traffic on the
+same network as other things I don’t even know about? Even if it’s just
+me do I want internal service traffic mixing with requests coming from
+the internet? And are all my services created equally with regards what
+they can and cannot access?</p>
+
+<p>Throw in questions like: is the PaaS supplier running on infrastructure
+provided by a public IaaS suppliers who you don’t have a relationship
+with and you start to question the suitability of the current public
+PaaS products for building secure service based systems.</p>
+
+<h2 id="a-journey-into-enterprise-architectures">A journey into Enterprise Architectures</h2>
+
+<p>You might be thinking, pah, what’s the worst that can happen? If you
+work for a small company or a shiny startup that might be completely
+valid. If on the other hand you’re working in a regulated environment
+(say PCI) or dealing with large volumes of highly sensitive information
+you’re very likely to have to build systems that provide layers of
+trust, and to be doing inspection, filtering and integrity checking as
+requests flow between those layers.</p>
+
+<p>Imagine that I have a service dealing with some sensitive data. If I
+control the infrastructure (virtualised or not, IaaS provided or not)
+I’ll make sure that service endpoint isn’t available to anything that
+doesn’t need access to it via my network configuration. If I’m being
+more thorough I’ll filter traffic through some sort of proxy that does
+checking of the content; It should be JSON (or XML), it should meet this
+schema, It shouldn’t exceed this rate, it shouldn’t exceed this payload
+size or response size, etc. That is before anything even reaches the
+services application. And that’s on top of SSL and maybe client
+certificates.</p>
+
+<p>If I don’t control the infrastructure, for example when running on a
+PaaS, I lose some of the ability to have the network protect me. I can
+probably get some of this back by running my own PaaS on my own
+infrastructure, but without awareness and a nice interface to that
+functionality at the PaaS layer I’m going to lose lots of the benefits
+of running the PaaS in the first place. It’s nice that I can scale my
+application out, but if new instances can’t connect to the required
+backend services without some additional network configuration that’s
+invisible to the PaaS what use is that?</p>
+
+<p>The question becomes; how to implement security layers within existing
+PaaS products (without changing them). And my answer is “I don’t know”.
+Yet.</p>
+
+<h2 id="why-isn-t-ssl-enough">Why isn’t SSL enough?</h2>
+
+<p>SSL doesn’t help as much as you’d like to think here because if I’m an
+attacker what I’m probably going to attack is your buggy code rather
+than the transport mechanism. SSL doesn’t protect you from SQL injection
+or unpatched software or zero-day exploits. If the only thing that my
+backend service will talk to is my frontend application, an attacker has
+to compromise two things rather than just ignore the frontend and go
+after the data. Throw in a filter as described above and it’s really
+three things that need to be overcome.</p>
+
+<h2 id="the-paas-iaas-interface">The PaaS/IaaS interface</h2>
+
+<p>I think part of the solution lies in exposing some of the underlying
+infrastructure via the PaaS interface. IaaS is often characterised as
+compute, storage and network. In my experience everyone forgets the
+network part. In a PaaS world I don’t want to be exposed to storage
+details (I just want it to appear infinite and pay for what I use) or
+virtual machines (I just care about computing power, say RAM, not the
+number of machines I’m running on) but I think I do, sometimes, want to
+be exposed to the (virtual) network configuration.</p>
+
+<p>Hopefully someone working on OpenShift or CloudFoundry or Azure or
+Heroku or DotCloud or insert PaaS here is already working on this. If
+not maybe this post will prompt someone to do so.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2013/04/23/web-application-security-tools/">Web application security tools</a>
+      </h1>
+      <span class="post-date">Apr 23, 2013 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>I&rsquo;ve become increasingly interested in web application security issues over the last year or so. Working in Government will do that to you. And I&rsquo;ve come to the conclusion that a) there are lots of good open source security tools, b) many of them are terribly packaged and c) most developers don&rsquo;t use any of them.</p>
+
+<p>I&rsquo;ve been having related conversations at recent events I&rsquo;ve made it along to, including Devopsdays London which featured some good open spaces discussions on the subject. Security is one of those areas that, for many organisations, is basically outsourced to third party penetration testing firms or consultants. Specialists definitely have a role to play, but with a move towards increasingly rapid releases I think in-house security testing and monitoring is going to get more and more important.</p>
+
+<h2 id="a-collection-of-security-tools">A collection of security tools</h2>
+
+<p>I&rsquo;ve started to build a <a href="https://github.com/garethr/pentesting-playground">collection of tools on GitHub</a>, along with a vagrant setup to test them out. Full instructions are available on that repository but the short version is you can run one command and have one virtual machine filled with security testing tools and, if useful, another machine running a vulnerable web application with which to test. The current list of tools runs to:</p>
+
+<ul>
+<li><a href="http://code.google.com/p/skipfish/">skipfish</a></li>
+<li><a href="http://nmap.org/">nmap</a></li>
+<li><a href="http://www.cirt.net/nikto2">nikto</a></li>
+<li><a href="http://w3af.org/">w3af</a></li>
+<li><a href="https://github.com/mozilla/Garmr">garmr</a></li>
+<li><a href="https://github.com/iSECPartners/sslyze">sslyze</a></li>
+<li><a href="https://github.com/metachris/wpscanner">wpscanner</a></li>
+<li><a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">owasp zap</a></li>
+<li><a href="http://arachni-scanner.com/">arachni</a></li>
+<li><a href="https://github.com/gauntlt/gauntlt">gauntlt</a></li>
+<li><a href="http://sqlmap.org/">sqlmap</a></li>
+<li><a href="http://wpscan.org/">wpscan</a></li>
+<li><a href="http://sourceforge.net/projects/sslscan/">sslscan</a></li>
+<li><a href="http://blog.taddong.com/2013/02/tlssled-v13.html">TLSSLed</a></li>
+</ul>
+
+<p>But I&rsquo;ll add more tools as I discover them or as people file issues or pull requests.</p>
+
+<h2 id="what-about-backtrack">What about Backtrack?</h2>
+
+<p>When I started investigating tools for security and penetration testing most roads led to <a href="http://www.backtrack-linux.org/">Backtrack</a>. This is a complete Linux distribution packed with a huge number of security tools, including many if not all of the above. Why then did I write puppet code rather than create a Vagrant box from Backtrack? Firstly, Backtrack is probably great if you&rsquo;re a professional penetration tester, but the barrier to entry to installing a new distibution for most developers is too high in my view. And with a view to using some of these tools as part of monitoring systems I don&rsquo;t always want a separate virtual machine. I want to be able to install the tools wherever I want. A good configuration management tool gives you that portability, and Vagrant gives you all the benefits of a local virtual machine.</p>
+
+<h2 id="future-plans">Future plans</h2>
+
+<p>As mentioned I&rsquo;d like to expand how some of these tools are used to include automated monitoring of applications, maybe look at ways of extracting data for metrics or possibily writing a Sensu plugin or two. The first step to that is probably breaking down the monolithic puppet manifest into separate modules for each tool. Along the way I can add support for more operating systems as required. I&rsquo;ve already done that for the <a href="http://forge.puppetlabs.com/garethr/wackopicko">wackopicko module which is up on the Forge</a>.</p>
+
+<p>I&rsquo;m also soliciting any and all feedback, especially from developers who don&rsquo;t do any security related testing but feel like they should.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2013/03/23/government-service-design-manual/">Government Service Design Manual</a>
+      </h1>
+      <span class="post-date">Mar 23, 2013 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve not been writing many blog posts lately, but I have been doing quite a bit of writing elsewhere. One of the things I&rsquo;ve had a hand in at work is the new <a href="https://www.gov.uk/service-manual">Government Service Design Manual</a>. This is the work of many people I work with as well as further afield. It&rsquo;s intended to be a good starting place to find information about building high quality digital services.</p>
+
+<p>The manual is in beta and we&rsquo;re looking for as much feedback as possible on the whole thing. It&rsquo;s already proving useful and a good way of framing the scope of discussions, but it has lots of room for improvement.</p>
+
+<p>If you&rsquo;re reading this post I&rsquo;m going to wager you&rsquo;re interest lies in or around devops flavoured content. The following are guides I&rsquo;ve written in this area that I&rsquo;d love any and all feedback on.</p>
+
+<ul>
+<li><a href="https://www.gov.uk/service-manual/the-team/web-operations.html">Web Operations</a></li>
+<li><a href="https://www.gov.uk/service-manual/making-software/configuration-management.html">Configuration Management</a></li>
+<li><a href="https://www.gov.uk/service-manual/operations/hosting.html">Hosting</a></li>
+<li><a href="https://www.gov.uk/service-manual/making-software/information-security.html">Information Security</a></li>
+<li><a href="https://www.gov.uk/service-manual/operations/monitoring.html">Monitoring</a></li>
+<li><a href="https://www.gov.uk/service-manual/operations/load-and-performance-testing.html">Load and Performance Testing</a></li>
+<li><a href="https://www.gov.uk/service-manual/making-software/release-strategies.html">Releasing Software</a></li>
+<li><a href="https://www.gov.uk/service-manual/operations/penetration-testing.html">Vulnerability and Penetration Testing</a></li>
+<li><a href="https://www.gov.uk/service-manual/making-software/choosing-technology.html">Choosing Technology</a></li>
+</ul>
+
+<p>If you&rsquo;re interested in the background to this endeavour then a couple of blog posts from some of my colleagues might be of interest too. First Richard Pope talks about <a href="http://digital.cabinetoffice.gov.uk/2013/03/21/building-the-standard/">how the manual came about</a> and here&rsquo;s a post from Andrew Greenway about this <a href="http://digital.cabinetoffice.gov.uk/2013/03/21/building-the-standard/">beta testing of the service standard</a>.</p>
+
+<p>The source for all this is on <a href="https://github.com/alphagov/government-service-design-manual">GitHub</a> so if you prefer you can just sent a pull request. Or I&rsquo;m happy to get emails or comments on this post. In particular if people have good references or next steps for these guides then let me know as several of them in particular are lacking in that area.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/2/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        class="active"><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/4/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

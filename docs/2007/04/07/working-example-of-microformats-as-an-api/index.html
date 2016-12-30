@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Working example of Microformats as an API &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Working example of Microformats as an API</h1>
+    <span class="post-date">Apr 7, 2007 &middot; 2 minute read
+    </span>
+    <p><a href="http://allinthehead.com/">Drew</a> posted a while ago asking <a href="http://allinthehead.com/retro/301/can-your-website-be-your-api">can-your-website-be-your-api</a>. The simple idea is that you just might be able to live without a dedicated API in favour of good use of microformats.</p>
+
+<p>It also turns out <a href="http://tantek.com/">Tantek</a> has also been on the case with his presentation <a href="http://tantek.com/presentations/20040928sdforumws/semantic-xhtml.html">Can your website be your API? - Using semantic XHTML to show what you mean</a> and</p>
+
+<p><a href="http://www.glennjones.net">Glenn</a> has <a href="http://www.webdd.org.uk/ViewSession.aspx?SessionID=60">spoken on the subject too</a> at <a href="http://www.webdd.org.uk">WebDD</a> and <a href="http://barcamp.org/BarCampLondon2">BarCamp</a>.</p>
+
+<p>This has interested me for a while and I&rsquo;ve finally gotten around to writing some code, in fact I wrote the bulk of it during <a href="http://thehighlandfling.com/2007/">The Highand Fling</a> and then the rest before the <a href="http://refreshedinburgh.com/">Refresh</a> event after I got to te venue an hour early.</p>
+
+<p>I used Drew&rsquo;s <a href="http://allinthehead.com/hkit">hKit</a> for the microformat parsing so everything that follows is PHP5 only I&rsquo;m afraid. The also means I dont have a working example on this server at the moment but you can <a href="http://morethanseven.net/_assets/downloads/microformatsapi/microformatsapi.zip">grab the code</a> and try it out yourself. It also makes use of a couple of <a href="http://pear.php.net">PEAR</a> modules; PEAR <a href="http://pear.php.net/package/Validate">Validate</a> and PEAR <a href="http://pear.php.net/package/HTTP_Request">HTTP_Request</a>.</p>
+
+<p>At the moment I&rsquo;ve worked on a simple hCard example. It demonstrates the idea of a website exposing methods based on the presense of microformats, plus using that exposed method to extract the information we&rsquo;re looking for.</p>
+
+<p>First we create objects for the parser and the website:</p>
+
+<pre><code>&lt;code&gt;$parser = new hKit;
+$website = new Website('http://morethanseven.net',$parser);&lt;/code&gt;
+</code></pre>
+
+<p>Then we&rsquo;ll ask what methods the website exposes:</p>
+
+<pre><code>&lt;code&gt;$website-&gt;expose();&lt;/code&gt;
+</code></pre>
+
+<p>In this example we get back an array of the available methods, in this case <em>getContacts</em>. Then just as an example lets print out some contact details:</p>
+
+<pre><code>&lt;code&gt;foreach ($website-&gt;getContacts() as $contact) {
+   echo $contact-&gt;getFN();
+}&lt;/code&gt;
+</code></pre>
+
+<p>This is a very early release, more of a proof of concept and as such their is no documentation and only a portion of hCard is supported. Hell, their&rsquo;s not even a name beginning with h! Having said that I have a plan for a little project to kick the tyres and so I&rsquo;l l be adding to it and hopfully have a proper release at some point.</p>
+
+<p>The plan is to introduce methods like getReviews, getEvents, etc. which allow for the extraction of the relevant details. The part I find most interesting however is the idea of the expose method - asking a web page if it has an API, and if it does then what information you can extract automagically. If you&rsquo;re interested let me know what you think.</p>
+
+<p><a href="http://morethanseven.net/_assets/downloads/microformatsapi/microformatsapi.zip">Download example</a></p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

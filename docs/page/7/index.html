@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/06/09/Logging-django-performance/">Logging Django Performance</a>
+      </h1>
+      <span class="post-date">Jun 9, 2011 &middot; 4 minute read
+      </span>
+      
+      <p>I&rsquo;ve been doing some basic performance profiling work with Ruby on Rails recently and one tool I found very useful was the <a href="https://github.com/wvanbergen/request-log-analyzer">request log analyzer</a>. It&rsquo;s a relatively simple command line application that you can point at the Rails application log files and it outputs lots of information in agregate. So information about request duration averages or about SQL queries run. When working on a recent Django project I wanted a tool to do the same thing and ended up writing timelog.</p>
+
+<p>I did a bit of research to see if I could find something similar. Here are a few other interesting tools that didn&rsquo;t quite do what I wanted:</p>
+
+<ul>
+<li><a href="https://github.com/jmoiron/django-slow-log">Django Slow Log</a> - This logs things like memory and load averages</li>
+<li><a href="https://github.com/lamby/django-dumpslow">Django Dump Slow</a> - Similar but designed to just log slow requests rather than everything, also needs a Redis backend</li>
+<li><a href="https://github.com/jbalogh/zamboni/blob/master/apps/amo/middleware.py#L162">Zamboni Middleware</a> - This is very similar to what I wanted, but it&rsquo;s not a separate module and I didn&rsquo;t find anything to analyse the results</li>
+</ul>
+
+<p>Timelog is very similar to the middleware in Zamboni, the only real difference being I&rsquo;m using the new logging support in Django 1.3. More interesting is the bundled management command which will output something like:</p>
+
+<pre><code>+--------------------------+--------+--------+-------+---------+---------+-------+-----------------+
+| view                     | method | status | count | minimum | maximum | mean  | stdev           |
++--------------------------+--------+--------+-------+---------+---------+-------+-----------------+
+| boxes.viewsBoxDetailView | GET    | 200    | 9430  | 0.14    | 0.28    | 0.21  | 0.0700037118541 |
++--------------------------+--------+--------+-------+---------+---------+-------+-----------------+
+| boxes.viewsBoxListView   | GET    | 200    | 66010 | 0.17    | 0.28    | 0.232 | 0.0455415351076 |
++--------------------------+--------+--------+-------+---------+---------+-------+-----------------+
+| django.views.staticserve | GET    | 200    | 61295 | 0.00    | 0.02    | 0.007 | 0.0060574669888 |
++--------------------------+--------+--------+-------+---------+---------+-------+-----------------+
+</code></pre>
+
+<p>At the moment I&rsquo;ve not done any real benchmarking or optimisation of the script, but it will chew through a 300,000 line (20MB) log file in under 20s on my aging macbook.</p>
+
+<p>The code for Timelog is on github at <a href="http://github.com/garethr/django-timelog">github.com/garethr/django-timelog</a> and I&rsquo;ve uploaded to PyPi as well at <a href="http://pypi.python.org/pypi/django-timelog">pypi.com/django-timelog</a>. You can install it with the usual tools like pip:</p>
+
+<pre><code>pip install django-timelog
+</code></pre>
+
+<p>Once installed you need to do a little configuration to get things working. First add the middleware to your MIDDLEWARE_CLASSES in your settings file.</p>
+
+<pre><code>MIDDLEWARE_CLASSES = (
+  'timelog.middleware.TimeLogMiddleware',
+</code></pre>
+
+<p>Next add timelog to your INSTALLED_APPS list. This is purely for the management command discovery.</p>
+
+<pre><code>INSTALLED_APPS = (
+  'timelog',
+</code></pre>
+
+<p>Then configure the logger you want to use. This really depends on what you want to do, the django 1.3 logging setup is pretty powerful. Here&rsquo;s how I&rsquo;ve got logging setup as an example:</p>
+
+<pre><code>TIMELOG_LOG = '/path/to/logs/timelog.log'
+
+LOGGING = {
+  'version': 1,
+  'formatters': {
+    'plain': {
+      'format': '%(asctime)s %(message)s'},
+    },
+  'handlers': {
+    'timelog': {
+      'level': 'DEBUG',
+      'class': 'logging.handlers.RotatingFileHandler',
+      'filename': TIMELOG_LOG,
+      'maxBytes': 1024 * 1024 * 5,  # 5 MB
+      'backupCount': 5,
+      'formatter': 'plain',
+    },
+  },
+  'loggers': {
+    'timelog.middleware': {
+      'handlers': ['timelog'],
+      'level': 'DEBUG',
+      'propogate': False,
+     }
+  }
+}
+</code></pre>
+
+<p>In order for the analyser script to work correctly you&rsquo;ll need to use the plain formatter and to register a handler for the timelog.middleware logger.</p>
+
+<p>With that all configured try hitting your application a few times. You should see a log file created at the location specified in TIMELOG_LOG. Fill that up with a few lines and then run the analyze_timelog management command:</p>
+
+<pre><code>python manage.py analyze_timelog
+</code></pre>
+
+<p>This should output something similar to the above table but with your timings and views. The management command currently allows you to point the analyzer at a different file say from a backup, or a file you&rsquo;ve pulled down from production but want to run the command locally. I&rsquo;ll likely add some filters as time permits for things like not showing all views or showing only views between a given date range.</p>
+
+<p>The above table showing the view function is good for big picture trends, but if you want to dig down into a particular path then you can pass an argument to not reverse the path:</p>
+
+<pre><code>python manage.py analyze_timelog --noreverse
+</code></pre>
+
+<p>This should give you something more like:</p>
+
+<pre><code>+----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+| view                             | method | status | count | minimum | maximum | mean  | stdev            |
++----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+| /assets/css/main.css             | GET    | 200    | 61295 | 0.00    | 0.02    | 0.007 | 0.0060574669888  |
++----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+| / bob                            | GET    | 404    | 4715  | 0.01    | 0.01    | 0.01  | 0.0              |
++----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+| /                                | GET    | 200    | 66010 | 0.17    | 0.28    | 0.232 | 0.0455415351076  |
++----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+| /__debug__/m/css/toolbar.min.css | GET    | 304    | 4715  | 0.00    | 0.00    | 0.0   | 0.0              |
++----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+| /14/                             | GET    | 200    | 9430  | 0.14    | 0.28    | 0.21  | 0.0700037118541  |
++----------------------------------+--------+--------+-------+---------+---------+-------+------------------+
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/06/04/Getting-http-headers-right/">Debugging HTTP Headers with RedBot</a>
+      </h1>
+      <span class="post-date">Jun 4, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve been using the <a href="http://www.vagrantbox.es">Vagrantbox.es</a> site as a bit of a playground recently and I&rsquo;ve been meaning to blog about some of the overengineering I&rsquo;ve been doing. Here&rsquo;s a smaller starter.</p>
+
+<p>Getting the headers returned by your web server correct is both easy to do and easy to forget about. Unless you go actively looking for headers with curl or similar you&rsquo;ll probably miss them, and even then will you spot an incorrect header by eye? <a href="http://redbot.org">RedBot</a> is an excellent online tool that not only shows you the headers but makes recommendations about what might be missing, invalid or things you haven&rsquo;t considered.</p>
+
+<p>For instance the <a href="http://redbot.org/?uri=http%3A%2F%2Fwww.vagrantbox.es">RedBot results for vagrantbox.es</a> look like this:</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjJ4gEM" alt="Debugging information from Redbot"/></p>
+
+<p>Or at least they do now after a few tweaks to my nginx configuration. In particular I&rsquo;ve added</p>
+
+<pre><code>add_header Vary Accept-Encoding;
+</code></pre>
+
+<p>I&rsquo;d assumed that enabling gzip compression with gzip_vary would have set this automatically and never checked. The way RedBot provides a checklist of recommendations is very handy.</p>
+
+<p>As well as checking the page itself you can also check all the assets associated with a page by adding a query string argument. For instance here is the <a href="http://redbot.org/?descend=True&amp;uri=http://www.vagrantbox.es">assets view for Vagrantbox.es</a>. RedBot also provides a <a href="http://redbot.org/?id=o5GXZe&amp;descend=True&amp;format=har">JSON encoded version of the result</a> which might be useful in a CI system. If you&rsquo;d rather run your own instance of the software you can, the code can be found on github at <a href="http://mnot.github.com/redbot/">mnot.github.com/redbot/</a>. It currently doesn&rsquo;t work with HTTPS resources but that&rsquo;s about the only thing I&rsquo;d like to see added.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/05/15/Python-on-cloudfoundry/">Python On Cloudfoundry</a>
+      </h1>
+      <span class="post-date">May 15, 2011 &middot; 3 minute read
+      </span>
+      
+      <p>For those that haven&rsquo;t yet had a look <a href="http://cloudfoundry.com/">Cloudfoundry</a> from VMware is two things, one of which is nice, one of which is very cool indeed:</p>
+
+<ul>
+<li>On one hand it&rsquo;s a platform as a service, allowing you to easily deploy Ruby, Java and Node.js applications to <a href="http://cloudfoundry.com/">cloudfoundry.com</a>.</li>
+<li>On the other hand it&rsquo;s an <a href="http://cloudfoundry.org/">open source project</a> with all the code on <a href="http://github.com/cloudfoundry">Github</a> allowing you to run the entire stack wherever you like.</li>
+</ul>
+
+<p>I&rsquo;m pretty interested in the latter. Its API could in theory become a defacto standard for application and service buildouts, in the same way as we&rsquo;re seeing the EC2 API expand outside AWS for managing infrastructure (and arguably how we&rsquo;re using Chef and Puppet for managing the things installed on that infrastructure). The really interesting bit is the fact it&rsquo;s all open source. Not only does that mean you can run it on your own infrastructure (including as I&rsquo;m doing on a virtual machine on my laptop), but it&rsquo;s also designed so new services (like Redis, MySQL, RabbitMQ), new runtimes (like Ruby 1.8, RUby 1.9, Java) and new frameworks (like Rails, Sinatra, Spring) can be added easily.</p>
+
+<p>I&rsquo;m running vcap on a <a href="http://vagrantup.com">vagrant</a> managed VirtualBox instance, but you could install it anywhere you like. I used <a href="https://github.com/auser/cloudfoundry-quickstart">these chef recipes</a> to get everything installed. I ran into an issue with the mysql service not starting correctly that <a href="https://github.com/auser/cloudfoundry-quickstart/pull/2">I fixed</a> and I needed to manually install chef into the rvm gemset part way through the install, but the recipes pretty much just worked.</p>
+
+<p>Looking for an excuse to have a route through the vcap code I decided to see if I could add rudimentary support for Python applications. After a day of noodling around I&rsquo;ve forked the code and sent a few pull requests back with it basically working. This required changes to the <a href="https://github.com/cloudfoundry/vmc/pull/18">vmc client</a>, to the <a href="https://github.com/cloudfoundry/vcap/pull/57">vcap service</a> and like all good open source contributions to the <a href="https://github.com/cloudfoundry/vcap-tests/pull/4">test suite</a>.</p>
+
+<p>Thanks hugely to existing pull requests (mainly the one&rsquo;s for <a href="https://github.com/cloudfoundry/vcap/pull/25">adding PHP support</a>) it&rsquo;s not taken long at all. The Sinatra and Rails support which shipped with the first release from VMWare supports using Bundler to define gem dependencies that can be pulled in at deploy time. It shouldn&rsquo;t be too much effort I&rsquo;m hoping to do the same for using pip and virtualenv for each deployed python application. I think I can also see how to support python3 and how to add django as a supported framework.</p>
+
+<p>I had huge fun, but you might not at this early stage in the project. I&rsquo;m relatively happy with reading and writing Ruby, futzing with rvm, debugging installation woes and hunting down service configuration problems. The best tool for working out what was happening was generally tailing the logs in /tmp/vcap-run/ and finding the code that wrote a given message. If you just want something to work I&rsquo;d wait a little while, if you like the sound of the above it&rsquo;s a pretty nice codebase to play around in. I&rsquo;d love to eventually see some official contributor documentation and some hints and tips on things like running the tests. At the moment flicking through reported issues and pull requests on GitHub is the best place to start.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/05/08/Vagrant-plugin-for-interacting-with-vagrantboxes/">Vagrant Plugin For Interacting With Vagrantbox.es</a>
+      </h1>
+      <span class="post-date">May 8, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>After <a href="http://www.jedi.be/blog">Patrick</a> released <a href="https://github.com/jedi4ever/sahara/">Sahara</a>, a nifty extension for the <a href="http://vagrantup.com">Vagrant</a> command line tool, I&rsquo;ve been meaning to put together a similar extension for interacting with the growing list of base boxes on <a href="http://www.vagrantbox.es">vagrantbox.es</a>.</p>
+
+<p>After a bit of hacking this morning I&rsquo;ve just pushed out an initial release of the <a href="https://rubygems.org/gems/vagrantboxes">vagrantboxes gem</a> and you can find the <a href="https://github.com/garethr/ruby-vagrantboxes">source code and some documentation on GitHub</a>.</p>
+
+<p>The extensions adds a vagrantboxes namespace to the vagrant command line tool which provides a few useful commands. Specifically you can list all the available boxes, do text searches, show the full details of a box and most handily of all add a box that takes your fancy to your local base box store, all without having to worry about the URLs of the boxes if you don&rsquo;t want to.</p>
+
+<p>Here&rsquo;s an example of a simple search:</p>
+
+<pre><code>&gt;&gt; vagrant vagrantboxes search centos
+3    centos 5.5                http://dl.dropbox.com/u/15307300/vagrant-0.7-centos-64-base.box
+6    opscode centos 5          http://opscode-vagrant-boxes.s3.amazonaws.com/centos5-gems.box
+7    opscode ubuntu 10.04      http://opscode-vagrant-boxes.s3.amazonaws.com/ubuntu10.04-gems.box
+9    puppet centos 5.5 64      http://puppetlabs.s3.amazonaws.com/pub/centos5_64.box
+10   puppet centos 4 64        http://puppetlabs.s3.amazonaws.com/pub/centos4_64.box
+21   centos 5.6 32             http://yum.mnxsolutions.com/vagrant/centos_56_32.box
+</code></pre>
+
+<p>And another quick example, this time of show printing the full description. In the future I might look to store more structured metadata and make this more useful.</p>
+
+<pre><code>&gt;&gt; vagrant vagrantboxes show 18
+puppet debian lenny 64
+http://puppetlabs.s3.amazonaws.com/pub/debian_lenny_64.box
+
+Debian Lucid 64 bit vagrant box. Puppet 2.6.6 installed and ready to provision using the Puppet provisioner in Vagrant.
+
+For good sample modules, try the jeffmccune-motd and jeffmccune-mockbuild modules posted to http://forge.puppetlabs.com/
+
+Created by Ken Barber, ken@puppetlabs.com
+</code></pre>
+
+<p>This proved a good excuse to delve into the Vagrant source code which is pretty readable for the most part once you understand the libraries it&rsquo;s build upon. It&rsquo;s simple enough to extend for adding commands like this too, which bodes well for other more useful additions in the future.</p>
+
+<p>If anyone has any problems with this extensions do let me know. Error handling currently consists of returning blank output rather than sensible error codes or messages, and as I&rsquo;ve yet to add a small test suite so their might (will) be a few bugs lying around. I&rsquo;ll try and make it better behaved in the next week or two but reasoned it&rsquo;s useful straight away.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/05/07/Version-control-and-deployment-of-cron-jobs/">Version Control And Deployment Of Cron Jobs</a>
+      </h1>
+      <span class="post-date">May 7, 2011 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>A recent question on Twitter prompted me to write a quick blog post about managing cron jobs. As more and more people want to automate provisioning and deployment of web applications some, maybe previously manually managed, items come into the fold.</p>
+
+<p>Cron jobs are interesting because you may prefer to see them as part of the infrastructure (like apache or mysql) or as part of your application code. I think both are valid, sometimes at the same time. For instance you might have a cron job which deals with scheduled database backups. All that requires is the database and the script to be present. At other times your cron jobs might require your entire application stack. For instance a rake task which uses a Rails application model, or a django management command.</p>
+
+<h2 id="configuration-management-and-cron">Configuration Management and Cron</h2>
+
+<p>Both <a href="http://opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com/puppet/">Puppet</a> provide a cron resource type. This is particularly handy for things like database backup scripts or ganglia gmetric scripts. You probably want these scripts and cron jobs to be installed on machines that have the related software installed, and you&rsquo;re probably already describing this in your Chef recipes or Puppet manifests. If you&rsquo;re not already using one of these tools using them to manage just your cron jobs is a nice way of starting out.</p>
+
+<p>Using the <a href="http://docs.puppetlabs.com/references/latest/type.html#cron">Puppet Cron Type</a> looks like this:</p>
+
+<pre><code>&lt;code&gt;cron { command:
+  command =&gt; &quot;/usr/local/sbin/command&quot;,
+  hour =&gt; 2,
+  minute =&gt; 0
+}&lt;/code&gt;
+</code></pre>
+
+<p>And the equivalent <a href="http://wiki.opscode.com/display/chef/Resources#Resources-Cron">Chef Reasource</a> looks like:</p>
+
+<pre><code>&lt;code&gt;cron &quot;describe your job&quot; do
+  hour &quot;2&quot;
+  minute &quot;0&quot;
+  command &quot;/usr/local/sbin/command&quot;
+end&lt;/code&gt;
+</code></pre>
+
+<p>The important part is that by describing your cron jobs in code you can then version control them easily, and both Chef and Puppet have mechanisms to push these jobs out to be installed by the relevant hosts. With cron jobs you might not want all your machines to be running the same jobs for instance.</p>
+
+<h2 id="using-whenever">Using Whenever</h2>
+
+<p>An alternative, or complimentary, approach to versioning and deploying cron jobs would be to tie it in with your application code. This makes sense when those jobs are tightly coupled to your application, for instance rails specific rake tasks or django management commands. <a href="https://github.com/javan/whenever">Whenever</a> is a tool I&rsquo;ve been using recently that makes this pretty simple. You describe your cron jobs in a file called schedule.rb like so:</p>
+
+<pre><code>&lt;code&gt;every 3.hours do
+  command &quot;/usr/local/sbin/command&quot;
+end&lt;/code&gt;
+</code></pre>
+
+<p>And then running the provided whenever command line application will generate a working crontab. Whenever ships with capistrano integration and some useful shortcuts for running rake tasks or accessing Ruby code, but it&rsquo;s simple to write your own command shortcuts without having to write ruby code too.</p>
+
+<h2 id="other-approaches">Other Approaches</h2>
+
+<p>I have seen some tools which replace cron completely, but I&rsquo;ve never liked that idea much. Cron works pretty well, and is clever enough to deal with things like daylight saving time and leap years inteligently if needed. I know other folks who are centralising all regular jobs into something like Jenkins. I can see advantages to that, although I&rsquo;ve yet to find a really nice way of automating this outside the gui interface or manually modifying configuration files.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/04/29/Creating-a-cucumber-nagios-package-with-fpm/">Creating A Cucumber Nagios Package With Fpm</a>
+      </h1>
+      <span class="post-date">Apr 29, 2011 &middot; 4 minute read
+      </span>
+      
+      <p>I&rsquo;ve written <a href="http://morethanseven.net/2011/01/16/Why-developers-should-care-about-system-packages.html">before</a> about why I like System Packages, but even I&rsquo;ll admit that the barriers to creating them mean I don&rsquo;t use them for everything. <a href="https://github.com/jordansissel/fpm">FPM</a> however is making it much easier, to the point where I&rsquo;m starting to create a few packages I can reuse on projects. I thought a write up of how I&rsquo;m doing that for <a href="http://cucumber-nagios.org/">Cucumber-Nagios</a> might be useful.</p>
+
+<p>For those that haven&rsquo;t seen it yet, FPM (or Effing Package Management) is a tool that helps you build packages, like RPMs and DEBs, quickly. It can take in gems, python packages, node.js npm files or just plain directories and make files and from that create you one or more system packages. Lets have a look at a full example with a Ruby gem.I really like using cucumber-nagios, whatever platform or language I happen to be using at the time. I have a number of Django projects for instance with cucumber-nagios checks, so being able to not worry about most of the Ruby install is useful.</p>
+
+<p>In order to use FPM you&rsquo;ll need to install it. It&rsquo;s available as a Ruby gem so lets start there. I&rsquo;m not going to delve into setting up a Ruby Gems environment as it&rsquo;s annoying and covered for most platforms elsehere on the internet.</p>
+
+<pre><code>&lt;code&gt;gem install fpm&lt;/code&gt;
+</code></pre>
+
+<p>First off lets install the cucumber-nagios gem, along with all it&rsquo;s dependencies, into a local folder on my build machine. This might be a virtual machine or a separate machine in your cluster. It should be running the same OS as the intended production machines however. The following examples are from Ubuntu, but it&rsquo;s much the same for RPM based distros.</p>
+
+<pre><code>&lt;code&gt;gem install --no-ri --no-rdoc --install-dir ~/tmp/gems cucumber-nagios&lt;/code&gt;
+</code></pre>
+
+<p>Cucumber-nagios has a large number of dependencies, so we&rsquo;re going to need to create packages for all of those too. FPM will cleverly deal with maintaining the specified dependencies thought. We&rsquo;ll use find to do this quickly, and then instruct FPM to convert from a gem to a deb. You could obviously do this line by line if you prefer.</p>
+
+<pre><code>&lt;code&gt;find ~/tmp/gems/cache -name '*.gem' | xargs -rn1 fpm -s gem -t deb -a all&lt;/code&gt;
+</code></pre>
+
+<p>That should leave us with lots of new .deb files that we can have a closer look at:</p>
+
+<pre><code>&lt;code&gt;dpkg --info rubygem-cucumber-nagios_0.9.0_i686.deb
+dpkg -c rubygem-cucumber-nagios_0.9.0_i686.deb&lt;/code&gt;
+</code></pre>
+
+<p>If you already have a private apt repository set up then just upload these packages and away you go. I&rsquo;d like to use apt for installing them so I can leave it to manage all the dependencies easily. If not then I&rsquo;ll show you briefly how to create a local file system repo, it&rsquo;s not much more work to create a shared repo available over HTTP.</p>
+
+<p>First create a directory to store our packages and move our newly created .deb files into it. You&rsquo;ll need to be able to execute some of these commands as root but given the topic I&rsquo;m assuming you&rsquo;ll be able to deal with that.</p>
+
+<pre><code>&lt;code&gt;mkdir /usr/local/repo
+cp *.all.deb /usr/local/repo&lt;/code&gt;
+</code></pre>
+
+<p>For the next part you&rsquo;ll need to install the dpkg development tools, and then create a file that can be read by apt when it&rsquo;s looking for packages it can install.</p>
+
+<pre><code>&lt;code&gt;apt-get install dpkg-dev
+dpkg-scanpackages /usr/local/repo /dev/null | gzip -9c &gt; /usr/local/repo/Packages.gz&lt;/code&gt;
+</code></pre>
+
+<p>Now add your new package repo to your apt sources and update your package cache.</p>
+
+<pre><code>&lt;code&gt;/etc/apt/sources.list
+deb file:/usr/local/repo ./
+apt-get update&lt;/code&gt;
+</code></pre>
+
+<p>At this point everything should be up and running. Let&rsquo;s do a search in our repo:</p>
+
+<pre><code>&lt;code&gt;apt-cache search rubygem-
+rubygem-amqp - AMQP client implementation in Ruby/EventMachine
+rubygem-builder - Builders for MarkUp.
+rubygem-bundler - The best way to manage your application's dependencies
+rubygem-cucumber - cucumber-0.10.2
+rubygem-cucumber-nagios - Systems testing plugin for Nagios using Cucumber.
+rubygem-diff-lcs - Provides a list of changes that represent the difference between two sequenced collections.
+rubygem-eventmachine - Ruby/EventMachine library
+rubygem-extlib - Support library for DataMapper and Merb
+rubygem-gherkin - gherkin-2.3.6
+rubygem-highline - HighLine is a high-level command-line IO library.
+rubygem-json - JSON Implementation for Ruby
+rubygem-mechanize - The Mechanize library is used for automating interaction with websites
+rubygem-net-ssh - Net::SSH: a pure-Ruby implementation of the SSH2 client protocol.
+rubygem-nokogiri - Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
+rubygem-rack - a modular Ruby webserver interface
+rubygem-rack-test - Simple testing API built on Rack
+rubygem-rspec - rspec-2.5.0
+rubygem-rspec-core - rspec-core-2.5.1
+rubygem-rspec-expectations - rspec-expectations-2.5.0
+rubygem-rspec-mocks - rspec-mocks-2.5.0
+rubygem-templater - Templater has the ability to both copy files from A to B and also to render templates using ERB
+rubygem-term-ansicolor - Ruby library that colors strings using ANSI escape sequences
+rubygem-webrat - Ruby Acceptance Testing for Web applications&lt;/code&gt;
+</code></pre>
+
+<p>And finally lets install cucumber-nagios from our shiny new package.</p>
+
+<pre><code>&lt;code&gt;apt-get install rubygem-cucumber-nagios&lt;/code&gt;
+</code></pre>
+
+<p>If everything has worked out you should be able to run the cucumber-nagios-gen command to create a new project. Note that the path may be different, and in the case of debian based distros the gem bin path is not on the Path.</p>
+
+<pre><code>&lt;code&gt;/usr/lib/ruby/gems/1.8/bin/cucumber-nagios-gen project test
+Generating with project generator:
+     [ADDED]  .gitignore
+     [ADDED]  .bzrignore
+     [ADDED]  Gemfile
+     [ADDED]  README
+     [ADDED]  features/steps
+     [ADDED]  features/support&lt;/code&gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/04/17/Devops-weekly-archive/">Devops Weekly Archive</a>
+      </h1>
+      <span class="post-date">Apr 17, 2011 &middot; 1 minute read
+      </span>
+      
+      <p>Since I launched it back in November my <a href="http://devopsweekly.com">Devops Weekly</a> email has been pretty well received I think. Folks on twitter seem to like it, as do a few people I&rsquo;ve met at recent events who have said nice things. One thing a few people have been after though is an online archive, either because email just doesn&rsquo;t work for them or more often because they missed out on the earlier issues.</p>
+
+<p>With a little time this weekend and the help of <a href="https://github.com/mojombo/jekyll">Jekyll</a> I&rsquo;ve just added the seventeen iss§ues to date to the new <a href="http://devopsweekly.com/archive">Devops Weekly archive</a>. I&rsquo;d have liked to do something a bit more useful, maybe introduce per link tags or a nifty search feature, but I&rsquo;m pretty busy at present and reason this should serve the main purpose of getting these links online.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/04/02/Collecting-metrics-with-ganglia-and-friends/">Collecting Metrics With Ganglia And Friends</a>
+      </h1>
+      <span class="post-date">Apr 2, 2011 &middot; 1 minute read
+      </span>
+      
+      <p>I had the pleasure of speaking at <a href="http://cambridgegeeknights.net/">Cambridge Geek Night</a> on Monday again, the topic of conversation being using Ganglia to collect more than just base systems metrics.</p>
+
+<p><object id="__sse7492405" width="595" height="497">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=metricswithganglia-110402103441-phpapp01&rel=0&stripped_title=metrics-with-ganglia&userName=garethr" /> <param name="allowFullScreen" value="true"/> <param name="allowScriptAccess" value="always"/> <embed name="__sse7492405" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=metricswithganglia-110402103441-phpapp01&rel=0&stripped_title=metrics-with-ganglia&userName=garethr" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="595" height="497"></embed> </object></p>
+
+<p>The audience of web developers, the odd sysadmin and business folk seemed to enjoy it and we had lots of time for questions at the end. The main point I tried to get across was that Ganglia makes a great platform for ad-hoc metrics gathering due to the ability to just throw values at it and get time series graphs without any extra configuration.</p>
+
+<p>The slides include a few bits of code I&rsquo;ve been using that I&rsquo;ll throw onto GitHub as a proper project when I get the time. These are very simple Python servers, one which allows for sending metrics information over HTTP, the other using TCP instead. Both really handy for getting more people to add hooks into applications.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/04/02/Vagrant-at-the-guardian/">Vagrant At The Guardian</a>
+      </h1>
+      <span class="post-date">Apr 2, 2011 &middot; 1 minute read
+      </span>
+      
+      <p>As recent blog posts on here make clear, I&rsquo;m a big fan of <a href="http://vagrantup.com">Vagrant</a>. And when <a href="http://www.brunton-spall.co.uk/">Michael</a> asked if I&rsquo;d fancy talking to some of his colleagues at The Guardian about how I use it I really couldn&rsquo;t say no.</p>
+
+<p>I gave a short talk, running through the following slides, and running a few demos showing creating, destroying and provisioning new machines.</p>
+
+<p><object id="__sse7492432" width="595" height="497">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=vagrant-110402104037-phpapp01&rel=0&stripped_title=vagrant-and-configuration-management&userName=garethr" /> <param name="allowFullScreen" value="true"/> <param name="allowScriptAccess" value="always"/> <embed name="__sse7492432" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=vagrant-110402104037-phpapp01&rel=0&stripped_title=vagrant-and-configuration-management&userName=garethr" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="595" height="497"></embed> </object></p>
+
+<p>More interesting I thought were the questions and conversations that followed. We talked a little about how Vagrant might fit into a continuous integration setup. Another aspect some of the systems folk took to was how flexible the network configuration was and whether they might be able to use this to more effectively test firewall configurations well before the final push into a production environment. It&rsquo;s not something I&rsquo;ve been doing but it sounds feasable and useful in some organisations. If anyone is doing interesting things with Vagrants network config I&rsquo;d be interested to know.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2011/03/26/Devops-isnt-a-methodology/">Devops Isn&#39;t A Methodology</a>
+      </h1>
+      <span class="post-date">Mar 26, 2011 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>I was reading <a href="http://teddziuba.com/2011/03/devops-scam.html">Devops is a poorly executed scam</a> and just couldn&rsquo;t resist a reply. Not because of the entertaining title, but because I both agree and disagree quite strongly with parts of the post. Read it first if you haven&rsquo;t already. And yes I know I&rsquo;m feeding the internet.</p>
+
+<p>I&rsquo;m going to pick parts of the post out and then comment. Hopefully I&rsquo;m not quoting these in any way out of context.</p>
+
+<h2 id="it-s-got-the-potential-to-make-a-handful-of-people-a-lot-of-money-in-the-same-way-that-agile-did-but-nobody-is-really-executing-on">&ldquo;It&rsquo;s got the potential to make a handful of people a lot of money in the same way that Agile did, but nobody is really executing on.&rdquo;</h2>
+
+<p>People are pretty aware of this fact I think, but watch what happens when people post on the mailing lists or turn up at community events with a purely marketing hat on. They just get no traction and even damage their product brand amongst the early adopters. The fact the term is starting to get used in job adverts and marketing materials isn&rsquo;t really being driven by the people talking about what devops might or might not be. I think the main reason for this is that most of the people I talk to in person or online are actually pretty happy with their jobs and generally work inside companies rather than as independent consultants. They have often reached an age where they want to improve within a given field but would like a wider network than their current colleagues to discuss things with.</p>
+
+<h2 id="how-do-you-implement-devops">&ldquo;How do you implement Devops?&rdquo;</h2>
+
+<p>I don&rsquo;t think you do. The comparisons with Agile are interesting from a community point of view but Scrum is a methodology. To me at least devops isn&rsquo;t, it&rsquo;s just a banner or tag under which interesting conversations are happening. The argument that &ldquo;You should be doing this anyway. Not earth shattering.&rdquo; is a good thing. You&rsquo;d be suprised by how many people don&rsquo;t do all the things they should be doing, especially in small and young companies. And one of the reasons for that is no one bothered writing a list of these things down anywhere and then discussing them. I&rsquo;m not saying this huge list exists or even whether it should, but the discussion is happening.</p>
+
+<h2 id="the-underlying-problem-however-is-that-dev-and-ops-have-different-goals">&ldquo;The underlying problem, however, is that dev and ops have different goals&rdquo;</h2>
+
+<p>This is spot on. I think this maybe does get missed in talk that focuses more on tools but not in the wider discussion happening about business improvements. Devops quite litterally brings those two things together. You&rsquo;ll always have individual goals but where you have separate operations and development teams they should have the same fundamental goals.</p>
+
+<h2 id="developers-develop-in-the-same-environment-production-runs-in-if-you-deploy-to-linux-you-develop-on-linux-no-more-of-this-coding-on-your-macbook-pro-and-deploying-to-ubuntu-that-is-why-you-can-t-have-nice-things">&ldquo;Developers develop in the same environment production runs in If you deploy to Linux, you develop on Linux. No more of this coding on your Macbook Pro and deploying to Ubuntu: that is why you can&rsquo;t have nice things.&rdquo;</h2>
+
+<p>Yes, yes and yes again. I&rsquo;m definitely from the developer side of the tracks and I&rsquo;m constantly telling people this and it&rsquo;s definitely something I don&rsquo;t see enough people doing. What I&rsquo;d love is for all the operations people to state this to their development team and most importantly to help them set that up. Just saying <em>work like me or I won&rsquo;t let you near the production machines</em> is just being obstructive. Educating and helping with tooling helps build those bridges and trust. And with trust comes the access the developers want. And less stupid bugs and less deployment issues with differing package dependencies.</p>
+
+<h2 id="none-of-this-amounts-to-a-methodology-as-the-devops-people-would-have-you-believe">&ldquo;None of this amounts to a methodology, as the Devops people would have you believe.&rdquo;</h2>
+
+<p>Still unsure which Devops people are saying it&rsquo;s a bonefide methodology. I see the word used sometimes but generally in passing and not I don&rsquo;t think meant how you mean here. And I don&rsquo;t think I&rsquo;ve heard people speak about it in person. &ldquo;Scrum methodology&rdquo; returns more than 113,000 results in Google. &ldquo;Devops methodology&rdquo; returns about 150, some of which 404 and half of which are agregators pointing at the other half.</p>
+
+<h2 id="the-devops-movement-smells-of-a-scam-in-the-making">&ldquo;The Devops movement smells of a scam in the making&rdquo;</h2>
+
+<p>Some company or other is definitely going to be scammed into paying over the odds for a consultant because they used the word Devops in the sales pitch. That will have next to nothing to do with what I&rsquo;d see as the Devops movement and everything to do with human nature (and sales people).</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/6/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        class="active"><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/8/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

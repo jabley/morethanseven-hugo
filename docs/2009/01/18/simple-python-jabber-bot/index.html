@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>A Simple Python Jabber Bot &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">A Simple Python Jabber Bot</h1>
+    <span class="post-date">Jan 18, 2009 &middot; 3 minute read
+    </span>
+    <p>I&rsquo;ve been knocking together various little instant messaging bots recently, partly as a way to play around with XMPP. As well as using the low level <a href="http://xmpppy.sourceforge.net/">xmppy</a> and <a href="http://code.google.com/p/xmpp4r-simple/">XMPP4R-Simple</a> libraries I&rsquo;ve been having lots of fun with the <a href="http://thpinfo.com/2007/python-jabberbot/">JabberBot</a> framework.</p>
+
+<p>Jabberbot lets you write simple bots incredibly quickly, using simple conventions to determine what commands the bot exposes. It&rsquo;s easier to explain with a simple example. The following bot lets you send the command <em>time</em> to it and returns the current time on the server on which the bot is running. The magic is in the name of the method <em>bot_time</em>. Any methods that start bot_ are automatically exposed as commands for the bot to accept.</p>
+
+<p>You&rsquo;ll need an xmpp server for the bot to connect to but you could always just register an additional google account and use it over gtalk if you wanted to. Personally I&rsquo;m running <a href="http://www.ejabberd.im">ejabberd</a> on a local Ubuntu VM as well for testing.</p>
+
+<p>pre. from jabberbot import JabberBot
+import datetime
+class SystemInfoJabberBot(JabberBot):
+def bot_time( self, mess, args):
+&ldquo;&rdquo;&ldquo;Displays current server time&rdquo;&ldquo;&rdquo;
+return str(datetime.datetime.now())
+username = &lsquo;my-jabberid@jabberserver.example.org&rsquo;
+password = &lsquo;my-password&rsquo;
+bot = SystemInfoJabberBot(username,password)
+bot.serve_forever()</p>
+
+<p>The JabberBot site has a few more examples as well with fancier features. At the recent Last.fm hackday I spent a bit of time knocking together a bot which talks to the Last.fm API (using the <a href="http://code.google.com/p/pylast/">PyLast</a> library for the API backwards and forwards.) I did this mainly as a demonstration of how simple it can be to create a useful command line interface to your API using an instant messaging client.</p>
+
+<p>The code for <a href="http://github.com/garethr/lastbot/tree/master">LastBot</a> is on GitHub. It has a few limitations and doesn&rsquo;t intent to cover anywhere near all the API. When up and running you should be able to talk to it with your IM client. Simply send the user specified in the settings file a message like so:</p>
+
+<p>pre. search {query}</p>
+
+<p>So if you wanted to search for “astley” you would type:</p>
+
+<p>pre. search astley</p>
+
+<p>Which would probably give you:</p>
+
+<p>pre. you probably mean Never Gonna Give You Up by Rick Astley
+<a href="http://www.last.fm/music/Rick_Astley/_/Never_Gonna_Give_You_Up">http://www.last.fm/music/Rick_Astley/_/Never_Gonna_Give_You_Up</a>
+Richard Paul Astley (born February 6, 1966) is an English dance-pop singer,
+songwriter and musician. He was born in Newton-le-Willows, St Helens,
+Lancashire, England. Astley currently resides in Richmond, Surrey with his
+Danish girlfriend, Lene Bausager, and their daughter, Emilie. In 1985, Astley
+was playing the club circuit as a singer with a soul band named FBI, when he
+was seen by the record producer Pete Waterman and persuaded to come to London
+to work at the PWL recording studio.</p>
+
+<p>If the first result that comes back isn’t the one you wanted you can ask for the next result by simply sending next in another message. You can use prev as well to come back through the set.</p>
+
+<p>pre. next</p>
+
+<p>You can always send it a call for help at any time which should return the instructions to you via an IM message.</p>
+
+<p>pre. help</p>
+
+<p>Which should return something like:</p>
+
+<p>pre. Personal LastFM search bot. Useful for looking for tracks you can&rsquo;t
+remember the full name of. Or for findind out who sung a track.
+search: do a search for tracks
+prev: get details about the previous track in the list
+next: get details about the next track in the list</p>
+
+<p>More instructions, and the code behind the bot, can be found in the <a href="http://github.com/garethr/lastbot/tree/master">README</a>.</p>
+
+<p>As developers we spend a lot of time using command line interfaces - mainly for speed and because you can cram a lot of functionality into a small amount of screen real estate. We&rsquo;re increasingly spending time debugging API calls as well and exposing your API calls for use by instant messaging clients has the potential to make development easier. Think of the Python interactive shell or of IRB, but for APIs.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

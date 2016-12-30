@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/04/18/resourceful-vs-hackable-search-urls/">Resourceful Vs Hackable Search URLs</a>
+      </h1>
+      <span class="post-date">Apr 18, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>I often end up pondering URL design given a moment and something that keeps coming up is hackable search queries. But first a very quick primer on the idea of resourceful design.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> is a series of architectural principals more than a defined architecture. The <a href="http://en.wikipedia.org/wiki/Resource_oriented_architecture">Resource Orientated Architecture</a> builds on those ideas with a series of concrete guidelines put down by <a href="http://intertwingly.net">Sam Ruby</a> for designing RESTful systems. The simple version is that you try to design your system around <a href="http://en.wikipedia.org/wiki/Resource_%28Web%29">resources</a> represented by URLs.</p>
+
+<p>I&rsquo;d thoroughly recommend reading <a href="http://www.amazon.co.uk/RESTful-Web-Services-Leonard-Richardson/dp/0596529260">RESTful web services</a> whenever you get a moment as this subject is covered in detail.</p>
+
+<p>Flickr isn&rsquo;t a truly resourceful design but it does have many of the hallmarks. For example the URL that describes me is at:</p>
+
+<pre><code>&lt;code&gt;http://flickr.com/people/garethr&lt;/code&gt;
+</code></pre>
+
+<p>When it comes to searching on flickr we have:</p>
+
+<pre><code>&lt;code&gt;http://flickr.com/search/?w=all&amp;q=pubstandards&amp;m=text&lt;/code&gt;
+</code></pre>
+
+<p>The pattern of using a query string argument named <em>q</em> to pass a search string is pretty common. One of the guidelines mentioned as part of the ROA discussed query strings:</p>
+
+<blockquote>
+<p>Query string parameters are appropriate if they are inputs to a Resource which is an algorithm. Otherwise, these values should be moved into the URI.</p>
+</blockquote>
+
+<p>Search is definitely algorithmic. Now you could maybe argue that a global search should be done on the root of a site, with specific resource searches on the resource in questions. eg. <em>/people/?q=</em>. This would likely work fine but require some behind the scenes complexity as well as probably not being as obvious to the end user. Global searches are in many cases much more common that restricted searches and even in resourceful designs the root of the site (ie. the home page) might not act as a list of available site resources. A notable exception might would have to be the excellent <a href="http://www.bbc.co.uk/programmes">BBC Programmes</a> site which is basically one big semantic catalogue.</p>
+
+<p>But we have another kind of URL that&rsquo;s cropping up for search results, one that treats the URL much more like a fundamental part of the user interface for search. An example from a site I use all the time is <a href="http://traintimes.org.uk/">The Accessible UK Train Timetable</a> which allows for URLs like the following:</p>
+
+<pre><code>&lt;code&gt;http://traintimes.org.uk/newcastle/london&lt;/code&gt;
+</code></pre>
+
+<p>You can basically squash all the search parameters from the form into the URL, meaning you can easily bookmark search results. Note however the actual content is likely to change. The above example for instance would use the current time to get a list of trains from Newcastle to London. In an hours time the results will be different.</p>
+
+<p>Another good example would be the new Yahoo! UK TV listings which has URLs like these:</p>
+
+<pre><code>&lt;code&gt;http://uk.tv.yahoo.com/listings/bbc-two/2008-04-17/&lt;/code&gt;
+
+&lt;code&gt;http://uk.tv.yahoo.com/listings/itv1/2008-04-17/21-00/&lt;/code&gt;
+</code></pre>
+
+<p>Again this is really a search query, or at least specifying the time and date is. In some ways it&rsquo;s the return of the command line - allowing searches to be run very quickly from a textual interface.</p>
+
+<p>Now, both these approaches treat URLs with the respect they deserve. But they do have the potential to clash somewhere in the middle if care isn&rsquo;t taken. The Accessible Train Times site is a single purpose site which just does searches while BBC Programmes does feature a search engine but it&rsquo;s just the global BBC search which takes you off site. And if that wasn&rsquo;t enough potential competition then a question raised by <a href="http://simonwillison.net">Simon</a> at The Highland Fling regarding URL design and the search engine optimisation crowd go me thinking too. From being a somewhat niche area of interest URLs might just become a sort after part of a good website design - fought over by the varying disciplines of modern web design and development.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/04/11/dsls-for-html-and-css-the-future-or-just-plain-wro/">DSLs for HTML and CSS - The Future, or Just Plain Wrong? </a>
+      </h1>
+      <span class="post-date">Apr 11, 2008 &middot; 4 minute read
+      </span>
+      
+      <p>After my previous post about <a href="http://morethanseven.net/posts/why-the-webstandards-world-appears-to-be-choosing-django/">Django and the web standards community</a> a number of the comments picked up on the fact I mentioned <a href="http://haml.hamptoncatlin.com/">haml</a> under the title <em>Other Craziness</em>. Ok, so I was being a little over-poetic but I decided this warranted a closer look.</p>
+
+<p>Haml is a markup language that&rsquo;s used to cleanly and simply describe the XHTML of any web document without the use of inline code. Haml functions as a replacement for inline page templating systems such as PHP, ASP, and ERB, the templating language used in most Ruby on Rails applications.</p>
+
+<p>A quick example should help. The following haml code&hellip;</p>
+
+<pre><code>&lt;code&gt;%div.special#primary Hello, World!&lt;/code&gt;
+</code></pre>
+
+<p>&hellip;is compiled to the following HTML:</p>
+
+<pre><code>&lt;code&gt;&lt;div class=&quot;special&quot; id=&quot;primary&quot;&gt;
+  Hello, World!
+&lt;/div&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Depending on your application this could be at runtime or as part of a build step. Although primarily associated with Rails because haml is also available as a command line utility you could in theory use it with any framework or language.</p>
+
+<p>My initial take on this was to call haml an abstraction of HTML but <a href="http://nex-3.com/">Nathan Weizenbaum</a>, one of haml&rsquo;s developers, put me straight:</p>
+
+<blockquote>
+<p>Haml doesn&rsquo;t really abstract HTML. Not in the same sense that, say, Rails helpers do. Since Haml has a one-to-one mapping to HTML, I view it more as an alternate syntax for HTML than an abstraction.</p>
+</blockquote>
+
+<p>Lots more examples for anyone interested can be found on <a href="http://haml.hamptoncatlin.com/docs/">the haml documentation site</a>.</p>
+
+<p>After some research and some playing around with the command line version of the haml engine I decided to see what Twitter thought about the situation. Little did I realise what I was letting myself in for:</p>
+
+<p><a href="http://tommorris.org/">Tom Morris</a> kicked things off:</p>
+
+<p>bq.:<a href="http://twitter.com/tommorris/statuses/784959480">http://twitter.com/tommorris/statuses/784959480</a> I&rsquo;m not sure why everyone insists on clumsily reinventing HTML every few weeks (eg. wiki syntaxes, of which there are hundreds)</p>
+
+<p><a href="http://intranation.com/">Brad Wright</a> thought:</p>
+
+<p>bq.:<a href="http://twitter.com/intranation/statuses/784963589">http://twitter.com/intranation/statuses/784963589</a> Sass is just stupid, since you&rsquo;re basically writing <strong>exactly</strong> the same CSS just in shitty YAML style.</p>
+
+<p>And followed with:</p>
+
+<blockquote>
+<p>What&rsquo;s the point of abstracting HTML? It&rsquo;s not that hard</p>
+</blockquote>
+
+<p>And <a href="http://cackhanded.net">Mark Norman Francis</a> chipped in with:</p>
+
+<blockquote>
+<p>EVIL. And not in a good, kittenish way.</p>
+</blockquote>
+
+<p>A few people echoed <a href="http://thecssdiv.co.uk/">Ross Bruniges</a> sentiment that haml and sass are just:</p>
+
+<p>bq.:<a href="http://twitter.com/rossbruniges/statuses/784954916">http://twitter.com/rossbruniges/statuses/784954916</a> front-end code for those who don&rsquo;t really care all that much about it and would rather create databases</p>
+
+<p>I have to admit to this being my initial reaction on hearing about and looking at haml, hence the remark from the previous post. But that&rsquo;s not to say everyone was negative.</p>
+
+<p><a href="http://donotremove.co.uk/">Mike Stenhouse</a> stepped in and said:</p>
+
+<p>bq.:<a href="http://twitter.com/mikesten/statuses/784952890">http://twitter.com/mikesten/statuses/784952890</a> Love haml - it&rsquo;s all I use these days. More readable, dynamic and hackable. Took me a while to come around to it though&hellip;</p>
+
+<p>Some of the comments were about how the use of haml might alter the dynamic of a team, to either positive or negative effect - depending on your point of view.</p>
+
+<p><a href="http://www.markng.co.uk/">Mark Ng</a> saw it as a cunning way of getting rid of the front-end guy.</p>
+
+<p>bq.:<a href="http://twitter.com/markng/statuses/784952935">http://twitter.com/markng/statuses/784952935</a> at first, they look elegant. Then it becomes obvious how they remove designers from the process of making markup.</p>
+
+<p>Where as <a href="http://thinkdrastic.net/">Olly Hodgson</a> say it maybe as a route to get the dyed in the wool back-end writing decent markup.</p>
+
+<p>bq.:<a href="http://twitter.com/OllyHodgson/statuses/784957324">http://twitter.com/OllyHodgson/statuses/784957324</a> They look interesting. With proper training it might be a good way to get back-end programmers creating decent HTML (shock horror!)</p>
+
+<p>At present haml is very much pitched at the Rails community from whence it came. Many of the examples demonstrate benefits compared to ERB, and haml is of course written in Ruby and available as a Rails plugin. Being perceived as part of that community has obvious benefits but also some subtle costs, in particular regarding those people that don&rsquo;t like Rails very much.</p>
+
+<p>I&rsquo;m not really convinced of the benefits in all fairness. The <em>something else to learn</em> barrier only gets magnified when working within a team environment. You now have to train new recruits of whatever skill level in another syntax. One that they might be able to write quickly enough but can they understand from the briefest of glances at a template? HTML might not be great here but it is familiar to everyone. Their is also the programmers abstraction. What if I can&rsquo;t get the markup I want out the other side of the black box? Yes it&rsquo;s open source so I can hack the box open but that causes even more problems. And while I quite like meaningful whitespace (for instance in Python), in templates which fail if it&rsquo;s not quite right I see a major problem for those whom a text editor is not their best friend.</p>
+
+<p>I am however interested to see whether the problems people have with haml are with haml in particular or with the overall approach of alternative syntax&rsquo;s for HTML and CSS. Are DSLs (Domain Specific Languages) needed for CSS and HTML? and if so is this a possible avenue for innovation on top of slow moving standards?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/04/06/git-ditz-and-microformats/">Git, Ditz and Microformats</a>
+      </h1>
+      <span class="post-date">Apr 6, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>I finally got round to making use of <a href="http://git.or.cz/">Git</a>, the distributed source code management tools much loved by Open Source projects like the Linux Kernel and now Ruby on Rails. It had been on the long list of things to have a look at for quite a while but for the majority of my personal projects SVN is just fine. The reason that led me to finally run <em>sudo port install git-core</em> was the new <a href="http://ditz.rubyforge.org/">Ditz</a> command line issue tracking software release on <a href="http://gitorious.org/projects/ditz">Gitorious</a> by <a href="http://cs.stanford.edu/people/wmorgan/">William Morgan</a>.</p>
+
+<p>Now, a command line issue tracker is maybe kind of niche and a little geeky. But most desktop or web based issue trackers just seem to wind me up and I like small tools that fit in with my command line centric workflow. I managed to clone <a href="http://gitorious.org/projects/ditz/repos/ditz-microformats">my own copy</a> of Ditz to have a play with. I ran into a few initial problems but nothing a <a href="http://www.kernel.org/pub/software/scm/git/docs/tutorial.html">good tutorial</a> and a <a href="http://groups.google.com/group/gitorious">helpful mailing list</a> couldn&rsquo;t fix.</p>
+
+<p>I&rsquo;m not just playing around either; Ditz comes with the nice ability to generate a set of static HTML files representing your issue database. I&rsquo;ve committed and pushed a few modifications and enhancements onto my clone - mainly validation, semantic markup improvements and a smattering of microformats (work in progress) in the templates and a couple of markup generation helpers in the Ruby code. I plan on working up the interface a little as well but like any good web designer I&rsquo;m starting with the underlying markup structure.</p>
+
+<p>A few other enhancements I&rsquo;d love to see in Ditz or a clone I could pull from include the ability to use <a href="http://www.sqlite.org/">SQLite</a> rather than the default YAML for larger projects, automatic generation of RSS feeds alongside the HTML (although I&rsquo;ve started implementing hAtom) and maybe automated deployment to a remote host over FTP or SSH.</p>
+
+<p>The distributed nature of Git appears to be pushed as the main advantage to those developers taking a look. But I think this is, in many cases, is not <em>that</em> important compared to the familiarity that comes from having used SVN or similar for a while. What I think just might be it&rsquo;s real strength is that Git is a <strong>social source control system</strong>. For Open Source projects like Ditz this is a potentially game changing move. The ease with which anyone can contribute and take things in strange directions without affecting the overall effort is fantastic. It removes barriers to entry for contributors and means making small quick changes is much easier and more immediate. With both Gitorious and <a href="http://github.com/">Github</a> wrapping Git in a shiny web based interface that focuses on these social aspects it will be interesting to see if this leads to more or faster Open Source collaboration efforts.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/04/04/a-first-class-web-citizen/">A First Class Web Citizen</a>
+      </h1>
+      <span class="post-date">Apr 4, 2008 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m just back from another great few days in Scotland for <a href="http://thehighlandfling.com">The Highland Fling</a>. The biggest difference for me this year was I was lucky enough to be one of the speakers. Amongst such internet luminaries as <a href="http://simonwillison.co.uk/">Simon Willison</a>, <a href="http://cackhanded.net/">Norm</a>, <a href="http://dev.opera.com/author/974138">Chris Mills</a>, <a href="http://wait-till-i.com/">Christian Heilman</a>, <a href="http://aralbalkan.com/">Aral Balkan</a> and <a href="http://boagworld.com/">Paul Boag</a> I presented on a few web building blogs (HTTP, URLs) and on some suggestions for API design. The presentation is available on <a href="http://www.slideshare.net/garethr/a-first-class-web-citizen/">slideshare</a> for anyone who would like a peek.</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=webcitizen-1207330793788509-9"/><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=webcitizen-1207330793788509-9" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I think the topic went down well and it triggered some good discussion around the nascent issue of API design. One thing is clear - we need some good resources filled with examples on the subject. More and more people are going to be extending various bits of software with an API and it would be nice to think they will all be a pleasure to use. In the meantime is you have any features or guidelines your like to see in APIs then suggest them <a href="http://doesyourapi.com/suggest/">over here</a>.</p>
+
+<p>The rest of the conference was great. I particularly enjoyed Norms little history lesson and Aral has me at least thinking about installing all the Flash and Flex tool chain. The highlight for me was probably the format. After each presentation we got a little grilling by Paul. He came up with a few thorny questions for each of us as well as fielding questions from the audience. Hopefully my stint on the sofa made sense to a few people, certainly everyone else threw out a few interesting titbits that probably wouldn&rsquo;t have been talked about otherwise. Also, Chris Mills nearly managed to make Paul cry with laughter by striking something of a rock star pose for most of his interview.</p>
+
+<p>I&rsquo;ve just uploaded a <a href="http://www.flickr.com/photos/garethr/sets/72157604386886719/">handful of photos</a> from the event and surrounding geek gatherings too. All in all the event was great (again). With the close venue, interviews mixed in and general friendly atmosphere The Highland Fling had an intimate feel often missing from events. Huge credit goes to <a href="http://www.azcazandco.com/">Alan</a> and hopefully we&rsquo;ll all be back next year.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/04/01/barcamp-northeast-tickets-available/">Barcamp NorthEast tickets available</a>
+      </h1>
+      <span class="post-date">Apr 1, 2008 &middot; 1 minute read
+      </span>
+      
+      <p>Quick post to say BarCampNorthEast tickets are now available. We&rsquo;re starting off releasing 50 tickets and we&rsquo;ll see how that goes. We&rsquo;re really not sure how quickly these will disappear so get them while they&rsquo;re hot. More tickets will be available later as well.</p>
+
+<p><a href="http://barcampnortheast.eventwax.com/barcampnortheast/register">barcampnortheast.eventwax.com/barcampnortheast/register</a></p>
+
+<p>The event is looking like its going to be great. I&rsquo;m really happy we managed to find a venue that would let us do the whole sleeping over thing. And with <a href="http://www.thinkingdigital.co.uk/">Thinking Digital</a> the week before and rumours of a geekdinner on the friday night it&rsquo;s going to be busy few days in Newcastle.</p>
+
+<p>We&rsquo;re still on the lookout for a few sponsors as well so if anyone is interested in sponsorship opportunities, or just has a few questions feel free to <a href="mailto:gareth@morethanseven.net">drop me a line</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/03/29/why-the-webstandards-world-appears-to-be-choosing-/">Why the webstandards world appears to be choosing Django</a>
+      </h1>
+      <span class="post-date">Mar 29, 2008 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>I&rsquo;ve been noticing an interesting trend recently, not one I have any empirical evidence for mind, but one I though interesting non-the-less. Parts of the webstandards world appear to all be playing with <a href="http://djangoproject.com">Django</a>. Part of this has been the odd mention down the pub, at barcamps or at SXSW this year. But the main source of information on the topic has been <a href="http://twitter.com">twitter</a>. To name but a few I&rsquo;ve seen tweets from <a href="http://nascentguruism.com">Steve</a>, <a href="http://thecssdiv.co.uk">Ross</a> and <a href="http://aralbalkan.com">Aral</a> recently and <a href="http://muffinresearch.co.uk/">Stuart</a> and <a href="http://cyril.doussin.name/thoughts/">Cyril</a> literally wont shut up about it.</p>
+
+<p>What&rsquo;s interesting is that this didn&rsquo;t happen with Rails, not in the corner of the pub that generally talks more about markup, javascript and CSS anyway. I&rsquo;ve worked on a couple of Rails projects both personally and commercially, and I&rsquo;ve just launched a little pet project build with django called <a href="http://doesyourapi.com">doesyourapi</a>. What follows is, to my mind, a few reasons why I think this trend exists and also why I think it will continue, at least for the time being.</p>
+
+<h3 id="people">People</h3>
+
+<p>You can&rsquo;t ignore the personal touch, and in <a href="http://simonwillison.com">Simon Willison</a> and <a href="http://www.kryogenix.org/">Stuart Langridge</a> we already have two people who bridge the Python/Django community and the web standards crowd, at least in the UK. Personal technology choices at least are often driven by personal correspondence.</p>
+
+<h3 id="templating">Templating</h3>
+
+<p>Django&rsquo;s templating introduces a very simple syntax <em>and nothing else</em>. Rails lets you have the full power of Ruby to do with as you will within your views. Rails also makes heavy use of helpers, further adding to the complexity of views. Now I have mixed views here, based on my own skills more than anything. I know I&rsquo;d feel much more comfortable throwing someone with good markup skills at a project using Django than Rails. For the most part with Django you use the html you&rsquo;re used to, Rails often wants you to change this to helpers - in much the same way as ASP.NET does in fact. I think some of this comes from the Rails <em>don&rsquo;t repeat yourself</em> <del>philosophy</del> <em>obsession</em>. Sometimes this leads to programmatic complexity which makes working with templates more akin to programming, even if it means less duplication. I&rsquo;ve yet to work on a particularly complex Django project so maybe this simplicity might become a limitation to work around? Always a possibility.</p>
+
+<h3 id="default-craziness">Default craziness</h3>
+
+<p>Some of the bits and pieces that come bundled with Rails are just plain wrong, the Javascript helpers being one example. The abuse of HTTP by default in some of the scaffolding code being another. Oh, and the markup coming out of various helpers as well. In trying to help the application developer Rails gets in the way of the professional webstandards types. Django does next to none of this for you. Programmers coming from Rails might see this as missing features. Frontend types prefer this clean slate approach because it means you don&rsquo;t have to fight the backend (sometimes including people) for control of the output. Note that you can work around much of this (in the same way as you can work <em>around</em> ASP.NET if you have to), it&rsquo;s just nicer to not have to.</p>
+
+<h3 id="other-craziness">Other craziness</h3>
+
+<p>Rails people love Ruby. After all it&rsquo;s better than Java (it&rsquo;s also a pretty loveable programming language too). But like computer science departments everywhere many Rails people also dislike or simply put up with HTML, CSS and Javascript. If they can find a way of not having to write these and write something else (Rails people are also obsessed with domain specific languages) instead. Hence we have the likes of <a href="http://haml.hamptoncatlin.com/">HAML</a> and <a href="http://lab.hamptoncatlin.com/play/with/sass">SASS</a>. The problem is that us frontend loving folk quite like writing CSS (well, sometimes) and absolutely love writing HTML. Most of the time for good reasons too - just look at microformats for an example. Frontend developers tend to like using a mix of tools, predominantly backend developers not so much it seems.</p>
+
+<p>Personally I find it interesting. You could quite easily flip many of these arguments around to support why so many people are using Rails. For two frameworks with similar goals and uses it&rsquo;s interesting to see the early philosophical differences playing out in the real world. It might be interesting to see what happens with frameworks like <a href="http://merbivore.com/">Merb</a> as well which seems to be set out to avoid many of these perceived issues with Rails. So, have anyone else noticed anything similar? Or even the complete opposite?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/03/25/barcamp-northeast/">BarCamp NorthEast</a>
+      </h1>
+      <span class="post-date">Mar 25, 2008 &middot; 2 minute read
+      </span>
+      
+      <p>BarCampNorthEast is go. <a href="http://www.codeworks.net">A</a> <a href="http://blog.meriwilliams.com/">few</a> <a href="&quot;http://www.agm.me.uk/blog/">people</a> have finally got together and sorted out the long promised barcamp in Newcastle upon Tyne.</p>
+
+<p>We&rsquo;re going to be holding the event in the middle of Newcastle, at <a href="http://theartworksgalleries.com/">The Art Works</a> on the weekend of the 24th/25th of May. That&rsquo;s a whole two months away, ample time for everyone to make arrangements hopefully. From the early discussions we were always set upon going the whole hog and having a two day event. The venue is big enough for people to sleep over as well if they want which is great. It keeps the cost down for anyone visiting as well as meaning we can play Werewolf all night. We&rsquo;re piggy backing on the <a href="http://www.thinkingdigital.co.uk">Thinking Digital conference</a> as well so hopefully some of the people from that will stick around for the barcamp.</p>
+
+<p>We have the requisite <a href="http://barcamp.org/BarCampNorthEast">Barcamp wiki</a> page as well as a listing on <a href="http://upcoming.yahoo.com/event/462291/">Upcoming</a>. Feel free to indicate your interest on either of these. Registration isn&rsquo;t open just yet, but we should be opening that up next week on <strong>Tuesday 1st April at 11:00am</strong>. Look for the link on here, on <a href="http://twitter.com/garethr">twitter</a>, on the upcoming and barcamp wiki pages and anywhere else I can think of to shout about it.</p>
+
+<p>Feel free to contact me with any questions. If you&rsquo;re not sure what all the fuss is about then have a look at the <a href="http://barcamp.org/">barcamp</a> site. And if you&rsquo;ve never been outside London before then maybe this is your chance. Newcastle is only two and a half hours away by a train with free wifi. We&rsquo;re also on the lookout for a few sponsors; if your interested drop me a line.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/03/22/testing-websites-with-twill/">Testing Websites with Twill</a>
+      </h1>
+      <span class="post-date">Mar 22, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>I&rsquo;ve been playing with <a href="http://twill.idyll.org/">Twill</a> a little recently. It&rsquo;s a Python based DSL used for functional testing of websites. From the official website:</p>
+
+<blockquote>
+<p>Twill is a simple language that allows users to browse the Web from a command-line interface. With twill, you can navigate through Web sites that use forms, cookies, and most standard Web features.</p>
+</blockquote>
+
+<p>A simple example might make things clearer. You&rsquo;ll need to install twill first - the instructions are available on <a href="http://twill.idyll.org/">the site</a>. We can write tests directly into the shell so we&rsquo;ll start their. For our first test we&rsquo;ll write one that will hopefully fail - a test to check whether this website is down.</p>
+
+<pre><code>&lt;code&gt;twill-sh
+&gt;&gt; go http://morethanseven.net
+&gt;&gt; code 404&lt;/code&gt;
+</code></pre>
+
+<p>First we fire up the twill shell then enter two simple commands. The first command, <em>go</em>, sends the browser to the specified URL. The second command is an assertion, in this case a check on the HTTP status code. If this website is available then it should return the HTTP code 200, if it&rsquo;s unavailable then it will probably return a 404 Not Found. This test will hopefully fail, indicating that this website is up and running. In reality you&rsquo;re more likely to test for the 200 status code and fail on anything else but for this example it&rsquo;s useful to see what a failing test looks like.</p>
+
+<p>Although pretty powerful the twill scripting language is nice and small. I&rsquo;ve listed most of the commands below just to give you an idea of the sort of things that you can get up to. You can type <em>help</em> at the twill shell to get more information on the available commands and the individual commands themselves.</p>
+
+<ul>
+<li>twill-sh</li>
+<li>twill-sh {filename}</li>
+<li>twill-sh {filename1} {filename2}</li>
+<li>twill-sh -u {url} {filename}</li>
+<li>twill-sh -n {filename}</li>
+<li>go {url}</li>
+<li>show</li>
+<li>save_html {file-name}</li>
+<li>showlinks</li>
+<li>showforms</li>
+<li>follow {url|url-name}</li>
+<li>back</li>
+<li>reload</li>
+<li>showhistory</li>
+<li>echo {variable}</li>
+<li>formvalue {form} {input} {value}</li>
+<li>submit {input}</li>
+<li>show_cookies</li>
+<li>save_cookies {file-name}</li>
+<li>load_cookies {file-name}</li>
+<li>clear_cookies</li>
+<li>code {code}</li>
+<li>url {text}</li>
+<li>title {text}</li>
+<li>find {text}</li>
+<li>setglobal {name} {value}</li>
+<li>setlocal {name} {value}</li>
+<li>debug http 1</li>
+<li>redirect_output {file}</li>
+<li>redirect_error {file}</li>
+<li>agent {ie5|ie55|ie6|opera7|konq32|saf11|aol9}</li>
+<li>add_auth {realm} {url} {user} {password}</li>
+<li>runfile {file-name}</li>
+<li>extend_with check_links</li>
+<li>check_links</li>
+<li>check_links {regex}</li>
+<li>twill-fork -n {number} -p {processes} {script}</li>
+</ul>
+
+<p>You can also store tests in individual files as well as run a batch of tests at once. I have a couple of tests that I can run against any URL which might be a useful starting point for anyone else starting to look at testing their sites or applications. You can <a href="http://morethanseven.net/_assets/downloads/twill/twill.zip">download these tests here</a>.</p>
+
+<p>If you unpack the zip archive and then open the folder in a terminal or console. You can then run all of the tests like so, note we&rsquo;re passing the starting URL into the scripts which makes using the same scripts for multiple sites easier.</p>
+
+<pre><code>&lt;code&gt;twill-sh * -u http://morethanseven.net&lt;/code&gt;
+</code></pre>
+
+<p>The tests included do a few things; from checking for the presence of several required markup elements and checking for an XHTML doctype to checking that all the links on the page are working.</p>
+
+<p>All these examples are pretty simple and non-site-specific. For more complex form based applications you can write application browsers which fill out forms, create user sessions and do everything a user might do. Twill is also particularly useful when it comes to testing RESTful webservices with all the URLs and HTTP status codes floating about.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/03/19/own-your-endpoints/">Own your endpoints</a>
+      </h1>
+      <span class="post-date">Mar 19, 2008 &middot; 2 minute read
+      </span>
+      
+      <p>If <a href="http://google-code-updates.blogspot.com/2008/02/urls-are-people-too.html">URLs are people too</a> then you better make sure you control your URLs.</p>
+
+<p>Although some people use blog hosting services like <a href="http://www.blogger.com">blogger</a> the majority of serious bloggers, web designers or companies generally use their own domain name to host their site. Controlling your own domain name is increasingly important when that URL is a representation of you on the internet.</p>
+
+<p>With all these social networks we&rsquo;re starting to have pieces of us scattered all over the place. I&rsquo;ve joked previously about the utility of domain names over real names for interpersonal communication but this breaks down a little when not all the urls that represent me are owned by me. I control morethanseven.net/photos but I only have some influence over <a href="http://flickr.com/photos/garethr">flickr.com/photos/garethr</a>. With external hosts you also need to be aware of cybersquatting. I own morethanseven.net so no one else can use it. However with services that give you your own URL as part of registration everywhere people can cybersquat in hundreds of new domains that you might not even know about.</p>
+
+<p>It&rsquo;s not just web pages you have to worry about. Feeds are another example of URLs you just might want to keep control over. This last one is also something I see lots of people handing off to others - specifically <a href="http://feedburner.com">Feedburner</a>. Now I&rsquo;m a big fan of feedburner and use it for the feeds on this site. But I don&rsquo;t use the feedburner URL, anyone subscribing to the feeds here does so using morethanseven.net/feed/. If I decide to stop using feedburner I can, without having to upset the few people who subscribe to it by moving my feed address. It&rsquo;s the same with email addresses; I love gmail but rarely actually give my gmail email address out.</p>
+
+<p>So, start looking after your domain names a little more carefully. They are pieces of you scattered around the internet, and losing control of them is going to become increasingly socially painful.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/03/14/accepted-for-xtech/">Accepted for Xtech</a>
+      </h1>
+      <span class="post-date">Mar 14, 2008 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>So, while sat with a few people at the WaSP panel at SXSW (of which more later when I&rsquo;m fully caught up) I got a nice email from the folks at <a href="http://2008.xtech.org">Xtech</a> accepting my presentation idea. The abstract is below. If any of that sounds interesting or up your street I&rsquo;d love to hear other peoples experiences or ideas on the subject.</p>
+
+<h2 id="design-strategies-for-a-distributed-web">Design Strategies for a Distributed Web</h2>
+
+<h3 id="from-language-frameworks-to-apis">From language frameworks to APIs</h3>
+
+<p>Everyone is making use of mature and stable web application or javascript frameworks these days. That means weâ€™ve stopped reinventing things such as routing and object relational mapping, but weâ€™re all still building very similar components again and again. Frameworks might allow us to solve lots of fine grained problems but APIs could let us solve common course grained problems quicker.</p>
+
+<h3 id="building-blocks-for-your-applications">Building blocks for your applications</h3>
+
+<p>Their are already a few examples in the wild of APIs designed to be used as part of your application development process. Amazon has been leading the way in providing remote services such as S3, EC2 and SimpleDB. Their are also options when it comes to hosting these services yourself, the mint analytics software and the CouchDb database service are both good examples.</p>
+
+<h3 id="quality-engineering-for-free">Quality engineering for free</h3>
+
+<p>The real value of outsourcing a discreet portion of your application to a third party API lies in quality. You could always use local storage and your programming language of choice to deal with a large volume of file read and write operations. But do you really think youâ€™ll beat Amazon for reliability, scalability and speed?</p>
+
+<h3 id="functionality-vs-data">Functionality vs Data</h3>
+
+<p>Itâ€™s not just high quality functionality that we could leverage from other providers. Weâ€™re all fed up with entering and re-entering our personal data into each new service. With advancements like OAuth and Microformats and lots of focus on data portability at the moment we might just be able to share data too.</p>
+
+<h3 id="change-the-client-as-well-as-the-server">Change the client as well as the server</h3>
+
+<p>Sometimes itâ€™s not enough to just change the server. The rise of specialised browsers such as Joost and Songbird allows for functionality that would be impossible otherwise. Site specific browser, along with advancements such as local storage, may prove
+Problems</p>
+
+<p>Itâ€™s not all in place just yet. The reliability of your application is likely to be important, and making use of a distributed set of APIs could leave you in the unenviable position of being less stable than your least stable partner. The issue of lock-in could also raise itâ€™s head, without a vibrant ecosystem of different providers that is.</p>
+
+<h3 id="the-future">The Future</h3>
+
+<p>The use of third party commercial APIs has the potential to change the development landscape â€“ bringing high quality middleware to the web. It could be the original web services dream realised. But without critical mass and an active market it could also be a new achilles heel for successful startups.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/21/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        class="active"><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/23/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

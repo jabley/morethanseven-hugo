@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Using OWASP ZAP from the command line &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Using OWASP ZAP from the command line</h1>
+    <span class="post-date">Jun 23, 2014 &middot; 2 minute read
+    </span>
+    <p>I&rsquo;m a big fan of <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a> or
+the Zed Attack Proxy. It&rsquo;s suprisingly user friendly and nicely pulls of
+it&rsquo;s aim of being useful to developers as well as more hardcore penetration testers.</p>
+
+<p>One of the features I&rsquo;m particularly fond of is the aforementioned
+proxy. Basically it can act as a transparent HTTP proxy, recording the
+traffic, and then analyse that to conduct various active security tests;
+looking for XSS issues or directory traversal vulnerabilities for
+instance. The simplest way of seeding the ZAP with something to analyse is using
+the simple inbuilt spider.</p>
+
+<p>So far, so good. Unfortunately ZAP isn&rsquo;t designed to be used from the
+command line. It&rsquo;s either a thick client, or it&rsquo;s a proxy with a simple
+API. Enter <a href="https://github.com/garethr/zapr">Zapr</a>.</p>
+
+<p>Zapr is a pretty simple wrapper around the ZAP API (using the
+<a href="https://github.com/vpereira/owasp_zap">owasp_zap</a> library under the
+hood). All it does is:</p>
+
+<ul>
+<li>Launch the proxy in headless mode</li>
+<li>Trigger the spider</li>
+<li>Launch various attacks against the collected URLs</li>
+<li>Print out the results</li>
+</ul>
+
+<p>This is fairly limited, in that a spider isn&rsquo;t going to work
+particularly well for a mor interactive application, but it&rsquo;s a farily good
+starting point. I may add different seed methods in the future (or would
+happily accept pull requests). Usage wise it&rsquo;s as simple as:</p>
+
+<pre><code>zapr --summary http://localhost:3000/
+</code></pre>
+
+<p>That will print you out something like the following, assuming it finds
+an issue.</p>
+
+<pre><code>+-----------------------------------+----------+----------------------------------------+
+| Alert                             | Risk     | URL                                    |
++-----------------------------------+----------+----------------------------------------+
+| Cross Site Scripting (Reflected)  | High     |http://localhost:3000/forgot_password   |
++-----------------------------------+----------+----------------------------------------+
+</code></pre>
+
+<p>The above alert is taken from a <a href="https://github.com/garethr/zapr-example">simple example</a>,
+using the <a href="https://github.com/OWASP/railsgoat">RailsGoat</a> vulnerable web
+application as a scape goat. You can see the resulting output from
+<a href="https://travis-ci.org/garethr/zapr-example">Travis running the tests</a>.</p>
+
+<p>Zapr is a bit of a proof of concept so it&rsquo;s not particularly robust or
+well tested. Depending on usage and interest I may tidy it up and extend
+it, or I may leave it as a useful experiment and try and finally get ZAP
+support into <a href="http://gauntlt.org">Gauntlt</a>, only time will tell.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

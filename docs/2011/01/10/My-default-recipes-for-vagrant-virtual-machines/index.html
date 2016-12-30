@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>My Default Recipes For Vagrant Virtual Machines &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">My Default Recipes For Vagrant Virtual Machines</h1>
+    <span class="post-date">Jan 10, 2011 &middot; 3 minute read
+    </span>
+    <p>I&rsquo;ve written about <a href="http://morethanseven.net/2010/11/04/Why-you-should-be-using-virtualisation.html">Vagrant previously</a> and the more I use it the more it impresses me and the more it changes how I work. For those that haven&rsquo;t yet used <a href="http://vagrantup.com">vagrant</a> the brief summary is, it&rsquo;s a way of managing, creating and destroying headless virtualbox virtual machines. So when I&rsquo;m sat at my computer and I want a new 32 bit virtual machine based on Maverick I just type.</p>
+
+<pre><code>vagrant init maverick32
+vagrant up
+</code></pre>
+
+<p>It has some other magic tricks as well, like automatically setting up NFS shares between the host and guest and allowing you to specify ports to forward in the configuration file. You access the machine via ssh, either using the handy <em>vagrant ssh</em> command or by using <em>vagrant ssh-config</em> to dump the relevant configuration to place in ~/.ssh/config.</p>
+
+<p>I&rsquo;ve been using virtualisation for a few years, initially purely for testing and experimentation, and then eventually for all my development. I&rsquo;d have a few VMware images, I&rsquo;d use snapshots and occasionally rollback, but I very rarely created new virtual machines. It was quite a manual process. With vagrant that&rsquo;s changing. Everytime I start investigating a new tool or new technology or work on a pet project I create a new virtual machine. That way I know exactly what I&rsquo;m dealing with, and with vagrant the cost of doing that is the 30s waiting for the new machine to boot.</p>
+
+<p>Or rather it would be if I didn&rsquo;t then have to install and configure the same few things on every machine. Pretty much whatever I might be doing I found myself installing the same things, namely zsh, vim, git and utils like ack, wget, curl and lynx. This is exactly what the provisioning support in vagrant is for, so I set out to use chef to do this for me.</p>
+
+<p>I decided to use a remote tar file for the recipes. I&rsquo;m not really bothered about managing a chef server just for my personal virtual machines, but I did want to have a canonical source of the cookbooks that wasn&rsquo;t local to just one of my machines. Plus this means anyone else who shares my opinions about what you want on a new virtual machine can use them too.</p>
+
+<p>My Vagrantfile now looks like this:</p>
+
+<pre><code>Vagrant::Config.run do |config|
+  config.vm.box = &quot;maverick32&quot;
+  config.vm.provisioner = :chef_solo
+  config.chef.recipe_url = &quot;http://cloud.github.com/downloads/garethr/chef-repo/cookbooks.tar.gz&quot;
+  config.chef.add_recipe &quot;garethr&quot;
+  config.chef.cookbooks_path = [:vm, &quot;cookbooks&quot;]
+  config.chef.json.merge!({ :garethr =&gt; {
+      :ohmyzsh =&gt; &quot;https://github.com/garethr/oh-my-zsh.git&quot;,
+      :dotvim =&gt; &quot;https://github.com/garethr/dotvim.git&quot;
+    }})
+end
+</code></pre>
+
+<p>You can see the cookbook on GitHub at <a href="https://github.com/garethr/chef-repo/">github.com/garethr/chef-repo</a>. By default it uses the <a href="https://github.com/robbyrussell/oh-my-zsh.git">official oh-my-zsh repo</a> and the <a href="https://github.com/jtimberman/dotvim.git">vim configuration from jtimberman</a>. My own versions are very minor personal preference modifications of those. The Vagrantfile example above shows how you can override the defaults and use your own configs instead if you choose.</p>
+
+<p>One question I was asked about this approach was why I didn&rsquo;t just create a basebox with all these things installed by default, this would reduce the time taken on first boot as software wouldn&rsquo;t have to be installed each time. However it would also mean maintaining the basebox&rsquo;s myself, and as I use different Linux distributions or versions this would be a headache. While doing this and working with vagrant I&rsquo;ve been thinking about the ecosystem around the tool and I&rsquo;m planning on writing my thoughts on that subject over the next week or so.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

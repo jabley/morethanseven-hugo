@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Unit Testing CSS - Looking for a Solution &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Unit Testing CSS - Looking for a Solution</h1>
+    <span class="post-date">Oct 13, 2008 &middot; 4 minute read
+    </span>
+    <blockquote>
+<p>I think it&rsquo;s an epic failure of web standards that CSS is the only essentially untestable technology invented in last decade - <a href="http://twitter.com/t_a_w/statuses/957359524">Tomasz</a></p>
+</blockquote>
+
+<p>Talking today on Twitter with <a href="http://twitter.com/t_a_w">Tomasz</a> got me thinking again about one of those problems that I come back to once in a while. Unit testing CSS. CSS development is a pain, even with some sort of <a href="http://natbat.net/2008/Sep/28/css-systems/">system</a>. Admit it. I actually like CSS most of the time but it&rsquo;s still painful at times. Hopefully with that out of the way you feel better.</p>
+
+<blockquote>
+<p>unit testing is a method of testing that verifies the individual units of source code are working properly. A unit is the smallest testable part of an application.</p>
+</blockquote>
+
+<p>All testing past simple validation of CSS seems to be done visually at present.
+Thinking about this from the point of view of CSS seems straight forward, but turns out not to be so for a variety of reasons. The problem lies in the cascading and compounding nature of the beast. Each individual CSS rule might do something which is self contained, but the chances on a real site are probably slim. For instance:</p>
+
+<p>pre. body {
+font-size: 100%;
+}
+p {
+font-size: 2em;
+}</p>
+
+<p>What is the size of the font size of a paragraph? It turns out it depends. Not just on more than one unit of source code (we have two rules here) but also on things like the browser. And how do we get this font size from a browser in the first place? I generally dislike <a href="http://selenium.openqa.org/">Selenium</a> but does it provide a mechanism for getting at the calculated DOM attribute values? Do we have to interface directly with a browser at a lower level?</p>
+
+<p><a href="http://wxmozilla.sourceforge.net/">wxMozilla</a>, <a href="http://wxmozilla.sourceforge.net/">wxWebKit</a> or maybe <a href="http://code.google.com/p/pywebkitgtk/">pywebkitgtz</a> might prove useful, but I&rsquo;m not sure at what level they operate. What I&rsquo;m imagining here is maybe something like (excuse the Python, hopefully you get the idea):</p>
+
+<p>pre. def test_text_size_is_12px(self):
+response = fetch_with_browser(&lsquo;<a href="http://www.google.com'">http://www.google.com'</a>)
+self.assertEquals(12, response.search(&ldquo;p&rdquo;).fontSize</p>
+
+<p>So we could use CSS selectors (ie. <em>p</em>) to find elements and then assert various DOM properties (ie. <em>fontSize</em>) are equal to values we specify. The magic is in getting access to those calculated DOM attribute values from an actual browser engine.</p>
+
+<p>Another approach would seem to be looking at visual rendering and comparing against a known good version. This seems to be something that the <a href="http://weblogs.mozillazine.org/roc/archives/2005/03/visual_regressi.html">Mozilla folks got up to a while back</a> to test different browser versions. Their are a few tools that might help us out here too; <a href="http://www.browsercam.com/">BrowserCam</a> provides a paid for service, <a href="http://www.paulhammond.org/webkit2png/">Webkit2png</a> is a handy command line script I&rsquo;ve had fun with in the past and <a href="http://iecapt.sourceforge.net/">IECapt</a> appears to be a similar beast for Internet Explorer. <a href="http://cutycapt.sourceforge.net/">CutyCapt</a> is another cross platform webkit based utility. I can see a few gotchas lurking here. Animations or slow loading javascript would obviously throw this into disarray. But disabling these in the browser might get up somewhere. How to compare images produced I&rsquo;m not yet sure, but I reasons someone reading this might have a good idea?</p>
+
+<p>As the title would suggest this post does not contain the answer, only a few useful links and two possible approaches to the problem. The questions at this stage are:</p>
+
+<ul>
+<li>Does any of this exist already? If so who do we need to cuddle up to to get access to it?</li>
+<li>Are any of the technical hurdles to either of the approaches mentioned above insurmountable? If not what is the best solution?</li>
+<li>Does anyone except me and Tomasz even want this?</li>
+</ul>
+
+<p>I reason their are a fair few things that would be needed to make this first practical and later standard; nice APIs, run times in various languages, and working out whether or not it actually helps CSS development to name but a few. But right now I&rsquo;d go for a limited proof of concept that works on my machine. If anyone has any links to thinks that might be good starting points please let me know. Other ideas welcome as well.</p>
+
+<p>One last thing; <a href="http://ajaxian.com/archives/ajaxians-join-mozilla-creating-developer-tools">Mozilla&rsquo;s latest employees</a> are looking at the whole spectrum of developer tools. I&rsquo;d love for them to start with something like this.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/07/18/nabaztag-rest-api/">Nabaztag REST API</a>
+      </h1>
+      <span class="post-date">Jul 18, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m having quite a bit of fun with my rabbit, <em>cambridge</em>, at the moment. Their were a number of projects at <a href="http://hackday.org">Hackday</a> involving the ever so cute <a href="http://nabaztag.com">Nabaztag</a> and I had a feeling I&rsquo;d probably go home and adopt one. The idea of a rabbit with APIs was simple too much fun.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgNabaztag.jpg" alt="Nabaztag" title="Nabaztag" /></p>
+
+<p>The Nabaztag API docs can be found in two places (the rest of the site unfortunately has a number of issues when it comes to finding information easily); in the <a href="http://help.nabaztag.com/fiche.php?langue=3&amp;fiche=29#none">help section</a> and on the <a href="http://api.nabaztag.com/docs/home.html">API site</a>. The latter are much better than the former by the way.</p>
+
+<p>Lots of people have already been hacking on the wireless rabbit. Their are some good tools over on the <a href="http://nabaztools.sourceforge.net/">Nabaztag Sourceforge project</a>, a handy <a href="http://rubyforge.org/projects/nabaztag/">Ruby module</a> and a <a href="http://pear.php.net/pepr/pepr-proposal-show.php?id=463">prospective</a> <a href="http://tmp.lfms.nl/nabaztag/">PEAR module</a> for PHP.</p>
+
+<p>I&rsquo;ve been getting more and more into the ideas behind <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> recently and one thing that disappointed me a litte was the HTTP RPC style Nabaztag API (note to anyone thinking REST simply means using a GET request rather than something like SOAP or XML-RPC, it doesn&rsquo;t). I couldn&rsquo;t help seeing PUTs to ears and POSTs to the mouth.</p>
+
+<p>Inspired a little by <a href="http://www.aralbalkan.com/">Arals</a> <a href="http://aralbalkan.com/994">Bunny Talk</a> I&rsquo;ve started implementing parts of the API in a RESTful manner, and used my API abstraction layer to build a similar application.</p>
+
+<p>Head over to <a href="http://morethanseven.net/presents/nabaztag/">morethanseven.net/presents/nabaztag/</a> and send me a message (via my rabbit obviously) or, er, play with <em>cambridges</em> ears (he likes that). At the moment the API is configured only for my rabbit, although you can download the source code and run it yourself if you like. It requires PHP5 at the moment as one of the required modules is PHP5 only. But you are using <a href="http://gophp5.org/">PHP5 now</a> aren&rsquo;t you?</p>
+
+<p>If you don&rsquo;t want to use the form you can access the API directly. Here are a couple of examples using curl:</p>
+
+<pre><code>&lt;code&gt;curl http://morethanseven.net/presents/nabaztag/ears/left&lt;/code&gt;
+
+&lt;code&gt;curl -X 'PUT' http://morethanseven.net/presents/nabaztag/ears/left/13&lt;/code&gt;
+
+&lt;code&gt;curl -X 'POST' -d &quot;message&quot; http://morethanseven.net/presents/nabaztag/mouth&lt;/code&gt;
+</code></pre>
+
+<p>Their&rsquo;s a litte documentation in the source. I&rsquo;ll add more methods, more documentation and maybe make an API anyone with a Nabaztag can use by authenticating either as I need it or if people actually want it. Let me know what you think (via the rabbit obviously!)</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/07/15/ruby-on-rails-on-nokia-n800/">Ruby on Rails on Nokia N800</a>
+      </h1>
+      <span class="post-date">Jul 15, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>My latest job has allowed me to get back into playing with <a href="http://rubyonrails.com">Rails</a>, something I&rsquo;ve been meaning to do for a year or so. Having got everything up to date and installed on my virtual server and on my laptop I couldn&rsquo;t resist seeing if I could get it going on my <a href="http://www.nseries.com/products/n800">N800</a>.</p>
+
+<p>The reasons for this are mainly that the idea of a wireless web server in my pocket is pretty intriguing. Think about it. If you&rsquo;re at an event with Wi-Fi you can just point people to an IP address and hey presto they have access to your details, or a set of photos, or whatever you want to show them. I&rsquo;ve also got nginx installed, but I&rsquo;m not as yet that up on running python or PHP behind it on the N800. So, no need to carry around the laptop. OK, maybe it&rsquo;s just me and all this going to web conferences? We&rsquo;ll have to see if I actually knock up anything useful for the next conference and see. Saving that I&rsquo;ve been travelling quite a bit recently and it&rsquo;s handy when reading a Rails book to be able to try out the examples.</p>
+
+<p>Anyway, it turns out that you can indeed <a href="http://flickr.com/photos/kwe/484269853/">install Ruby and Rails on the N800</a>, although their isn&rsquo;t much information around and non of it worked exactly as stated for me - hence this post.</p>
+
+<p>I followed along with a <a href="http://www.digitalknk.com/2007/05/27/howto-ruby-on-rails-on-your-nokia-n800/">pretty good tutorial</a>, although I already had Red Pill Mode, XTerm and SSH installed. Ruby is also now available in the <a href="https://garage.maemo.org/projects/ruby185/">Garage</a>.</p>
+
+<p>The crux of the post is that you can find the required packages, in particular for Gem, <a href="http://pierre.droids-corp.org/maemo/">here</a>. But unfortunately that is were the problems start. I ran into exactly the same problem as described in the comments in the above post, on <a href="http://railsgrunt.com/2007/5/14/installing-ruby-on-rails-on-the-n800">this blog post</a> and on this <a href="http://www.internettablettalk.com/">Internet Tablet Talk</a> <a href="http://www.internettablettalk.com/forums/showthread.php?t=5442&amp;page=2">forum thread</a>. Specifically, Gem hanging, crashing or returning a segmentation fault in the yaml.rb file on line 133.</p>
+
+<p>The problem appears to be (this is me guessing here) with gem and the N800 being able download all the info for Gem to update it&rsquo;s package list. The solution, or rather a suitable workaround, is to download the individual gems yourself to the local file system or a memory card and then install them from there. You can get all the Rails gems <a href="http://pierre.droids-corp.org/maemo/gems/">here</a>. A quick script/server later and I had the familiar Rails welcome screen on port 3000. This should in theory work for oher gems as well. You can either download them directly or use Gem on a local machine and them move the files across via bluetooth or USB.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/07/11/a-round-up/">A round-up</a>
+      </h1>
+      <span class="post-date">Jul 11, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>Being busy is to be expected with this new start-up malarkey but whoa. The problem is I have even more ideas for real posts or articles (the type you research, play around with, then write properly) and, for the next few weeks, not the time to do them justice. I&rsquo;ll be back with gusto when I find the time. In the interim here are a few things from the last month or so I consider <em>cool</em>.</p>
+
+<ul>
+<li>I has <a href="http://www.nabaztag.com/en/index.html">Nabaztag</a>! Sorry, but I couldn&rsquo;t resist after <a href="http://hackday.org">Hackday</a>. Expect API hacking and silly photos on flickr aplenty.</li>
+<li>Oh, <a href="http://hackday.org">Hackday</a> was an absolute blast. Thanks to Matt, Ian, Tom and the cast of hundreds.</li>
+<li>I&rsquo;m working on a cool Ruby on Rails app in the real world, up here in Newcastle no less.</li>
+<li>&ldquo;<code>media&quot;:http://vivabit.com/atmedia2007 was, yet again, fab. A (very) late shout to Patrick and the umper lumpers. Can I make it to</code>media Ajax?</li>
+<li><a href="http://refreshnewcastle.org/">Refresh Newcastle</a> got a minor update with more flickr and upcoming goodness. Tag things <em>refreshnewcastle</em> for some lovin.</li>
+<li><a href="http://hedgehoglab.com">hedgehoglab.com</a> has a few more pages, a <a href="http://hedgehoglab.com/training/survey">survey on web training needs</a> and more microformats than you can shake a stick at.</li>
+<li>I&rsquo;ll be at <a href="http://dconstruct.org">dconstruct</a> (just). Another jigsaw piece of my increasingly bloody minded attempt to get to as many UK web get-togethers as possible.</li>
+<li>I&rsquo;ll be along to <a href="http://rubyandrails.org/usergroups/newcastle/">ncl.rb</a> tomorrow night (thursday) and in the pub afterwards if anyone is around. Their have been a few good events in Newcastle recently, only some of which I&rsquo;ve managed to get along to. I&rsquo;m considering getting an <a href="http://www.opencoffeeclub.org/">Open Coffee</a> do up and running in Newcastle as well. If anyone is interested let me know.</li>
+</ul>
+
+<p>More (interesting) work beckons&hellip;</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/06/24/targeting-on-css3/">Target(ing) on CSS3</a>
+      </h1>
+      <span class="post-date">Jun 24, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>Apologies up front for the bad pun but I&rsquo;ve been busy playing with another little feature found in CSS3, namely the :target pseudo-class.</p>
+
+<p>It&rsquo;s actually pretty well described in the <a href="http://www.w3.org/TR/2001/CR-css3-selectors-20011113/#target-pseudo">CSS3 Selectors module</a>, (although given that the specs make lots of use of partial URLs the spec style sheet is crying out for use of said selector to I digress).</p>
+
+<p>Put simply it allows you to style elements of a page that are the target of in page anchors, ie. <code>&lt;a href=&rdquo;#target&rdquo;&gt;in page link&lt;/a&gt;</code></p>
+
+<p>For example. The following CSS hides all div children of an element with an id of <em>example3</em>.</p>
+
+<pre><code>&lt;code&gt;#example3 &gt;div {
+    display: none;
+}&lt;/code&gt;
+</code></pre>
+
+<p>The we can say &ldquo;if said element has been targetted then display them all&rdquo;</p>
+
+<pre><code>&lt;code&gt;#example3:target &gt;div {
+    display: block;
+}&lt;/code&gt;
+</code></pre>
+
+<p>So if you visiting #example3 you would see the divs, otherwise they will be hidden away.</p>
+
+<p>I&rsquo;ve set up a couple of examples over on <a href="http://morethanseven.net/presents/target">morethanseven.net/presents/target</a>.</p>
+
+<p>These examples basically remove the need for Javascript implementations but I&rsquo;m not sure whether I&rsquo;d actually use either of these. But you get the general idea. One thing about the examples was their simplicity compared with similar approaches though.</p>
+
+<p>It&rsquo;s already pretty well implemented according to this handy <a href="http://www.css3.info/modules/selector-compat">compatability table</a> from <a href="http://www.css3.info/">CSS3.info</a> and I would imagine an ideal candidate for <a href="http://andybudd.com">Andy Budd&rsquo;s</a> <a href="http://www.andybudd.com/archives/2007/05/css22/">CSS2.2</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/06/22/encoded-characters-in-css3-generated-content/">Encoded Characters in CSS3 Generated Content</a>
+      </h1>
+      <span class="post-date">Jun 22, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>A quick, but hopefully informative post on something that took me a little time to work out and I thought might trip a few others up too.</p>
+
+<p>I&rsquo;m playing with quite a bit of CSS3 at the moment for our <a href="http://hedgehoglab.com">new company</a> site. It seemed like a good excuse to put into practice lots of progressive enhancement and the like and so far is going nicely if I do say so my self.</p>
+
+<p>The <a href="http://www.w3.org/TR/css3-content/">CSS3 Generated Content Module</a> has some nice little bits in and I decided to use it to put some icons after external link ala wikipedia (but with nicer icons). Actually what I wanted was simply an arrow and I didn&rsquo;t really need an image for that did I?</p>
+
+<p>Well my first try went a little something like this:</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;#8594;&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>Nope, no luck. By the time it hits the browser it&rsquo;s not what I was looking for. I didn&rsquo;t think old style named entities would work but what the heck?</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;&amp;rarr;&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>Nope. As I thought. No luck their either. I also tried the character itself (but forgot to put that in the first post - thanks <a href="http://joeclarke.org/weblogs/">Joe</a>) but again to no avail.</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;â†’&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>Some digging around and I managed to infer the correct syntax from some hidden away examples about something else.</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;\2192&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>You need to use the Unicode encoding. Doh. Job done.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/06/11/introducing-hedgehog-lab/">Introducing hedgehog lab</a>
+      </h1>
+      <span class="post-date">Jun 11, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>For both of you who care what I get up to during my work hours this post is for you. I&rsquo;ve finally gotten involved in a new startup with a couple of friends. Look out for <a href="http://hedgehoglab.com">hedgehog lab</a> related goings on in a Newcastle near you. We&rsquo;ve got plans being drawn up as I type (multi-tasking) but a smattering of training and consultancy on web standards design and development and a very health dose of some of those new fangled online products (all with as many microformats as I can sneak in) sounds like fun to me.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgHedgehogLab.jpg" alt="hedgehog lab" title="hedgehog lab" />:<a href="http://hedgehoglab.com/">http://hedgehoglab.com/</a></p>
+
+<p>Bye bye to all the people at TH_NK. It&rsquo;s been great for two years and I&rsquo;ll miss the cunning hit and run attacks on asp.net that have yielded some pretty good results. I&rsquo;m sure you&rsquo;ll get more done without me being quite so obstinate!</p>
+
+<p>It&rsquo;s not just the impending job move that has been keeping me so busy. I finally, after much useful feedback and patience from <a href="http://thewatchmakerproject.com">Matt</a> got my first <a href="http://www.digital-web.com">Digital Web</a> article done: <a href="http://www.digital-web.com/articles/apis_and_mashups/">APIs and Mashups For The Rest Of Us</a>. As the title suggests it&rsquo;s a quick run through the various goings on, in particular on what I find so interesting about the concepts of Open APIs and this web of data thing. I even squeezed in some talk of <a href="http://microformats.org">Microformats</a> <a href="http://www.digital-web.com/articles/apis_and_mashups/comments/">Let me know what you think</a>. Thanks to <a href="http://sam.aaron.name/">Sam</a> as well for a useful early proof read and to <a href="http://www.tiffehr.com/">Tiff</a> at Digital Web (who also has some interesting things to say on this here industry on her new blog, <a href="http://www.lostcog.com/.">Lost Cog</a>)</p>
+
+<p>End of self reverential post. The list of <em>real</em> things I have to blog about is frankly too long to wait around. And it&rsquo;s not helped by these <a href="http://vivabit.com/atmedia2007">trips</a> to <a href="http://hackday.org">london</a> which frankly just give me even more to write about. Incase anyone is interested (and more to remind me), expect something on automated site testing, some musings and code (!) for doing useful things with microformats, some cool CSS3 (or is it CSS2.2 now?) tricks and something involving flickr which should actually be quite interesting if I get the time.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/06/02/json-configuration-example-printing/">JSON configuration example - Printing</a>
+      </h1>
+      <span class="post-date">Jun 2, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>As a quick follow up to my <a href="http://morethanseven.net/posts/unobtrusive-javascript-example-printing/">previous post on unobtrusive javascript</a> I thought I&rsquo;d expand it even more, but this time in an attempt to make it easier to use.</p>
+
+<p>As we&rsquo;ve already mentioned javascript should be treated like any other programming language - not necessarily left to the experts but their should ideally be an expert involved somewhere along the line. One way of doing this is to abstract out configuration from programmatic logic. This massively helps with code resuse as well, leaving everyone to play to their strengths. It&rsquo;s interesting to note that even programmers who would always store configuration settings seperately when writing PHP or Rails applications don&rsquo;t always get around to doing the same in Javascript. Hell, I used to be one of them until <a href="http://wait-till-i.com/">Chris Heilmann</a> pointed out how patently obvious the solution was while at <a href="http://thehighlandfling.com/2007/">The Highland Fling</a>.</p>
+
+<p>The answer is <a href="http://www.json.org/">JSON</a>. I think it&rsquo;s nearly always easier with a quick example so here&rsquo;s the Print snippet from the previous post but this time with a few configurable options:</p>
+
+<pre><code>&lt;code&gt;var Print = {
+   config: {
+      &quot;id&quot;: &quot;iNav&quot;,
+      &quot;classname&quot;: &quot;has-print&quot;,
+      &quot;text&quot;: &quot;Print&quot;
+   },
+   init: new domFunction(function() {
+      if (list = document.getElementById(Print.config.id)) {
+         if (list.nodeName.toLowerCase() === 'ul') {
+            if (Print.hasClass(list,Print.config.classname)) {
+               var item = document.createElement(&quot;li&quot;);
+               item.className = &quot;print&quot;;
+               var link = document.createElement(&quot;a&quot;);
+               link.href = &quot;#&quot;;
+               link.onclick = Print.printpage;
+               var txt = document.createTextNode(Print.config.text);
+               link.appendChild(txt);
+               item.appendChild(link);
+               list.appendChild(item);
+            }
+         }
+      }
+   }),
+   hasClass: function(element,cName) { 
+      return new RegExp('\\b''&amp;#43;cName'&amp;#43;'\\b').test(element.className);
+   },
+   printpage: function() {
+      window.print();
+      return false;
+   }
+}&lt;/code&gt;
+</code></pre>
+
+<p>The main thing we have done is to add a new block:</p>
+
+<pre><code>&lt;code&gt;config: {
+   &quot;id&quot;: &quot;iNav&quot;,
+   &quot;classname&quot;: &quot;has-print&quot;,
+   &quot;text&quot;: &quot;brand new text&quot;
+},&lt;/code&gt;
+</code></pre>
+
+<p>This is simply a JSON object of name/value pairs. You can easily alter the right hand values and change the workings of the app. You then reference the settings in the rest of you&rsquo;re code using dot notation:</p>
+
+<pre><code>&lt;code&gt;Print.config.text&lt;/code&gt;
+</code></pre>
+
+<p>In the above example our configuration directives are stored in our Print object. Depending on the circumstances of use you might find it easier to have a seperate Config object which stores all the configuration settings for the entire site.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/05/29/unobtrusive-javascript-example-printing/">Unobtrusive Javascript Example - Printing</a>
+      </h1>
+      <span class="post-date">May 29, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>In lieu of some real posts here&rsquo;s a quick code sample to keep things ticking along.</p>
+
+<p>I&rsquo;m sure you&rsquo;ve had the need to place a nice print button on a web page from time to time. If you haven&rsquo;t you&rsquo;re probably alone. A quick google will throw up lots of results for print javascript - the problem is that most of them are horribly obtrusive.</p>
+
+<p>OK, so it&rsquo;s easy to write something like:</p>
+
+<pre><code>&lt;code&gt;&lt;a href=&quot;#&quot; onclick=&quot;window.print();&quot;&gt;print&lt;/a&gt;&lt;/code&gt;
+</code></pre>
+
+<p>But the problem is <em>What if you turn off javascript?</em> The following unobtrusive script automagically adds a print link to the page - in this case as part of a list item which is added to the unordered list with the id of <em>iNav</em> and a class of <em>has-print</em>.</p>
+
+<pre><code>&lt;code&gt;var Print = {
+   init: new domFunction(function() {
+      if (list = document.getElementById(&quot;iNav&quot;)) {
+         if (list.nodeName.toLowerCase() === 'ul') {
+            if (Print.hasClass(list,'has-print')) {
+               var item = document.createElement(&quot;li&quot;);
+               item.className = &quot;print&quot;;
+               var link = document.createElement(&quot;a&quot;);
+               link.href = &quot;#&quot;;
+               link.onclick = Print.printpage;
+               var txt = document.createTextNode(&quot;Print&quot;);
+               link.appendChild(txt);
+               item.appendChild(link);
+               list.appendChild(item);
+            }
+         }
+      }
+   }),
+
+   hasClass: function(element,cName) { 
+      return new RegExp('\\b'&amp;#43;cName&amp;#43;'\\b').test(element.className);
+   },
+
+   printpage: function() {
+      window.print();
+      return false;
+   }
+}&lt;/code&gt;
+</code></pre>
+
+<p>With something like this you want it to load as soon as the dom is ready, rather than on page load. <a href="http://www.brothercake.com">Brothercake&rsquo;s</a> <a href="http://www.brothercake.com/site/resources/scripts/domready/">domFunction</a> comes to the rescue here. The namespacing is based on <a href="http://www.kryogenix.org">Stuarts</a> technique which should make it more capable of just being dropped in to any site.</p>
+
+<p>The only problem with this is that it&rsquo;s just a little longer than the original. I think this is down to one often missed fact, at least until recently - Javascript is a programming language and should be treated as such.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/05/18/some-good-news/">Some good news</a>
+      </h1>
+      <span class="post-date">May 18, 2007 &middot; 1 minute read
+      </span>
+      
+      <p>Yeah, I just got my confirmation email for <a href="http://hackday.org">hackday</a> in a months time.</p>
+
+<p><a href="http://www.hackday.org" style="border: none; padding: 0px; margin: 0px"><img src="http://l.yimg.com/us.yimg.com/i/us/ydn/hackday/hack_day_pattern_four.gif" alt="Hack Day: London, June 16/17 2007" width="180" height="105" style="border: none; margin: 0; padding: 0;"/></a></p>
+
+<p>So, who else is going along and does anyone have any ideas they want team mates for? I&rsquo;m thinking something mobile or microformats related or alternatively something I know very little about. Any ideas?</p>
+
+<p>Oh, and I know I&rsquo;ve been quite around the place lately, more on that when I can talk about it.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2007/05/07/cssxx/">CSSx.x</a>
+      </h1>
+      <span class="post-date">May 7, 2007 &middot; 3 minute read
+      </span>
+      
+      
+
+<p><a href="http://andybudd.com">Andy</a> gave a great thought provoking presentation (exactly what conference presentations should be) at the recent <a href="http://thehighlandfling.com/2007/">Highland Fling</a> shindig on the future of CSS which he&rsquo;s written up into a good thought provoking blog post on <a href="http://www.andybudd.com/archives/2007/05/css22/index.php">CSS2.2</a></p>
+
+<h3 id="the-problem">The Problem</h3>
+
+<p>As web standards developers we want new toys! I took to CSS because <em>it made sense</em> set against the madness of table based layouts, not necessarily because it appeared easy or flexible. CSS has turned out to be hugely flexible, but some of that flexibility has come at the expense of some weird and wonderful and successful techniques. I love this ingenuity, I&rsquo;d like to think that the original CSS specification allowed for this cleverness in real world use.</p>
+
+<p>CSS3 has stalled. CSS3 is trying to solve a whole host of massive problems that others are better placed to comment on, but I&rsquo;d love to hear some comment from members of the working group. If I&rsquo;ve missed a regular blog by a working group member please leave a comment and let me know.</p>
+
+<p>I&rsquo;m a real believer in open standards and I think that it&rsquo;s this issue that worries me more about the pace of CSS development. Yes, I want new toys, or more specifically I want to be more efficient (yes rounded corners, I&rsquo;m looking at you) but actually, I&rsquo;d rather have a good CSS3 spec than a fast and loose one. But the immenent fight between Flash/Adobe and Silverlight/Microsoft is showing how productive huge commercial companies can be when it wants to get something done. Both are introducing interesting new tools and allowing for what could be improvements to usability (or horribly confusing interfaces but hey). CSS and HTML should be the glue that binds all this together in a web where everything plays nicely together. But if CSS provides too little or too late then this is put in doubt. And if CSS falls I dont see microformats, rdf, html5 or whatever making a real dent - and I really want a semantic web (upper <strong>and</strong> lower case).</p>
+
+<h3 id="the-solution">The Solution?</h3>
+
+<p>Well, I&rsquo;d like to say the solution isn&rsquo;t <em>Browser Wars II - A good idea this time?</em></p>
+
+<p>Andy&rsquo;s suggestion of an interim step (or steps) between now and CSS3 modules raises a problem. If the working group do the work then it takes their eye further off getting CSS3 modules out. If they don&rsquo;t, will they accept suggestions from outside? Will outsiders be able to grok the whole standardisation process?</p>
+
+<p>What we need is a commercial company with lots of smart people and lots of cash - with a track record of working with standards. A member of the W3C would be a plus. Ideally they should have something invested in the web as a platform, maybe even in a smarter, cleverer, semantic web.</p>
+
+<p>Google to the rescue maybe? If you&rsquo;re really cynical you could see Silverlight as an end run around Google&rsquo;s apparent dominance of the web as a platform. Lock content away in proprietary silos and traditional search becomes less appealing? And surely Google has lots to gain from the long term adoption of anything that increases the semantic nature of the web. If CSS is a battleground then maybe they need to come out and make a stand(ard)?</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/26/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        class="active"><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/28/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

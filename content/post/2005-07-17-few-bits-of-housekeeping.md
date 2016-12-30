@@ -1,0 +1,38 @@
+---
+comments: true
+created_at: 2005/07/17}
+date: 2005-07-17T00:00:00Z
+title: Few bits of housekeeping
+url: /2005/07/17/few-bits-of-housekeeping/
+---
+
+<p>
+Been a little busy with the new job but had chance to do a few behind the scenes bits and pieces, including:
+
+</p>
+<ul>
+<li>
+valid and formatted feed
+
+</li>
+<li>
+blogroll from <a href="http://www.newsgator.com">NewsGator</a>
+
+</li>
+<li>
+<a href="http://www.morethanseven.net/projects/12">StripComments </a> project
+
+</li>
+<li>
+autocomplete on search box (type c, x or p)
+
+</li>
+<li>
+added <a href="http://www.textism.com">Textile</a> formatting for posts
+
+</li>
+</ul>
+<p>
+Should be back with more soon. I need to reply to phil (<a href="http://xlab.co.uk">xlab</a>) about my musical preferences, jot down notes on using <a href="http://www.newsgator.com">NewsGator</a> as an online feed reader and a web standards redoing of the <a href="http://www.qwikiwiki.com">QWikiWiki</a> output layer that I’m part way through.
+
+</p>

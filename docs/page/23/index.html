@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/03/02/generating-charts-using-google-charts-api/">Generating Charts using Google Charts API</a>
+      </h1>
+      <span class="post-date">Mar 2, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>I had need recently to produce some nice looking charts and immediately turned to the very nice <a href="http://code.google.com/apis/chart/">Google Charts API</a>. Just before Christmas <a href="http://suda.co.uk">Brian</a> had written up <a href="http://24ways.org/2007/tracking-christmas-cheer-with-google-charts">a great introduction</a> on <a href="http://24ways.org">24ways</a> and ever since I&rsquo;d been looking for an excuse.</p>
+
+<p><a href="http://www.wait-till-i.com">Chris</a> wrote up a pretty nice approach to <a href="http://www.wait-till-i.com/2008/01/08/generating-charts-from-accessible-data-tables-using-the-google-charts-api/">enhancing well marked up data tables</a> using the Charts API with a dash of Javascript and I decided to start with that. I made only a couple of changes to this approach based on personal requirements and preferences.</p>
+
+<p>For a table like this:</p>
+
+<p><table class="tochart">
+<caption>
+Caption</p>
+
+<p></caption>
+<tr>
+<th scope="row">
+Label</p>
+
+<p></th>
+<td>
+Data</p>
+
+<p></td>
+</tr>
+<tr>
+<th scope="row">
+Label</p>
+
+<p></th>
+<td>
+Data</p>
+
+<p></td>
+</tr>
+</table>
+I prefer to use the table header element to mark up the table row and the original script relied on these being <em>td</em> elements. A couple of changes to the javascript fixed that. I also decided to display the <em>caption</em> as a title on the resulting graph.</p>
+
+<pre><code>&lt;code&gt;
+&lt;table class=&quot;tochart&quot;&gt;
+  &lt;caption&gt;Caption&lt;/caption&gt;  
+  &lt;tr&gt;
+    &lt;th scope=&quot;row&quot;&gt;Label&lt;/th&gt;
+    &lt;td&gt;Data&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th scope=&quot;row&quot;&gt;Label&lt;/th&gt;
+    &lt;td&gt;Data&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/code&gt;
+</code></pre>
+
+<p>The original script only supported the 3D pie charts and in a couple of cases I wanted to generate bar-charts from the data or flat pie-charts. A few modifications later and you can pass a type parameter into the script via a class on the table.</p>
+
+<p>The default if the parameter isn&rsquo;t set is the flat pie-chart, which can also be specified via:</p>
+
+<pre><code>&lt;code&gt;&lt;table class=&quot;tochart typep&quot;&gt;&lt;/code&gt;
+</code></pre>
+
+<p>For the 3D pie-chart:</p>
+
+<pre><code>&lt;code&gt;&lt;table class=&quot;tochart typep3&quot;&gt;&lt;/code&gt;
+</code></pre>
+
+<p>The horizontal bar-chart is created with:</p>
+
+<pre><code>&lt;code&gt;&lt;table class=&quot;tochart typebhg&quot;&gt;&lt;/code&gt;
+</code></pre>
+
+<p>And finally the vertical bar-chart is set based on:</p>
+
+<pre><code>&lt;code&gt;&lt;table class=&quot;tochart typebvg&quot;&gt;&lt;/code&gt;
+</code></pre>
+
+<p>The complete modified version of Chris&rsquo; script is below:</p>
+
+<pre><code>&lt;code&gt;(table2graph = function(){
+
+  /* variables */
+  var triggerClass = 'tochart';
+  var chartClass = 'fromtable';
+  var hideClass = 'hidden';
+  var chartColor = 'FFCC33';
+  var chartSize = '900x300';
+  var chartType = 'p';
+
+  var toTableClass = 'totable';
+  var tableClass = 'generatedfromchart';
+  /* end variables */
+
+  var tables = document.getElementsByTagName('table');
+  var sizeCheck = /\s?size([^\s]+)/;
+  var colCheck = /\s?color([^\s]+)/;
+  var typeCheck = /\s?type([^\s]+)/;
+  for(var i=0;tables[i];i++){
+    var t = tables[i];
+    var c = t.className;
+    var data = [];
+    var labels = []
+    if(c.indexOf(triggerClass) !== -1){
+      var size = sizeCheck.exec(c);
+      size = size ? size[1] : chartSize;
+      var col = colCheck.exec(c);
+      col = col ? col[1] : chartColor;
+      var type = typeCheck.exec(c);
+      type = type ? type[1] : chartType;
+
+      if (type == 'bhg') {
+        var label = 'chxl=1:|';
+      } else {
+       var label = 'chl=';
+      }
+
+      var caption = t.getElementsByTagName('caption')[0].innerHTML;
+      var charturl = 'http://chart.apis.google.com/chart?cht=' + type + '&amp;chtt=' + caption + '&amp;chxt=x,y&amp;chco=' + col + '&amp;chs=' + size + '&amp;chd=t:';
+      t.className += ' '+ hideClass;
+      var ths = t.getElementsByTagName('tbody')[0].getElementsByTagName('th');
+      var tds = t.getElementsByTagName('tbody')[0].getElementsByTagName('td');
+      for(var j=0;tds[j];j+=1){
+        labels.push(ths[j].getElementsByTagName('em')[0].innerHTML.toLowerCase());
+        data.push(tds[j].innerHTML);
+      };
+      var chart = document.createElement('img');
+      chart.setAttribute('src',charturl+data.join(',') + '&amp;' + label + labels.join('|'));
+      chart.setAttribute('alt',t.getAttribute('summary'));
+      chart.className = chartClass;
+      t.parentNode.insertBefore(chart,t);
+    };
+  };
+
+  /* convert charts to tables */
+  var charts = document.getElementsByTagName('img');
+  for(var i=0;charts[i];i++){
+    if(charts[i].className.indexOf(toTableClass) !== -1){
+      var t = document.createElement('table');
+      var tbody = document.createElement('tbody');
+      var data = charts[i].getAttribute('src');
+      var th,td,tr;
+      var values = data.match(/chd=t:([^&amp;]+)&amp;?/)[1];
+      var labels = data.match(/chl=([^&amp;]+)&amp;?/)[1];
+      var l = labels.split('|');
+      var v = values.split(',');
+      for(var j=0;l[j];j++){
+        tr = document.createElement('tr');
+        th = document.createElement('th');
+        th.appendChild(document.createTextNode(l[j]));
+        th.setAttribute('scope','row');
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(v[j]));
+        tr.appendChild(th);
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+      };
+      t.appendChild(tbody);
+      t.setAttribute('summary',charts[i].getAttribute('alt'));
+      charts[i].parentNode.insertBefore(t,charts[i]);
+      charts[i].setAttribute('alt','');
+      t.className = tableClass;
+    };
+  };
+}());&lt;/code&gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/02/24/thinking-digital/">Thinking Digital</a>
+      </h1>
+      <span class="post-date">Feb 24, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>I&rsquo;m starting to get excited about <a href="http://thinkingdigital.co.uk">Thinking Digital</a>. But first a bit of back-story.</p>
+
+<p>I started out making the trip to <a href="http://atmedia2005.co.uk/">@media 2005</a> and since then have been a regular attendee of more conferences than I can shake a stick at. Lets say I caught the conference bug. But most of those have been within the web standards community niche and more recently I&rsquo;ve been looking further afield for conference kicks, party due to the eclectic nature of <a href="http://barcamp.org">BarCamp</a> style events. Anyone in that positions inevitably takes a fancy to going along to <a href="http://www.ted.com/">TED</a>. The <em>only</em> problem is the fact it&rsquo;s already booked up until 2010, costs $6,000 just to for a standard membership and is invite only.</p>
+
+<p>This year the folks over at <a href="http://codeworks.net">Codeworks</a>, which is a regional body set up to help us North East digital folk develop an industry, are organising their very own full size conference. The <a href="http://thinkandadrink.com">Think and a Drink</a> events have been running for a number of years and I&rsquo;ve spoken a few times on web related bits and pieces. But these are purposely local events mainly for members and tend to crop up at the rate of once a month. <a href="http://thinkingdigital.co.uk">Thinking Digital</a> is a full size, 400 person, conference being held in Newcastle between the 21st and 23rd of May this year covering a similar set of wide ranging themes to TED; technology, design, mobile plus a bit of philosophy and futurism thrown in for good measure.</p>
+
+<p>Now this is good for a few reasons. Only one of which is I can see the venue out of my apartment window. Costing only Â£475 and being in the UK would be a couple of other reasons to get excited. As an aside; I&rsquo;m helping out as a board member along with the likes of <a href="http://www.cubicgarden.com/">Ian Forrester</a> but I&rsquo;d gladly pay my way if I wasn&rsquo;t.</p>
+
+<p>The real reason for the excitement though is the calibre of some of the speakers. Ray Kurzweil, Greg Dyke, Dan Lyons (a.k.a. Fake Steve Jobs), Matt Locke, Aubrey De Grey and Tara Hunt to name a few I&rsquo;m particularly interested in. And remember folks, this is in Newcastle. Which for the few Londoners reading is a couple of hours North of you. On a train with free wifi even.</p>
+
+<p>Now this might not be a web conference but I&rsquo;m pretty interested in the take of the likes of Ray Kurzweil on the web and what will happen in the near future. I&rsquo;m also interested in the types of people who will make the trip - which is really the reason for this post. As everyone knows, one of the best parts of any conference is the chance to chat with like-minded (and not so like-minded) folks. So, who fancies coming along?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/02/21/sorry-but-the-flickr-api-isnt-rest/">Sorry, but the Flickr API isn&amp;#39;t REST</a>
+      </h1>
+      <span class="post-date">Feb 21, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>After <a href="http://semanticcamp.tommorris.org">SemanticCamp</a> me and <a href="http://icepop.org/">Rey</a> popped in to see <a href="http://blog.whatfettle.com/">Paul</a> and everyone at <a href="http://www.osmosoft.com/">Osmosoft</a> towers. A good few interesting conversations ensued, including one about the difference between <a href="http://blog.whatfettle.com/2008/02/19/mashup-or-integration/">mashups and integration</a>. All good fun basically. <a href="http://simonmcmanus.com/">Simon</a> also had an <a href="http://simonmcmanus.com/2008/02/21/off-the-shelf-integration-in-enterprises/">interesting take on the topic</a> as well.</p>
+
+<p>What has all this to do with the topic of this post? Well, Simon says:</p>
+
+<blockquote>
+<p>When compared to small RESTful APIs like flickr and twitter&hellip;</p>
+</blockquote>
+
+<p>Now I&rsquo;m not really picking on Simon here, more that I&rsquo;ve been meaning to write something on this topic for a while and this proved a good catalyst for a little rant.</p>
+
+<p>The <a href="http://flickr.com">flickr</a> <a href="http://www.flickr.com/services/api/">API</a> is pretty darn cool. But it&rsquo;s not RESTful in pretty much any way you want to shake a stick at it. It&rsquo;s a well designed RPC (remote procedure call) API. Now even flickr get this wrong. They even have <a href="http://www.flickr.com/services/api/response.rest.html">a page</a> which confuses the issue and makes REST out to be a response format based on XML. Bad flickr.</p>
+
+<p><a href="http://www.flickr.com/services/api/request.rest.html">flickr states</a> that:</p>
+
+<blockquote>
+<p>The REST Endpoint URL is <a href="http://api.flickr.com/services/rest/">http://api.flickr.com/services/rest/</a></p>
+</blockquote>
+
+<p>This turns out to be completely against the whole RESTful principles. Lets try and explain. You can define most of what you want to do with an API with the use of nouns, verbs and content types. REST is based around limiting the set of verbs to those available in HTTP; for instance GET, POST, PUT and DELETE. For any given application or API you&rsquo;ll also specify a set of content types (representations); for instance HTML, JSON or XML. All you get to play around with are the nouns, in the case of the web these are our URLs.</p>
+
+<p>In a typical RPC style API you have one URL (like flickr does) which acts as the end point to which all calls are made. You then probably define a few functions which you can call. Lets look at a simple book example.</p>
+
+<pre><code>&lt;code&gt;getBook()
+deleteBook()
+createBook()
+editBook()&lt;/code&gt;
+</code></pre>
+
+<p>The RESTful way of designing this might look a little bit more like this:</p>
+
+<pre><code>&lt;code&gt;GET     /books/{book-id}
+DELETE  /books/{book-id}
+POST    /books
+PUT     /books/{book-id}&lt;/code&gt;
+</code></pre>
+
+<p>We mentioned content types or representations earlier. Lets say instead of the default response format we might want to get a JSON representation of a given book we might do something like the following.</p>
+
+<pre><code>&lt;code&gt;GET /books/{book-id}.json&lt;/code&gt;
+</code></pre>
+
+<p>The advantages of using URLs as the API nouns in this way include more than just sane URLs for the site or application in question. The web is based around many of these architectural principles and that seemed to scale pretty well. The idea is that fell envisaged RESTful applications have an advantage here too. For me one of the real benefits of RESTful APIs are in the simplicity they bring to documentation. I already know the available verbs, all I need to know are the set of resource URLs and I can probably use CURL to work out the REST (sorry, bad pun).</p>
+
+<p>This misunderstanding is pretty common. Even <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">WikiPedia</a> appreciates their is a problem:</p>
+
+<blockquote>
+<p>The difference between the uses of the term â€œRESTâ€ causes some confusion in technical discussions.</p>
+</blockquote>
+
+<p>This isn&rsquo;t just pedantry on my part, well not quite. I&rsquo;d recommend anyone involved in designing and architecting web sites read <a href="http://www.amazon.co.uk/RESTful-Web-Services-Leonard-Richardson/dp/0596529260">RESTful Web Services</a> as well as <a href="http://www.ics.uci.edu/~fielding/">Roy Fielding&rsquo;s</a> <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a>. But if you just want to <em>get</em> the general principles and don&rsquo;t fancy wading through technical documents then you have to read <a href="http://tomayko.com/articles/2004/12/12/rest-to-my-wife">How I Explained REST to My Wife</a> hilariously written by <a href="http://tomayko.com/">Ryan Tomayko</a>.</p>
+
+<p>And remember, just because an API makes use of HTTP doesn&rsquo;t make it RESTful. I&rsquo;m looking at you <a href="http://twitter.com">twitter</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/02/19/invited-to-join-wasp/">Invited to Join WaSP</a>
+      </h1>
+      <span class="post-date">Feb 19, 2008 &middot; 1 minute read
+      </span>
+      
+      <p>I had a great time at <a href="http://semanticcamp.tommorris.org/">SemanticCamp</a> over the weekend which was not too much of a surprise. What was a surprise was getting back home to find out that I&rsquo;ve been invited to join the <a href="http://www.webstandards.org/">Web Standards Project</a> (WaSP) on the <a href="http://www.webstandards.org/action/edutf">Education Task Force</a>. I even have my <a href="http://www.webstandards.org/about/members/grushgrove/">own page</a>.</p>
+
+<p>Thanks for inviting me guys. Anyone who has had the misfortune of having me present during a discussion of the current state of web education knows it&rsquo;s one of my favourite subjects. Hopefully I can make myself useful around the place and help with getting a few things done. More on this when I know more but in the meantime feel free to pester me endlessly if you have a particular axe to grind.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/02/13/example-of-the-yahoo-live-api/">Example of the Yahoo Live Api</a>
+      </h1>
+      <span class="post-date">Feb 13, 2008 &middot; 2 minute read
+      </span>
+      
+      <p><a href="http://live.yahoo.com/">Yahoo! Live</a> launched recently along with a nice <a href="http://developer.yahoo.com/ylive/rest_api/">RESTful API</a>. I&rsquo;ve spoken before about the beauty of REST being in lowering the barrier to hacking and when I wanted a quick feature for Live it was simplicity itself to put together.</p>
+
+<p>A few friends are using it far too much it seems, <a href="http://ben-ward.co.uk/">Ben</a> has 7.6 hours and <a href="http://simonjobling.com">Si</a> has already clocked up 15 hours. But for the most part I keep missing their no-doubt highly entertaining antics. One thing that Live misses I feel is a favourite users or previously viewed channels list. Basically I want to see which of my friends who use the service are broadcasting right now. Something like:</p>
+
+<p><a href="http://morethanseven.net/presents/yahoolive/"><img src="http://img.skitch.com/20080213-q7ntrbip3rhwbkdbykuwt4an5.render.png" alt="Yahoo! Live Online"/></a></p>
+
+<p>The API request we&rsquo;re interested in is the <a href="http://developer.yahoo.com/ylive/rest_api/channel.html">/channel/PERMALINK</a> method. This lets us get information about whether the user is broadcasting at the moment.</p>
+
+<pre><code>&lt;code&gt;&lt;?php
+$api = 'http://api.live.yahoo.com/api/v1/channel';
+$friends = array(
+  'garethr',
+  'benward',
+  'sijobling'
+);
+$statuses = array();
+foreach ($friends as $friend) { 
+  $response = simplexml_load_file($api . '/' . $friend);
+  $name = $response-&gt;name; 
+  if ($response-&gt;broadcast) {
+    $status = 'live';
+  } else {
+    $status = 'offline';
+  }
+  $statuses[&quot;$name&quot;] = $status;
+}
+function displaylist($array) {
+  $output = '';
+  if (count($array) &gt;= 0) {
+    $output .= '&lt;ul&gt;';
+    foreach ($array as $key =&gt; $value) {
+      $output .= &quot;&lt;li class=\&quot;$value\&quot;&gt;&quot;;
+      $output .= &quot;&lt;a href=\&quot;http://live.yahoo.com/$key\&quot;&gt;&quot;;
+      $output .= &quot;$key&lt;/a&gt;&quot;;
+      $output .= &quot;&lt;span&gt;$value&lt;/span&gt;&lt;/li&gt;&quot;;
+    }
+    $output .= '&lt;/ul&gt;';
+  }
+  return $output;
+}
+echo displaylist($statuses);
+?&gt;&lt;/code&gt;
+</code></pre>
+
+<p>I&rsquo;ll add a few more people to <a href="http://morethanseven.net/presents/yahoolive/">my list</a> when I discover other people using the service. If you have an account leave a comment. I&rsquo;ve added a touch of javascript as well so as to avoid having to reload the page manually. This way I can loiter on my little aggregator until someone I know starts broadcasting and head over to Live for whatever Si has been spending 15 hours doing.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/02/04/continuous-integration-for-front-end-developers/">Continuous Integration for Front End Developers</a>
+      </h1>
+      <span class="post-date">Feb 4, 2008 &middot; 4 minute read
+      </span>
+      
+      <p>Most software developers, especially those with a grounding in Agile development methodologies, will probably be familiar with <a href="http://www.martinfowler.com/articles/continuousIntegration.html">Continuous Integration</a></p>
+
+<blockquote>
+<p>Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. <strong>Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible</strong>.</p>
+</blockquote>
+
+<p>The emphasis above is mine, purely as it&rsquo;s at the heart of what I&rsquo;m going to ramble on about. A little closer to home <a href="http://theryanking.com">Ryan King</a> just <a href="http://theryanking.com/entries/2008/02/02/inursite/">posted about</a> a new site; <a href="http://inursite.com/">inursite</a>. The premise is simple; enter a few of your sites and <em>inursite</em> will visit them once a day and run a markup validation service over the page. You then get a feed of the pass or failure status. It&rsquo;s simple but brilliant. For example, I have this very site added to the service. If I put some invalid markup in this post, tomorrow morning I&rsquo;ll get an item in my feedreader telling me of my mistake. I&rsquo;ll get that every day until I fix the problem.</p>
+
+<p>This green/red (pass/fail) type approach to simple tests is what I find most powerful about continuous integration systems like <a href="&quot;:http://cruisecontrol.sourceforge.net/">Cruise Control</a>. Ryan asked over on his site in one of the comments what I&rsquo;d like to see, so lets see:</p>
+
+<ul>
+<li>Has all the CSS been compressed using something like <a href="http://csstidy.sourceforge.net/">CSSTidy</a>.</li>
+<li>Has all the javascript been compressed using something like <a href="http://javascript.crockford.com/jsmin.html">JSMin</a>.</li>
+<li>Does any Javascript pass the harsh taskmaster that is <a href="http://www.jslint.com/">JSLint</a>.</li>
+<li>If my markup a little bloated? Maybe I could set a maximum size for the markup and get a fail is I go over that.</li>
+<li>Ditto CSS file size.</li>
+<li>Ditt Javascript.</li>
+<li>Ditto images.</li>
+<li>If pages have associated feeds, then validate them as well according to the relevant specification (probably RSS or Atom).</li>
+<li>How many HTTP Requests does it take to load the whole page, including all the relevant assets. <em>I&rsquo;d like to be able to set a maximum number.</em></li>
+<li>How many hosts are required to load the whole page? I&rsquo;d like to be able to set a maximum number and get a fail if I go over that.</li>
+<li>Is the page gzipped on the server.</li>
+<li>And just to keep this topical, does the page have either the IE8 meta element or the associated HTTP header set to a particular value.</li>
+</ul>
+
+<p>Lots of this is front-end best practice, some coming from the YAHOO! <a href="http://developer.yahoo.com/performance/">exceptional performance</a> work. It&rsquo;s something <a href="http://24ways.org/2007/minification-a-christmas-diet">I&rsquo;ve touched on before</a> too. Can anyone else think of other things you&rsquo;d like to see when you&rsquo;re working away crafting markup and CSS? Once you have all these tests running you could display them in widgets, gadgets, twitter, firefox extensions, large displays, mobile devices, the works.</p>
+
+<p>Now that sounds like an awful lot of stuff for one person (or even for one application) but I have something else in mind. If <em>inursite</em> allowed you to hook up external webservices which accept a URL as an argument, along with any service specific parameters, and return true or false then, in theory, anyone could add their own custom checks to it. This becomes particularly useful for larger teams than are likely to have internal quality tools already. On top of all that I&rsquo;d probably pay for a service like this that let me run it on demand (rather than once per day) - or maybe even better, pay for a downloadable version (a.l.a. <a href="http://haveamint.com">Mint</a>) I can install locally.</p>
+
+<p>As you can probably tell, I think the general idea of continuous integration for front end web developer is one for which time has come. It&rsquo;s simply part of our discipline growing up and becoming more professional. Whether Ryan looks to extend his fantastic simple service in this direction or not I hope something will come along that does all this and more. I might even work on it myself - but then I always say that!</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/30/simple-deployment-with-svn-and-phing/">Simple deployment with SVN and Phing</a>
+      </h1>
+      <span class="post-date">Jan 30, 2008 &middot; 4 minute read
+      </span>
+      
+      <p>Another approach to deploying web apps is to use <a href="http://phing.info/">Phing</a>. Phing is at heart a PHP clone of Ant, another common build and deployment tool. The main advantage of using Phing, at least if you&rsquo;re already using PHP, is close integration with other PHP specific tools (PHPDocumentor, PHPLint and PHPUnit to name a few) and ease of install.</p>
+
+<p>Speaking to installation Phing has it&rsquo;s own PEAR channel. I still think PEAR is great in so many different ways - it always makes me frown when I see people cussing at PEAR (especiallly the installer). You can install Phing as follows.</p>
+
+<pre><code>&lt;code&gt;pear channel-discover pear.phing.info
+pear install phing/phing&lt;/code&gt;
+</code></pre>
+
+<p>The <a href="http://phing.info/docs/guide/current/">Phing documentation</a> is nothing if not comprehensive. Unfortunately, unless you are pretty familiar with Ant or you&rsquo;re trying to do something complex (and willing to invest the time) the chances are you&rsquo;ll be a little lost. More and simpler examples for common problems would be useful for those beginners.</p>
+
+<p>I might publish a few little recipes down the line or even a full commented production recipe but for the moment lets start simple. The following build script is designed to be run on your remote web server and relies on a subversion repository (hopefully you&rsquo;re using source control, if not that&rsquo;s another post I&rsquo;m afraid). It simply exports the specified repository to the specified export directory on the server. Note that you need to set your own SVN details and replace the capitalised properly values. The following should be saved as <em>build.xml</em> on your web server, outside the web root.</p>
+
+<pre><code>&lt;code&gt;&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;project name=&quot;build&quot; default=&quot;main&quot;&gt;
+
+  &lt;property name=&quot;exportdir&quot;  value=&quot;WEB_ROOT&quot; /&gt;
+  &lt;property name=&quot;svnpath&quot; value=&quot;YOUR_SVNPATH&quot; /&gt;
+  &lt;property name=&quot;username&quot; value=&quot;YOUR_SVN_USERNAME&quot; /&gt;
+  &lt;property name=&quot;password&quot; value=&quot;YOUR_SVN_PASSWORD&quot; /&gt;
+  &lt;property name=&quot;repo&quot; value=&quot;YOUR_SVN_REPO&quot; /&gt;
+
+  &lt;target name=&quot;main&quot; depends=&quot;svnexport&quot;/&gt;
+
+  &lt;target name=&quot;svnexport&quot;&gt;
+    &lt;svnexport
+       svnpath=&quot;${svnpath}&quot;
+       username=&quot;${username}&quot;
+       password=&quot;${password}&quot;
+       nocache=&quot;true&quot;
+       repositoryurl=&quot;${repo}&quot;
+       todir=&quot;${exportdir}&quot;/&gt;
+  &lt;/target&gt;
+&lt;/project&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Let&rsquo;s break some of that down. Property definitions allow you to specify variables for use in your build script. In this example we only have one task specified so maybe we don&rsquo;t need the extra abstraction but the moment we start reusing scripts or adding more tasks it&rsquo;s a good idea.</p>
+
+<pre><code>&lt;code&gt;&lt;property name=&quot;exportdir&quot;  value=&quot;./web&quot; /&gt;&lt;/code&gt;
+</code></pre>
+
+<p>The other major point of interest is the task itself. Here we make use of the properties we have already specified to run a subversion export. The <em>svnexport</em> task is build in to Phing.</p>
+
+<pre><code>&lt;code&gt;&lt;target name=&quot;svnexport&quot;&gt;
+  &lt;svnexport
+     svnpath=&quot;${svnpath}&quot;
+     username=&quot;${username}&quot;
+     password=&quot;${password}&quot;
+     nocache=&quot;true&quot;
+     repositoryurl=&quot;${repo}&quot;
+     todir=&quot;${exportdir}&quot;/&gt;
+&lt;/target&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Also of note is the setting of a default task, <em>main</em>, as a property of the project element and specifying that the main task depends on another task, <em>svnexport</em>. Again, we could avoid that at this stage but the moment we add another few tasks then we&rsquo;ll want more control over execution order.</p>
+
+<p>Phing should be run from the directory containing the build script. You can run the command without any arguments, in which case the default task will be run (in our case <em>main</em>) or you can pass an argument to specify a specific task. For our simple build script the two following commands do the same thing:</p>
+
+<pre><code>&lt;code&gt;phing&lt;/code&gt;
+
+&lt;code&gt;phing svnexport&lt;/code&gt;
+</code></pre>
+
+<p>Given the above build script simple runs a subversion export command you might be wondering what use it is. The answer is not much at this stage. You <em>do</em> get a simple build script which can be stored in your source control system and used by the whole team. The real advantage is where you might go from here. If everyone in your team deploys in the same way (ie. using the build script) then anyone can add extra tasks and everyone gets the benefit. Simple example might be generating code documentation, running Unit tests (and not running the export if the tests fail) and creating a zip file of the deployed source for backup purposes.</p>
+
+<p>Build scripts can get complicated quickly, but if you start out small and add tasks as you need and understand them, you should be able to raise the quality of your application and avoid easy to make mistakes.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/27/questions-pointers-and-reality/">Questions, Pointers and Reality</a>
+      </h1>
+      <span class="post-date">Jan 27, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>Along with an awful lot of noise, the whole X-UA-COMPATIBLE IE8 issue is also bringing out some well rounded and thought through arguments from people I admire.</p>
+
+<p>I still disagree with <a href="http://adactio.com/journal/1403/">Jeremy Keith</a> on the default issue but agree with everything else. Jeremy says:</p>
+
+<blockquote>
+<p>Let me make it perfectly clear: I understand the need for version targeting. But the onus must be on the publisher to enable it.</p>
+</blockquote>
+
+<p>At the moment it comes down to a sense of stubborn realism on my part. All the people who know about the issue and the need for the new header (that would be me, Jeremy, probably you and the whole <em>web standards developer</em> crowd) are probably also in a position to add it fairly easily. All those that don&rsquo;t know about the header <em>don&rsquo;t have to know</em> about it. Ever. I would prefer if this wasn&rsquo;t the case but alas I think it might be.</p>
+
+<p><a href="http://www.isolani.co.uk/blog/standards/InternetExplorerReality">Mike Davies</a> has one of the most well argued points out their. Throwing into the pot the issue of content not served via a web server raises even more issues that make changing the default behaviour difficult. I think Mike sums this up pretty well:</p>
+
+<blockquote>
+<p>Every other browser has either started from scratch from the ground up (Firefox and Opera), or created a browser after the browser-wars (Safari). As such, all three have benefited from not having to support Microsoft&rsquo;s excess baggage. And Microsoft being dragged to a complete stop because of it. This is Microsoft&rsquo;s browser-war victory biting them in the ass.</p>
+</blockquote>
+
+<p>Whether we like it or not this issue is about Microsoft, and I (maybe naively) believe Microsoft would like nothing better than to get back up from the mat and innovate in the browser space. But they can&rsquo;t because of the ball and chain.</p>
+
+<p>Who hasn&rsquo;t written at least some code that, in hindsight, turned into a horrible maintenance nightmare? You might dream of jumping in and rewriting it from scratch but if that code has already been shipped to a client then what is that client doing to do? Turning around and saying <em>actually, what we gave you originally was pretty rubbish</em> isn&rsquo;t going to go down well - even when it&rsquo;s the right thing to do.</p>
+
+<p>Mike is right in that the IE team are actually going to be shipping two browsers. That has got to be a massive issue for them - certainly a bigger issue than me adding a new header to my site or a meta element to my pages. But if it lets the second of those browsers support CSS3, HTML5, XHTML, Canvas and anything else we dream of then I&rsquo;m all for it. We all know the first of those browsers just won&rsquo;t be up to the task.</p>
+
+<p>One particular thorny problem I wasn&rsquo;t aware of was issues surrounding accessibility. <a href="http://www.brucelawson.co.uk/index.php/2008/accessibility-implications-microsoft-versioning/">Bruce Lawson</a> has some of the details but in short by locking a large number of sites into the ways of IE7 we essentially freeze the (poor) state of accessibility on the web. <a href="http://splintered.co.uk">Patrick Lauke</a> also raises a related issue in the comments regarding further alienating screen reader and assistive technology developers. These points for me are ones I want addressing by Microsoft and one&rsquo;s without resolution which would make me change my mind on this whole issue of defaults.</p>
+
+<p>So, the jury is still out in my mind. I hope it is in the minds of those working closer to the heart of this problem at Microsoft. Like <a href="http://molly.com">Molly</a> I&rsquo;m glad this issue has been raised now, rather than simply revealed at launch. I just hope the reason for that was to get the sort of high quality feedback we&rsquo;re seeing in some areas of the community in order to test the waters and come to a consensus.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/22/who-loses-out-to-x-ua-compatible/">Who loses out to X-UA-Compatible?</a>
+      </h1>
+      <span class="post-date">Jan 22, 2008 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>If you work on the web you&rsquo;ll probably have already seen or noted the existence of the <a href="http://alistapart.com/issues/251">latest issue of A List Apart</a>:</p>
+
+<ul>
+<li><a href="http://alistapart.com/articles/beyonddoctype">Beyond DOCTYPE: Web Standards, Forward Compatibility, and IE8</a></li>
+<li><a href="http://alistapart.com/articles/fromswitchestotargets">From Switches to Targets: A Standardista&rsquo;s Journey</a></li>
+</ul>
+
+<p>My twitter feed positively exploded with negative feedback on this issue but I&rsquo;ve only just got round to reading (and re-reading) the various interesting articles and (some half through through) comments. I though I&rsquo;d have a think through who this affects.</p>
+
+<p>What we&rsquo;re disucssing is either adding a meta element to your documents or alternatively sending the relevant HTTP header. The code for that looks like:</p>
+
+<pre><code>&lt;code&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=8&quot; /&gt;&lt;/code&gt;
+</code></pre>
+
+<h3 id="ie-users">IE Users</h3>
+
+<p>Users of Internet Explorer get a bum deal here I think. Their browser is going to get bigger - potentially a lot bigger. With all those rendering engines rolled into one it&rsquo;s also likely to need lots of memory. How this affects the mobile version of IE is anyones guess. Memory and file size are even more important here.</p>
+
+<h3 id="other-browser-vendors">Other Browser Vendors</h3>
+
+<p>I have a feeling they will all go <em>Meh</em> and move along as if nothing happened. Certainly my experience of upgrades to Firefox, Safari and Opera (including recent bleeding edge versions) doesn&rsquo;t break any of my bits of the web or the bits I frequent.</p>
+
+<h3 id="web-standards-savvy-designers-and-developers">Web Standards Savvy Designers and Developers</h3>
+
+<p>A really cool feature for us designers and developers has gone unmentioned I feel. We&rsquo;ve been asking Microsoft for one application in which we can test all their browsers in. IE8 will be that browser. Think about it. By changing the contents of the meta element (or the header) we can trigger the rendering engine to use IE6, IE7 or IE8.</p>
+
+<p>I&rsquo;m a big fan of the whole progressive enhancement approach, using new browser features that not everyone supports (generated content, CSS3 selectors, etc.) in a way that they don&rsquo;t affect older browsers. If I were to use a feature not yet supported by IE7 but expected in IE8 for instance in this way I would expect it work in IE8. If I include an IE7 <em>X-UA-Compatible</em> declaration this won&rsquo;t happen. Which is why I probably won&rsquo;t include one. The problem is if I don&rsquo;t include it at all I still have the same problem. I&rsquo;ll come back to the solution (and the problem with the solution) in a moment.</p>
+
+<h3 id="other-web-designers-and-developers">Other Web Designers and Developers</h3>
+
+<p>Not everyone is using Web Standards, and even less get progressive enhancement. Most of the web is broken and we <em>are not going to fix this</em>. Virtually no one thinks XHTML2 is a good idea because it starts with this fact and says <em>&ldquo;Let&rsquo;s start again, but get it right this time&rdquo;</em>. The fact that all those websites (and more importantly for Microsoft the users of those websites) standardise on IE7 is fine by me. IE7 isn&rsquo;t that bad remember.</p>
+
+<p>So, all in all I don&rsquo;t see a major problem for me, or other savvy web designers and developers. I have one issue; namely the strong language around the use of <em>edge</em>.</p>
+
+<blockquote>
+<p>This option, though strongly discouraged, will cause a site to target the latest IE browser versions as they release.</p>
+</blockquote>
+
+<p>What this is describing is how things work now. It&rsquo;s also how I want to work - using progressive enhancement to make my websites better when people have browsers that support them. I&rsquo;ll be adding the relevant <em>edge</em> headers to my sites by default as I get a moment to tinker.</p>
+
+<p>In my view this should allow the web to move forward faster with newer features hitting IE sooner, leaving a ghetto populated by IE users who don&rsquo;t upgrade quickly and designers and developers who don&rsquo;t want to be professional about their craft (or tools that aim for the lowest common denominator). Yes, I&rsquo;ll need to add a header to all of my sites in the future but in return I get the latest version of IE that lets me test all previous versions of IE.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2008/01/19/a-few-interesting-upcoming-events/">A few interesting upcoming events</a>
+      </h1>
+      <span class="post-date">Jan 19, 2008 &middot; 2 minute read
+      </span>
+      
+      <p>After a break over Christmas the web world is back in full swing with a few upcoming events.</p>
+
+<p><a href="http://barcamp.org/BarCampScotland2008">BarCamp Scotland</a> - <em>February 2nd</em>.</p>
+
+<p>I only just found out about this one but it looks like a few people from Refresh Newcastle and Refresh Edinburgh are going to make it along. The short notice does mean I have to think of something to talk about sharpish though.</p>
+
+<p><a href="http://www.thinkandadrink.com/">Think and a Drink</a> - <em>February 7th</em></p>
+
+<p>Bit of shameless self promotion here. I&rsquo;m speaking at the monthly <a href="http://www.codeworks.net/">Codeworks</a> get together on something to do with the Web. Also speaking is <a href="http://blog.whatfettle.com/">Paul Downey</a> from BT and another regular BarCamp attendee. If you&rsquo;re around Newcastle try and get along (it&rsquo;s a membership event but let me know if you want to go along and I&rsquo;ll speak with the organisers).</p>
+
+<p><a href="http://semanticcamp.tommorris.org/">Semantic Camp</a> - <em>February 16th - 17th</em></p>
+
+<p>A whole BarCamp style event brought to you by <a href="http://tommorris.org">tommorris</a>. This looks likely to be particularly interesting event I think.</p>
+
+<p><a href="http://futureofwebdesign.com/">Future of Web Design</a> - <em>April 17th - 18th</em></p>
+
+<p><em>The Future of&hellip;</em> rolls into town again, this time with a focus on web design. I&rsquo;d be tempted to go along to this solely for the Photoshop tennis doubles match with <a href="http://stuffandnonsense.co.uk/">Andy Clarke</a> commentating. The rest of the content looks pretty good to.</p>
+
+<p><a href="http://thinkingdigital.co.uk">Thinking Digital</a> - <em>May 21st - 23rd</em></p>
+
+<p>Another event I&rsquo;m involved in, this time on the board along with <a href="http://www.cubicgarden.com">Ian Forrester</a> from The BBC and Mike Butcher from <a href="http://uk.techcrunch.com">Techcrunch</a>. This one is a little different to most of the events I go along to - being less web centric and more about all sorts of interesting ideas. With the likes of <a href="http://horsepigcow.com/">Tara Hunt</a>, Sean Phelan (<a href="http://www.multimap.com/">MultiMap</a>), <a href="http://www.test.org.uk/">Matt Locke</a> and <a href="http://fakesteve.blogspot.com/">Dan Lyons</a> (a.k.a. Fake Steve Jobs) speaking it should be good fun. Oh, and did I mention it&rsquo;s in Newcastle?</p>
+
+<p>And look, only two of those are in London!</p>
+
+<p>It&rsquo;s already looking like 2008 will be even more jam packed than last year. I also have a sneaking feeling that their will be lots more events <em>Up North</em> this year than last. It will be interesting to see how this works out. Will more people come along that might not have travelled down to London? Will the event happy northerners still go to London as well? Will anyone from London travel north of Watford? Time will tell.</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/22/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        class="active"><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        ><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/24/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

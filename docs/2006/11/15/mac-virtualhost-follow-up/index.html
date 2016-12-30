@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Mac Virtualhost follow up &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Mac Virtualhost follow up</h1>
+    <span class="post-date">Nov 15, 2006 &middot; 1 minute read
+    </span>
+    <p>
+A couple of people asked for the details of the virtualhost script I modified for use with MAMP in a <a href="http://morethanseven.net/posts/virtualhosts-on-mac-os-x#comment">previous post</a>. Apologies for taking a bit of time.
+
+</p>
+<p>
+First I had to make these changes to the original <a href="http://patrickgibson.com/utilities/virtualhost/">virtualhost script</a>:
+
+</p>
+<code>
+DOC\_ROOT\_PREFIX="/Applications/MAMP/htdocs"
+</code>
+
+<code>
+
+    APACHE_CONFIG="/Applications/MAMP/conf/apache" 
+    APACHECTL="/Applications/MAMP/Library/bin/apachectl"
+
+</code>
+
+<p>
+I also made a few changes to httpd.conf in /Applications/MAMP/conf/apache. From memory first to allow local .htaccess files to override everything on a per directory basis.
+
+</p>
+<code>
+
+    &lt;Directory "/Applications/MAMP/htdocs"&gt;
+    oAllowOverride All
+    &lt;/Directory&gt;
+
+</code>
+
+<p>
+and then to point to the virtual hosts directory.
+
+</p>
+<code>
+
+    NameVirtualHost 127.0.0.1
+    Include /Applications/MAMP/conf/apache/virtualhosts
+
+</code>
+
+<p>
+I keep meaning to do a screen capture tutorial of sorts, so maybe something like this would be a good starting point? We shall see as and when time permits. Probably this time next year. Any problems let me know and I’ll try and debug.
+
+</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

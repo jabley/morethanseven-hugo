@@ -1,0 +1,33 @@
+---
+comments: true
+created_at: 2008/01/19}
+date: 2008-01-19T00:00:00Z
+title: A few interesting upcoming events
+url: /2008/01/19/a-few-interesting-upcoming-events/
+---
+
+After a break over Christmas the web world is back in full swing with a few upcoming events.
+
+[BarCamp Scotland](http://barcamp.org/BarCampScotland2008) - *February 2nd*.
+
+I only just found out about this one but it looks like a few people from Refresh Newcastle and Refresh Edinburgh are going to make it along. The short notice does mean I have to think of something to talk about sharpish though.
+
+[Think and a Drink](http://www.thinkandadrink.com/) - *February 7th*
+
+Bit of shameless self promotion here. I'm speaking at the monthly [Codeworks](http://www.codeworks.net/) get together on something to do with the Web. Also speaking is [Paul Downey](http://blog.whatfettle.com/) from BT and another regular BarCamp attendee. If you're around Newcastle try and get along (it's a membership event but let me know if you want to go along and I'll speak with the organisers).
+
+[Semantic Camp](http://semanticcamp.tommorris.org/) - *February 16th - 17th*
+
+A whole BarCamp style event brought to you by [tommorris](http://tommorris.org). This looks likely to be particularly interesting event I think.
+
+[Future of Web Design](http://futureofwebdesign.com/) - *April 17th - 18th*
+
+*The Future of...* rolls into town again, this time with a focus on web design. I'd be tempted to go along to this solely for the Photoshop tennis doubles match with [Andy Clarke](http://stuffandnonsense.co.uk/) commentating. The rest of the content looks pretty good to.
+
+[Thinking Digital](http://thinkingdigital.co.uk) - *May 21st - 23rd*
+
+Another event I'm involved in, this time on the board along with [Ian Forrester](http://www.cubicgarden.com) from The BBC and Mike Butcher from [Techcrunch](http://uk.techcrunch.com). This one is a little different to most of the events I go along to - being less web centric and more about all sorts of interesting ideas. With the likes of [Tara Hunt](http://horsepigcow.com/), Sean Phelan ([MultiMap](http://www.multimap.com/)), [Matt Locke](http://www.test.org.uk/) and [Dan Lyons](http://fakesteve.blogspot.com/) (a.k.a. Fake Steve Jobs) speaking it should be good fun. Oh, and did I mention it's in Newcastle?
+
+And look, only two of those are in London!
+
+It's already looking like 2008 will be even more jam packed than last year. I also have a sneaking feeling that their will be lots more events *Up North* this year than last. It will be interesting to see how this works out. Will more people come along that might not have travelled down to London? Will the event happy northerners still go to London as well? Will anyone from London travel north of Watford? Time will tell.

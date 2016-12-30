@@ -1,0 +1,13 @@
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      {{ if isset .Site.Params "gravatarHash" }}
+        <img src="https://www.gravatar.com/avatar/{{ .Site.Params.gravatarHash }}?s=200"
+             alt="gravatar" title="{{ .Site.Author.name }}">
+      {{ end }}
+      <h1><a href="{{ "/" | absURL }}">{{ .Site.Author.name }}</a></h1>
+      {{ with .Site.Params.tagline }}<p class="lead">{{ . | markdownify }}</p>{{ end }}
+    </div>
+  </div>
+</div>

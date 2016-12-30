@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Setting Puppet Class Using Environment Variables &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Setting Puppet Class Using Environment Variables</h1>
+    <span class="post-date">Dec 13, 2011 &middot; 2 minute read
+    </span>
+    <p>I&rsquo;m not sure how novel this approach is but a few folks at work hadn&rsquo;t seen it before so I thought it worth jotting down.</p>
+
+<p>If you have even a small but dynamic set of servers then a problem arises with how those nodes are defined in puppet. A node remember is defined in puppet like so:</p>
+
+<pre><code>node web3.example.com {
+  include web_server
+}
+</code></pre>
+
+<p>The problem is twofold. If you have a growing infrastructure, that list of nodes is going to get quickly out of hand. The other problem is around provisioning new hosts, the obvious approach to which is something like:</p>
+
+<ol>
+<li>Summon new EC2 instance</li>
+<li>Change the node definition to include the new hostname</li>
+<li>Install puppet on instance and so the ssl certificate signing dance</li>
+<li>Run puppet</li>
+</ol>
+
+<p>Step 2 stands out. The others are easily automated, but do you want to automate a change to your puppet manifests and a redeploy to the puppetmaster for a new instance? Probably not.
+Puppet has the concept of an external node classifier which can be used to solve this problem, but another simpler approach is to use an environment variable on the new machine.</p>
+
+<p>Lets say we define our nodes something like this instead:</p>
+
+<p>{% codeblock %}node default {
+case $machine_role {
+frontend: { include web_server }
+backend: { include app_server }
+data: { include db_server }
+monitoring: { include monitoring_server }
+development: { include development }
+default: { include base }
+}
+}{% endcodeblock %}</p>
+
+<p>If a machine runs and sets the $machine_role variable to frontend it includes the web_server class, if that variable equals &lsquo;data&rsquo; it&rsquo;s going to include the db_server class instead. Much cleaner and more maintainable in my view. Now to set that variable.</p>
+
+<p>Facter is the tool used by Puppet to get system information like the operating system or processor count. You can use these facter provided variables anywhere in your manifests. And one way of adding a new fact is via an environment variable on the client. Any environment variable prefixed with FACTER_ will be available in Puppet manifests. So in this case we can:</p>
+
+<pre><code>export FACTER_machine_role=frontend
+</code></pre>
+
+<p>So our steps from above become something like:</p>
+
+<ol>
+<li>Summon new machine</li>
+<li>echo &ldquo;export FACTER_machine_role=backend&rdquo; &gt;&gt; /etc/environment</li>
+<li>Install puppet on instance and so the ssl certificate signing dance</li>
+<li>Run puppet</li>
+</ol>
+
+<p>Much easier to automate. And if you&rsquo;re looking at a box and want to know what it&rsquo;s role is you can check the relevant environment variable.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>EC2 Tasks For Fabric &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">EC2 Tasks For Fabric</h1>
+    <span class="post-date">Dec 31, 2011 &middot; 2 minute read
+    </span>
+    <p>For running ad-hoc commands across a small number of servers you really can&rsquo;t beat <a href="http://fabfile.org">Fabric</a>. It requires nothing other than ssh installed on the servers, is generally just a one-line install and requires next to no syntaxtic fluff between you and the commands you want running. It&rsquo;s much more of a swiss army knife to Capistranos bread knife.</p>
+
+<p>I&rsquo;ve found myself doing more and more EC2 work of late and have finally gotten around to making my life easier when using Fabric with Amazon instances. The result of a bit of hacking is <a href="https://github.com/garethr/cloth">Cloth</a> (also <a href="http://pypi.python.org/pypi/cloth">available on PyPi</a>). It contains some utility functions and a few handy tasks for loading host details from the EC2 API and using them in your Fabric tasks. No more static lists of host names that constantly need updating in your fabfile.</p>
+
+<p>Specifically, with a fabfile that looks like:</p>
+
+<pre><code>#! /usr/bin/env python
+from cloth.tasks import *
+</code></pre>
+
+<p>You can run:</p>
+
+<pre><code>fab all list
+</code></pre>
+
+<p>And get something like:</p>
+
+<pre><code>instance-name-1 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-2 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-3 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-4 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-5 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-6 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-7 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-8 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+...
+</code></pre>
+
+<p>And then you could run:</p>
+
+<pre><code>fab -P all uptime
+</code></pre>
+
+<p>And you&rsquo;d happily get the load averages and uptime for all your EC2 instances.</p>
+
+<p>A few more tricks are documented in the <a href="https://github.com/garethr/cloth">GitHub README</a>, including filtering the list by a regex and some convention based mapping to Fabric roles. I&rsquo;ll hopefully add a few more features as I need them and generally tidy up a few things but I&rsquo;m pretty happy with it so far.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

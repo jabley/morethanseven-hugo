@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Urltest on PyPi &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Urltest on PyPi</h1>
+    <span class="post-date">Jun 24, 2009 &middot; 1 minute read
+    </span>
+    <p>I&rsquo;ve been meaning to add some of my code to the <a href="http://pypi.python.org">Python Package Index</a> for a while and have finally gotten around to it with <a href="http://github.com/garethr/urltest/tree/master">Urltest</a>, my simple DSL for testing WSGI apps.</p>
+
+<p>You can now find it at <a href="http://pypi.python.org/pypi/urltest">pypi.python.org/pypi/urltest</a> and install it using setuptools with:</p>
+
+<p>pre. easy_install urltest</p>
+
+<p>At the moment I&rsquo;ve not added any categorisation or detailed description to the setup.py file, I&rsquo;ll be doing that soon. I wanted to get it working with the absolute minimum setup.py file, which turned out to look like:</p>
+
+<p>pre. #!/usr/bin/env python
+from setuptools import setup, find_packages
+setup(
+name = &ldquo;urltest&rdquo;,
+version = &ldquo;0.1&rdquo;,
+author = &ldquo;Gareth Rushgrove&rdquo;,
+author_email = &ldquo;gareth@morethanseven.net&rdquo;,
+url = &ldquo;<a href="http://github.com/garethr/urltest&quot;">http://github.com/garethr/urltest&quot;</a>,
+packages = find_packages(&lsquo;src&rsquo;),
+package_dir = {&rdquo;:&lsquo;src&rsquo;},
+)</p>
+
+<p>Uploading it to PYPI itself was incredibly simple, partly as I was already using setup tools for local installation.</p>
+
+<p>pre. python setup.py register
+python setup.py bdist_egg upload</p>
+
+<p>Let me know if anyone uses this and gets it working. I&rsquo;ll be adding more details and maybe even some more features when I get the chance. Once I do that I&rsquo;ll probably work on a few more packages as well.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.18" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>More than seven &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  <link href="http://www.morethanseven.net/index.xml" rel="alternate" type="application/rss+xml" title="More than seven &middot; More than seven" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/11/12/dconstruct/">d.Construct?</a>
+      </h1>
+      <span class="post-date">Nov 12, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+Right. I wasn’t at <a href="http://www.dconstruct.org">d.Construct</a> I’m still a bit gutted really as it sounded like a hoot and lots of it was up my street and would have been good to meet up with ‘people’. But hey, I can still watch the feeds pour in right?
+
+</p>
+<p>
+With that in mind, to again make my life easier and hopefully be of some use I’ve set up another (the first one was for <a href="http://www.atmedia2005.co.uk">@media</a>) feed syndicator.
+
+</p>
+<p>
+<a href="http://morethanseven.net/dconstruct">morethanseven.net/dconstruct</a>
+
+</p>
+<p>
+All I’m doing is parsing, storing and displaying all the feeds. On first run I picked up 27 and hopefully by the time you read this more will have been said. The collection of feeds are a combination of people I’ve met and people who where blogging about `media. If you have a feed and want it adding just leave a comment on here or drop me an <a href="mailto:gareth`morethanseven.net"&gt;email</a> and I’ll add it to the rest.
+
+</p>
+<p>
+I’ll just say a big shout for everyone at <a href="http://www.clearleft.com">Clearleft</a> for organising it on such short notice. I’d rather thinks like this happen and me not be there than they not happen at all because of problems with size or cost or admin. Maybe next year?
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/11/08/tips-for-fluid-design/">Tips for fluid design</a>
+      </h1>
+      <span class="post-date">Nov 8, 2005 &middot; 2 minute read
+      </span>
+      
+      <p>
+After getting a few comments about the site design, and in particular a few of the fluid nature comments about it being tricky to get right. I’ve found myself tending to develop fluid designs more often that not over the <a href="http://thebgroup.co.uk">last</a> <a href="http://newcastlenewmedia.org">few</a> <a href="http://www.cravens.co.uk">years</a> and thought I’d do a short series of posts about some of the techniques I use. I’ve generally found it pretty easier to find <a href="http://www.boagworld.com/archives/2005/06/liquid_vs_fixed.html">discussions</a> about the <a href="http://www.digital-web.com/articles/fluid_thinking/">pro’s</a> and <a href="http://9rules.com/whitespace/design/death_of_liquid_layouts.php">cons</a> and the basic principles but less so on actual techniques. I’ll try cover some or all of the following over the next few weeks or so:
+
+</p>
+<ul>
+<li>
+extendable background images
+
+</li>
+<li>
+using overflow hidden
+
+</li>
+<li>
+use of fluid flash banners
+
+</li>
+<li>
+min-width and max-width (and javascript)
+
+</li>
+</ul>
+<p>
+I’ll kick off with tricks for background images.
+
+</p>
+<p>
+This techniques makes extensive use of the <em>background</em> <acronym title="Cascading Style Sheets">CSS</acronym> property which is used as following: <em>div\#iBackground { background: url(path/to/image) center top no-repeat; }</em>
+
+</p>
+<p>
+I’ll assume some familiarity with this and CSS in general, basically all we are doing is setting a background image to the div with an id of iBackground which is set to align to the top vertically and centered horizontally.
+
+</p>
+<p>
+Moving the image to the background has a couple of interesting effects, the one that we are interested in here is that the the size of the div is not affected by the size of the image (as it would be if the image was placed inside it). It acts as a kind of viewport into the world of the image. By specifying the width of the div in percentages (or em’s if you are dealing with an elastic design) the size of the viewport can change dependent on the size of the browser window. An example is inorder:
+
+</p>
+<p>
+<a href="http://joshuaink.com">joshuaink.com</a> makes use of a large background graphic that stretches the full width of the site. This means the space can be used for pretty large imagery but without breaking the experience (sideways scrolling!) for those with lower resolution displays. Note that the flower background is 2000px wide.
+
+</p>
+<p>
+The only problem with this technique that I have come across is generating the images in such a way that they degrade gracefully. You need to make sure real <em>content</em> (logos or text) appear in a smaller area that the whole image and live with the fact that not everyone is going to see the whole thing. In my mind this is a small price to pay for asthetically interesting fluid layouts.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/11/06/mint-goings-on/">Mint goings on</a>
+      </h1>
+      <span class="post-date">Nov 6, 2005 &middot; 4 minute read
+      </span>
+      
+      <p>
+Well. Lots of goings on since the <a href="http://cssreboot.com">reboot</a>. Rather than fill up lots of posts I thought I’d summarise – If something is interesting enough I’ll probably come back to it.
+
+</p>
+<p>
+Thanks everyone for positive comments about the redesign, lots of new visitors to the site from the reboot site itself and people who liked the design and said so on their sites:
+
+</p>
+<ul>
+<li>
+<a href="http://pixelicious.co.uk/">pixelicious.co.uk</a>
+
+</li>
+<li>
+<a href="http://www.net-lounge.de">net-lounge.de</a>
+
+</li>
+<li>
+<a href="http://brainfuel.tv/">brainfuel.tv</a>
+
+</li>
+</ul>
+<p>
+I even got onto <a href="http://screenspire.com/view/morethanseven.net/">screenspire</a> which was nice.
+
+</p>
+<p>
+All of this I’ve had the joy of watching from the vantage point of <a href="http://www.haveamint.com">mint</a>. I mentioned that I’d installed it a while back, as much to have a play around as anything but as many before me had stated, you can easily get hooked on the stats – and I’m enough of a numbers fan as it is. So what follows is a very brief, but real world opinion, of Mint. In case your only interested in the final opinion – I’m a fan (you could tell that anyway).
+
+</p>
+<p>
+First things first, purchase, download and installation was an absoolute breeze. OK so I’m fine with all kinds of command line driven installs but their was non of that anyhow. Just change a simple text configuration file, create a database and upload. Everything else was just point at a URL and away we go.
+
+</p>
+<p>
+I decided to install a couple of the official peppers (plugins) along the way, again a simple matter of upload, login and click install.
+
+</p>
+<p>
+Login presents the nice interface everyone was googling over. It’s all nice shades of green, shadows and javascript scrolling. The pane’s themselves provide information about Visits, Referrers, Pages and Searches. This isn’t all the information you might be used to from other log file based packages but once you get over that you dont really need anything else under most circumstances.
+
+</p>
+<p>
+One thing that did interest me was information about screen resolutions and that’s where the User Agent 007 pepper comes in. Displaying information about screen resolution, along with details of Browser and Flash versions. It’s all very voyeuristic I know but hey.
+
+</p>
+<p>
+The Visits and Referrers panes are probably where most of the action is. The Referrers section is great from my point of view for seeing who is linking to me, really useful for tracking down interesting people I have no other way of finding out about. Visits details lots of information about the number of visits and visitors – cunningly logged using javascript so as to avoid lots of referrer (ie. spider) spam. Having said that, Google cropped up in my User Agent 007 pane so maybe Google triggers it too?
+
+</p>
+<p>
+So. Is it for you? I get the feeling that it depends. It’s come out of the blogging scene so to speak and it shows. Design decisions have been made that strengthen it immeasurably for blogs while, in my mind, weaken it for other kinds of sites – in particular from my past experience for campaign style sites where you really want to look at this sort of detail.
+
+</p>
+<p>
+For example the choice of PHP, how many well known blogs (at least in the corner of the web inhabited by web designers) dont use PHP? So for blogs that’s not a problem but for other sites it can be.
+
+</p>
+<p>
+Another area is the ability to query the statistics. For a blog you just want to know traffic all the time probably. For a campaign you want to know what happened when. And that might mean going back in time so to speak – when putting together a report for instance. It might be possible to mine this data, even build a pepper around it – but I’m not sure that’s playing to Mints strengths.
+
+</p>
+<p>
+As I said initially, these aren’t really critisisms. Specialist software is where it’s at in my mind. And this is definately a very nice piece of software.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/11/01/reboot/">Reboot</a>
+      </h1>
+      <span class="post-date">Nov 1, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+The real <a href="http://www.cssreboot.com">CSS Reboot</a> should be going off anytime now. But I’m in Rome (this message is coming at you through the magic of Textpatterns publish on date facility) so had to put things up a <em>little</em> prematurely. Oh well. In fairness I know which one I’d prefer to be doing.
+
+</p>
+<p>
+I’ll miss the initial rush of running through lots of screen shots and sites, finding new things and generally wanting to redo the design at least for a week anyway. When I’m back I’ll post a list of one’s that caught my eye.
+
+</p>
+<p>
+In the meantime a couple of other ongoing bits. I’ll try and sort out lots of photos onto Flickr when I’m back, hopefully including some shots from Rome and a few other series I’ve taken and not got round to. Also after meetups, lots of discussion on and around <a href="http://newcastlenewmedia.org">newcastlenewmedia.org</a> hopefully a sense of renewed focus and some hapenings around that.
+
+</p>
+<p>
+All in all I’m sure I wont be missed, but enjoy the reboot. If you have any personal favourites then leave a comment. If you have opinions about mine then leave those too. Especially if they’re nice.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/10/28/tonight-tonight-accessify-meetup/">Tonight Tonight - Accessify Meetup</a>
+      </h1>
+      <span class="post-date">Oct 28, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+<strong>UPDATE</strong> Well. Five people seemed a good number on the notice and the size of the table we got at the Forth. The trick of leaving a copy of bulletproof web design casually on the side of the table worked a treat.
+
+</p>
+<p>
+Lots of hello’s, some vague recognition and lots of shared experiences and good ideas floated around. All in all a positive thing I though and hopefully the first of similar meetups in Newcastle.
+
+</p>
+<p>
+Hi to, in no particular order:
+
+</p>
+<ul>
+<li>
+<a href="http://www.buy.at/">Ben</a>
+
+</li>
+<li>
+<a href="http://www.mcskiver.com/blog/">Lee</a>
+
+</li>
+<li>
+<a href="http://coded.uk.com">Kev</a>
+
+</li>
+<li>
+Name to be remembered!
+
+</li>
+</ul>
+<p>
+The <a href="http://www.accessify.com">accessify</a> forum meetup <del>is tonight</del> <ins>was on Thursday</ins> at the <strong>Forth</strong> for anyone who doesn’t know about it and is around the area. Looking to be a small number turning up but should hopefully be good to meet new people. I’ll post more details on here, and any photos (no photos, sorry), post event.
+
+</p>
+<p>
+What do I want out of it besides the beer? Hopefully some ideas and enthusiasm. I keep meaning to do more with <a href="http://www.newcastlenewmedia.org">newcastlenewmedia</a> and a few people have expressed an interest in pulling some things off – the mailing list even kicked off yesterday with a flurry of posts. So some concrete ideas, a broader network and some beer will do nicely.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/10/25/all-change-again/">All change (again)</a>
+      </h1>
+      <span class="post-date">Oct 25, 2005 &middot; 2 minute read
+      </span>
+      
+      <p>
+I’m actually going on holiday soon and seem to be getting all sorts done before I go away. The obvious one is the change of scenery around these parts. Let me know what you think. It’s not complete as yet and I have a few more bits to add and check (yes I mean you IE) but I’m all for release early and often.
+
+</p>
+<p>
+I’d been meaning to move on a little recently, and the move to <a href="http://textpattern.com">textpattern</a> cemented that. I’m still impressed with it and wanted to delve further into setting up flexible forms and pages. I’ve set up a few areas of the site to hopefully make me organise things a little better – specifically an experiments section to play with code and an articles section if I every actually get round to writing something properly. Both appear in the sidebars.
+
+</p>
+<p>
+Another reason for the sudden change was, after using <a href="http://www.shauninman.com/plete/2004/03/shortstat-beta-3">ShortStat</a> for quite a while and looking over the Mint information on the <a href="http://haveamint.com">haveamint.com</a> site I made the plunge. Some had moaned about the cost but really Ã‚Â£17 is the price of a DVD and with a DVD you dont get the sense of supporting a really <a href="http://shauninman.com">smart developer</a>. Ok so I could have seemlessly moved from one to the other without a change in the design but I didn’t want to (confuse my database).
+
+</p>
+<p>
+I’ll hopefully post a review of sorts (better late than never) as the dicussion doesn’t seem to have died down yet. I’d personally like to see more of this sort of small, clever, personal application development. I’ve been a bit Open Source advocate for a good while which has it’s merits but I’m still of the mind that something as focused and polished as Mint is more likely to come out of one mind. The question is, I guess, about the market? If you’re <a href="http://www.hicksdesign.co.uk/journal/pimp-my-mint">friends</a> <a href="http://www.mikeindustries.com/blog/archive/2005/09/mint-the-flavor-of-the-month">blog</a> to a huge number of other web designers, bloggers and developers then you have an <em>in</em> on the promotional front but will that become the norm rather than a very clever marketing ploy?
+
+</p>
+<p>
+Also on the paying part, lots of people thought $30 was quite steep, I disagreed but will we be back to Shareware and people not paying? Lots of questions. Not many answers yet. But should be interesting to see where things go – at least for people like me with an interest in the sociology of software.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/10/25/contact/">Contact</a>
+      </h1>
+      <span class="post-date">Oct 25, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+If you want to talk to me about, well anything really, let me know. Your best bet is probably emailing me on <a href="mailto:gareth@morethanseven.net">gareth@morethanseven.net</a> and hopefully I should get back to you. Unless you’re a spam bot in which case expect to be automatically deleted or ignored.
+
+</p>
+<p>
+On the other hand I can be found wandering the corridors over at <a href="http://www.designersinhouse.com/">designersinhouse.com</a> or appearing in person at anything I can get along to that sounds interesting.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/10/25/about/">about</a>
+      </h1>
+      <span class="post-date">Oct 25, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+morethanseven is the personal playground of Gareth Rushgrove, a 26 year old web designer and developer living and working in Newcastle, UK.
+
+</p>
+<p>
+Before bored people ask, morethanseven is a reference to an interesting essay The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information, by George A. Miller, originally published in The Psychological Review, 1956, vol. 63, pp. 81-97. It’s about people’s ability to remember sets of data.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/10/16/the-real-world/">The Real World</a>
+      </h1>
+      <span class="post-date">Oct 16, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+All of a sudden it’s all about the real world. In fact that’s my prediction for 2006 – geeks moving out into real social activities (often involving beer) around blogs and mailing lists what not. Anyway…
+
+</p>
+<p>
+After the Northern Geekender yesterday, which was a really good do for all those that couldn’t make it, I found out about another meet up even closer to home – in Newcastle no less.
+
+</p>
+<p>
+So people over at the <a href="http://www.accessify.com">Accessify</a> forum are organising a <a href="http://www.accessifyforum.com/viewtopic.php?p=28544#28544">get together</a> on the 27th of this month. Things are coming fast and furious at the moment. I’ll hopefully be going along, although it starts at 5:30 and I finish work at 6:00 so might be a bit late.
+
+</p>
+<p>
+I’ll post more details about that as I get anything, and I’ll post any half decent photos (and link to the inevitable <a href="http://www.flickr.com">flickr</a> group) as stuff happens.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://www.morethanseven.net/2005/10/11/textpattern/">Textpattern!</a>
+      </h1>
+      <span class="post-date">Oct 11, 2005 &middot; 3 minute read
+      </span>
+      
+      <p>
+In something of a shock I’ve just ported the site (well some of it so far) to <a href="http://www.textpattern.com">Textpattern</a>. I’d alluded that I was looking to do something similar (I mentioned a crazy Ruby fueled idea, but strayed away after having a run in with fastcgi) a little time ago but have finally gotten around to it.
+
+</p>
+<p>
+The reasons where many fold, but mainly came down to wanting to do other things that write content management applications. I know I can do it, and it’s certainly not a solved problem, but it’s not as much a part of my job any more – every few months I was wanting to go back and rewrite something fundamental (or everything) and it was getting in the way of me doing other, hopefully more interesting and useful things – like <a href="http://newcastlenewmedia.org">Newcastle New Media</a> , <a href="http://morethanseven.net/fluidflash">Fluid Flash</a> or playing with whatever buzz word is in this week (definately <a href="http://en.wikipedia.org/wiki/Web2.0">Web 2.0</a>).
+
+</p>
+<p>
+So after what was quite a brief look around I settled on Textpattern mainly for it’s positioning. It is a blogging ap, but has lots of other features that allow content management of other elements – hopefully useful for side projects and the like. It’s PHP and MySQL so I can rip it to pieces if I want. It’s mature, stable, feature rich and does, with plugins, everything I probably need – the big question will be if it does them in a way I like, so far it’s thumbs up. Oh and <a href="http://www.hicksdesign.co.uk">John Hick’s</a> has written a number of really good articles on textpattern, including a <a href="http://www.hicksdesign.co.uk/journal/textpattern-migration">migration piece</a> which gave me some pointers.
+
+</p>
+<p>
+I’ve ported recent posts and comments, I’ll move the rest on an as time permits basis but, after some mod\_rewriting mad skills I’ve kept the <a href="http://morethanseven.net/weblog/">old site</a> fully functional (no link rot – yeah).
+
+</p>
+<p>
+All in all it probably took me 4 hours, in a couple of sessions, to get all the styles into textpattern, set up a few plug-ins (del.icio.us links, live previews – whoo), port the latest content and move from my development box to here. A pretty good testament to the ease of use of textpattern. If I had not had the original design or content I would have been up and running in minutes – the installation process is smooth as a new cuddly toy.
+
+</p>
+<p>
+Their are a couple of changes that hopefully only the anal will even see. I’ll try and resurect some of them, probably in a more satisfying manner that before.
+
+</p>
+<p>
+For the moment I’ll keep the existing rss feed up to date but only for a little while, the new textpattern feeds can be accessed from the navigation menu, and now include an atom feed as well (basically because I can).
+
+</p>
+<p>
+In conclusion, anyone looking to move, or start, a blog style site with other ambitions then textpattern could be what your looking for – although some PHP skills wouldn’t go a miss.
+
+</p>
+<p>
+Anyway, here’s to a more organised life. Anything fundamentally wrong let me know!
+
+</p>
+
+      
+    </div>
+    
+    
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="/page/37/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="/">1</a></li>
+        
+        <li
+        ><a href="/page/2/">2</a></li>
+        
+        <li
+        ><a href="/page/3/">3</a></li>
+        
+        <li
+        ><a href="/page/4/">4</a></li>
+        
+        <li
+        ><a href="/page/5/">5</a></li>
+        
+        <li
+        ><a href="/page/6/">6</a></li>
+        
+        <li
+        ><a href="/page/7/">7</a></li>
+        
+        <li
+        ><a href="/page/8/">8</a></li>
+        
+        <li
+        ><a href="/page/9/">9</a></li>
+        
+        <li
+        ><a href="/page/10/">10</a></li>
+        
+        <li
+        ><a href="/page/11/">11</a></li>
+        
+        <li
+        ><a href="/page/12/">12</a></li>
+        
+        <li
+        ><a href="/page/13/">13</a></li>
+        
+        <li
+        ><a href="/page/14/">14</a></li>
+        
+        <li
+        ><a href="/page/15/">15</a></li>
+        
+        <li
+        ><a href="/page/16/">16</a></li>
+        
+        <li
+        ><a href="/page/17/">17</a></li>
+        
+        <li
+        ><a href="/page/18/">18</a></li>
+        
+        <li
+        ><a href="/page/19/">19</a></li>
+        
+        <li
+        ><a href="/page/20/">20</a></li>
+        
+        <li
+        ><a href="/page/21/">21</a></li>
+        
+        <li
+        ><a href="/page/22/">22</a></li>
+        
+        <li
+        ><a href="/page/23/">23</a></li>
+        
+        <li
+        ><a href="/page/24/">24</a></li>
+        
+        <li
+        ><a href="/page/25/">25</a></li>
+        
+        <li
+        ><a href="/page/26/">26</a></li>
+        
+        <li
+        ><a href="/page/27/">27</a></li>
+        
+        <li
+        ><a href="/page/28/">28</a></li>
+        
+        <li
+        ><a href="/page/29/">29</a></li>
+        
+        <li
+        ><a href="/page/30/">30</a></li>
+        
+        <li
+        ><a href="/page/31/">31</a></li>
+        
+        <li
+        ><a href="/page/32/">32</a></li>
+        
+        <li
+        ><a href="/page/33/">33</a></li>
+        
+        <li
+        ><a href="/page/34/">34</a></li>
+        
+        <li
+        ><a href="/page/35/">35</a></li>
+        
+        <li
+        ><a href="/page/36/">36</a></li>
+        
+        <li
+        ><a href="/page/37/">37</a></li>
+        
+        <li
+        class="active"><a href="/page/38/">38</a></li>
+        
+        <li
+        ><a href="/page/39/">39</a></li>
+        
+        <li
+        ><a href="/page/40/">40</a></li>
+        
+        <li
+        ><a href="/page/41/">41</a></li>
+        
+        <li
+        ><a href="/page/42/">42</a></li>
+        
+        <li
+        >
+        <a href="/page/39/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="/page/42/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

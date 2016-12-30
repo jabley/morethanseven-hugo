@@ -1,0 +1,9 @@
+---
+comments: true
+created_at: 2009/03/22}
+date: 2009-03-22T00:00:00Z
+title: Github Links to Lines of Code
+url: /2009/03/22/github-links-lines-code/
+---
+
+Just saw this and thought it was cool. You can [link to a specific line, or set of lines](http://github.com/garethr/booky/blob/08615163198a2b51353aeba07f25ec9ed477d60c/src/booky/lib/builder.py#L17-24) on GitHub. All you need to do is append something like \#L17-24 to specify highlighting lines 17 to 24.

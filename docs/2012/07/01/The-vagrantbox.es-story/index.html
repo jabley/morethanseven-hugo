@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>The Vagrantbox.es Story &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">The Vagrantbox.es Story</h1>
+    <span class="post-date">Jul 1, 2012 &middot; 2 minute read
+    </span>
+    <p>A few weeks ago now <a href="http://www.vagrantbox.es/">Vagrantbox.es</a> (a website I maintain for third party hosted <a href="http://vagrantup.com/">Vagrant</a> base boxes) dissapeared from the internet for a few days. This was completely my fault, the (lovely) hosting people <a href="https://www.ep.io/">ep.io</a> had unfortunately closed down the service they had in beta and I&rsquo;d been so busy that I hadn&rsquo;t had chance to move it elsewhere.</p>
+
+<p>The original version of the site (I had the code and good backups of the data) was a pretty simple Django application, but I&rsquo;d used it to experiment (read over-engineer) with various bits of tech including Varnish, Solr, some ORM caching and lots more. This had been great, but it made it less portable. I had everything described in Puppet, but with virtually no spare time I decided to go a different route.</p>
+
+<p>I threw a flat version of the site up on <a href="https://github.com/garethr/vagrantboxes-heroku">GitHub</a>, served it using Nginx on <a href="http://www.heroku.com/">Heroku</a> and added a quick <em>Fork me on GitHub</em> badge to the top. Suggest a box moved from being a web form to a pull request. It&rsquo;s fair to say I did this pretty quickly and made a good few typos on the way. But within a couple of weeks I&rsquo;ve had 8 pull requests either fixing my bugs, removing dead boxes and adding new ones.</p>
+
+<p>What I&rsquo;m going to take from this is, if you&rsquo;re building a community project that&rsquo;s aimed at developers, then throw the content on GitHub. In my case I have the entire site on there too but I think that&rsquo;s secondary. Pull requests are much better than any content management system or workflow you&rsquo;re likely to build, and even more importantly the time to implement something drops hugely.</p>
+
+<p>With all the spare time I don&rsquo;t have I&rsquo;ll be thinking about a content management model using GitHub for content, pull requests for workflow and post commit hooks for loading that content into a site or service somewhere.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+baseURL: http://www.morethanseven.net
+disablePathToLower: true
+languageCode: en-uk
+title: More than seven
+theme: "hyde-x"
+publishDir: "docs"
+author:
+  name: "More than seven"
+params:
+  theme: "theme-base-08"
+  truncate: false
+  tagline: Writing about code. Occasional other topics. Made by [@garethr](https://twitter.com/garethr).
+PygmentsCodeFences: true
+pygmentsstyle: "pastie"

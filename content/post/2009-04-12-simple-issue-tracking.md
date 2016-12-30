@@ -1,0 +1,23 @@
+---
+comments: true
+created_at: 2009/04/12}
+date: 2009-04-12T00:00:00Z
+title: Simple issue tracking
+url: /2009/04/12/simple-issue-tracking/
+---
+
+Another project I hacked together on the train running on App Engine I'm afraid. Anyone getting bored of my *new project each week* posts please stop reading now.
+
+<a href="http://gitbug.appspot.com"><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRjZNgw" alt="GitBug interface"/></a>
+
+Issue or bug tracking is just one of those things we all deal with and probably have opinions on. Lots of open source software exists ([BugZilla](http://www.bugzilla.org/), [Trac](http://trac.edgewall.org/)) to do the job and various companies have commercial products ([Lighthouse](http://lighthouseapp.com/), [Sifter](http://sifterapp.com/), [Fixx](http://hedgehoglab.com/products/fixx/)). So why did I go and create another one?
+
+Certainly not because I think I can do a better job for the majority. This is very much a personal pet project and I don't very much fancy competing with teams of smart people building good products.
+
+Like most software projects my issue tracker was designed to scratch a personal itch. I now have 28 repos over on [GitHub](http://github.com/garethr) (how did that happen?). Some of these are public projects I'd like other peoples input on, and for me that means having a public list of issues. But these aren't active projects being worked on by a team of people - it's mainly just me (with Brad and Simon occasionally correcting my spelling and grammar) hacking on the train to work and back. I don't need collaboration features. I don't want to be limited to a small number of projects. I'd rather not pay lots of money, or worry too much about hosting.
+
+So that's where [GitBug](http://gitbug.appspot.com) comes in. Bug tracking for people with minimal needs.
+
+The only real *feature* past a very minimal bug tracker is the ability to close bugs via a GitHub webhook. Oh and lots of JSON and RSS feeds for everything but that's just the way we should build things now anyway.
+
+Their are areas of the interface that could do with some streamlining and a couple of open bugs that don't yet cause me enough pain to fix. I have however opened it up for anyone with a Google account to use and a few people have started adding their own projects and issues already. I'm hoping that for the most part by keeping it as simple as possible I can avoid having to do any work on *it* and work on bugs in other projects instead, of which I'm sure there are many.

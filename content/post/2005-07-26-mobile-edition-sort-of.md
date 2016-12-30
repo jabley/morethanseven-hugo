@@ -1,0 +1,28 @@
+---
+comments: true
+created_at: 2005/07/26}
+date: 2005-07-26T00:00:00Z
+title: Mobile Edition (sort of)
+url: /2005/07/26/mobile-edition-sort-of/
+---
+
+<p>
+I’m something of a fan of mobile devices and really should do more mobile web stuff but hey, the support for mobile CSS is shody at best. Enter <a href="http://www.mikeindustries.com/blog/archive/2005/07/make-your-site-mobile-friendly">this article</a>.
+
+</p>
+<p>
+The idea is really pretty simple. All you really want when your paying for bandwidth on your phone (or you PDA connected to your phone via bluetooth) is the content. So lets get rid of everything (and we mean everything) else. The solution is fairly devious – using some PHP jiggery pokery, a sub domain and some text parsing.
+
+</p>
+<p>
+Have a look at <a href="http://mobile.morethanseven.net">mobile.morethanseven.net</a> for an example on this site.
+
+</p>
+<p>
+In reality it’s a non ideal solution, but considerng it really does take two minutes I dont see that as a problem, and I think that was what the author of the article was getting at. We want to use mobile CSS but some browsers ignore it while others pretend they are grown up browsers and try and render the whole site CSS file.
+
+</p>
+<p>
+I’m hopefully going to alter this a little, rather than removing all stylesheets leaving any mobile media sheets intact. Assign these to the main site and we have an interim solution. Fancy devices that make use of the correct style sheets can use the main domain fine, others can get the same design by visiting the mobile sub domain.
+
+</p>

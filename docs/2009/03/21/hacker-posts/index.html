@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Hacker Posts &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Hacker Posts</h1>
+    <span class="post-date">Mar 21, 2009 &middot; 2 minute read
+    </span>
+    <p>I&rsquo;ve been playing again with App Engine, and going back to an on/off pet project that I&rsquo;ve build variations of for a while.</p>
+
+<p><a href="http://hackerposts.appspot.com"><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRihHww" alt="Hacker Posts"/></a></p>
+
+<p>It&rsquo;s basically a pretty straightforward aggregation platform, taking content from a number of feeds and creating relationships between the items. It&rsquo;s mainly an experiment in creating a decent size site on App Engine - it can be surprising how many urls you can get out of a good corpus of data:</p>
+
+<ul>
+<li>400 items, each with a unique url</li>
+<li>each item has a variable number of tags generated, at the moment that amounts to about 1000 unique urls</li>
+<li>each month and year of content gets a url so that&rsquo;s another 4 or so</li>
+<li>each day for which we have items we also get a url, so that&rsquo;s another 90 or so</li>
+</ul>
+
+<p>So starting off with 1500 or so pages isn&rsquo;t bad. The site also grows over time as new items are posted or I add more feeds. Everything else I&rsquo;ve done with App Engine has been more <a href="http://imified-demo.appspot.com/">application</a> <a href="http://image-host.appspot.com/">focused</a> so seeing how a content site performs is interesting in and of itself.</p>
+
+<p>The data in question I used for this first experiment was the feeds I could find from the <a href="http://news.ycombinator.com/leaders">top posters on Hacker News</a>. Hence the name <a href="http://hackerposts.appspot.com">Hacker Posts</a>. That left me with 35 feeds:</p>
+
+<ul>
+<li><a href="http://www.matasano.com/log/feed/">http://www.matasano.com/log/feed/</a></li>
+<li><a href="http://feeds2.feedburner.com/ThinkGene">http://feeds2.feedburner.com/ThinkGene</a></li>
+<li><a href="http://www.mechanicalrobotfish.com/rss.xml">http://www.mechanicalrobotfish.com/rss.xml</a></li>
+<li><a href="http://feeds.feedburner.com/Cloudknow">http://feeds.feedburner.com/Cloudknow</a></li>
+<li><a href="http://mark.nirv.net/rss">http://mark.nirv.net/rss</a></li>
+<li><a href="http://feeds.feedburner.com/seldomlogical">http://feeds.feedburner.com/seldomlogical</a></li>
+<li><a href="http://feeds.feedburner.com/mattmaroon/AAcm">http://feeds.feedburner.com/mattmaroon/AAcm</a></li>
+<li><a href="http://www.swombat.com/rss.xml">http://www.swombat.com/rss.xml</a></li>
+<li><a href="http://feeds.feedburner.com/woobius">http://feeds.feedburner.com/woobius</a></li>
+<li><a href="http://feeds2.feedburner.com/danieltenner">http://feeds2.feedburner.com/danieltenner</a></li>
+<li><a href="http://www.nilkanth.com/feed/">http://www.nilkanth.com/feed/</a></li>
+<li><a href="http://feeds.feedburner.com/NewCartographer">http://feeds.feedburner.com/NewCartographer</a></li>
+<li><a href="http://inthebox.webmin.com/feed">http://inthebox.webmin.com/feed</a></li>
+<li><a href="http://www.maximise.dk/blog/xml/rss.xml">http://www.maximise.dk/blog/xml/rss.xml</a></li>
+<li><a href="http://www.pchristensen.com/blog/feed/">http://www.pchristensen.com/blog/feed/</a></li>
+<li><a href="http://280north.com/blog/feed/">http://280north.com/blog/feed/</a></li>
+<li><a href="http://tlrobinson.net/blog/feed/">http://tlrobinson.net/blog/feed/</a></li>
+<li><a href="http://www.WhatToFix.com/atom.xml">http://www.WhatToFix.com/atom.xml</a></li>
+<li><a href="http://alexkrupp.typepad.com/sensemaking/atom.xml">http://alexkrupp.typepad.com/sensemaking/atom.xml</a></li>
+<li><a href="http://feeds.feedburner.com/yegg">http://feeds.feedburner.com/yegg</a></li>
+<li><a href="http://scotchi.net/feed/atom/">http://scotchi.net/feed/atom/</a></li>
+<li><a href="http://paulbuchheit.blogspot.com/feeds/posts/default">http://paulbuchheit.blogspot.com/feeds/posts/default</a></li>
+<li><a href="http://www.owenbyrne.com/feed/">http://www.owenbyrne.com/feed/</a></li>
+<li><a href="http://blog.jrock.us/feeds/articles/atom">http://blog.jrock.us/feeds/articles/atom</a></li>
+<li><a href="http://www.kalzumeus.com/feed/">http://www.kalzumeus.com/feed/</a></li>
+<li><a href="http://feeds.feedburner.com/gojomo">http://feeds.feedburner.com/gojomo</a></li>
+<li><a href="http://davidpiccione.com/blog/feed/">http://davidpiccione.com/blog/feed/</a></li>
+<li><a href="http://blog.blinker.net/feed/">http://blog.blinker.net/feed/</a></li>
+<li><a href="http://dambalah.com/feed/">http://dambalah.com/feed/</a></li>
+<li><a href="http://dustincurtis.com/rss.xml">http://dustincurtis.com/rss.xml</a></li>
+<li><a href="http://blog.jodoro.com/feeds/posts/default">http://blog.jodoro.com/feeds/posts/default</a></li>
+<li><a href="http://arantaday.com/blog/feed/">http://arantaday.com/blog/feed/</a></li>
+<li><a href="http://www.allanjosephbatac.com/blog/feed">http://www.allanjosephbatac.com/blog/feed</a></li>
+<li><a href="http://feeds.feedburner.com/offbytwo">http://feeds.feedburner.com/offbytwo</a></li>
+<li><a href="http://feeds.feedburner.com/FoundersBlog-Cluttermecom">http://feeds.feedburner.com/FoundersBlog-Cluttermecom</a></li>
+</ul>
+
+<p>I have a couple of other communities or events that I&rsquo;d like to do the same thing around, as well as a few features I want to add to the underlying software. The nice thing with App Engine is rolling new instances out is as simple as running a command.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

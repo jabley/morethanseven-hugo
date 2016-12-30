@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Dreque &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Dreque</h1>
+    <span class="post-date">Nov 28, 2009 &middot; 1 minute read
+    </span>
+    <p>I&rsquo;ve just found <a href="http://github.com/samuel/dreque">Dreque</a> from <a href="http://samuelks.com/">Samuel Stauffer</a> on GitHub. It&rsquo;s yet another take on the whole messaging things which is definitely seeing a lot of activity at the back end of this year. It&rsquo;s using <a href="http://code.google.com/p/redis/">Redis</a> on the backend and looks really rather nice:</p>
+
+<p>Submitting jobs:</p>
+
+<pre><code>&lt;code&gt;from dreque import Dreque
+def some_job(argument):
+    pass
+dreque = Dreque(&quot;127.0.0.1&quot;)
+dreque.enqueue(&quot;queue&quot;, some_job, argument=&quot;foo&quot;)&lt;/code&gt;
+</code></pre>
+
+<p>Worker:</p>
+
+<pre><code>&lt;code&gt;from dreque import DrequeWorker
+worker = DrequeWorker([&quot;queue&quot;], &quot;127.0.0.1&quot;)
+worker.work()&lt;/code&gt;
+</code></pre>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

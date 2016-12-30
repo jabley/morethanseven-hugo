@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Testing Vagrant runs with Cucumber &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://www.morethanseven.net/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.morethanseven.net/touch-icon-144-precomposed.png">
+  <link href="http://www.morethanseven.net/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="http://www.morethanseven.net/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Testing Vagrant runs with Cucumber</h1>
+    <span class="post-date">Mar 15, 2014 &middot; 2 minute read
+    </span>
+    <p>I&rsquo;ve been a big fan of <a href="http://www.vagrantup.com/">Vagrant</a> since it&rsquo;s
+initial release and still find myself using it for various tasks.</p>
+
+<p>Recently I&rsquo;ve been using it to test collections of Puppet modules. For a
+single host
+<a href="https://github.com/jvoorhis/vagrant-serverspec">vagrant-serverspec</a> is
+excellent. Simply install the plugin, add a provisioner and write your
+<a href="http://serverspec.org/">serverspec</a> tests. The serverspec provisioner
+looks like the following:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>config.vm.provision <span style="color: #aa6600; background-color: #fff0f0">:serverspec</span> <span style="color: #008800; font-weight: bold">do</span> |spec|
+  spec.pattern = <span style="color: #dd2200; background-color: #fff0f0">&#39;*_spec.rb&#39;</span>
+<span style="color: #008800; font-weight: bold">end</span>
+</pre></div>
+
+<p>But I also found myself wanting to test behaviour from the host
+(serverspec tests are run on the guest), and also wanted to write tests
+that checked the behaviour of a multi-box setup. I started by simply
+writing some <a href="http://cukes.info/">Cucumber</a> tests which I ran locally,
+but I decided I wanted this integrated with vagrant. Enter
+<a href="https://github.com/garethr/vagrant-cucumber-host">vagrant-cucumber-host</a>.
+This implements a new vagrant provisioner which runs a set of cucumber
+features locally.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>config.vm.provision <span style="color: #aa6600; background-color: #fff0f0">:cucumber</span> <span style="color: #008800; font-weight: bold">do</span> |cucumber|
+  cucumber.features = []
+<span style="color: #008800; font-weight: bold">end</span>
+</pre></div>
+
+<p>Just drop your features in the features folder and run <code>vagrant
+provision</code>. If you just want to run the cucumber features, without any
+of the other provisioners running you can use:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>vagrant provision --provision-with cucumber
+</pre></div>
+
+<p>Another advantage of writing this as a vagrant plugin is that it uses
+the Ruby bundled with vagrant, meaning you just install the plugin
+rather than faff about with a local Ruby install.</p>
+
+<p>A couple of other vagrant plugins that I&rsquo;ve used to make the testing
+setup easier are <a href="https://github.com/cogitatio/vagrant-hostsupdater">vagrant-hostsupdater</a>
+and <a href="https://github.com/adrienthebo/vagrant-hosts">vagrant-hosts</a>. Both
+help with managing hosts files, which makes writing tests without
+knowing the IP addresses easier.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+
