@@ -10,5 +10,6 @@ params:
   theme: "theme-base-08"
   truncate: false
   tagline: Writing about code. Occasional other topics. Made by [@garethr](https://twitter.com/garethr).
+  googleAnalytics: "UA-435455-1"
 PygmentsCodeFences: true
 pygmentsstyle: "pastie"
