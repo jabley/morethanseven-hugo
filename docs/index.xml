@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>More than seven</title>
-    <link>http://www.morethanseven.net/index.xml</link>
+    <link>/index.xml</link>
     <description>Recent content on More than seven</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <lastBuildDate>Wed, 23 Nov 2016 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://www.morethanseven.net/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The coming of the Kubernetes distributions</title>
-      <link>http://www.morethanseven.net/2016/11/23/the-coming-of-the-kubernetes-distributions/</link>
+      <link>/2016/11/23/the-coming-of-the-kubernetes-distributions/</link>
       <pubDate>Wed, 23 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2016/11/23/the-coming-of-the-kubernetes-distributions/</guid>
+      <guid>/2016/11/23/the-coming-of-the-kubernetes-distributions/</guid>
       <description>
 
 &lt;p&gt;Very few people today start using Linux by downloading the linux kernel
@@ -152,10 +152,10 @@ to the role Debian plays in the Linux distribution world.&lt;/p&gt;
     
     <item>
       <title>Unikernels and The End of the General Purpose Operating System</title>
-      <link>http://www.morethanseven.net/2016/11/12/the-end-of-the-general-purpose-operating-system-unikernels/</link>
+      <link>/2016/11/12/the-end-of-the-general-purpose-operating-system-unikernels/</link>
       <pubDate>Sat, 12 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2016/11/12/the-end-of-the-general-purpose-operating-system-unikernels/</guid>
+      <guid>/2016/11/12/the-end-of-the-general-purpose-operating-system-unikernels/</guid>
       <description>
 
 &lt;p&gt;The &lt;a href=&#34;http://www.morethanseven.net/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/&#34;&gt;previous
@@ -210,10 +210,10 @@ to everyone, including small organisations and individuals.&lt;/p&gt;
     
     <item>
       <title>The End of the General Purpose Operating System</title>
-      <link>http://www.morethanseven.net/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/</link>
+      <link>/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/</link>
       <pubDate>Sat, 05 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/</guid>
+      <guid>/2016/11/05/the-end-of-the-general-purpose-operating-system-as-it-happens/</guid>
       <description>
 
 &lt;p&gt;As interesting chat on Twitter today reminded me that not everyone is
@@ -345,10 +345,10 @@ and find time for more speculation.&lt;/p&gt;
     
     <item>
       <title>InfraKit Hello World</title>
-      <link>http://www.morethanseven.net/2016/10/07/infrakit-hello-world/</link>
+      <link>/2016/10/07/infrakit-hello-world/</link>
       <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2016/10/07/infrakit-hello-world/</guid>
+      <guid>/2016/10/07/infrakit-hello-world/</guid>
       <description>&lt;p&gt;Docker just shipped &lt;a href=&#34;https://github.com/docker/infrakit&#34;&gt;InfraKit&lt;/a&gt; a few days ago at LinuxCon and, while at the Docker Distributed Systems Summit, I wanted to see if I could get a hello world example up and running. The documentation is lacking at the moment, epecially around how to tie the different components like instances and flavors together.&lt;/p&gt;
 
 &lt;p&gt;The following example isn&amp;rsquo;t going to do anything particularly useful, but it&amp;rsquo;s hopefully simple enough to help anyone else trying to get started. I&amp;rsquo;m assuming you&amp;rsquo;ve checked out and built the binaries as described in the &lt;a href=&#34;https://github.com/docker/infrakit#building&#34;&gt;README&lt;/a&gt;.&lt;/p&gt;
@@ -436,10 +436,10 @@ instance-1475833380
     
     <item>
       <title>Everyone is Not a Software Company</title>
-      <link>http://www.morethanseven.net/2016/07/05/everyone-is-not-a-software-company/</link>
+      <link>/2016/07/05/everyone-is-not-a-software-company/</link>
       <pubDate>Tue, 05 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2016/07/05/everyone-is-not-a-software-company/</guid>
+      <guid>/2016/07/05/everyone-is-not-a-software-company/</guid>
       <description>
 
 &lt;p&gt;The &lt;em&gt;Everyone is a Software Company&lt;/em&gt; meme has been around for a
@@ -571,10 +571,10 @@ with a fundamentally better approach to service delivery.&lt;/p&gt;
     
     <item>
       <title>Operations is more than just Systems Administration</title>
-      <link>http://www.morethanseven.net/2015/12/27/operations-more-than-systems-administration/</link>
+      <link>/2015/12/27/operations-more-than-systems-administration/</link>
       <pubDate>Sun, 27 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/12/27/operations-more-than-systems-administration/</guid>
+      <guid>/2015/12/27/operations-more-than-systems-administration/</guid>
       <description>
 
 &lt;p&gt;I think one of the patterns of the last few years has been the
@@ -722,10 +722,10 @@ starting point.&lt;/li&gt;
     
     <item>
       <title>Provisioning droplets with Puppet</title>
-      <link>http://www.morethanseven.net/2015/12/04/provisioning-droplets-with-puppet/</link>
+      <link>/2015/12/04/provisioning-droplets-with-puppet/</link>
       <pubDate>Fri, 04 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/12/04/provisioning-droplets-with-puppet/</guid>
+      <guid>/2015/12/04/provisioning-droplets-with-puppet/</guid>
       <description>
 
 &lt;p&gt;I love &lt;a href=&#34;https://www.digitalocean.com/&#34;&gt;DigitalOcean&lt;/a&gt; for quickly spinning
@@ -829,10 +829,10 @@ good place to start understanding the API.&lt;/p&gt;
     
     <item>
       <title>Some Security Implication of Unikernels</title>
-      <link>http://www.morethanseven.net/2015/09/20/security-implications-of-unikernels/</link>
+      <link>/2015/09/20/security-implications-of-unikernels/</link>
       <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/09/20/security-implications-of-unikernels/</guid>
+      <guid>/2015/09/20/security-implications-of-unikernels/</guid>
       <description>
 
 &lt;p&gt;I was attending the first &lt;a href=&#34;http://gotocon.com/goto-london-2015/&#34;&gt;GOTO London conference&lt;/a&gt; last week, in particlar the &lt;a href=&#34;https://www.ruggedsoftware.org/&#34;&gt;Rugged&lt;/a&gt; Track. One of the topics of conversation that came up was unikernels, and their potential for improving the state of software security. Unikernels are pretty new outside research groups, I’m just lucky enough to live and work in Cambridge where some of that research is happening. The security advantages of unikernels are one of the things that attracted me in the first place. I thought it might be interesting to jot a few of those down for other people interested in security and the future of infrastructure.&lt;/p&gt;
@@ -863,10 +863,10 @@ good place to start understanding the API.&lt;/p&gt;
     
     <item>
       <title>A Discussion of The Operational Challenges With Unikernels</title>
-      <link>http://www.morethanseven.net/2015/08/21/operating-unikernel-challenges/</link>
+      <link>/2015/08/21/operating-unikernel-challenges/</link>
       <pubDate>Fri, 21 Aug 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/08/21/operating-unikernel-challenges/</guid>
+      <guid>/2015/08/21/operating-unikernel-challenges/</guid>
       <description>
 
 &lt;h2 id=&#34;what-are-unikernels&#34;&gt;What are Unikernels&lt;/h2&gt;
@@ -1029,10 +1029,10 @@ robust whsen it comes to future production deployments.&lt;/p&gt;
     
     <item>
       <title>Update to Puppet Module Skeleton</title>
-      <link>http://www.morethanseven.net/2015/08/20/puppet-module-skeleton-updates/</link>
+      <link>/2015/08/20/puppet-module-skeleton-updates/</link>
       <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/08/20/puppet-module-skeleton-updates/</guid>
+      <guid>/2015/08/20/puppet-module-skeleton-updates/</guid>
       <description>&lt;p&gt;Being on holiday last week meant I had a little time for some gardening
 of open source projects and I decided to update
 &lt;a href=&#34;https://www.github.com/garethr/puppet-module-skeleton&#34;&gt;puppet-module-skeleton&lt;/a&gt;
@@ -1071,10 +1071,10 @@ skeleton itself, let me know.&lt;/p&gt;
     
     <item>
       <title>Information Security Reading List</title>
-      <link>http://www.morethanseven.net/2015/05/19/information-security-reading-list/</link>
+      <link>/2015/05/19/information-security-reading-list/</link>
       <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/05/19/information-security-reading-list/</guid>
+      <guid>/2015/05/19/information-security-reading-list/</guid>
       <description>
 
 &lt;p&gt;I read quite a bit (probably a book a week or so) and one of the topics
@@ -1165,10 +1165,10 @@ and it&amp;rsquo;s front line cyber researchers&lt;/li&gt;
     
     <item>
       <title>Acceptance testing MirageOS installs</title>
-      <link>http://www.morethanseven.net/2015/05/09/acceptance-testing-mirageos/</link>
+      <link>/2015/05/09/acceptance-testing-mirageos/</link>
       <pubDate>Sat, 09 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/05/09/acceptance-testing-mirageos/</guid>
+      <guid>/2015/05/09/acceptance-testing-mirageos/</guid>
       <description>
 
 &lt;p&gt;I&amp;rsquo;m pretty interested in &lt;a href=&#34;http://openmirage.org/&#34;&gt;MirageOS&lt;/a&gt; at the
@@ -1246,10 +1246,10 @@ suite for people to verify their installation works.&lt;/p&gt;
     
     <item>
       <title>Automating windows development environments</title>
-      <link>http://www.morethanseven.net/2015/01/02/automating-windows-development-environments/</link>
+      <link>/2015/01/02/automating-windows-development-environments/</link>
       <pubDate>Fri, 02 Jan 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2015/01/02/automating-windows-development-environments/</guid>
+      <guid>/2015/01/02/automating-windows-development-environments/</guid>
       <description>&lt;p&gt;My job at Puppet Labs has given me an excuse to take a closer look at
 the advancements in Windows automation, in particular &lt;a href=&#34;https://chocolatey.org/&#34;&gt;Chocolatey&lt;/a&gt;
 and &lt;a href=&#34;http://boxstarter.org/&#34;&gt;BoxStarter&lt;/a&gt;. The following is very much a work
@@ -1283,10 +1283,10 @@ and configured on a newly up-to-date Windows machine.&lt;/p&gt;
     
     <item>
       <title>Docker, Puppet and shared volumes</title>
-      <link>http://www.morethanseven.net/2014/10/28/docker-puppet-shared-volumes/</link>
+      <link>/2014/10/28/docker-puppet-shared-volumes/</link>
       <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2014/10/28/docker-puppet-shared-volumes/</guid>
+      <guid>/2014/10/28/docker-puppet-shared-volumes/</guid>
       <description>
 
 &lt;p&gt;During one of the openspace sessions at Devopsdays we talked about docker and configuration management,
@@ -1428,10 +1428,10 @@ Lets use that to see our new config file.&lt;/p&gt;
     
     <item>
       <title>Using Puppet with key/value config stores</title>
-      <link>http://www.morethanseven.net/2014/10/12/using-puppet-with-key-value-config-stores/</link>
+      <link>/2014/10/12/using-puppet-with-key-value-config-stores/</link>
       <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://www.morethanseven.net/2014/10/12/using-puppet-with-key-value-config-stores/</guid>
+      <guid>/2014/10/12/using-puppet-with-key-value-config-stores/</guid>
       <description>&lt;p&gt;I like the central idea behind storing configuration in something like
 &lt;a href=&#34;https://github.com/coreos/etcd&#34;&gt;Etcd&lt;/a&gt; rather than lots of files on lots
 of disks, but a few challenges still remain. Things that spring to mind
