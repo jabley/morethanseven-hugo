@@ -63,6 +63,176 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2009/06/04/testing-wsgi-application-urltest/">Testing WSGI Application with Urltest</a>
+      </h1>
+      <span class="post-date">Jun 4, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I found myself wanted something to make writing high level, functional tests for WSGI application easier and quicker. If I liked the term I&rsquo;d call it a domain specific language for testing URLs. Basically I found myself writing a lot of tests like:</p>
+
+<p>pre. def test_404_handler(self):
+response = self.app.get(&lsquo;/does-not-exist&rsquo;, expect_errors=True)
+self.assertEquals(&ldquo;404 Not Found&rdquo;, response.status)</p>
+
+<p>Testing more than a view URLs like this got boring quickly. What I wanted was a short hand syntax for defining this sort of simple test and then running them all individually. So was born <a href="http://github.com/garethr/urltest/tree/master">Urltest</a>. It uses the rather nifty <a href="http://pypi.python.org/pypi/WebTest/0.9">Webtest</a> module and hooks into unittest from the standard library. You&rsquo;re test script then looks a little like:</p>
+
+<p>pre. #!/usr/bin/env python
+from example_app import application
+from urltest import verify_urls
+if <em>name</em> == &ldquo;<em>main</em>&ldquo;:
+urls = (
+{&lsquo;url&rsquo;:&ldquo;/&rdquo;, &lsquo;code&rsquo;:200},
+{&lsquo;url&rsquo;:&ldquo;/bob&rdquo;, &lsquo;code&rsquo;:200},
+{&lsquo;url&rsquo;:&ldquo;/jim&rdquo;, &lsquo;code&rsquo;:404},
+{&lsquo;url&rsquo;:&ldquo;/jim&rdquo;, &lsquo;method&rsquo;: &ldquo;POST&rdquo;, &lsquo;code&rsquo;:405},
+)
+verify_urls(urls, application)</p>
+
+<p>Let me know if you use it as at the moment this is <em>works for me</em> ware, although it&rsquo;s reasonably well tested and commented.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/05/28/another-glue-python-framework-mnml/">Another Glue Python Framework - MNML</a>
+      </h1>
+      <span class="post-date">May 28, 2009 &middot; 3 minute read
+      </span>
+      
+      <p>Although still a big fan of Django, but for some problems I&rsquo;m finding more and more cases where I prefer less code and more freedom. My biggest issue for some types of problems being Django&rsquo;s assumption that you&rsquo;ll be using a relational database, or a database at all. Django wasn&rsquo;t the reason I started using webapp for App Engine stuff, but in doing so I found that webapp often did all that I needed.</p>
+
+<p>So when I small, non appengine project cropped up I started looking at the <a href="http://wiki.python.org/moin/WebFrameworks">different options available</a> and played with a few of them.</p>
+
+<ul>
+<li>I played with Pylons but again got lost in code. I&rsquo;ll probably play with Pylons more in the future and for bigger, team based, projects it looks a good mix of component parts and shared conventions.</li>
+<li>Web.py - I&rsquo;d used web.py before I started with Django (I even wrote a very <a href="http://morethanseven.net/2007/01/03/webphp/">basic PHP clone</a>) and although I still like somethings about it, it felt like more code than was required for what I wanted.</li>
+<li><a href="http://github.com/breily/juno/tree/master">Juno</a> is similar in design to Sinatra but again it wasn&rsquo;t really what I was after this time. I prefer separating my routing from my code and I&rsquo;m not sure I like that it comes with it&rsquo;s own templating engine.</li>
+<li><a href="http://github.com/JaredKuolt/newf/tree/master">Newf</a> was more like it. Basically a hugely stripped down WSGI framework which provides the very basic building blocks. Something to build on perhaps?</li>
+<li><a href="http://github.com/bradleywright/mnml/tree/master">MNML</a> (by an ex-colleague <a href="http://intranation.com/">Brad Wright</a>) is build atop Newf adding a few more features and cleaning up some of the interfaces. My only problems here were that I prefer regex based routes and wanted individual methods for each HTTP verb. The former was a specific design decision Brad had made in order to be able to reverse routes, the later was on the todo list.</li>
+</ul>
+
+<p>So, I set <a href="http://github.com/garethr/mnml/tree/master">about forking MNML to create my own branch</a>. I added extra comments as I was making my way through the code, wrote a few tests to checks thinks worked and allowed for pluggable routing mechanisms. MNML applications look a bit like the following:</p>
+
+<p>pre. from mnml import RegexBasedApplication, RequestHandler, HttpResponse, development_server
+class HelloWorld(RequestHandler):
+def GET (self):
+return HttpResponse(&rdquo;</p>
+
+<p><h1>
+Hello World</p>
+
+<p></h1>
+&ldquo;)
+routes = (
+(r&rsquo;^/$&lsquo;, HelloWorld),
+)
+application = RegexBasedApplication(routes)
+if <em>name</em> == &lsquo;<em>main</em>&lsquo;:
+development_server(application)</p>
+
+<p>If you want to use the token based routing you would substitute in something like the following:</p>
+
+<p>pre. routes = (
+(&lsquo;/&rsquo;, Foo),
+(&lsquo;/myview/:stuff/&lsquo;, Bar)
+)
+application = TokenBasedApplication(routes)</p>
+
+<p>The best bit is that it&rsquo;s only about 350 lines of code, a great deal of which is accounted for by comments. It&rsquo;s also really quite fast - especially using something like spawning to run the WSGI application. The other thing I like is the ease with which you can add WSGI middleware into the mix.</p>
+
+<p>So, if you have a small scale problem where simple and fast beats everything else then have a look and let me know what you think. It will take less time to read the code and tests than it will be read the introductory chapter on whichever larger framework you choose to look at.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/05/25/beyond-basic-web-development/">Beyond Basic Web Development</a>
+      </h1>
+      <span class="post-date">May 25, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I did a talk at the recent barcamp North East on web development tools. Specifically I wanted to talk about the fact that an awful lot of people just use the basic stack of tools they are familiar with. So Microsoft people will just use C#, MSSQL and ISS and lots of people just use PHP, MySQL and Apache. I&rsquo;m not saying their is anything wrong with those tools, but if they are all you have in your tool box you&rsquo;re limited how well designed your software can be.</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=beyondbasicwebdev-090525052654-phpapp02&stripped_title=beyond-basic-web-development" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=beyondbasicwebdev-090525052654-phpapp02&stripped_title=beyond-basic-web-development" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I&rsquo;d knocked the presentation together in my hotel room pretty quickly before heading down to barcamp and the lack of an internet connection meant I didn&rsquo;t have links and didn&rsquo;t cover a few tools I should have. It did seem to have the desired result in any case as several people spoke to me afterwards about wanting to use one of the tools I mentioned for something specific.</p>
+
+<ul>
+<li><a href="http://www.danga.com/memcached/">Memcached</a></li>
+<li>Non relational databases (<a href="http://hadoop.apache.org/hbase/">Hbase</a>, <a href="http://couchdb.apache.org/">Couchdb</a>)</li>
+<li><a href="http://tokyocabinet.sourceforge.net/tyrantdoc/">Tokyo Tyrant</a></li>
+<li><a href="http://httpd.apache.org/docs/2.0/programs/ab.html">Apache Bench</a></li>
+<li><a href="http://integrityapp.com/">Continuous Integration</a></li>
+<li><a href="http://djangoproject.com/">Django</a> (specifically for nearly free admin interfaces)</li>
+<li>Small web servers - <a href="http://nginx.net/">Nginx</a>, <a href="http://code.macournoyer.com/thin/">Thin</a> and <a href="http://pypi.python.org/pypi/Spawning/0.7">Spawning</a></li>
+<li>Message queues - <a href="http://www.rabbitmq.com/">RabbitMQ</a> and <a href="http://stompserver.rubyforge.org/">Stompserver</a></li>
+<li>HTTP tools - <a href="http://www.apsis.ch/pound/">Pound</a>, <a href="http://varnish.projects.linpro.no/">Varnish</a> and <a href="http://www.squid-cache.org/">Squid</a></li>
+<li><a href="http://hadoop.apache.org/core/">Hadoop</a></li>
+</ul>
+
+<p>We also had a good discussion afterwards and people mentioned a few other tools.</p>
+
+<ul>
+<li><a href="http://reductivelabs.com/products/puppet/">Puppet</a></li>
+<li><a href="http://www.nagios.org/">Nagios</a></li>
+<li><a href="http://ganglia.info/">Ganglia</a></li>
+<li><a href="http://www.mortbay.org/jetty/">Jetty</a></li>
+<li><a href="http://lucene.apache.org/solr/">Solr</a></li>
+</ul>
+
+<p>Now it&rsquo;s possible to spend too much time playing with small tools that are likely to be peripheral to the bulk of your application. But the number of stories I&rsquo;ve head of people writing their own messages queuing systems in PHP, or using PHPMyAdmin as an application admin interface or ignoring the fact that their fancy new application only supports a few people at once.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/05/21/universal-ie6-css-and-different-types-of-sites/">Universal Internet Explorer 6 CSS and different types of sites</a>
+      </h1>
+      <span class="post-date">May 21, 2009 &middot; 4 minute read
+      </span>
+      
+      <p>Andy Clarke, as only he can, has started something of a slagging match with his proposals for a <a href="http://forabeautifulweb.com/blog/about/universal_internet_explorer_6_css/">single, central IE6 stylesheet</a>. My first impression was that this is basically a much better version of the browser defaults.</p>
+
+<p>Between backslapping and shouts of heresy there are a few good comments floating on the post so far (I&rsquo;d expect more). But most of them seem to assume only two types of website exist:</p>
+
+<ol>
+<li>Websites for <em>clients</em>. You know, business to business or business to consumer sorts of things. Online stores, radio station websites, newspapers, company brochures, etc.</li>
+<li>Personal blogs</li>
+</ol>
+
+<p>Obviously that covers only a fraction of web pages, but it covers a much larger proportion of web sites. What do I mean by that?</p>
+
+<ol>
+<li>Admin interfaces. Available all over the place and often used by a very small number of people.</li>
+<li>Intranets. If your company default browser isn&rsquo;t IE6 then don&rsquo;t spend more time that you have to supporting it.</li>
+<li>Internal application interfaces. Everything from holiday to payroll to IT helpdesk requests are often built as well apps. Again if the audience using them isn&rsquo;t using IE6 then don&rsquo;t waste you&rsquo;re time.</li>
+</ol>
+
+<p>Most people (ok so this might be my opinion) seem to work within small to medium sized agency style places. Smallish companies need to rely more on employees as part of their marketing effort, younger people tend to be more militant and people working for smaller organisations (like Andy) tend to benefit more from a little celebrity. But that ignores an army of people who work in house or in other types of company that just happen to build top notch web sites or applications. I&rsquo;ve now worked in everything from small agencies, via medium sized agencies to freelance and inhouse. They are all different and all place different types of time pressure on the people involved.</p>
+
+<p>Another argument to be had here is summed up by Sion (<a href="http://twitter.com/sionnnn/status/1872141409">http://twitter.com/sionnnn/status/1872141409</a>)</p>
+
+<blockquote>
+<p>if u write code with all browsers in mind from the offset it doesn&rsquo;t take any longer though? hows that commercially unsound?</p>
+</blockquote>
+
+<p>And this is pretty much how I used to work. But this means ignoring whole swathes of the unsupported parts of CSS2 and in particular CSS3. CSS3 doesn&rsquo;t really allow you to make designs that you couldn&rsquo;t make before (ok, that&rsquo;s a little unfair, maybe) but it does allow you to do what you did before <em>much more efficiently</em>. Multi-column layout stuff, multiple background, rounded corners, opacity, RGBa. Smaller stylesheets are easier and quicker to write, test and maintain. And sometimes the time saved is worth more than the additional overhead of writing and maintaining CSS for IE6. Maybe not for a decent sized consumer project with a reasonable team and a few hundred thousand budget. Maybe not for a local council or government site. But for a surprisingly large range of other types of projects this might be a worthwhile approach.</p>
+
+<p>Something else I think that comes through in many of the comments is that it&rsquo;s often seen as the web designers job to fight for things. So we fight to ensure time is spend on making something accessible. We fight to make sure we use valid code wherever possible. We fight for sensible fallbacks when javascript isn&rsquo;t available. But we also get accused of not being able to see both sides and at times being unrealistic. Worth considering with regards peoples initial reactions to this, mine included.</p>
+
+<p>The only thing I would say to anyone looking to use this is don&rsquo;t create your own version. Use the <a href="http://code.google.com/p/universal-ie6-css/">one from google code</a>. As Andy suggests, do suggest improvements, ideally by making the changes yourself presumably along with a solid test case. The time saving benefits basically disappear if we all have to maintain our own versions, before that means we have to test our own versions.</p>
+
+<p>I&rsquo;m not saying <em>ignore IE6</em>, and neither is Andy (I don&rsquo;t think). I&rsquo;m saying pick your battles. I&rsquo;ve build websites to support everything under the sun. Sometimes it&rsquo;s been absolutely the right thing to do, sometimes in hindsight it&rsquo;s probably been a little bit of wasted time. I&rsquo;m sure you can think of similar times from the sites you&rsquo;ve been involved in.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2009/05/14/back-toon-thinking-digital/">Back in Toon - Thinking Digital </a>
       </h1>
       <span class="post-date">May 14, 2009 &middot; 1 minute read
@@ -200,153 +370,6 @@ And the django view looks something like this:</p>
 <p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRiiHww" /></p>
 
 <p>I hope I keep these features during whatever testing is going on and that they all go live soon. It&rsquo;s a pretty big improvement if you ask me.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/03/22/github-links-lines-code/">Github Links to Lines of Code</a>
-      </h1>
-      <span class="post-date">Mar 22, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>Just saw this and thought it was cool. You can <a href="http://github.com/garethr/booky/blob/08615163198a2b51353aeba07f25ec9ed477d60c/src/booky/lib/builder.py#L17-24">link to a specific line, or set of lines</a> on GitHub. All you need to do is append something like #L17-24 to specify highlighting lines 17 to 24.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/03/21/hacker-posts/">Hacker Posts</a>
-      </h1>
-      <span class="post-date">Mar 21, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>I&rsquo;ve been playing again with App Engine, and going back to an on/off pet project that I&rsquo;ve build variations of for a while.</p>
-
-<p><a href="http://hackerposts.appspot.com"><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRihHww" alt="Hacker Posts"/></a></p>
-
-<p>It&rsquo;s basically a pretty straightforward aggregation platform, taking content from a number of feeds and creating relationships between the items. It&rsquo;s mainly an experiment in creating a decent size site on App Engine - it can be surprising how many urls you can get out of a good corpus of data:</p>
-
-<ul>
-<li>400 items, each with a unique url</li>
-<li>each item has a variable number of tags generated, at the moment that amounts to about 1000 unique urls</li>
-<li>each month and year of content gets a url so that&rsquo;s another 4 or so</li>
-<li>each day for which we have items we also get a url, so that&rsquo;s another 90 or so</li>
-</ul>
-
-<p>So starting off with 1500 or so pages isn&rsquo;t bad. The site also grows over time as new items are posted or I add more feeds. Everything else I&rsquo;ve done with App Engine has been more <a href="http://imified-demo.appspot.com/">application</a> <a href="http://image-host.appspot.com/">focused</a> so seeing how a content site performs is interesting in and of itself.</p>
-
-<p>The data in question I used for this first experiment was the feeds I could find from the <a href="http://news.ycombinator.com/leaders">top posters on Hacker News</a>. Hence the name <a href="http://hackerposts.appspot.com">Hacker Posts</a>. That left me with 35 feeds:</p>
-
-<ul>
-<li><a href="http://www.matasano.com/log/feed/">http://www.matasano.com/log/feed/</a></li>
-<li><a href="http://feeds2.feedburner.com/ThinkGene">http://feeds2.feedburner.com/ThinkGene</a></li>
-<li><a href="http://www.mechanicalrobotfish.com/rss.xml">http://www.mechanicalrobotfish.com/rss.xml</a></li>
-<li><a href="http://feeds.feedburner.com/Cloudknow">http://feeds.feedburner.com/Cloudknow</a></li>
-<li><a href="http://mark.nirv.net/rss">http://mark.nirv.net/rss</a></li>
-<li><a href="http://feeds.feedburner.com/seldomlogical">http://feeds.feedburner.com/seldomlogical</a></li>
-<li><a href="http://feeds.feedburner.com/mattmaroon/AAcm">http://feeds.feedburner.com/mattmaroon/AAcm</a></li>
-<li><a href="http://www.swombat.com/rss.xml">http://www.swombat.com/rss.xml</a></li>
-<li><a href="http://feeds.feedburner.com/woobius">http://feeds.feedburner.com/woobius</a></li>
-<li><a href="http://feeds2.feedburner.com/danieltenner">http://feeds2.feedburner.com/danieltenner</a></li>
-<li><a href="http://www.nilkanth.com/feed/">http://www.nilkanth.com/feed/</a></li>
-<li><a href="http://feeds.feedburner.com/NewCartographer">http://feeds.feedburner.com/NewCartographer</a></li>
-<li><a href="http://inthebox.webmin.com/feed">http://inthebox.webmin.com/feed</a></li>
-<li><a href="http://www.maximise.dk/blog/xml/rss.xml">http://www.maximise.dk/blog/xml/rss.xml</a></li>
-<li><a href="http://www.pchristensen.com/blog/feed/">http://www.pchristensen.com/blog/feed/</a></li>
-<li><a href="http://280north.com/blog/feed/">http://280north.com/blog/feed/</a></li>
-<li><a href="http://tlrobinson.net/blog/feed/">http://tlrobinson.net/blog/feed/</a></li>
-<li><a href="http://www.WhatToFix.com/atom.xml">http://www.WhatToFix.com/atom.xml</a></li>
-<li><a href="http://alexkrupp.typepad.com/sensemaking/atom.xml">http://alexkrupp.typepad.com/sensemaking/atom.xml</a></li>
-<li><a href="http://feeds.feedburner.com/yegg">http://feeds.feedburner.com/yegg</a></li>
-<li><a href="http://scotchi.net/feed/atom/">http://scotchi.net/feed/atom/</a></li>
-<li><a href="http://paulbuchheit.blogspot.com/feeds/posts/default">http://paulbuchheit.blogspot.com/feeds/posts/default</a></li>
-<li><a href="http://www.owenbyrne.com/feed/">http://www.owenbyrne.com/feed/</a></li>
-<li><a href="http://blog.jrock.us/feeds/articles/atom">http://blog.jrock.us/feeds/articles/atom</a></li>
-<li><a href="http://www.kalzumeus.com/feed/">http://www.kalzumeus.com/feed/</a></li>
-<li><a href="http://feeds.feedburner.com/gojomo">http://feeds.feedburner.com/gojomo</a></li>
-<li><a href="http://davidpiccione.com/blog/feed/">http://davidpiccione.com/blog/feed/</a></li>
-<li><a href="http://blog.blinker.net/feed/">http://blog.blinker.net/feed/</a></li>
-<li><a href="http://dambalah.com/feed/">http://dambalah.com/feed/</a></li>
-<li><a href="http://dustincurtis.com/rss.xml">http://dustincurtis.com/rss.xml</a></li>
-<li><a href="http://blog.jodoro.com/feeds/posts/default">http://blog.jodoro.com/feeds/posts/default</a></li>
-<li><a href="http://arantaday.com/blog/feed/">http://arantaday.com/blog/feed/</a></li>
-<li><a href="http://www.allanjosephbatac.com/blog/feed">http://www.allanjosephbatac.com/blog/feed</a></li>
-<li><a href="http://feeds.feedburner.com/offbytwo">http://feeds.feedburner.com/offbytwo</a></li>
-<li><a href="http://feeds.feedburner.com/FoundersBlog-Cluttermecom">http://feeds.feedburner.com/FoundersBlog-Cluttermecom</a></li>
-</ul>
-
-<p>I have a couple of other communities or events that I&rsquo;d like to do the same thing around, as well as a few features I want to add to the underlying software. The nice thing with App Engine is rolling new instances out is as simple as running a command.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/03/19/webapp-custom-filters/">Webapp custom filters</a>
-      </h1>
-      <span class="post-date">Mar 19, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>The webapp framework wish ships with App Engine uses the Django templating system by default, but without Django apps doesn&rsquo;t support the same mechanism for loading template tags and filters. <a href="http://javawonders.blogspot.com/2009/01/google-app-engine-templates-and-custom.html">This is how to do it though</a> using a few webapp.template methods.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/03/18/simple-wsgi-middleware-app-engine/">Simple WSGI Middleware (for App Engine)</a>
-      </h1>
-      <span class="post-date">Mar 18, 2009 &middot; 2 minute read
-      </span>
-      
-      <blockquote>
-<p>WSGI is the Web Server Gateway Interface. It is a specification for web servers and application servers to communicate with web applications (though it can also be used for more than that). It is a Python standard, described in detail in <a href="http://www.python.org/dev/peps/pep-0333/">PEP 333</a>.</p>
-</blockquote>
-
-<p>For Ruby people WSGI is the <a href="http://rack.rubyforge.org/">Rack</a> in Python. In fact it was one of the inspirations behind Rack. Rack descriptions itself as:</p>
-
-<blockquote>
-<p>Rack provides an minimal interface between webservers supporting Ruby and Ruby frameworks.</p>
-</blockquote>
-
-<p>Which I think is a clearer explanation, except in WSGI&rsquo;s case we replace Ruby with Python.</p>
-
-<p>As well as being able to write WSGI middleware for Django or Pylons we can also write WSGI middleware for App Engine applications - which is what I spent some time doing today. For the most part I found the examples and documentation interesting but overkill for what I needed to do. Specifically I wanted a piece of middleware which modified the response content, adding extra content into the response. Most of the examples I found didn&rsquo;t focus on middleware, or where full blown examples making them hard to follow.</p>
-
-<p>So for anyone looking for a simple example of WSGI middleware which adds content into the response here goes. I used the <a href="http://pythonpaste.org/webob/">WebOb</a> framework because it provides a nicer interface to the request and response objects and it&rsquo;s included in the standard App Engine SDK. The following sample middleware simple adds <em>Hello World</em> to the end of every response.</p>
-
-<p>pre. from webob import Request
-class SimpleMiddleware(object):
-&ldquo;Example middleware that appends a message to all 200 html responses&rdquo;
-def <em>init</em>(self, app):
-self.app = app
-def <em>call</em>(self, environ, start_response):
-# deal with webob request and response objects
-# due to a nicer interface
-req = Request(environ)
-resp = req.get_response(self.app)
-# add a string to the end of the body
-body = resp.body + &ldquo;Hello World&rdquo;
-# set the body to the new copy
-resp.body = body
-return resp(environ, start_response)</p>
-
-<p>In reality you might want to append something to a specific place in the response, or introduce conditionals. This is easy enough to do by parsing the initial value of <em>resp.body</em> in the example above.</p>
-
-<p>To use the middleware in your application you simple wrap your current WSGIApplication instance with the middleware class.</p>
-
-<p>pre. application = webapp.WSGIApplication(ROUTES, debug=settings.DEBUG)</p>
-
-<ol>
-<li>add simple middleware
-application = SimpleMiddleware(application)
-run_wsgi_app(application)</li>
-</ol>
-
-<p>WSGI middleware is both a useful place for common functionality to live in your App Engine application as well as being a handy tool for anyone working across multiple Python frameworks to share code.</p>
 
       
     </div>

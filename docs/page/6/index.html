@@ -63,6 +63,167 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2012/01/06/Talking-to-jenkins-from-campfire-with-hubot/">Talking To Jenkins From Campfire With Hubot</a>
+      </h1>
+      <span class="post-date">Jan 6, 2012 &middot; 2 minute read
+      </span>
+      
+      <p>In what turned out to be a productive holiday hacking with languages I&rsquo;d not used before, I got round to writing some coffeescript on node.js. This was more to do with scratching a personal itch that pure experimentation. I had a play with <a href="https://github.com/github/janky">Janky</a> (Github&rsquo;s Jenkins/Hubot mashup) but found it a little opinionated on the Jenkins side, but the campfire integration is excellent. Looking at the Jenkins commands in <a href="https://github.com/github/hubot-scripts/">hubot-scripts</a> though I found those even more opinionated.</p>
+
+<p>The magic of open source though is you can just fix things, then ask nice people if they like what you&rsquo;ve done. I set about writing a few more general commands and lo, the&rsquo;ve been quickly <a href="https://github.com/github/hubot-scripts/pull/23840h">merged upstream</a>.</p>
+
+<p>These add:</p>
+
+<ul>
+<li>A command to list all your Jenkins jobs and the current state</li>
+<li>A command to trigger a normal build</li>
+<li>A command to trigger a build with a list of parameters</li>
+</ul>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRipwAIM" alt="campfire window showing jenkins tasks"/></p>
+
+<p>This was made much easier by first looking at the previous Jenkins commands, and then looking at other scripts in the hubot-scripts repository. The best way of learning a new language/framework is still on the shoulders of others.</p>
+
+<p>I&rsquo;ve got a few other good ideas for Jenkins related commands. I want to add a filter command to the jobs list, both by name and by current state. For longer running jobs I also want to report whether a build is currently running. And then maybe get information about a specific job, like the last few runs or similar. Any other requests or ideas most welcome.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2011/12/31/Ec2-tasks-for-fabric/">EC2 Tasks For Fabric</a>
+      </h1>
+      <span class="post-date">Dec 31, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>For running ad-hoc commands across a small number of servers you really can&rsquo;t beat <a href="http://fabfile.org">Fabric</a>. It requires nothing other than ssh installed on the servers, is generally just a one-line install and requires next to no syntaxtic fluff between you and the commands you want running. It&rsquo;s much more of a swiss army knife to Capistranos bread knife.</p>
+
+<p>I&rsquo;ve found myself doing more and more EC2 work of late and have finally gotten around to making my life easier when using Fabric with Amazon instances. The result of a bit of hacking is <a href="https://github.com/garethr/cloth">Cloth</a> (also <a href="http://pypi.python.org/pypi/cloth">available on PyPi</a>). It contains some utility functions and a few handy tasks for loading host details from the EC2 API and using them in your Fabric tasks. No more static lists of host names that constantly need updating in your fabfile.</p>
+
+<p>Specifically, with a fabfile that looks like:</p>
+
+<pre><code>#! /usr/bin/env python
+from cloth.tasks import *
+</code></pre>
+
+<p>You can run:</p>
+
+<pre><code>fab all list
+</code></pre>
+
+<p>And get something like:</p>
+
+<pre><code>instance-name-1 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-2 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-3 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-4 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-5 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-6 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-7 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+instance-name-8 (xx.xxx.xxx.xx, xxx.xx.xx.xx)
+...
+</code></pre>
+
+<p>And then you could run:</p>
+
+<pre><code>fab -P all uptime
+</code></pre>
+
+<p>And you&rsquo;d happily get the load averages and uptime for all your EC2 instances.</p>
+
+<p>A few more tricks are documented in the <a href="https://github.com/garethr/cloth">GitHub README</a>, including filtering the list by a regex and some convention based mapping to Fabric roles. I&rsquo;ll hopefully add a few more features as I need them and generally tidy up a few things but I&rsquo;m pretty happy with it so far.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2011/12/26/First-experience-building-something-with-clojure/">First Experience Building Something With Clojure</a>
+      </h1>
+      <span class="post-date">Dec 26, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>I nearly always try and grab some time over Christmas to try something new and this year I&rsquo;d been planning on spending some time with Clojure. I have several friends who are big fans, but dipping in and out of a book hadn&rsquo;t really worked. What I needed was an itch to scratch.</p>
+
+<p>I stuck with a domain I&rsquo;m pretty familiar with for this first project, namely building a little web application. It renders a web page, makes HTTP requests, parses JSON into native data structures and does a bit of data juggling. Nothing fancy or overly ambitious, I was mainly interested in picking up the syntax, understanding common libraries and getting something built. Here&rsquo;s what I&rsquo;ve got:</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjBuAIM" alt="Dasboard for Jenkins builds"/></p>
+
+<p>Jenkins has various API endpoints, but most dashboards I&rsquo;ve seen concentrate on showing you the current status of all the builds. This is hugely useful when it comes to the simple case of continuous integration, but I&rsquo;ve also been using Jenkins for other automation tasks, and making extensive use of parameterized builds. What the dashboard above concentrates on is showing recent builds for a specific job, along with the parameters used to run them.</p>
+
+<p>Overall it was a fun project. Clojure made much more sense to me building this application than it had from simple examples. The <a href="http://webnoir.org/">Noir</a> web framework is excellent and proved easy enough to jump into and simple enough that I could read the source code if I was interested in how something worked. The <a href="https://github.com/technomancy/leiningen">Leiningen</a> build tool made getting started, downloading and managing dependencies and running tests and the application itself easy.</p>
+
+<p>What I didn&rsquo;t find particularly appealing was the lack of a strong standard library coupled with the difficulty of tracking down suitable libraries. JSON parsing, dealing with HTTP requests and date handing are very common activities in web programming and all needed me to jump around looking at the best way of dealing with the common case. I settled on <a href="https://github.com/dakrone/clj-http">clj-http</a>, <a href="https://github.com/dakrone/cheshire">chesire</a> and using Java interop for date formatting. clj-http suffered from having lots of forks on GitHub to navigate through. I started with clojure-json before discovering it had been deprecated. And neither clj-time or date-clj appeared to support unix timestamps as far as I could tell from the source. Throw in some uncertainty over the status of clojure-contrib that isn&rsquo;t well documented on the official site and it needs some effort to get started.</p>
+
+<p>The working code for this is already up on <a href="https://github.com/garethr/jenkins-build-list">GitHub</a> and I&rsquo;d be interested in any Clojure experts showing me the error of my ways.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2011/12/13/Setting-puppet-class-using-environment-variables/">Setting Puppet Class Using Environment Variables</a>
+      </h1>
+      <span class="post-date">Dec 13, 2011 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m not sure how novel this approach is but a few folks at work hadn&rsquo;t seen it before so I thought it worth jotting down.</p>
+
+<p>If you have even a small but dynamic set of servers then a problem arises with how those nodes are defined in puppet. A node remember is defined in puppet like so:</p>
+
+<pre><code>node web3.example.com {
+  include web_server
+}
+</code></pre>
+
+<p>The problem is twofold. If you have a growing infrastructure, that list of nodes is going to get quickly out of hand. The other problem is around provisioning new hosts, the obvious approach to which is something like:</p>
+
+<ol>
+<li>Summon new EC2 instance</li>
+<li>Change the node definition to include the new hostname</li>
+<li>Install puppet on instance and so the ssl certificate signing dance</li>
+<li>Run puppet</li>
+</ol>
+
+<p>Step 2 stands out. The others are easily automated, but do you want to automate a change to your puppet manifests and a redeploy to the puppetmaster for a new instance? Probably not.
+Puppet has the concept of an external node classifier which can be used to solve this problem, but another simpler approach is to use an environment variable on the new machine.</p>
+
+<p>Lets say we define our nodes something like this instead:</p>
+
+<p>{% codeblock %}node default {
+case $machine_role {
+frontend: { include web_server }
+backend: { include app_server }
+data: { include db_server }
+monitoring: { include monitoring_server }
+development: { include development }
+default: { include base }
+}
+}{% endcodeblock %}</p>
+
+<p>If a machine runs and sets the $machine_role variable to frontend it includes the web_server class, if that variable equals &lsquo;data&rsquo; it&rsquo;s going to include the db_server class instead. Much cleaner and more maintainable in my view. Now to set that variable.</p>
+
+<p>Facter is the tool used by Puppet to get system information like the operating system or processor count. You can use these facter provided variables anywhere in your manifests. And one way of adding a new fact is via an environment variable on the client. Any environment variable prefixed with FACTER_ will be available in Puppet manifests. So in this case we can:</p>
+
+<pre><code>export FACTER_machine_role=frontend
+</code></pre>
+
+<p>So our steps from above become something like:</p>
+
+<ol>
+<li>Summon new machine</li>
+<li>echo &ldquo;export FACTER_machine_role=backend&rdquo; &gt;&gt; /etc/environment</li>
+<li>Install puppet on instance and so the ssl certificate signing dance</li>
+<li>Run puppet</li>
+</ol>
+
+<p>Much easier to automate. And if you&rsquo;re looking at a box and want to know what it&rsquo;s role is you can check the relevant environment variable.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2011/11/16/Jenkins-parameterized-builds/">Jenkins Parameterized Builds</a>
       </h1>
       <span class="post-date">Nov 16, 2011 &middot; 5 minute read
@@ -249,213 +410,6 @@ end
 <param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=configmanagamentfordevelopmentenvironmentsii-110811103611-phpapp02&rel=0&stripped_title=config-managament-for-development-environments-ii&userName=garethr" /> <param name="allowFullScreen" value="true"/> <param name="allowScriptAccess" value="always"/> <embed name="__sse8828889" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=configmanagamentfordevelopmentenvironmentsii-110811103611-phpapp02&rel=0&stripped_title=config-managament-for-development-environments-ii&userName=garethr" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="595" height="497"></embed> </object></p>
 
 <p>As well as the slides the nice Skills Matter folks have already uploaded the <a href="http://skillsmatter.com/podcast/home/chef-vagrant">videos from the night</a>.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2011/07/31/Vim-with-ruby-support-using-homebrew/">Vim With Ruby Support Using Homebrew</a>
-      </h1>
-      <span class="post-date">Jul 31, 2011 &middot; 1 minute read
-      </span>
-      
-      <p>I&rsquo;ve spend a bit of time this weekend cleaning, tidying and upgrading software on my mac. While doing that I got round to compiling my own Vim. I&rsquo;d been meaning to do this for a while, I prefer using Vim in a terminal to using MacVim, and I like having access to things like <a href="http://www.vim.org/scripts/script.php?script_id=3025">Command-T</a> which requires Ruby support which the inbuild version lacks.</p>
-
-<p>Vim isn&rsquo;t in Homebrew, because Homebrew&rsquo;s policy is to not provide duplicates of already installed software. Enter <a href="https://github.com/adamv/homebrew-alt">Homebrew Alt</a> which provides formulas for anything not allowed by the homebrew policy. As luck would have it a <a href="https://github.com/adamv/homebrew-alt/blob/master/duplicates/vim.rb">Vim Formula</a> already exists. And installing from it couldn&rsquo;t be easier.</p>
-
-<pre><code>brew install https://raw.github.com/adamv/homebrew-alt/master/duplicates/vim.rb
-</code></pre>
-
-<p>As it turns out this failed the first time I ran it because I had an rvm installed Ruby on my path. I reset this to the system version and everything compiled fine.</p>
-
-<pre><code>rvm use system
-</code></pre>
-
-<p>Note also that it&rsquo;s really quite simple to use a different revision or different flags when compiling. Just download that file, modify it, serve it locally (say with a python one line web server) and point brew install at it. Next step, running off head for all the latest and greatest Vim features.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2011/07/24/Jenkins-build-pipeline-example/">Jenkins Build Pipeline Example</a>
-      </h1>
-      <span class="post-date">Jul 24, 2011 &middot; 2 minute read
-      </span>
-      
-      <p>The idea of a build pipeline for web application deployment appears to have picked up lots of interest from the excellent <a href="http://continuousdelivery.com/">Continuous Delivery</a> book. Inspired by that, some nice folks have build an excellent plugin for Jenkins unsurprisingly called the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin">Build Pipeline Plugin</a>. Here&rsquo;s a quick example of how I&rsquo;m using it for one of my projects*.</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRihmQIM" alt="Build pipeline example in Jenkins"/></p>
-
-<p>The pipeline is really just a visualisation of up and downstream builds in Jenkins given a starting point, plus the ability to setup manual steps rather than just the default build after ones. That means the steps are completely up to you and your project. In this case I&rsquo;m using:</p>
-
-<ol>
-<li>Build - downloads the latest code and any dependencies. You could also create a system package here if you like. If successful triggers&hellip;</li>
-<li>Staging deploy - In this case I&rsquo;m using capistrano, but it could easily have been rsync, fabric or triggering a chef or puppet run. If successful triggers&hellip;</li>
-<li>Staging test - This is a simple automated test suite that checks that the site on staging is correct. The tests are bundled with the code, so are pulled down as part of the build step. If the tests pass&hellip;</li>
-<li>Staging approval - This is one of the clever parts of the plugin. This jenkins job actually does nothing except log it&rsquo;s successful activation. It&rsquo;s only run when I press the Trigger button on the pipeline view. This acts as a nice manual gate for a once over check on staging.</li>
-<li>Production deploy - using the same artifact as deployed to staging this job triggers the deploy to the production site again via capistrano</li>
-</ol>
-
-<p>I&rsquo;m triggering builds on each commit too via a webhook. But I can also kick off a build by clicking the button the pipeline view if I need to.</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRi5kQIM" alt="Pipeline example showing build in progress"/></p>
-
-<p>Note that I&rsquo;m only allowing the last build to be deployed given only that one can be checked on staging. Again this is configuration specific to my usage, the plugins lets you operate a number of different ways. There are a number of tweaks I want to make to this, mainly around experimenting with parameterized builds to pass useful information downstream and even allow parrallel execution. For the moment I have the <em>Block build when upstream project is building</em> flag checked on the deploy.</p>
-
-<p> * Yes, this is a one page site. With a 5 step build process in Jenkins including a small suite of functional tests and a staging environment. This is what we call overengineering.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2011/07/07/Varnish-at-refresh-cambridge/">Varnish At Refresh Cambridge</a>
-      </h1>
-      <span class="post-date">Jul 7, 2011 &middot; 1 minute read
-      </span>
-      
-      <p>I did a quick lightning talk at the Refresh Cambridge meetup last night, a very quick introduction to <a href="https://www.varnish-cache.org/">Varnish</a>. Given 10 minutes all I really wanted to do was get people to go away and take a look at it. Lots of folks in the room hadn&rsquo;t come across it before so I think the talk was hopefully well pitched.</p>
-
-<p><iframe src="http://www.slideshare.net/slideshow/embed_code/8531073?rel=0" width="510" height="426" frameborder="0" marginwidth="0" marginheight="0" scrolling="no">
-</iframe>
-Several people asked about slighly dynamic pages and I only got chance to mention support for <a href="https://www.varnish-cache.org/trac/wiki/ESIfeatures">ESI</a> (Edge Side Includes) at the end. Conversation afterwards turned to various parts of the modern web stack and I had a pretty good time being opinionated. Hopefully more of the same next month.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2011/06/30/Django-performance-1-measuring-performance/">Django Performance Patterns 1: Measuring Performance</a>
-      </h1>
-      <span class="post-date">Jun 30, 2011 &middot; 7 minute read
-      </span>
-      
-      
-
-<h2 id="preface">Preface</h2>
-
-<p>As Django has matured it&rsquo;s being used for bigger and bigger projects. At the same time it&rsquo;s also being used by more and more people building relatively simple applications quickly. Everyone&rsquo;s application is different, but I&rsquo;d wager the vast majority of these have a range of common performance problems. Performance is often something only larger teams get to spend time really getting to grips with. This is sometimes because smaller projects can&rsquo;t afford the time, or more often probably that things are thought to be <em>fast enough</em> anyway.</p>
-
-<p>One advantage of using a framework is the sharing of common solutions to common problems that happens as a community forms. In what is hopefully going to be a bit of a series I&rsquo;m going to cover some simple things everyone can do to improve application performance. The patterns are generally applicable, but I&rsquo;m going to focus on Django examples.</p>
-
-<p>I&rsquo;m going to be pretty opinionated about the stack I&rsquo;m using when necessary. I&rsquo;m not looking to compare different web servers or databases or python versions. And I&rsquo;d rather give concrete examples than generalise. If you&rsquo;re using a different stack that&rsquo;s fine, somethings will just work and others will need you to know how to configure the software you&rsquo;ve already chosen. I&rsquo;m also going to focus on a very small and simple to understand application. Most of these techniques scale up just fine, but I feel people don&rsquo;t often use them on smaller projects because they thing you can <em>only</em> use them on larger ones. Or that you won&rsquo;t see much impact on a smaller project. Both of these don&rsquo;t ring true in my opinion and I&rsquo;ll hopefully show why.</p>
-
-<h2 id="measuring-performance">Measuring Performance</h2>
-
-<p>In this first part of the series lets take a quick detour to frame everything else. Lets talk about ways we can measure performance so we can see if the changes we&rsquo;re making have the desired impact. If you&rsquo;re not measuring performance already then start here.</p>
-
-<p>We&rsquo;ll start out looking at a few tools which are useful when taking a view by view approach to analysing performance. These generally ignore the impact of load on the system but because of this are generally easier to understand and read.</p>
-
-<h2 id="django-debug-toolbar">Django Debug Toolbar</h2>
-
-<p>Most Django developers will hopefully already be using the excellent <a href=".">Debug Toolbar</a> It has a number of features relevant to our current quest but the most interesting is the query count. Less queries is nearly always better. That&rsquo;s a whopping generalisation, but looking for unnecessary queries or duplicated queries or particularly slow running queries is a great way of making your application faster. The ORM makes it pretty easy to end up with a querysplosion if you&rsquo;re not paying attention.</p>
-
-<p>It&rsquo;s very simple to install:</p>
-
-<pre><code>pip install django-debug-toolbar
-</code></pre>
-
-<p>The query section shows you the number of queries, the individual queries themselves and the time taken. It&rsquo;s designed to be run in debug mode, so the actual query times will likely be lower in production, but the query that&rsquo;s taking ages in development will probably still be slow when you go live.</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRiB-gEM" alt="Django debug toolbar"/></p>
-
-<h2 id="yslow">YSlow</h2>
-
-<p><a href="http://developer.yahoo.com/yslow/">YSlow</a> is a browser extension for Firefox and Chrome that gives information and recommendations about a number of mainly HTTP, CSS or javascript issues individual pages might have. It will give you a score as well as suggestions for improvement:</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRiC-gEM" alt="YSlow showing a score of 96"/></p>
-
-<p>Also useful is the break down of the number of HTTP requests, and the affect of a primed cache on page loading.</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjpgQIM" alt="YSlow showing http request breakdown"></p>
-
-<h2 id="profiling-middleware">Profiling Middleware</h2>
-
-<p>Sometimes you want to know the very low level calls that go into making a page render. For this you&rsquo;ll want to look at profiling tools. The Django wiki has a <a href="https://code.djangoproject.com/wiki/ProfilingDjango">useful page on profiling</a> which is good if dispiriting reading.</p>
-
-<p>Django Snippets has several profiling middleware, one of which is packaged up in the excellent <a href="http://pypi.python.org/pypi/django-snippetscream">Django Snippetscream</a>. We can install that like so:</p>
-
-<pre><code>pip install django-snippetscream
-</code></pre>
-
-<p>Just include the middleware in your debug environment:</p>
-
-<pre><code>MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + ('snippetscream.ProfileMiddleware',)
-</code></pre>
-
-<p>You can then append ?prof to any of your URLs and instead of seeing the view you&rsquo;ll see something like the following:</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjRiQIM" alt="Profiling view"/></p>
-
-<p>Look at where your code spends it&rsquo;s time and whether you have repeated calls to the same methods and functions. Sometimes getting down to this level of detail is the easiest way of finding the bottleneck in your application.</p>
-
-<h2 id="nginx-logging">Nginx Logging</h2>
-
-<p>Here&rsquo;s the first time I&rsquo;m being opinionated about the stack, by choosing Nginx as my frontend server. I&rsquo;ll talk a little about why this is a good idea later, but for the moment lets concentrate on why this is useful for measuring performance.</p>
-
-<p>Log files are wonderful things, and Nginx has quite a powerful syntax for <a href="http://wiki.nginx.org/HttpLogModule">adding extra information to log files</a>. Note the last line in the definition below.</p>
-
-<pre><code>log_format timed_combined '$remote_addr - $remote_user [$time_local]  '
-      '&quot;$request&quot; $status $body_bytes_sent '
-      '&quot;$http_referer&quot; &quot;$http_user_agent&quot; '
-      '$request_time $upstream_response_time $gzip_ratio';
-</code></pre>
-
-<p>We are adding the entire request time, the time taken by the upstream server (in my case gunicorn) to respond and also the gzip ratio. This is really handy if you&rsquo;re optimising an application already in production. By collecting this data here it&rsquo;s easy to then analyse the logs and pull out things like slow urls or assets not being gzipped effectively.</p>
-
-<h2 id="django-timelog">Django Timelog</h2>
-
-<p>Very similar to the above nginx logging, but implemented as a django 1.3 application (so it can be used in development as well) is one of my projects, <a href="https://github.com/garethr/django-timelog">django-timelog</a>. As well as logging the time taken for each request, django-timelog provides a management command to analyse the resulting log file. It produces output which can show in aggregate the average response time of either views or individual URLs.</p>
-
-<pre><code>+--------------------------+--------+--------+-------+---------+---------+-------+-------+
-| view                     | method | status | count | minimum | maximum | mean  | stdev |
-+--------------------------+--------+--------+-------+---------+---------+-------+-------+
-| boxes.viewsBoxDetailView | GET    | 200    | 9430  | 0.14    | 0.28    | 0.21  | 0.070 |
-+--------------------------+--------+--------+-------+---------+---------+-------+-------+
-| boxes.viewsBoxListView   | GET    | 200    | 66010 | 0.17    | 0.28    | 0.232 | 0.045 |
-+--------------------------+--------+--------+-------+---------+---------+-------+-------+
-| django.views.staticserve | GET    | 200    | 61295 | 0.00    | 0.02    | 0.007 | 0.006 |
-+--------------------------+--------+--------+-------+---------+---------+-------+-------+
-</code></pre>
-
-<p>It&rsquo;s packaged so installation should be straightforward.</p>
-
-<pre><code>pip install django-timelog
-</code></pre>
-
-<p>Again this can be used in a production environment, or it can be used locally while developing. You can also use load testing tools as described in a moment to generate traffic which is then logged.</p>
-
-<h2 id="load-testing">Load Testing</h2>
-
-<p>I&rsquo;m mainly looking for a tool here which can easily generate HTTP traffic in volume, sending a decent number of concurrent requests against your application and returning some useful results. I mainly turn to ab (<a href="http://httpd.apache.org/docs/2.0/programs/ab.html">Apache bench</a>) because it&rsquo;s available everywhere and it&rsquo;s very simple to use.</p>
-
-<p>For example lets hit a site with 100 requests, with requests being sent in batches of 5.</p>
-
-<pre><code>ab -c 5 -n 100 http://www.vagrantbox.es/12/
-</code></pre>
-
-<p>This will print something like the following. For our purposes we&rsquo;re mainly interested in the requests per second value and the mean request time.</p>
-
-<pre><code>Concurrency Level:      5
-Time taken for tests:   1.981 seconds
-Complete requests:      100
-Failed requests:        0
-Write errors:           0
-Total transferred:      328300 bytes
-HTML transferred:       297400 bytes
-Requests per second:    50.47 [#/sec] (mean)
-Time per request:       99.064 [ms] (mean)
-Time per request:       19.813 [ms] (mean, across all concurrent requests)
-Transfer rate:          161.82 [Kbytes/sec] received
-</code></pre>
-
-<p>Load testing is a pretty large topic. For instance even with the above simple example how do we know if 100 requests is enough? (it&rsquo;s not.) Or whether a concurrency of 5 is useful? Often what you&rsquo;re interested in is where your application starts to saturate or where it starts to error. But even without getting bogged down in the details a simple test like this can show changes have had a positive or negative effect. I&rsquo;ll show examples of this as we investigate optimisation techniques.</p>
-
-<p>If you&rsquo;re working on a larger project hopefully you&rsquo;ll have the time to investigate other approaches too. I&rsquo;m quite a fan of using production logs to replay requests for instance, and of using <a href="http://funkload.nuxeo.org/">Funkload</a> for running scenarios under load. I&rsquo;ll hopefully write more about those later. I&rsquo;ve heard good things about <a href="http://tsung.erlang-projects.org/">Tsung</a> as well, <a href="http://www.hpl.hp.com/research/linux/httperf/">HTTPerf</a> is excellent and <a href="http://jakarta.apache.org/jmeter/">JMeter</a> has many fans. I&rsquo;m using ab for examples because it&rsquo;s point and shoot and you probably already have it installed without knowing.</p>
-
-<p>Hopefully that&rsquo;s a useful list of tools to get a baseline of where you&rsquo;re at with performance. The rest of the articles in this series will show approaches to improve performance, and come back to one or more of these tools to confirm we&rsquo;re heading in the right direction.</p>
 
       
     </div>

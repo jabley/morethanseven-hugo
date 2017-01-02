@@ -63,6 +63,153 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2009/03/22/github-links-lines-code/">Github Links to Lines of Code</a>
+      </h1>
+      <span class="post-date">Mar 22, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Just saw this and thought it was cool. You can <a href="http://github.com/garethr/booky/blob/08615163198a2b51353aeba07f25ec9ed477d60c/src/booky/lib/builder.py#L17-24">link to a specific line, or set of lines</a> on GitHub. All you need to do is append something like #L17-24 to specify highlighting lines 17 to 24.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/03/21/hacker-posts/">Hacker Posts</a>
+      </h1>
+      <span class="post-date">Mar 21, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve been playing again with App Engine, and going back to an on/off pet project that I&rsquo;ve build variations of for a while.</p>
+
+<p><a href="http://hackerposts.appspot.com"><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRihHww" alt="Hacker Posts"/></a></p>
+
+<p>It&rsquo;s basically a pretty straightforward aggregation platform, taking content from a number of feeds and creating relationships between the items. It&rsquo;s mainly an experiment in creating a decent size site on App Engine - it can be surprising how many urls you can get out of a good corpus of data:</p>
+
+<ul>
+<li>400 items, each with a unique url</li>
+<li>each item has a variable number of tags generated, at the moment that amounts to about 1000 unique urls</li>
+<li>each month and year of content gets a url so that&rsquo;s another 4 or so</li>
+<li>each day for which we have items we also get a url, so that&rsquo;s another 90 or so</li>
+</ul>
+
+<p>So starting off with 1500 or so pages isn&rsquo;t bad. The site also grows over time as new items are posted or I add more feeds. Everything else I&rsquo;ve done with App Engine has been more <a href="http://imified-demo.appspot.com/">application</a> <a href="http://image-host.appspot.com/">focused</a> so seeing how a content site performs is interesting in and of itself.</p>
+
+<p>The data in question I used for this first experiment was the feeds I could find from the <a href="http://news.ycombinator.com/leaders">top posters on Hacker News</a>. Hence the name <a href="http://hackerposts.appspot.com">Hacker Posts</a>. That left me with 35 feeds:</p>
+
+<ul>
+<li><a href="http://www.matasano.com/log/feed/">http://www.matasano.com/log/feed/</a></li>
+<li><a href="http://feeds2.feedburner.com/ThinkGene">http://feeds2.feedburner.com/ThinkGene</a></li>
+<li><a href="http://www.mechanicalrobotfish.com/rss.xml">http://www.mechanicalrobotfish.com/rss.xml</a></li>
+<li><a href="http://feeds.feedburner.com/Cloudknow">http://feeds.feedburner.com/Cloudknow</a></li>
+<li><a href="http://mark.nirv.net/rss">http://mark.nirv.net/rss</a></li>
+<li><a href="http://feeds.feedburner.com/seldomlogical">http://feeds.feedburner.com/seldomlogical</a></li>
+<li><a href="http://feeds.feedburner.com/mattmaroon/AAcm">http://feeds.feedburner.com/mattmaroon/AAcm</a></li>
+<li><a href="http://www.swombat.com/rss.xml">http://www.swombat.com/rss.xml</a></li>
+<li><a href="http://feeds.feedburner.com/woobius">http://feeds.feedburner.com/woobius</a></li>
+<li><a href="http://feeds2.feedburner.com/danieltenner">http://feeds2.feedburner.com/danieltenner</a></li>
+<li><a href="http://www.nilkanth.com/feed/">http://www.nilkanth.com/feed/</a></li>
+<li><a href="http://feeds.feedburner.com/NewCartographer">http://feeds.feedburner.com/NewCartographer</a></li>
+<li><a href="http://inthebox.webmin.com/feed">http://inthebox.webmin.com/feed</a></li>
+<li><a href="http://www.maximise.dk/blog/xml/rss.xml">http://www.maximise.dk/blog/xml/rss.xml</a></li>
+<li><a href="http://www.pchristensen.com/blog/feed/">http://www.pchristensen.com/blog/feed/</a></li>
+<li><a href="http://280north.com/blog/feed/">http://280north.com/blog/feed/</a></li>
+<li><a href="http://tlrobinson.net/blog/feed/">http://tlrobinson.net/blog/feed/</a></li>
+<li><a href="http://www.WhatToFix.com/atom.xml">http://www.WhatToFix.com/atom.xml</a></li>
+<li><a href="http://alexkrupp.typepad.com/sensemaking/atom.xml">http://alexkrupp.typepad.com/sensemaking/atom.xml</a></li>
+<li><a href="http://feeds.feedburner.com/yegg">http://feeds.feedburner.com/yegg</a></li>
+<li><a href="http://scotchi.net/feed/atom/">http://scotchi.net/feed/atom/</a></li>
+<li><a href="http://paulbuchheit.blogspot.com/feeds/posts/default">http://paulbuchheit.blogspot.com/feeds/posts/default</a></li>
+<li><a href="http://www.owenbyrne.com/feed/">http://www.owenbyrne.com/feed/</a></li>
+<li><a href="http://blog.jrock.us/feeds/articles/atom">http://blog.jrock.us/feeds/articles/atom</a></li>
+<li><a href="http://www.kalzumeus.com/feed/">http://www.kalzumeus.com/feed/</a></li>
+<li><a href="http://feeds.feedburner.com/gojomo">http://feeds.feedburner.com/gojomo</a></li>
+<li><a href="http://davidpiccione.com/blog/feed/">http://davidpiccione.com/blog/feed/</a></li>
+<li><a href="http://blog.blinker.net/feed/">http://blog.blinker.net/feed/</a></li>
+<li><a href="http://dambalah.com/feed/">http://dambalah.com/feed/</a></li>
+<li><a href="http://dustincurtis.com/rss.xml">http://dustincurtis.com/rss.xml</a></li>
+<li><a href="http://blog.jodoro.com/feeds/posts/default">http://blog.jodoro.com/feeds/posts/default</a></li>
+<li><a href="http://arantaday.com/blog/feed/">http://arantaday.com/blog/feed/</a></li>
+<li><a href="http://www.allanjosephbatac.com/blog/feed">http://www.allanjosephbatac.com/blog/feed</a></li>
+<li><a href="http://feeds.feedburner.com/offbytwo">http://feeds.feedburner.com/offbytwo</a></li>
+<li><a href="http://feeds.feedburner.com/FoundersBlog-Cluttermecom">http://feeds.feedburner.com/FoundersBlog-Cluttermecom</a></li>
+</ul>
+
+<p>I have a couple of other communities or events that I&rsquo;d like to do the same thing around, as well as a few features I want to add to the underlying software. The nice thing with App Engine is rolling new instances out is as simple as running a command.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/03/19/webapp-custom-filters/">Webapp custom filters</a>
+      </h1>
+      <span class="post-date">Mar 19, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>The webapp framework wish ships with App Engine uses the Django templating system by default, but without Django apps doesn&rsquo;t support the same mechanism for loading template tags and filters. <a href="http://javawonders.blogspot.com/2009/01/google-app-engine-templates-and-custom.html">This is how to do it though</a> using a few webapp.template methods.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/03/18/simple-wsgi-middleware-app-engine/">Simple WSGI Middleware (for App Engine)</a>
+      </h1>
+      <span class="post-date">Mar 18, 2009 &middot; 2 minute read
+      </span>
+      
+      <blockquote>
+<p>WSGI is the Web Server Gateway Interface. It is a specification for web servers and application servers to communicate with web applications (though it can also be used for more than that). It is a Python standard, described in detail in <a href="http://www.python.org/dev/peps/pep-0333/">PEP 333</a>.</p>
+</blockquote>
+
+<p>For Ruby people WSGI is the <a href="http://rack.rubyforge.org/">Rack</a> in Python. In fact it was one of the inspirations behind Rack. Rack descriptions itself as:</p>
+
+<blockquote>
+<p>Rack provides an minimal interface between webservers supporting Ruby and Ruby frameworks.</p>
+</blockquote>
+
+<p>Which I think is a clearer explanation, except in WSGI&rsquo;s case we replace Ruby with Python.</p>
+
+<p>As well as being able to write WSGI middleware for Django or Pylons we can also write WSGI middleware for App Engine applications - which is what I spent some time doing today. For the most part I found the examples and documentation interesting but overkill for what I needed to do. Specifically I wanted a piece of middleware which modified the response content, adding extra content into the response. Most of the examples I found didn&rsquo;t focus on middleware, or where full blown examples making them hard to follow.</p>
+
+<p>So for anyone looking for a simple example of WSGI middleware which adds content into the response here goes. I used the <a href="http://pythonpaste.org/webob/">WebOb</a> framework because it provides a nicer interface to the request and response objects and it&rsquo;s included in the standard App Engine SDK. The following sample middleware simple adds <em>Hello World</em> to the end of every response.</p>
+
+<p>pre. from webob import Request
+class SimpleMiddleware(object):
+&ldquo;Example middleware that appends a message to all 200 html responses&rdquo;
+def <em>init</em>(self, app):
+self.app = app
+def <em>call</em>(self, environ, start_response):
+# deal with webob request and response objects
+# due to a nicer interface
+req = Request(environ)
+resp = req.get_response(self.app)
+# add a string to the end of the body
+body = resp.body + &ldquo;Hello World&rdquo;
+# set the body to the new copy
+resp.body = body
+return resp(environ, start_response)</p>
+
+<p>In reality you might want to append something to a specific place in the response, or introduce conditionals. This is easy enough to do by parsing the initial value of <em>resp.body</em> in the example above.</p>
+
+<p>To use the middleware in your application you simple wrap your current WSGIApplication instance with the middleware class.</p>
+
+<p>pre. application = webapp.WSGIApplication(ROUTES, debug=settings.DEBUG)</p>
+
+<ol>
+<li>add simple middleware
+application = SimpleMiddleware(application)
+run_wsgi_app(application)</li>
+</ol>
+
+<p>WSGI middleware is both a useful place for common functionality to live in your App Engine application as well as being a handy tool for anyone working across multiple Python frameworks to share code.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2009/03/14/xmpp-and-queues-app-engine-jaiku-not-quite-yet/">XMPP and Queues in App Engine via Jaiku? Not quite yet</a>
       </h1>
       <span class="post-date">Mar 14, 2009 &middot; 2 minute read
@@ -210,107 +357,6 @@ QUEUE_VENDOR_SECRET = &lsquo;SECRET&rsquo;</li>
 <p>I find App Engine a great way of just writing (Python) code and putting it online quickly, and the presentation was aimed at being something of a fanboy ode. During questions afterwards we talked about some of the limitations and cases where App Engine isn&rsquo;t as well suited, and at least a few people were heading off planning on having a play.</p>
 
 <p>The event was good fun and I picked up a few Python related tips and tricks from the other presentations and general conversation. Thanks for everyone who organised and attended the event and to <a href="http://www.realvnc.com/">RealVNC</a> for hosting the talks.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/03/02/quick-dmigrations-update/">Quick dmigrations Update</a>
-      </h1>
-      <span class="post-date">Mar 2, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>I&rsquo;ve finally been getting round to doing a bit of work on <a href="http://code.google.com/p/dmigrations/">dmigrations</a>, the Python based database migration tool we developed at <a href="http://thisisglobal.com">work</a>.</p>
-
-<blockquote>
-<p>dmigrations offers a simple but flexible way of managing changes to the database in your Django projects. It is a replacement for Django&rsquo;s built in syncdb command.</p>
-</blockquote>
-
-<p>I still have some work to do to merge in a number of modifications we&rsquo;ve been running internally for a while but I&rsquo;ve triaged the issues list that had been left alone for too long and merged in a fantastic collection of patches from a few people including Alexander Robbins and <a href="http://chris-lamb.co.uk/">Chris Lamb</a>. Thanks hugely to everyone for these.</p>
-
-<p>Everything is available in <a href="http://code.google.com/p/dmigrations/source/browse/#svn/trunk">trunk in SVN</a> at the moment ahead of me cleaning a few thinks up and updating the download version. I&rsquo;ve added a setup.py file as well ahead of hopefully adding it to the <a href="http://pypi.python.org/pypi">Python Package Index</a>.</p>
-
-<p>I obviously wasn&rsquo;t the only one who had decided to do some work on the project in the last couple of days. <a href="http://www.djangosnippets.org/users/msaelices/">msaelices</a> has just submitted <a href="http://code.google.com/p/dmigrations/issues/detail?id=21">a patch</a> which adds a <a href="http://www.postgresql.org/">PostgreSQL</a> backend. I don&rsquo;t tend to use PostgreSQL personally so if anyone does want to have a look at running dmigrations with the patch I&rsquo;d love to hear about it.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/28/http-debugging-server-django/">HTTP Debugging Server in Django</a>
-      </h1>
-      <span class="post-date">Feb 28, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>I&rsquo;ve been busy building and playing with various HTTP clients recently, mainly due to more playing with RESTful web services. I took a couple of hours out to build something to make my life easier - namely a very simple <a href="http://github.com/garethr/django-http-debug/tree/master">logging HTTP server in Django</a>.</p>
-
-<p>All the application does is accepts HTTP requests and log the results to a file. I&rsquo;ve been using it to make sure the requests I&rsquo;m sending from elsewhere are correct, before pointing the client at a web service that actually does something useful. It supports POST, GET, PUT, DELETE, etc. So far so simple.</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRjSDww" alt="screenshot showing us tailing the logs"/></p>
-
-<p>I ended up using Django mainly because I did most of the work on the train, and I know my way around it pretty well by now. I did originally thing it might have been better to use something simpler but I did end up learning a few new tricks that I&rsquo;ll use for future projects.</p>
-
-<ul>
-<li>In theory <a href="http://code.djangoproject.com/changeset/1807">Django doesn&rsquo;t need a database</a>. While this is true for the most part, the in-built test runner does require a database. One thing I&rsquo;ve talked about before is the usefulness of creating your own custom test runner. If anyone else runs into this specific problem have a look at the <a href="http://github.com/garethr/django-http-debug/blob/0ef82784abfc70cc63444e39f61807675acd5c29/http_debug/lib/nodatabase.py">nodatabase.py</a> file.</li>
-<li>The logging is handled via Python&rsquo;s inbuilt logging module. It has some nifty features (like log rotation, maximum file sizes and different logging levels) but is a little fiddly to get working correctly. Tales abound of log messages appearing multiple times, or permission errors causing problems. At least for this project I think I have everything working. I&rsquo;ll try using this <a href="http://github.com/garethr/django-http-debug/blob/0ef82784abfc70cc63444e39f61807675acd5c29/http_debug/lib/log.py">module</a> on a couple of other projects and maybe spin it off into a small reusable app.</li>
-</ul>
-
-<p>For something that took only a few hours to write it was both good fun and a useful learning tool. And Django proved itself more useful that I though for smaller services like this.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/28/startup-hubs-uk-where-put-one/">Startup Hubs in the UK - Where To Put One?</a>
-      </h1>
-      <span class="post-date">Feb 28, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>I always enjoy reading things by <a href="http://www.paulgraham.com">Paul Graham</a>, even if I&rsquo;d like to be able to disagree with his conclusions on occasion. It&rsquo;s not just that I love <a href="http://www.paulgraham.com/hackpaint.html">Hackers and Painters</a>, but also he often says things like the following that make me smile:</p>
-
-<blockquote>
-<p>hackers are much more constrained by gentlemen&rsquo;s agreements than regulations. If they shake your hand on a promise, they&rsquo;ll keep it. But show them a lock and their first thought is how to pick it.</p>
-</blockquote>
-
-<p>His latest short essay concerns <a href="http://www.paulgraham.com/maybe.html">startup hubs</a> again, something that I&rsquo;m actually pretty interested in, end up talking to <a href="http://imranali.name/">people</a> <a href="http://twitter.com/herbkim">about</a>, but hardly ever writing anything on. Mike over at Techcrunch Uk elicited some good comments last year with a <a href="http://uk.techcrunch.com/2008/07/29/starting-the-campaign-for-the-techhub/">post on the subject</a>. As usual Graham focuses on the US, but what about translating his idea of buying a Startup Hub and applying it to the UK? He sets several criteria for success:</p>
-
-<ul>
-<li>Do you have good weather?</li>
-<li>Do people live downtown, or have they abandoned the center for the suburbs?</li>
-<li>Would the city be described as &ldquo;hip&rdquo; and &ldquo;tolerant,&rdquo; or as reflecting &ldquo;traditional values?&rdquo;</li>
-<li>Are there good universities nearby? Are there walkable neighborhoods?</li>
-<li>Would nerds feel at home?</li>
-</ul>
-
-<p>Lets assume for the moment that the idea would work. Take £15-20million and invest in 30 or so well chosen startups on the condition they move into town. The question is then: <strong>where in the UK would this be most likely to work? And are their any UK specific criteria that would increase the success rate?</strong></p>
-
-<p>Some people might be thinking &ldquo;but no UK city is going to invest £20million in a scheme to encourage startups&rdquo;. Leeds is <a href="http://www.yorkshireeveningpost.co.uk/business-news/Universities-bid-to-help-.4979184.jp">doing just that</a>. Or rather Yorkshire Forward are putting up £35million along with Leeds University putting up £31milion. What are they doing with all that money? They are going to build a big building with it - which is exactly what Graham says won&rsquo;t work.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/24/github-changelog/">GitHub Changelog</a>
-      </h1>
-      <span class="post-date">Feb 24, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>It turns out the guys at GitHub publish the <a href="http://github.com/changelog">commit messages from their work on GitHub</a> itself. If you really have to keep up you can even subscribe to an <a href="http://github.com/changelog.atom">Atom feed</a>.</p>
-
-<p>OK, so this might not be hugely useful. But it <em>is</em> funny, and a just a nice sign of a small company being open in an interesting way. A few of my favourites:</p>
-
-<blockquote>
-<p>mmm pizza&hellip; guard against bad SHAs in Walker#commit</p>
-
-<p>really need to get a handle on this insane testing setup</p>
-
-<p>I guess ff3 linux is the worst browser ever made</p>
-
-<p>dont care</p>
-</blockquote>
 
       
     </div>

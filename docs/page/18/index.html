@@ -63,6 +63,98 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2009/02/10/append-slashes-urls-django/">Append slashes to URLs in Django</a>
+      </h1>
+      <span class="post-date">Feb 10, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>Quick Django pop quiz. Can anyone spot the deliberate mistake in the following url definition? We&rsquo;re trying to define a view called log_viewer and instructing a specific url pattern to render it.</p>
+
+<p>pre. urlpatterns = patterns(&ldquo;,
+(r&rsquo;^log/?$&lsquo;, log_viewer),
+)</p>
+
+<p>In this case our regex matches /log or /log/ using the /? optional pattern. This is because even if we only link to one format we know people will probably visit both, either by entering the URL manually or by linking from an external source.</p>
+
+<p>As far as HTTP is concerned though /log and /log/ are separate URLs, even if they display the same content. The main reason this matters for public facing websites is that our friendly search engine spiders are likely to index both separately, leading to splitting the page rank as well as accusations of duplicate content which might see further erosion of rankings.</p>
+
+<p>The solution is generally to issue a 301 redirect from one format to the other. This tells search engines and people alike that the canonical location for the requested content is elsewhere. You could specify the redirect manually, but this is going to get irritating quickly once you have a few more definitions.</p>
+
+<p>pre. urlpatterns = patterns(&ldquo;,
+(r&rsquo;^log$&lsquo;, redirect_to, {&lsquo;url&rsquo;: &lsquo;/log/&rsquo;}),
+(r&rsquo;^log/$&lsquo;, log_viewer),
+)</p>
+
+<p>Handily Django provides a mechanism to do exactly what we want to do by setting <a href="http://docs.djangoproject.com/en/dev/ref/settings/#append-slash">APPEND_SLASH</a> to True in your settings file. Even better it&rsquo;s switched on by default. So if you don&rsquo;t know much about the intricacies of HTTP you still get the correct behavior. That is unless you specify your URL patterns in the format above.</p>
+
+<p>You see APPEND_SLASH only works if the URL doesn&rsquo;t match a specified pattern. If no pattern match is found it appends a trailing slash and checks for a match again. Because the above pattern matches the pattern without the trailing slash (/log) the desired behavior is never triggered, and the view is rendered at both URLs. So although we want to catch /log and /log/ on the front end, our urls.py definition should actually be:</p>
+
+<p>pre. urlpatterns = patterns(&ldquo;,
+(r&rsquo;^log/$&lsquo;, log_viewer),
+)</p>
+
+<p>Django has lots of useful bits of magic for doing the right thing, but unless you know what they <em>actually</em> do you either end up recreating functionality yourself, or find features don&rsquo;t work in quite the way you thought. It&rsquo;s a good argument for keeping frameworks small whenever possible, and for developers to at least know their way around the code of their respective framework.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/02/07/new-version-radiant-cms-out-today/">New Version of Radiant CMS Out Today</a>
+      </h1>
+      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Via <a href="http://github.com/radiant/radiant/tree/master">tagging a new release</a> on GitHub I see a new version of <a href="http://radiantcms.org/">Radiant</a> (0.7) has been released. Radiant is a really nice CMS for smaller projects, it&rsquo;s used on the official <a href="http://www.ruby-lang.org/">Ruby</a> site and I used it here at one point.</p>
+
+<p>Go check out the <a href="http://radiantcms.org/blog/archives/2009/02/07/radiant-0-7-0---intaglio-release-final/">blog post for the full list of the changes</a>.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/02/07/pdb-and-appengine/">PDB and AppEngine</a>
+      </h1>
+      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>It turns out App Engine breaks the default behaviour of the Python debugger PDB by sending STDOUT to the browser. But with a <a href="http://jjinux.blogspot.com/2008/05/python-debugging-google-app-engine-apps.html">little bit of python</a> you can put it back in.</p>
+
+<p>pre. import sys
+import pdb
+for attr in (&lsquo;stdin&rsquo;, &lsquo;stdout&rsquo;, &lsquo;stderr&rsquo;):
+setattr(sys, attr, getattr(sys, &lsquo;<strong>s</strong>&rsquo; attr))
+pdb.set_trace()</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/02/07/xmpp-and-offline-processing-coming-google-app-engi/">XMPP and offline processing coming to Google App Engine</a>
+      </h1>
+      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Three weeks ago I pondered whether <a href="http://morethanseven.net/2009/01/15/are-xmpp-and-offline-processing-coming-google-app-/">XMPP and offline processing were coming to Google App Engine?</a>. It was a hunch based on the upcoming release of Jaiku on App Engine. I reasoned you couldn&rsquo;t really do it without XMPP and offline processing APIs. Looks like I was right.</p>
+
+<p>Today <a href="http://bitworking.org/news/">Joe Gregorio</a> announced on the <a href="http://googleappengine.blogspot.com/">App Engine Blog</a> an <a href="http://googleappengine.blogspot.com/2009/02/roadmap-update.html">update to the roadmap for the next 6 months</a>; including</p>
+
+<ul>
+<li>Support for running scheduled tasks</li>
+<li>Task queues for performing background processing</li>
+<li>Ability to receive and process incoming email</li>
+<li>Support for sending and receiving XMPP (Jabber) messages</li>
+</ul>
+
+<p>Colour me excited. This could be the point were we start seeing more and more interesting IM interfaces. And this ticks off several of my must haves for App Engine.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2009/02/05/hosting-images-app-engine/">Hosting Images on App Engine</a>
       </h1>
       <span class="post-date">Feb 5, 2009 &middot; 3 minute read
@@ -244,141 +336,6 @@ app.run()</p>
 <p>A good reference for finding out more than is in the <a href="http://ant.apache.org/manual/index.html">manual</a> is the <a href="http://wiki.apache.org/ant/FrontPage">Apache Ant Wiki</a>. More than anything it features real examples that you can learn from which with Ant is definitely the best way to discover new tricks.</p>
 
 <p>I know their are a number of other tools in languages I like more. On occasion I use <a href="http://rake.rubyforge.org/">Rake</a>, <a href="http://savannah.nongnu.org/projects/fab">Fabric</a> and <a href="http://www.capify.org/">Capistrano</a>. I&rsquo;ve looked at <a href="http://www.zedshaw.com/projects/vellum/">Vellum</a> and good old make. I know others who swear by just writing simple bash scripts or using straight Ruby, PHP or Python (or not writing build scripts at all and doing everything by hand. But I like having my build scripts separate and simple. It might not be pretty or fashionable, but Ant does almost perfectly what I want it to do.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/01/20/django-testing-presentation-djugl/">Django Testing Presentation at DJUGL</a>
-      </h1>
-      <span class="post-date">Jan 20, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>The second <a href="http://upcoming.yahoo.com/event/1463406">Django User Group (DJUGL)</a> meeting was last night and was a great success as far as I could tell. Our boardroom at work was chock full of budding Django developers and interested parties - 70 people or so in all. Good work by Rob to get everything back on track at the start of the year and the next event is already planned for the back end of February so I hear. More news soon on the <a href="http://groups.google.com/group/django-london">mailing list</a> hopefully.</p>
-
-<p>Rather unfortunately <a href="http://simonwillison.net">Simon</a> had to pull out at the last minute and I stepped in to do a quick 20 minutes or so talk on writing tests for your Django applications.</p>
-
-<p><div style="width:425px;text-align:left" id="__ss_933741">
-<object style="margin:0px" width="425" height="355">
-<param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=testingdjangoapps-1232444197115958-3&rel=0&stripped_title=testing-django-applications-presentation" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=testingdjangoapps-1232444197115958-3&rel=0&stripped_title=testing-django-applications-presentation" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
-
-<p></div>
-I was rather surprised that only about a third of the people coming along were using Django in some work related capacity, and when I asked who was writing tests for their code a few more hands went down. Very few of the people <em>not</em> using Django at work are writing tests which is unfortunate (and contrasts rather interestingly with my experiences of the Ruby community).</p>
-
-<p>For a presentation done in less than a day while at work I felt it went OK. testing is a hard sell at the best of times and trying to talk to both those without experience of writing tests and at the same time trying to get in a few of the more interesting things we&rsquo;ve done at work was maybe a bit of an ask.</p>
-
-<p>It not being a blog post round here these days unless I include a link to GitHub I did mention a small project last night in the talk - <a href="http://github.com/garethr/django-test-extensions/">Django Test Extensions</a>. It&rsquo;s more just a collection of useful common testing code: additional assertions, custom test runners, etc. Thanks to <a href="http://agileweb.org/">Ross</a> for the last minute patch with a couple of bug fixes as well.</p>
-
-<p>The other two presentations went great. Andrew talking about the South migrations system and Aral talking about real world Google App Engine were both up my street of things I&rsquo;m interested in. We have video of all the talks as well so hopefully that will make it out into the wild at some point once it&rsquo;s been edited.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/01/18/simple-python-jabber-bot/">A Simple Python Jabber Bot</a>
-      </h1>
-      <span class="post-date">Jan 18, 2009 &middot; 3 minute read
-      </span>
-      
-      <p>I&rsquo;ve been knocking together various little instant messaging bots recently, partly as a way to play around with XMPP. As well as using the low level <a href="http://xmpppy.sourceforge.net/">xmppy</a> and <a href="http://code.google.com/p/xmpp4r-simple/">XMPP4R-Simple</a> libraries I&rsquo;ve been having lots of fun with the <a href="http://thpinfo.com/2007/python-jabberbot/">JabberBot</a> framework.</p>
-
-<p>Jabberbot lets you write simple bots incredibly quickly, using simple conventions to determine what commands the bot exposes. It&rsquo;s easier to explain with a simple example. The following bot lets you send the command <em>time</em> to it and returns the current time on the server on which the bot is running. The magic is in the name of the method <em>bot_time</em>. Any methods that start bot_ are automatically exposed as commands for the bot to accept.</p>
-
-<p>You&rsquo;ll need an xmpp server for the bot to connect to but you could always just register an additional google account and use it over gtalk if you wanted to. Personally I&rsquo;m running <a href="http://www.ejabberd.im">ejabberd</a> on a local Ubuntu VM as well for testing.</p>
-
-<p>pre. from jabberbot import JabberBot
-import datetime
-class SystemInfoJabberBot(JabberBot):
-def bot_time( self, mess, args):
-&ldquo;&rdquo;&ldquo;Displays current server time&rdquo;&ldquo;&rdquo;
-return str(datetime.datetime.now())
-username = &lsquo;my-jabberid@jabberserver.example.org&rsquo;
-password = &lsquo;my-password&rsquo;
-bot = SystemInfoJabberBot(username,password)
-bot.serve_forever()</p>
-
-<p>The JabberBot site has a few more examples as well with fancier features. At the recent Last.fm hackday I spent a bit of time knocking together a bot which talks to the Last.fm API (using the <a href="http://code.google.com/p/pylast/">PyLast</a> library for the API backwards and forwards.) I did this mainly as a demonstration of how simple it can be to create a useful command line interface to your API using an instant messaging client.</p>
-
-<p>The code for <a href="http://github.com/garethr/lastbot/tree/master">LastBot</a> is on GitHub. It has a few limitations and doesn&rsquo;t intent to cover anywhere near all the API. When up and running you should be able to talk to it with your IM client. Simply send the user specified in the settings file a message like so:</p>
-
-<p>pre. search {query}</p>
-
-<p>So if you wanted to search for “astley” you would type:</p>
-
-<p>pre. search astley</p>
-
-<p>Which would probably give you:</p>
-
-<p>pre. you probably mean Never Gonna Give You Up by Rick Astley
-<a href="http://www.last.fm/music/Rick_Astley/_/Never_Gonna_Give_You_Up">http://www.last.fm/music/Rick_Astley/_/Never_Gonna_Give_You_Up</a>
-Richard Paul Astley (born February 6, 1966) is an English dance-pop singer,
-songwriter and musician. He was born in Newton-le-Willows, St Helens,
-Lancashire, England. Astley currently resides in Richmond, Surrey with his
-Danish girlfriend, Lene Bausager, and their daughter, Emilie. In 1985, Astley
-was playing the club circuit as a singer with a soul band named FBI, when he
-was seen by the record producer Pete Waterman and persuaded to come to London
-to work at the PWL recording studio.</p>
-
-<p>If the first result that comes back isn’t the one you wanted you can ask for the next result by simply sending next in another message. You can use prev as well to come back through the set.</p>
-
-<p>pre. next</p>
-
-<p>You can always send it a call for help at any time which should return the instructions to you via an IM message.</p>
-
-<p>pre. help</p>
-
-<p>Which should return something like:</p>
-
-<p>pre. Personal LastFM search bot. Useful for looking for tracks you can&rsquo;t
-remember the full name of. Or for findind out who sung a track.
-search: do a search for tracks
-prev: get details about the previous track in the list
-next: get details about the next track in the list</p>
-
-<p>More instructions, and the code behind the bot, can be found in the <a href="http://github.com/garethr/lastbot/tree/master">README</a>.</p>
-
-<p>As developers we spend a lot of time using command line interfaces - mainly for speed and because you can cram a lot of functionality into a small amount of screen real estate. We&rsquo;re increasingly spending time debugging API calls as well and exposing your API calls for use by instant messaging clients has the potential to make development easier. Think of the Python interactive shell or of IRB, but for APIs.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/01/15/are-xmpp-and-offline-processing-coming-google-app-/">Are XMPP and offline processing coming to Google App Engine?</a>
-      </h1>
-      <span class="post-date">Jan 15, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>Google <a href="http://google-code-updates.blogspot.com/2009/01/changes-for-jaiku-and-farewell-to.html">just announced</a> that, once the port of <a href="http://www.jaiku.com">Jaiku</a> to App Engine is complete they will be Open Sourcing the code and stopping official development. I only used Jaiku sporadically in the heady days when everyone had to sign up for a new web 2.0 service every week or be mocked by their colleagues. What really interests me about this move though is what it means for App Engine.</p>
-
-<p>If memory serves <a href="http://www.jaiku.com/blog/2007/08/30/jaiku-from-your-instant-messenger/">Jaiku had an instant message interface</a>. Does that mean App Engine is going to get an XMPP interface?</p>
-
-<p>I&rsquo;m also presuming the original Jaiku application had at least some features powered by offline processing or used a message based architecture behind the scenes? Or used scheduled batch jobs for reporting or data mungling?</p>
-
-<p>All of these issues are high up on the <a href="http://code.google.com/p/googleappengine/issues/list">App Engine issues list</a> and solutions to these two outstanding problems would move App Engine, in my opinion, to being very cool to being very useful. I&rsquo;ve been impressed with the simple, well designed and well documented current set of APIs and I&rsquo;d love to see a few more added for XMPP and offline processing. If the Jaiku code is open source but relies on Google only APIs it would seem a little odd.</p>
-
-<p>So does anyone have any more information on this? Any passing Googlers who can get us an answer?</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/01/14/localbuilder-github/">Localbuilder on GitHub</a>
-      </h1>
-      <span class="post-date">Jan 14, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>One of several little projects I have up and running on <a href="http://github.com">GitHub</a> at present is <a href="http://github.com/garethr/localbuilder/tree/master">LocalBuilder</a>. It&rsquo;s a pretty simple little script which watches for changes in a given directory and when they occur runs a given command. I knocked it together to use to trigger the running of a test suite each time I save files in a project. It&rsquo;s written in Python but you could use it to run commands in any language you like.</p>
-
-<p>It&rsquo;s all pretty simple Python really and is hopefully reasonably commented and tested so if you&rsquo;re interested you can follow along with <a href="http://github.com/garethr/localbuilder/tree/master">the code</a>. If you just want to use the damn thing then:</p>
-
-<pre><code>&lt;code&gt;./localbuilder --path /path/to/watch --command /command/to/execute&lt;/code&gt;
-</code></pre>
-
-<p>It turns out Ruby has a much nicer tool to do this and more in autotest, part of the <a href="http://www.zenspider.com/ZSS/Products/ZenTest/">ZenTest</a> suite of testing tools. I&rsquo;m finding more and more very nice bits of code written in Ruby of late, but that&rsquo;s probably a whole different blog post.</p>
 
       
     </div>

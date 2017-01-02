@@ -63,6 +63,163 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2007/12/26/nice-bits-of-symfony-web-debug-toolbar/">Nice bits of symfony: Web Debug Toolbar</a>
+      </h1>
+      <span class="post-date">Dec 26, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>I <a href="http://morethanseven.net/posts/getting-going-with-symfony/">mentioned previously</a> that I&rsquo;d been playing with the <a href="http://www.symfony-project.org/">symfony</a> framework on a couple of projects and I have to admit to being more and more impressed as I wade in looking for things. I&rsquo;ve worked with enough MVC-like frameworks to know they are all quite similar in more ways than they are dramatically different. So it&rsquo;s the little bits and pieces that win you over.</p>
+
+<p>One of my favourite little bits in symfony has to be the Web Debug Toolbar. When running in development mode you get a little menu floating above your application like so (top right hand corner).</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgSymfonyToolbar.png" alt="Web page showing the symfony web debug toolbar in the top right corner" title="Web page showing the symfony web debug toolbar in the top right corner" /></p>
+
+<p>This gives you all sorts of useful information as you&rsquo;re developing your application - from the number of database queries to the rendering time, with a full logger built in. It&rsquo;s also been particularly useful in learning symfony - being able to follow the entire request through the stack from the logger is really handy when you don&rsquo;t know what is going on.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgSymfonyToolbar2.png" alt="Web page showing the symfony web debug toolbar fully expanded" title="Web page showing the symfony web debug toolbar fully expanded" /></p>
+
+<p>With the increasing use of object relational mapping in web frameworks it&rsquo;s quite easy to end up with a <em>working</em> application on your development box that turns out to absolutely hammer your database when used in the real world by only a few hundred people (I&rsquo;m looking at you tagging). The database utilities, showing the number of queries and the SQL for those queries, is particularly handy for finding bottlenecks here.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgSymfonySQL.png" alt="Web page showing the symfony web debug toolbar SQL view" title="Web page showing the symfony web debug toolbar SQL view" /></p>
+
+<p>I&rsquo;ve not come across something similar in other frameworks, PHP or otherwise. I&rsquo;d be interested to know if similar things do exist for Rails or Django in particular.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/12/23/happy-with-my-eeepc/">Happy with my eeepc</a>
+      </h1>
+      <span class="post-date">Dec 23, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>I like small. I have a macbook rather than a macbook pro because it&rsquo;s smaller. Especially now I&rsquo;m wandering about more often with work (and play) lugging a machine around is less and less appealing. So, armed with that excuse I felt justified in going out and buying a new <a href="http://eeepc.asus.com">Asus Eee PC</a>. I managed to just walk in to <a href="www.microanvika.com/">Micro Anvika</a> in Newcastle and buy one from a bemused staff member who was pretty shocked to find one in stock and not allocated (sorry <a href="http://www.reyhan.org/">Rey</a>).</p>
+
+<p>For anyone who hasn&rsquo;t seen one before, the Eee PC is a tiny linux laptop a little like the One Laptop Per Child machine but aimed more at traditional computer users (at the moment read <em>early adopting geeks</em>). The distro is setup to be pretty user friendly for those pesky Windows users but a little hacking turns it into a pretty darn nice machine.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgEeepcApple.jpg" alt="My new eeepc with an apple logo on the back" title="My new eeepc with an apple logo on the back" /></p>
+
+<p>And yes, I have stuck an apple sticker on back. I&rsquo;m sure that should get some entertained looks next time I&rsquo;m at a relevant event! I think the machine itself is actually pretty good looking, but the default desktop themes are all pretty uninspiring.</p>
+
+<p>I&rsquo;ve stuck with the appliance like IceWM window manager and the launcher application as it makes starting things up from the keyboard with one hand pretty fast. I then jumped into various hidden away files to get the desktop setup how I like. The <a href="http://wiki.eeeuser.com">wiki</a> over on <a href="http://eeeuser.com">eee user</a> has a number of useful tutorials; <a href="http://wiki.eeeuser.com/howto:customizeeasymode">customising easy mode</a> and the debian repo from <a href="http://wiki.eeeuser.com/howto:installruby">a ruby tutorial</a> were particularly handy.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgEeepcDesktop.jpg" alt="Minimal IceWM desktop with Asus Launcher" title="Minimal IceWM desktop with Asus Launcher" /></p>
+
+<p>Still lots more I could install (this is Linux after all) but so far have installed Ruby, Rails, Python, Django, Erlang, MySQL, SQLite, Apache2, PHP5, PEAR and symfony all without a hitch. I do love apt when it just works. I&rsquo;ll try and get Mono and Java on their as well just for completeness when I get a moment.</p>
+
+<p>The only thing I can think of that I&rsquo;ll really miss at the moment is Keynote. It has a VGA out port (which not even the macbook has) which will support a decent resolution for presentations. But Keynote is so pretty and easy to use compared to the alternatives. We&rsquo;ll have to see next time I have to do a presentation.</p>
+
+<p>I can see lots of places (past the obsessive tech geeks like me) where a machine like this will be really interesting. Obviously the low cost of the machine means that schools might just get interested in Linux. For people who prefer a desktop machine as their main computer and only occasionally need a laptop it&rsquo;s a pretty cost effective option. As a machine to experiment with Linux it&rsquo;s pretty useful too - I&rsquo;d recommend being familiar with basic commands on Linux to anyone doing web development work for instance. With so many possible audiences, and what is already a pretty nice machine, Asus might be onto something here.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/12/17/css-uprising/">CSS Uprising</a>
+      </h1>
+      <span class="post-date">Dec 17, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>For those not following along closely I thought it worth highlighting some interesting goings on around the web. <a href="http://www.stuffandnonsense.co.uk/">Andy Clarke</a> put the CSS cat amongst the W3C pigeons with a couple of posts; <a href="http://www.stuffandnonsense.co.uk/malarkey/more/css_unworking_group/">CSS Unworking Group</a> and a following up <a href="http://www.stuffandnonsense.co.uk/malarkey/more/csswg_proposals/">CSSWG Proposals</a></p>
+
+<p>How I&rsquo;ve had a <a href="http://morethanseven.net/posts/css-snapshots-css3-modules-and-an-agile-way-forward/">few ideas</a> myself previously around what I&rsquo;d like to see from the CSS3 working group. I&rsquo;m now avidly following along with <a href="http://www.stuffandnonsense.co.uk/malarkey/comments/csswg_proposals/">the comments</a> and I&rsquo;d urge anyone working even on an occasional basis with CSS to do the same.</p>
+
+<p><a href="http://webkit.org/blog/">Maciej Stachowiak</a> said a few very interesting things in the comments I thought worth commenting on:</p>
+
+<blockquote>
+<p>Being an expert user is not necessarily enough to know how to extend it. A key part of extending a technology is knowing how it works on the inside.</p>
+</blockquote>
+
+<p>I think their-in lies an opportunity. The weight of comments on this issue, and the heat of the argument, would suggest people are interested. But I think a-lot of those interested parties are those working day-in with CSS (rather than on it) and lack this critical information. As a web designer how do I find this information out? Who are the interesting bloggers in the area of standardisation? Is their are good reference site? Or a wiki? Or an active friendly mailing list of people willing to answer simple questions? The web (standards) design community is used to open discussion and debate - whether from blogs or projects like <a href="http://microformats.org">microformats</a>.</p>
+
+<p>You could of course also argue that <em>being an expert implementer is not necessarily enough to know what needs extending. A key part of extending a technology is knowing what is needed first in the real world</em>.</p>
+
+<blockquote>
+<p>But the cost of a serious mistake in a standard is much higher than the cost of an implementation bug.</p>
+</blockquote>
+
+<p>I think this depends on the software in question - what about critical military systems, satellites or space shuttles, power stations, etc. - but I agree in principle. Most web designers do not have the experience of working on this sort of software project. But then Andy is not putting himself up as a project management guru.</p>
+
+<p>Their are obviously strong feelings on both sides of this debate. But something I would be interested to hear - from someone with a standards focus - is whether you think their is a fundamental problem at the moment with regards CSS? If not then why not? If so then what are your ideas for moving forward?</p>
+
+<p>And feel free to say you don&rsquo;t know yet. I think what Andy has done is put down his ideas. If you don&rsquo;t like them then suggest better ones. If that&rsquo;s sticking to the status quo then say why you it feel will work out.</p>
+
+<p>(I&rsquo;ve posted the above in the comments to the original post, but wanted to repeat it here more in the hope of getting more interested people involved in that thread.)</p>
+
+<p>I don&rsquo;t really expect Andy to have the answers to this issue, but by him kicking the discussion off in such a public way the least we can <em>all</em> do is have the debate we need and come up with the solutions for everyone. Especially on the list of <em>getting started with standards</em> links and reading materials alluded to above, if someone has this information but not the time to get it online in a coherent fashion, or to present it to the wider community then please get in touch.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/12/11/using-curl-to-play-with-couchdb/">Using Curl to play with CouchDB</a>
+      </h1>
+      <span class="post-date">Dec 11, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>As a big big fan of all things HTTP, the new <a href="http://www.erlang.org/">Erlang</a> based database, <a href="http://couchdb.org">CouchDB</a>, piqued my interest. With the recent <a href="http://damienkatz.net/2007/11/couchdb_070.html">release of 0.7</a> it&rsquo;s now intended for widespread use. Now I&rsquo;m a fan of databases as long as I don&rsquo;t have to go too near them. SQL, triggers and stored procedures are all a little too close to magic for me.</p>
+
+<p>The reason CouchDB looks particularly good fun was it&rsquo;s build around a REST API using JSON for data transport. I&rsquo;m generally not an acronym guy, but REST, JSON, API and HTTP in one open source piece of code? Sounds like fun to me.</p>
+
+<p>The CouchDB community have built up an already <a href="http://www.couchdbwiki.com/">excellent wiki</a> with all the information you need to get started and get the <a href="http://www.couchdbwiki.com/index.php?title=Installation">software installed</a>. I just used the magic of <a href="http://www.macports.org/">MacPorts</a> but the page covers all the various dependencies and setups (though nothing on their yet about the N800).</p>
+
+<pre><code>&lt;code&gt;sudo port install couchdb&lt;/code&gt;
+</code></pre>
+
+<p>You might then need to set-up a user and some permissions. Again the wiki has more <a href="http://www.couchdbwiki.com/index.php?title=Installation#Security_Considerations">detailed installation instructions</a>. All being well you should then be able to fire up CouchDB:</p>
+
+<pre><code>&lt;code&gt;sudo -u couchdb couchdb&lt;/code&gt;
+</code></pre>
+
+<p>So first things first. Their are getting started code examples on the wiki in all the usual languages so you can just dive in. CouchDB also comes with a few in-build tools which are both pretty attractive and useful. You have a <a href="http://localhost:8888/_utils/browse/index.html">database browser</a>, a full <a href="http://localhost:8888/_utils/couch_tests.html">test suite</a> and a <a href="http://localhost:8888/_utils/shell.html">command shell</a>.</p>
+
+<p><a href="http://curl.haxx.se/">Curl</a>, for those not familiar with it, is a fantastic command line utility for throwing around HTTP requests. I already use it for testing and generally prodding sites but it&rsquo;s absolutely perfect for demonstrating CouchDB. Let&rsquo;s start with creating a database called <em>test</em>:</p>
+
+<pre><code>&lt;code&gt;curl -X PUT http://localhost:8888/test/&lt;/code&gt;
+</code></pre>
+
+<p>That should have created the database. Let&rsquo;s get some information back about the database:</p>
+
+<pre><code>&lt;code&gt;curl -X GET http://localhost:8888/test/&lt;/code&gt;
+</code></pre>
+
+<p>Everything should be returning JSON strings telling us something about what it finds. Let&rsquo;s add a blank document to the database:</p>
+
+<pre><code>&lt;code&gt;curl -X POST http://localhost:8888/test/ \
+-H &quot;Content-Type: application/json&quot; -d {}&lt;/code&gt;
+</code></pre>
+
+<p>Note the blank JSON object <em>{}</em> passed as Post data. What about retrieving a list of document from the database?</p>
+
+<pre><code>&lt;code&gt;curl -X GET http://localhost:8888/test/_all_docs&lt;/code&gt;
+</code></pre>
+
+<p>We&rsquo;re now done with that database so let&rsquo;s delete it.</p>
+
+<pre><code>&lt;code&gt;curl -X DELETE http://localhost:8888/test/&lt;/code&gt;
+</code></pre>
+
+<p>I&rsquo;ve just done the basics here, but the APIs are simple and nicely documented enough for you easily to find out more. This is the beauty of RESTfully designed APIs, they are just about self documenting. For the most part you just have a predefined HTTP method and a defined URL.</p>
+
+<ul>
+<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_View_API">HTTP View API</a></li>
+<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_Doc_API">HTTP Doc API</a></li>
+<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_Db_API">HTTP DB API</a></li>
+</ul>
+
+<p>The Erlang base of CouchDB makes for some interesting horizontal scaling possibilities (as well as a good excuse to play with Erlang.) Even if CouchDB wasn&rsquo;t cool enough already, it comes with probably the best start-up message I&rsquo;ve seen in software for ages:</p>
+
+<pre><code>&lt;code&gt;CouchDB has started. Time to relax.&lt;/code&gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2007/12/08/insert-dojo-and-yui-bookmarklets/">Insert Dojo and YUI bookmarklets</a>
       </h1>
       <span class="post-date">Dec 8, 2007 &middot; 1 minute read
@@ -229,130 +386,6 @@ print &lsquo;Archived &rsquo; + str(tweets) + &lsquo; of &rsquo; + username + <b
 <p>Some good coverage around of <a href="http://ben-ward.co.uk/journal/ajaxising/">both</a> <a href="http://www.blackphoebe.com/msjen/2007/11/london-day-6-future.html#more">conferences</a> and I know my first impression was basically <em>this way lies madness</em>. But it would have been more interesting had their been a few more Java people around to argue with.</p>
 
 <p>Note that I&rsquo;m not advocating a Google like disregard for the web here. Markup really matters, I happen to disagree with <a href="http://crockford.com/">Douglas</a> and think CSS rocks and I love writing Javascript. But should we just learn Java anyhow and try to subvert some of the existing tools to be more web like?</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/11/17/joost-developer-day/">Joost Developer Day</a>
-      </h1>
-      <span class="post-date">Nov 17, 2007 &middot; 4 minute read
-      </span>
-      
-      <p>I spent yesterday afternoon over with <a href="http://joost.com">Joost</a> in London as part of their UK developer day. The event was mainly for them to show off their new widget platform and to get some input from prospective developers about what they would like to see next. About 20 people or so came along from the BBC, Ebay and a couple of london agencies, with me and <a href="http://tommorris.org/">Tom</a> loitering around the edges. The afternoon was split into a series of short talks from people on the team. What follows is some of the interesting bits.</p>
-
-<p>Joost describe themselves as <em>The Best of the Internet and best of TV</em>, if you haven&rsquo;t seen it yet it&rsquo;s basically TV running on the Mozilla platform. All in all pretty impressive. <a href="http://danbri.org">Dan Brickley</a> had a different slant, seeing Joost as Web 2.0 +/- 1 <em>Built and extended with modern web technology, modern web attitude</em>. The idea of taking an unashamedly desktop piece of software and learning lessons from the web is pretty interesting.</p>
-
-<p>The <a href="http://dev.joost.com">Joost development site</a> is now public, although not linked to from the main site as yet. Their is some documentation of the various APIs but we can expect more in the future, including some videos from the developer days in a development channel.</p>
-
-<p>The main emphasis for developers at this moment was on overlays and widgets (<em>little bundles of web technology</em>) which integrate with the Joost client. We got a sneak peak (and a chat with some of the developers) of the first commercial Joost widget for Coca Cola - <a href="http://cokebubbles.com">Coke Bubbles</a> and <a href="http://www.ilrt.bris.ac.uk/~ecemm/">Libby Miller</a> and <a href="http://jibbering.com">Jim Ley</a> showed off a few of the default widgets.</p>
-
-<p>The most interesting bits from my point of view were to do with the technology. Joost has an interesting advantage as a platform being a single, dedicated client. No more cross browser testing here. They also keep pretty close to trunk for Mozilla, which gives them quite a bit of CSS3 support too. You can also try out other new technologies not available in too many browsers yet: SVG, RDF, Canvas and E4X for example. This was the second time in a few days I&rsquo;d seen SVG pushed as cool, the first being at Future of Mobile which I&rsquo;ll jot down some thoughts on later.</p>
-
-<p>What was interesting was that the people along from the development team came from a W3C background rather than say an product development or design companies. Joost makes extensive use of Semantic Web technologies under the hood and exposes quite a bit of RDFa if you go looking for it. It also follows along with various other web-like ideas, unique URLs for channels and programmes, including the ability to pass these parameters for instance to deep link into a video at a current time. The widget platform as well is starting to align with standards work going on at the W3C - we saw a quick demo of a widget build for the Opera browser which worked seamlessly with Joost too. The development team are now working on dealing with signed widgets, local storage APIs, interwidget communication, as well as usable, clear privacy models. All pretty interesting.</p>
-
-<p>Some of the event was hampered by a shoddy internet connection but the general mood was relaxed and friendly and no one seemed to mind too much. The beer probably helped. I did chuckle when a senior alternative marketing guy from Coke described as <em>Insane</em> the typical agency setup though (rich guy in Notting Hill -&gt; account manager -&gt; project manager -&gt; developers).</p>
-
-<p>Their will be a Coke sponsored widget competition announced after the rest of the developer days (in Amsterdam and New York) with the title of <em>International widgets champion of Joost</em> up for grabs along with some cash and <em>a t-shirt</em>.</p>
-
-<p>My only real complaint was probably the low level mutterings about Javascript! Audience members and Joost developers alike made a couple of digs during the course of the day. Javascript rocks, people. Oh well, I&rsquo;m back in London for <a href="http://vivabit.com/atmediaAjax">@media Ajax</a> where I don&rsquo;t think I&rsquo;ll have that problem.</p>
-
-<p>If any of this sounds interesting (or you just want to watch more TV) I&rsquo;d recommend having a look through the <a href="http://dev.joost.com">development site</a>, jumping on the joost-dev freenode IRC channel, signing up to the <a href="http://groups.google.com/group/joost-dev">mailing list</a> or reading the <a href="http://blogs.joost.com/dev">development teams blog</a>.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/11/12/activity/">Activity</a>
-      </h1>
-      <span class="post-date">Nov 12, 2007 &middot; 1 minute read
-      </span>
-      
-      <p>Sorry, shameless <em>what&rsquo;s going on</em> post for historical posterity.</p>
-
-<p>Before that starts thought here are a couple of useful microformatted schedules for <a href="http://future-of-mobile.com">Future of Mobile</a> and <a href="http://vivabit.com/atmediaAjax/">@media Ajax</a> created by the really rather handy <a href="http://dmitry.baranovskiy.com/work/csc/">Conference Schedule Creator</a>. Hat tip to <a href="http://adactio.com">Jeremy</a> and <a href="http://suda.co.uk">Brian</a> for the lovely styles.</p>
-
-<ul>
-<li><a href="http://morethanseven.net/presents/schedules/future-of-mobile-07/">Future of Mobile Conference Schedule</a></li>
-<li><a href="http://morethanseven.net/presents/schedules/atmedia-ajax-07/">@media Ajax Conference Schedule</a></li>
-</ul>
-
-<p>I&rsquo;m spending the next few weeks circling London, first up attending <a href="http://future-of-mobile.com">Future of Mobile</a>, on to <a href="http://upcoming.yahoo.com/event/313568/">Pubstandards</a> and then popping in to see <a href="http://dev.joost.com/">Joost</a>. After a short break I&rsquo;ll be back for <a href="http://vivabit.com/atmediaAjax/">@media Ajax</a> and <a href="http://barcamp.org/BarCampLondon3">BarCamp London</a>. Throw in a few business meetings and we&rsquo;re all set. I even have new <a href="http://moo.com">Moo</a> cards.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgWebGeek.jpg" alt="Web Geek Moo cards" title="Web Geek Moo cards" /></p>
-
-<p>If you&rsquo;re around at any of these events, or just happen to be in London, and are one of the two people who read such self serving ramblings as this let me know and we can <a href="http://foamee.com/">drink beer</a>. Actually scratch that. Due to the wonder of <a href="http://dopplr.com">Dopplr</a> <a href="http://dopplr.com/traveller/garethr">I</a> already know where you&rsquo;re going to be.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/11/07/some-useful-mobile-web-design-links/">Some useful mobile web design links</a>
-      </h1>
-      <span class="post-date">Nov 7, 2007 &middot; 2 minute read
-      </span>
-      
-      <p>Earlier in the year I set aside some time to get my head into the mobile web. Most of this was reading and tinkering. Since then I&rsquo;ve pointed a number of people (including clients and people in the pub) towards some or all of the following links. A good starting point for anyone starting to get interested in the mobile web.</p>
-
-<p>A good starting place is <a href="http://mobilewebbook.com/">Mobile Web Design</a> by Cameron Moll which is available as a PDF, and now as a <a href="http://www.lulu.com/content/1281648">hard copy from lulu</a>. Definitely worth your while. If you&rsquo;re not convinced then you can read the <a href="http://www.cameronmoll.com/archives/000398.html">original series of articles</a> to get started.</p>
-
-<p>The <a href="http://www.w3.org/TR/mobile-bp">Mobile Web Best Practices 1.0</a> from the W3C Mobile Web Initiative and <a href="http://www.passani.it/gap">Global Authoring Practices for the Mobile Web</a> are more good starting points, this time with more of an implementation focus. <a href="http://www.blueflavor.com/">Blue Flavor</a> also have an intersting presentation you can download on the subject of <a href="http://www.blueflavor.com/presentations/DesigningforMobile.pdf">Designing for Mobile</a></p>
-
-<p>Once you have a basic understanding, or if you just want <em>the facts</em> then check out <a href="http://www.thewirelessfaq.com/">The Wireless FAQ</a>. Everything from <a href="http://www.thewirelessfaq.com/in_short_what_is_wap">What is WAP?</a> up to <a href="http://www.thewirelessfaq.com/nokia_s60_wap_browser_cursor_skip_some_links_on_my_wap_site_what_is_wrong">Nokia S60 WAP browser cursor skip some links on my WAP site! What is wrong?</a> is in there somewhere.</p>
-
-<p>If you&rsquo;re too busy to be reading everything written about mobile, or just prefer listening to the voice of <a href="http://www.boagworld.com/">Paul Boag</a>, then have a listen to <a href="http://www.boagworld.com/archives/2007/10/show_96_moll_on_mobile.html">Boagworld episode 96</a>. Heidi Pollock at the recent <a href="http://futureofwebapps.com">Future of Web Apps</a> was also excellent, especially if you let your numbers. You can get the <a href="http://www.slideshare.net/heidipollock/heidi-pollock-fowa-07/">presentation</a> and <a href="http://cdn.libsyn.com/carsonsystems/heidi_pollock.mp3">audio</a> of the talk now.</p>
-
-<p>If you have still have questions after reading a few good articles or books then their are a couple of high quality mailing lists, namely <a href="http://tech.groups.yahoo.com/group/wmlprogramming/">wmlprogramming</a> and <a href="http://tech.groups.yahoo.com/group/mobiledesign/">mobiledesign</a>. It&rsquo;s worth being subscribed to both, thought their is quite a bit of audience cross over.</p>
-
-<p>The <a href="http://mtld.mobi">.mobi site</a> also has lots of useful information regarding mobile. Whether you buy into the need for a new top level domain or not it&rsquo;s worth reading.</p>
-
-<p>Lots of reading to get you started and not one mentioned of the iPhone&hellip;</p>
-
-<p>Have any other good links for getting started in the mobile web? Leave a comment with further suggestions.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/11/04/css-snapshots-css3-modules-and-an-agile-way-forwar/">CSS Snapshots, CSS3 Modules and an Agile Way Forward</a>
-      </h1>
-      <span class="post-date">Nov 4, 2007 &middot; 4 minute read
-      </span>
-      
-      <p>The state of CSS has been a common topic of conversation this year. Ever since <a href="http://www.andybudd.com">Andy Budd</a> stirred things up at <a href="http://thehighlandfling.com">The Highland Fling</a> about <a href="http://thehighlandfling.com/sessions/the-future-of-css/">The Future of CSS</a> and followed up with a <a href="http://www.andybudd.com/archives/2007/05/css22/">call for CSS 2.2</a> we&rsquo;ve been wanting more.</p>
-
-<p>Well, in response to all this the CSS3 working group have released <a href="http://www.w3.org/TR/css-beijing/">CSS Snapshot 2007</a> as a working draft. CSS3, in theory, has a modular structure. The idea behind this was that individual pieces could be worked up, specified and released without having to work on the whole thing at once. Sounds a lot like iterative development to me. The problem is we haven&rsquo;t, until now, had a stable <em>release one</em> of CSS3.</p>
-
-<blockquote>
-<p>At the time this specification enters Candidate Recommendation, Cascading Style Sheets (CSS) is defined by the following specifications:</p>
-</blockquote>
-
-<ul>
-<li>CSS Level 2 Revision 1 (including errata)</li>
-<li>Selectors Level 3</li>
-<li>CSS Namespaces</li>
-<li>CSS Color Level 3</li>
-</ul>
-
-<p>So (at least when this document reaches Candidate Recommendation at some unknown point in the future), we can get on and use all those selectors we keep eyeing up. Colors and Namespaces are not particularly interesting, at least to me, but useful non-the-less. CSS2.1 is important as a baseline going forward, especially for the browser makers, rather than being particular interesting for the jobbing web designer.</p>
-
-<p>The problems come when we look at some of the features we want, and the modules they are part of. Andy specifically references <a href="http://andybudd.com/archives/2007/10/snapshot_2007_i/">text-shadow</a> as something that&rsquo;s already got more than two sample implementations but is part of the <a href="http://www.w3.org/TR/css3-text/">Text module</a> which we won&rsquo;t see for a while due to it&rsquo;s complexity. (As a side note text-shadow was formerly part of CSS2.1 but got dropped due to lack of implementations at the time.) <a href="http://my.opera.com/dstorey/blog/">Dave Storey</a> summed this problem up nicely over on <a href="http://www.css3.info/css-snapshot-2007-released-as-a-working-draft/#comment-59776">CSS3.info</a></p>
-
-<blockquote>
-<p>I guess this is due to not wanting to put partial parts of a module in this snapshot. Iâ€™d like to see another snapshot draft in around six months that includes full or partial modules that have progressed since the time this snapshot was published.</p>
-</blockquote>
-
-<p>From a quick look at the <a href="http://www.w3.org/Style/CSS/current-work">current work</a> of the CSS working group I count six modules at candidate recommendations, six at last call, twenty three at working draft and six not yet started. If modules really are discrete blocks then this to me looks like a recipe for disaster. If modules aren&rsquo;t discrete blocks then why are they divided into modules? Rather than focus on shipping modules it appears that the effort of the working group has been spread out across nearly the whole spectrum of CSS3. This pretty much invalidates the idea of a modular approach.</p>
-
-<p>CSS3 is a big project. And specification, like software, is hard. In well organised and managed agile software teams it&rsquo;s common to split things down into features, or groups of features (modules). The CSS working group did this. In a well managed agile team shipping something early is hugely important. Everyone focuses on that goal, rather than on their favorite part of the project that might not be needed until later on. The CSS working group definitely didn&rsquo;t do that. But it&rsquo;s what I think is needed now.</p>
-
-<p>The working group are now <a href="http://xhtml.com/en/css/conversation-with-css-3-team/">starting to talk</a> more openly about what they are up to. And the <a href="http://csseleven.com/">CSS Eleven</a> are looking to add some support from a web design industry point of view. I&rsquo;m interested to see what they come up with as suggestions and support. The problem I see is that, unless the working group back down on the strict nature of the modules and define sub-modules or simply go to specifying features then we could hit an impasse. The best course of action (from a complete outsider anyhow) would be to get all the people from the working group and from the CSS Eleven working on one module at a time. Only once a little momentum has been built up maybe they could work on more than one at once, just not thirty five this time. All of that would take some hefty project management and some setting aside personal and organisational politics to get done. Fingers crossed.</p>
-
-<p>I actually think things are looking up, but time is certainly a factor here. Lets assume IE.next is released late next year or the start of 2009 (wild speculation). If the <a href="http://blogs.msdn.com/ie/">Internet Explorer team</a> implement to the current specs at that time - that could easily not include CSS Snapshot 2008, which would be reaching candidate recommendation around about the same time as they ship. Which could in theory mean it&rsquo;s four years or more before we see text-shadow well supported. Never mind elements of CSS3 which currently have no reference implementations at all! Anyone else with any bright idea? Or insider info that you want to share?</p>
 
       
     </div>

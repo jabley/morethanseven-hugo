@@ -63,6 +63,143 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2010/04/24/Devops-at-barcamp-cambridge/">Devops At Barcamp Cambridge</a>
+      </h1>
+      <span class="post-date">Apr 24, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;m at barcamp cambridge this weekend and decided to do a short talk on devops. It&rsquo;s still a term that not too many people have come across and something that lots of people building websites should think about.</p>
+
+<p><object width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=devops-100424081210-phpapp02&stripped_title=devops-3839400" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=devops-100424081210-phpapp02&stripped_title=devops-3839400" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I put the slides together this morning so much of it will be familiar to people who have been reading the same blog posts as me over the last year or so. For anyone else either just finding out about the whole world of operations or old hand sysadmins finding likeminded people hopefully the slides will be useful.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/04/19/Dibi-twitter-aggregator/">DIBI Twitter Aggregator</a>
+      </h1>
+      <span class="post-date">Apr 19, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>So, <a href="http://dibiconference.com/">DIBI</a> is just over a week away and lots of people seem to be getting excited. Personally I&rsquo;m really looking forward to it. I get a nice trip back up to my old home of Newcastle and get to talk geek to an audience of likeminded (and not so likeminded) web professionals. I&rsquo;m also going to catch up with quite a few people I haven&rsquo;t seen in quite a while.</p>
+
+<p>Anyway, Twitter is at it&rsquo;s best at conferences like this. It&rsquo;s perfect for the <em>where to go now</em> situation. But I also like going back in time after the fact and looking at what people said, especially to get feedback about my talk. With that in mind I&rsquo;ve build a <a href="http://dibiconf.appspot.com/">little aggregator</a> for all things #dibi. So far that appears to be a mixture of excitement and travel chaos.</p>
+
+<p>I specifically wanted something that ran on the server, which discounted an awful lot of pure javascript versions. I think Twitter clients generally do a good job of the <em>right now</em> anyway. I also like to collect data for mining later, assuming I have the time. After a number of discussions on Twitter, then just some wandering around GitHub I found <a href="http://github.com/steffentchr/twitterengine">TwitterEngine</a> which is fantastic. I&rsquo;ve hacked it around quite a bit into something more general purpose. I&rsquo;ve added some caching, some other App Engine performance tweaks and some monitoring. I&rsquo;ll commit those to GitHub when I get the chance. I&rsquo;d forgotten quite how much fun App Engine development was.</p>
+
+<p>I still want to add a few more features before the conference. The styles work quite well on my Android but less well (text too small) on my iPod Touch. So I&rsquo;ll fix that first. Any other requests?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/04/05/Hadoop-hive-web-interface/">Hadoop Hive Web Interface</a>
+      </h1>
+      <span class="post-date">Apr 5, 2010 &middot; 3 minute read
+      </span>
+      
+      <p>I&rsquo;ve been playing with Hive recently and liking what I&rsquo;ve found. In theory at least it provides a very nice, simple way of getting into analysing large data sets. To make it even easier to show other people what you&rsquo;re up to Hive has a nascent web interface with a little documentation <a href="http://wiki.apache.org/hadoop/Hive/HiveWebInterface">on the wiki</a></p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRiBfQw" alt="image of hive web ui"/></p>
+
+<p>On the one hand it&rsquo;s rather simple at this point, but that should be easily enought to prettify given a bit of time. The bigger problem was getting it working in the first place. What follows worked for me using the latest cloudera packages on debian testing. I&rsquo;m assuming you already have Hive and Hadoop installed, the basic packages worked fine for me here.</p>
+
+<p>Next up you&rsquo;ll need the JDK (not just the JRE) as their is some compilation that will go on the first time you run the web interface.</p>
+
+<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
+apt-get install ant sun-java6-jdk
+&lt;% end %&gt;</p>
+
+<p>Next up I had to modify the installed <em>/etc/hive/conf/hive-site.xml</em> file as follows:</p>
+
+<p>I changed this:</p>
+
+<p>&lt;% syntax_colorize :xml, type=:coderay do %&gt;
+<property>
+  <name>hive.metastore.uris</name>
+  <value>file:///var/lib/hivevar/metastore/metadb/</value>
+  <description>Comma separated list of URIs of metastore servers. The first server that can be connected to will be used.</description>
+</property>
+&lt;% end %&gt;</p>
+
+<p>To this. Note the hivevar path doesn&rsquo;t exist so I&rsquo;m not sure if this was a typo in the source.</p>
+
+<p>&lt;% syntax_colorize :xml, type=:coderay do %&gt;
+<property>
+  <name>hive.metastore.uris</name>
+  <value>file:///var/lib/hive/var/metastore/metadb/</value>
+  <description>Comma separated list of URIs of metastore servers. The first server that can be connected to will be used.</description>
+</property>
+&lt;% end %&gt;</p>
+
+<p>I also change the following section regarding the metastore name:</p>
+
+<p>&lt;% syntax_colorize :xml, type=:coderay do %&gt;
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:derby:;databaseName=/var/lib/hive/metastore/${user.name}_db;create=true</value>
+  <description>JDBC connect string for a JDBC metastore</description>
+</property>
+&lt;% end %&gt;</p>
+
+<p>To this, with a fixed name. When using the above confirguration the file was actually called ${user.name} rather than my username being subsituted in. Elsewhere this seems to work fine.</p>
+
+<p>&lt;% syntax_colorize :xml, type=:coderay do %&gt;
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:derby:;databaseName=/var/lib/hive/metastore/metastore_db;create=true</value>
+  <description>JDBC connect string for a JDBC metastore</description>
+</property>
+&lt;% end %&gt;</p>
+
+<p>I&rsquo;m not convinced the above two changes are needed but have left them here just in case. The main tricky part is making sure a load of environment variables are correctly set. The following worked for me:</p>
+
+<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
+export ANT_LIB=/usr/share/ant/lib
+export HIVE_HOME=/usr/lib/hive
+export HADOOP_HOME=/usr/lib/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
+&lt;% end %&gt;</p>
+
+<p>All being well that should allow you to run the hive command with the web interface like so:</p>
+
+<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
+hive &ndash;service hwi
+&lt;% end %&gt;</p>
+
+<p>That should bring up a webserver on port 9999 where you should see something similar to the screenshot above.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/03/28/More-django-project-templates/">More Django Project Templates</a>
+      </h1>
+      <span class="post-date">Mar 28, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>Quite a while ago I released some handy scripts for building up Django project layouts. Part of the reason behind this was to kick off discussions about ideal pproject layouts and maybe even get a few user submitted layouts into the project. Paster makes this soft of thing really easy to do and I was interested in what people might come up with.</p>
+
+<p>Well, the team over at <a href="http://chicagotribune.com/">The Chicargo Tribune</a> have done just that, creating a branch of the original project and <a href="http://github.com/ryanmark/django-project-templates/">adding a very rich example project to it</a></p>
+
+<p>I&rsquo;ve finally gotten around to merging that back into <a href="http://github.com/garethr/django-project-templates/">my branch</a> and releasing a new version to <a href="http://pypi.python.org/pypi/django-project-templates/0.11">PyPi</a>. It&rsquo;s got a good number of PostGreSQL commands that might be of use, as well as several Amazon S3 and EC2 examples. Even if none of these complete templates fit what you&rsquo;re looking for exactly their are lots of smaller fabric recipes worth taking a look at.</p>
+
+<p>You can read all about what is in the project over on their <a href="http://blog.apps.chicagotribune.com/2010/03/08/advanced-django-project-layout/">developer blog</a>, which if filled with other interesting web and operations goodness.</p>
+
+<p>So, huge thanks to <a href="http://blog.apps.chicagotribune.com/author/cgroskopf/">Chris</a>, <a href="http://blog.apps.chicagotribune.com/author/bboyer/">Brian</a>, <a href="http://blog.apps.chicagotribune.com/author/ryanthomasmark/">Ryan</a> and <a href="http://blog.apps.chicagotribune.com/author/joegermuskact/">Joe</a> for some great work.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2010/03/21/Sandbox-your-ruby-gems/">Sandbox Your Ruby Gems</a>
       </h1>
       <span class="post-date">Mar 21, 2010 &middot; 1 minute read
@@ -231,93 +368,6 @@ Feature: localhost
 </ul>
 
 <p>I have a sneaking suspicion what I might be thinking about is a private tumblr blog used as a datasource for <a href="http://nanoc.stoneship.org/">Nanoc3</a>. But that relies on me having the time to build that as I can&rsquo;t find anyone who might have written such a think. Maybe one day.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2010/02/11/djugl-february/">DJUGL February</a>
-      </h1>
-      <span class="post-date">Feb 11, 2010 &middot; 1 minute read
-      </span>
-      
-      <p>The next Django User Group London is in two weeks time. You can register over on <a href="http://londonpython.eventwax.com/djugl-february">Eventwax</a>. So far we have <a href="http://intranation.com">Brad</a> talking with more speakers to be announced shortly. Hope to see a few people there.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2010/02/01/rise-house-team/">The rise of the in-house team?</a>
-      </h1>
-      <span class="post-date">Feb 1, 2010 &middot; 2 minute read
-      </span>
-      
-      <p>I was just thinking about the <a href="http://www.dibiconference.com/">Design it Build it</a> conference later in the year (full disclosure: I&rsquo;m speaking). Specifically the people speaking on the developer track. Between myself, Michael Brunton-Spall from The Guardian, David Singleton from Last.fm and Emma Persky from Gumtree four of the six speakers work on in-house teams. Not early stage start-ups, not large software/advertising companies, not as freelancers but in a reasonable sized company on a development team.</p>
-
-<p>My original background was working in agencies, and then a stint working for myself and I&rsquo;m constantly interested by the different facets of the web software industry. I think conferences or magazines aimed at your average interested web developer or designer play an interesting role in what people perceive as normal. If all you see are people who work as a freelancer you start to think that must be way cooler than whatever it is you&rsquo;re doing at the time. I remember attending the first @media event and being surprised at the small number of people from larger agencies. Everyone was from smaller boutique places, or Yahoo! or a freelancer. Now lots of people I see at events are involved in startups.</p>
-
-<p>Interestingly as well none of it is about a particular language or framework. Thinking about it as I type I think between the four of us we spend are day jobs mainly using different languages (java, python, php, perl). But I bet we all work in environments where we use other languages at least occasionally, or at the least the people around us do. Mixed environments are commonplace in companies that have been around a good while and run on software. They are far less common elsewhere with startups using whatever is cool (lets build a mobile search engine in Haskel anyone?) and small agencies often using whatever they built their first client website with (probably PHP).</p>
-
-<p>What I&rsquo;m really interested in though is the type of topics that are going to be talked about. Last.fm vs the Xbox, Scaling the Guardian, my rambling thoughts on a modern toolbox for developers beyond your average LAMP or .NET stack. This is the sort of think I&rsquo;m interested in. It&rsquo;s the sort of problems I like having. It&rsquo;s also, I think, the sort of stuff that doesn&rsquo;t get a showing a many mainstream conferences. I&rsquo;m hoping it&rsquo;s all going to be fairly practical too - things that whatever role people have they can take away and apply.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2010/01/30/rabbitmq-support-cucumber-nagios/">RabbitMQ support for Cucumber-nagios</a>
-      </h1>
-      <span class="post-date">Jan 30, 2010 &middot; 2 minute read
-      </span>
-      
-      <p>I&rsquo;ve been doing more operations related work of late and am starting to use <a href="http://auxesis.github.com/cucumber-nagios/">Cucumber-nagios</a> for various monitoring tasks. <a href="http://www.nagios.org/">Nagios</a> might not be the most attractive of web interfaces but it&rsquo;s so simple to get clients up and running and extend to do what you need. Cucumber however has a lovely, text based, user interface. And although I&rsquo;m mainly working with Python at the moment cucumber-nagios (written in Ruby) really is the easiest way I&rsquo;ve found of writing simple functional tests.</p>
-
-<p>Cucumber-nagios is the creation of <a href="http://holmwood.id.au/~lindsay/">Lindsay Holmwood</a> and after several brief conversations over Twitter I set about adding a feature I wanted for my own monitoring setup. Namely support for keeping an eye on RabbitMQ.</p>
-
-<p>At the moment the code is in a <a href="http://github.com/garethr/cucumber-nagios">fork on GitHub</a> but I&rsquo;m hoping that once any rough edges have been ironed out and a few people have kicked the tyres then it will make it&rsquo;s way into trunk. If you want to use this with an existing project straight away you can always drop the contents of <a href="http://github.com/garethr/cucumber-nagios/blob/master/lib/generators/project/features/steps/amqp_steps.rb">amqp_steps.rb</a> into your feature steps file after installing the <a href="http://gems.rubyforge.org/gems/amqp">amqp gem</a>.</p>
-
-<p>I&rsquo;ve included a little documentation in the fork as well with a quick example:</p>
-
-<pre><code>Feature: github.com
-  To make sure the rest of the system is in order
-  All our message queues must not be backed up
-  Scenario: test queue
-    Given I have a AMQP server on rabbit.github.com
-    And I want to check on the fork queue
-    Then it should have less than 400 messages
-    Then it should have at least 5 consumers
-    Then it should have less than 50 messages per consumer
-</code></pre>
-
-<p>My main usecase was to keep an eye on a known queue size and number of consumers. I&rsquo;m sure I&rsquo;m missing some features at the moment so any feedback much appreciated.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2010/01/26/processing-large-files-sed-and-awk/">Processing large files with sed and awk</a>
-      </h1>
-      <span class="post-date">Jan 26, 2010 &middot; 2 minute read
-      </span>
-      
-      <p>I found myself using a couple of powerful but underused command line applications this week and felt like sharing.</p>
-
-<p>My problem involved a large text file with over three million lines and a script that processed the file line by line, in this case running a SQL query against a remote database.</p>
-
-<p>My script didn&rsquo;t try and process everything in one go, rather taking off large chunks and processing them in turn, then stopping and printing out the number of lines processed. This was mainly so I could keep an eye on it and make sure it wasn&rsquo;t having a detrimental affect on other systems. But once I&rsquo;d run the script once (and processed the first quarter of a million records or so) I wanted to run it again, except without the first batch of lines. For this I used sed. The following command creates a new file with the contents of the original file, minus the first 254263 lines.</p>
-
-<pre><code>sed '1,254263d' original.txt &gt; new.txt
-</code></pre>
-
-<p>I could then run my script with the input from new.txt and not have to reprocess the deleted lines. My next problem came when the network connection between the box running the script and the database dropped out. The script printed out the contents of the last line successfully processed, so what I wanted was a new file with the all contents of the old file past the last line. The following awk command does just that, assuming the last line processed was f251f9ee0b39beb5b5c4675ed4802113.</p>
-
-<pre><code>awk '/^f251f9ee0b39beb5b5c4675ed4802113/{f=1;next}f' original.txt &gt; new.txt
-</code></pre>
-
-<p>Now I could have made the script that did the work more complicated and ensure it dealt with these cases. But it would have involved much more code and the original scripts where only a handful of throw away code. For one off jobs like this a quick dive into the command line seemed more prudent.</p>
 
       
     </div>

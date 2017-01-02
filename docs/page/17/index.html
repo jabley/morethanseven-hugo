@@ -63,6 +63,107 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2009/03/02/quick-dmigrations-update/">Quick dmigrations Update</a>
+      </h1>
+      <span class="post-date">Mar 2, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve finally been getting round to doing a bit of work on <a href="http://code.google.com/p/dmigrations/">dmigrations</a>, the Python based database migration tool we developed at <a href="http://thisisglobal.com">work</a>.</p>
+
+<blockquote>
+<p>dmigrations offers a simple but flexible way of managing changes to the database in your Django projects. It is a replacement for Django&rsquo;s built in syncdb command.</p>
+</blockquote>
+
+<p>I still have some work to do to merge in a number of modifications we&rsquo;ve been running internally for a while but I&rsquo;ve triaged the issues list that had been left alone for too long and merged in a fantastic collection of patches from a few people including Alexander Robbins and <a href="http://chris-lamb.co.uk/">Chris Lamb</a>. Thanks hugely to everyone for these.</p>
+
+<p>Everything is available in <a href="http://code.google.com/p/dmigrations/source/browse/#svn/trunk">trunk in SVN</a> at the moment ahead of me cleaning a few thinks up and updating the download version. I&rsquo;ve added a setup.py file as well ahead of hopefully adding it to the <a href="http://pypi.python.org/pypi">Python Package Index</a>.</p>
+
+<p>I obviously wasn&rsquo;t the only one who had decided to do some work on the project in the last couple of days. <a href="http://www.djangosnippets.org/users/msaelices/">msaelices</a> has just submitted <a href="http://code.google.com/p/dmigrations/issues/detail?id=21">a patch</a> which adds a <a href="http://www.postgresql.org/">PostgreSQL</a> backend. I don&rsquo;t tend to use PostgreSQL personally so if anyone does want to have a look at running dmigrations with the patch I&rsquo;d love to hear about it.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/02/28/http-debugging-server-django/">HTTP Debugging Server in Django</a>
+      </h1>
+      <span class="post-date">Feb 28, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve been busy building and playing with various HTTP clients recently, mainly due to more playing with RESTful web services. I took a couple of hours out to build something to make my life easier - namely a very simple <a href="http://github.com/garethr/django-http-debug/tree/master">logging HTTP server in Django</a>.</p>
+
+<p>All the application does is accepts HTTP requests and log the results to a file. I&rsquo;ve been using it to make sure the requests I&rsquo;m sending from elsewhere are correct, before pointing the client at a web service that actually does something useful. It supports POST, GET, PUT, DELETE, etc. So far so simple.</p>
+
+<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRjSDww" alt="screenshot showing us tailing the logs"/></p>
+
+<p>I ended up using Django mainly because I did most of the work on the train, and I know my way around it pretty well by now. I did originally thing it might have been better to use something simpler but I did end up learning a few new tricks that I&rsquo;ll use for future projects.</p>
+
+<ul>
+<li>In theory <a href="http://code.djangoproject.com/changeset/1807">Django doesn&rsquo;t need a database</a>. While this is true for the most part, the in-built test runner does require a database. One thing I&rsquo;ve talked about before is the usefulness of creating your own custom test runner. If anyone else runs into this specific problem have a look at the <a href="http://github.com/garethr/django-http-debug/blob/0ef82784abfc70cc63444e39f61807675acd5c29/http_debug/lib/nodatabase.py">nodatabase.py</a> file.</li>
+<li>The logging is handled via Python&rsquo;s inbuilt logging module. It has some nifty features (like log rotation, maximum file sizes and different logging levels) but is a little fiddly to get working correctly. Tales abound of log messages appearing multiple times, or permission errors causing problems. At least for this project I think I have everything working. I&rsquo;ll try using this <a href="http://github.com/garethr/django-http-debug/blob/0ef82784abfc70cc63444e39f61807675acd5c29/http_debug/lib/log.py">module</a> on a couple of other projects and maybe spin it off into a small reusable app.</li>
+</ul>
+
+<p>For something that took only a few hours to write it was both good fun and a useful learning tool. And Django proved itself more useful that I though for smaller services like this.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/02/28/startup-hubs-uk-where-put-one/">Startup Hubs in the UK - Where To Put One?</a>
+      </h1>
+      <span class="post-date">Feb 28, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I always enjoy reading things by <a href="http://www.paulgraham.com">Paul Graham</a>, even if I&rsquo;d like to be able to disagree with his conclusions on occasion. It&rsquo;s not just that I love <a href="http://www.paulgraham.com/hackpaint.html">Hackers and Painters</a>, but also he often says things like the following that make me smile:</p>
+
+<blockquote>
+<p>hackers are much more constrained by gentlemen&rsquo;s agreements than regulations. If they shake your hand on a promise, they&rsquo;ll keep it. But show them a lock and their first thought is how to pick it.</p>
+</blockquote>
+
+<p>His latest short essay concerns <a href="http://www.paulgraham.com/maybe.html">startup hubs</a> again, something that I&rsquo;m actually pretty interested in, end up talking to <a href="http://imranali.name/">people</a> <a href="http://twitter.com/herbkim">about</a>, but hardly ever writing anything on. Mike over at Techcrunch Uk elicited some good comments last year with a <a href="http://uk.techcrunch.com/2008/07/29/starting-the-campaign-for-the-techhub/">post on the subject</a>. As usual Graham focuses on the US, but what about translating his idea of buying a Startup Hub and applying it to the UK? He sets several criteria for success:</p>
+
+<ul>
+<li>Do you have good weather?</li>
+<li>Do people live downtown, or have they abandoned the center for the suburbs?</li>
+<li>Would the city be described as &ldquo;hip&rdquo; and &ldquo;tolerant,&rdquo; or as reflecting &ldquo;traditional values?&rdquo;</li>
+<li>Are there good universities nearby? Are there walkable neighborhoods?</li>
+<li>Would nerds feel at home?</li>
+</ul>
+
+<p>Lets assume for the moment that the idea would work. Take £15-20million and invest in 30 or so well chosen startups on the condition they move into town. The question is then: <strong>where in the UK would this be most likely to work? And are their any UK specific criteria that would increase the success rate?</strong></p>
+
+<p>Some people might be thinking &ldquo;but no UK city is going to invest £20million in a scheme to encourage startups&rdquo;. Leeds is <a href="http://www.yorkshireeveningpost.co.uk/business-news/Universities-bid-to-help-.4979184.jp">doing just that</a>. Or rather Yorkshire Forward are putting up £35million along with Leeds University putting up £31milion. What are they doing with all that money? They are going to build a big building with it - which is exactly what Graham says won&rsquo;t work.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/02/24/github-changelog/">GitHub Changelog</a>
+      </h1>
+      <span class="post-date">Feb 24, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>It turns out the guys at GitHub publish the <a href="http://github.com/changelog">commit messages from their work on GitHub</a> itself. If you really have to keep up you can even subscribe to an <a href="http://github.com/changelog.atom">Atom feed</a>.</p>
+
+<p>OK, so this might not be hugely useful. But it <em>is</em> funny, and a just a nice sign of a small company being open in an interesting way. A few of my favourites:</p>
+
+<blockquote>
+<p>mmm pizza&hellip; guard against bad SHAs in Walker#commit</p>
+
+<p>really need to get a handle on this insane testing setup</p>
+
+<p>I guess ff3 linux is the worst browser ever made</p>
+
+<p>dont care</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2009/02/23/epydoc-ant-task/">Epydoc Ant task</a>
       </h1>
       <span class="post-date">Feb 23, 2009 &middot; 1 minute read
@@ -276,98 +377,6 @@ os.path.join(SITE_ROOT, &lsquo;templates&rsquo;)
 )</p>
 
 <p>I actually think this should probably make it&rsquo;s way into the default settings file. I might very well be missing something but I can&rsquo;t see when it&rsquo;s not much better to do things this way.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/10/append-slashes-urls-django/">Append slashes to URLs in Django</a>
-      </h1>
-      <span class="post-date">Feb 10, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>Quick Django pop quiz. Can anyone spot the deliberate mistake in the following url definition? We&rsquo;re trying to define a view called log_viewer and instructing a specific url pattern to render it.</p>
-
-<p>pre. urlpatterns = patterns(&ldquo;,
-(r&rsquo;^log/?$&lsquo;, log_viewer),
-)</p>
-
-<p>In this case our regex matches /log or /log/ using the /? optional pattern. This is because even if we only link to one format we know people will probably visit both, either by entering the URL manually or by linking from an external source.</p>
-
-<p>As far as HTTP is concerned though /log and /log/ are separate URLs, even if they display the same content. The main reason this matters for public facing websites is that our friendly search engine spiders are likely to index both separately, leading to splitting the page rank as well as accusations of duplicate content which might see further erosion of rankings.</p>
-
-<p>The solution is generally to issue a 301 redirect from one format to the other. This tells search engines and people alike that the canonical location for the requested content is elsewhere. You could specify the redirect manually, but this is going to get irritating quickly once you have a few more definitions.</p>
-
-<p>pre. urlpatterns = patterns(&ldquo;,
-(r&rsquo;^log$&lsquo;, redirect_to, {&lsquo;url&rsquo;: &lsquo;/log/&rsquo;}),
-(r&rsquo;^log/$&lsquo;, log_viewer),
-)</p>
-
-<p>Handily Django provides a mechanism to do exactly what we want to do by setting <a href="http://docs.djangoproject.com/en/dev/ref/settings/#append-slash">APPEND_SLASH</a> to True in your settings file. Even better it&rsquo;s switched on by default. So if you don&rsquo;t know much about the intricacies of HTTP you still get the correct behavior. That is unless you specify your URL patterns in the format above.</p>
-
-<p>You see APPEND_SLASH only works if the URL doesn&rsquo;t match a specified pattern. If no pattern match is found it appends a trailing slash and checks for a match again. Because the above pattern matches the pattern without the trailing slash (/log) the desired behavior is never triggered, and the view is rendered at both URLs. So although we want to catch /log and /log/ on the front end, our urls.py definition should actually be:</p>
-
-<p>pre. urlpatterns = patterns(&ldquo;,
-(r&rsquo;^log/$&lsquo;, log_viewer),
-)</p>
-
-<p>Django has lots of useful bits of magic for doing the right thing, but unless you know what they <em>actually</em> do you either end up recreating functionality yourself, or find features don&rsquo;t work in quite the way you thought. It&rsquo;s a good argument for keeping frameworks small whenever possible, and for developers to at least know their way around the code of their respective framework.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/07/new-version-radiant-cms-out-today/">New Version of Radiant CMS Out Today</a>
-      </h1>
-      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>Via <a href="http://github.com/radiant/radiant/tree/master">tagging a new release</a> on GitHub I see a new version of <a href="http://radiantcms.org/">Radiant</a> (0.7) has been released. Radiant is a really nice CMS for smaller projects, it&rsquo;s used on the official <a href="http://www.ruby-lang.org/">Ruby</a> site and I used it here at one point.</p>
-
-<p>Go check out the <a href="http://radiantcms.org/blog/archives/2009/02/07/radiant-0-7-0---intaglio-release-final/">blog post for the full list of the changes</a>.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/07/pdb-and-appengine/">PDB and AppEngine</a>
-      </h1>
-      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>It turns out App Engine breaks the default behaviour of the Python debugger PDB by sending STDOUT to the browser. But with a <a href="http://jjinux.blogspot.com/2008/05/python-debugging-google-app-engine-apps.html">little bit of python</a> you can put it back in.</p>
-
-<p>pre. import sys
-import pdb
-for attr in (&lsquo;stdin&rsquo;, &lsquo;stdout&rsquo;, &lsquo;stderr&rsquo;):
-setattr(sys, attr, getattr(sys, &lsquo;<strong>s</strong>&rsquo; attr))
-pdb.set_trace()</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/07/xmpp-and-offline-processing-coming-google-app-engi/">XMPP and offline processing coming to Google App Engine</a>
-      </h1>
-      <span class="post-date">Feb 7, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>Three weeks ago I pondered whether <a href="http://morethanseven.net/2009/01/15/are-xmpp-and-offline-processing-coming-google-app-/">XMPP and offline processing were coming to Google App Engine?</a>. It was a hunch based on the upcoming release of Jaiku on App Engine. I reasoned you couldn&rsquo;t really do it without XMPP and offline processing APIs. Looks like I was right.</p>
-
-<p>Today <a href="http://bitworking.org/news/">Joe Gregorio</a> announced on the <a href="http://googleappengine.blogspot.com/">App Engine Blog</a> an <a href="http://googleappengine.blogspot.com/2009/02/roadmap-update.html">update to the roadmap for the next 6 months</a>; including</p>
-
-<ul>
-<li>Support for running scheduled tasks</li>
-<li>Task queues for performing background processing</li>
-<li>Ability to receive and process incoming email</li>
-<li>Support for sending and receiving XMPP (Jabber) messages</li>
-</ul>
-
-<p>Colour me excited. This could be the point were we start seeing more and more interesting IM interfaces. And this ticks off several of my must haves for App Engine.</p>
 
       
     </div>

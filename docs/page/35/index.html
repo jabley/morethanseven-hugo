@@ -63,6 +63,231 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2006/04/23/a-proliferation-of-feed-standards/">A Proliferation of Feed Standards</a>
+      </h1>
+      <span class="post-date">Apr 23, 2006 &middot; 2 minute read
+      </span>
+      
+      <p>
+Google just announced <a href="http://code.google.com/apis/gdata/overview.html">GData</a>, which is apparently a:
+
+</p>
+<blockquote>
+<p>
+...simple standard protocol for reading and writing data on the web.
+
+</p>
+</blockquote>
+<p>
+It is basically an amalgamation of Atom, RSS and bits and pieces of Goodle juice. It piqued my interest for a couple of reasons:
+
+</p>
+<ul>
+<li>
+What was termed <em>Optimistic Concurrency</em>
+
+</li>
+<li>
+A promise of <em>Authentication</em>
+
+</li>
+<li>
+<em>REST</em> based
+
+</li>
+</ul>
+<p>
+The former relates to a simple solution to the problem of concurrent updates. Say I grab a file and make a change, but in between another individual grabs the same file, and after I submit my changes, they also try top submit changes all my changes could be lost. GData specifies a solution to this by introducing version numbers, only if the version you are modifying has the latest version number will it be accepted. The version number is simply provided in the edit URI in the feed. Nice.
+
+</p>
+<p>
+I wont ramble too much about <a href="http://www.xfront.com/REST-Web-Services.html">REST,</a> safe to say if you like URLs then it makes perfect sense and you can just get on with it. Lots of other posts about <a href="http://billburnham.blogs.com/burnhamsbeat/2004/12/rest_vs_soap_wh.html">why</a> if you missed the (ongoing) debate. It’s a bit like <a href="http://microformats.org">Microformats</a> and the Semantic Web. The bariers to entry for microformats are the the same as those for building web pages.
+
+</p>
+<p>
+I say the promise of Authentication above because it turns out that part of the system is not in place yet. The other part of that I’m sceptical about is, from my reading, a complete reliance on Google to provide the <a href="http://code.google.com/apis/gdata/protocol.html#Authentication">authentication</a>. For some applications that’s fine, for others you probably dont want Google in charge of the keys.
+
+</p>
+<p>
+It also has simple proscribed methods of dealing with categories and search queries, including <a href="http://opensearch.a9.com/">Opensearch</a> integration.
+
+</p>
+<p>
+I was thinking about playing with a PHP based client/server for GData, or at least having a look, but I think I’ll wait until I know more about the authentication side.
+
+</p>
+<p>
+I have a feeling Microsoft will do something like this as well, take existing open standards and republish them with a few bells and whistles. And again the developers, ie. us, are left supporting multiple slight variations on a theme. Maybe I’m just suspicious. Time will tell.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2006/04/20/media-and-google-calendar/">@media and Google Calendar</a>
+      </h1>
+      <span class="post-date">Apr 20, 2006 &middot; 2 minute read
+      </span>
+      
+      <p>
+I’ve become something of a <a href="http://mail.google.com">Gmail</a> convert over the last good few months. Moving everything online has made my life oh so much easier. I’d done the same with my feed collection a good while back with <a href="http://newsgator.co.uk">Newsgator</a>. Storing all my calendar related info was something that was on my perenial todo list. Well, Google finally got round to releasing their own <a href="http://calendar.google.com">calendar</a> after months of “will they get on with it already”. First impressions are pretty good. It’s simple. It’s obvious (at least for a geek like me) and using Gmail already I quite like the styling.
+
+</p>
+<p>
+One of the features I really like, but which will only mature with age, is the shared calendars. It makes publishing your itinerary to the entire world very easy. The more people use it the more useful it gets.
+
+</p>
+<p>
+As a case in point I decided to enter the shedule for the upcoming <a href="http://vivabit.com/atmedia2006">@media</a> conference and share the calendar – to be honest to see how it all worked. Of course, about 24 hours after I did this the lovely folks at <a href="http://vivabit.com">Vivabit</a> completely revised the initial schedule. Ok, so I was only momentarily annoyed considering the conference just got a whole lot better – though they did drop the CSS3 discussion panel which I though would have been interesting.
+
+</p>
+<p>
+A little rejigging and the shared calendar is up to date again:
+
+</p>
+<ul>
+<li>
+<a href="http://www.google.com/calendar/ical/rp1ahkacn9nkhuqnjtihno34mg@group.calendar.google.com/public/basic">iCal</a>
+
+</li>
+<li>
+<a href="http://www.google.com/calendar/feeds/rp1ahkacn9nkhuqnjtihno34mg@group.calendar.google.com/public/basic">XML</a>
+
+</li>
+</ul>
+<p>
+Feel free to subscibe, either via your own Google calendar or any iCal compatible application.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2006/04/16/along-comes-a-reboot/">Along comes a reboot</a>
+      </h1>
+      <span class="post-date">Apr 16, 2006 &middot; 3 minute read
+      </span>
+      
+      <p>
+Well, it’s nearly 6 months since I launched the new design on here and entered into the <a href="http://fall2005.cssreboot.com/">2005 Fall reboot</a> with minimal acclaim but lots of nice comments and some traffic. That means it’s nearly time for the Spring event! I still like this design, which is something of a first for a pet project, so made a descision early to do something different.
+
+</p>
+<p>
+I like the reboot. It’s a deadline for a start, with all the good and bad things that that entails. And as I’ve mentioned to a few people recently the 6 month release schedule seems just about right.
+
+</p>
+<p>
+My new pet project aims to fill a gap that I’ve noticed when scouring the web for knowledge. I’ve mentioned before on here about being a fan of books, and have something of a stash of web, design and software related titles that I plough through pretty much constantly. But knowing what to buy, and what to read next, is never easy – even when I consider myself in the know. I’ve still got a fair few titles from when I started out which, in hindsight, were not the best starting point for a budding web designer.
+
+</p>
+<p>
+So along comes <a href="http://webdesignbookshelf.com">Webdesignbookshelf.com</a>
+
+</p>
+<p>
+<a href="http://webdesignbookshelf.com"><img src="http://morethanseven.net/images/2.png" alt="Webdesignbookshelf.com" /></a>
+
+</p>
+<p>
+The domain is sorted. The design is nearly sorted (but subject to change a bit). The backend I did a while back (more on some of that later). I’ve no idea what happens to it in IE yet, but you cant have everything. One think I do need to sort however is content.
+
+</p>
+<p>
+What I’m aiming for is good quality reviews. For the start I’m not looking to have a percentage score, or a star rating system, or similar. In my experience these tend to cheapen the end result, and become the be all and end all of the review. Books deserve more. Alot of it depends on context as well. The recent <a href="http://www.sitepoint.com/books/jsant1/">Javascript Anthology</a> is a good book and worth the admission price, but I skipped most of it as it covered things from quite a basic point of view to begin with, something I wasn’t expecting. It really kicked into action later on, especially the accessibility chapter and the section on obect orientation. I would have liked to know all that before I bought it.
+
+</p>
+<p>
+With so much <a href="http://alistapart.com">information</a> <a href="http://digital-web.com">available</a> <a href="http://evolt.org">online</a>, and <a href="http://bitesizestandards.com/">new sites</a> popping up all the time, I still think books have a place. Especially with lots of talk of <a href="https://gettingreal.37signals.com/">self publishing</a> at the moment maybe we’ll see more books bypassing the old publishing processes. This could include books bypassing any kind of editorial process as well, good quality reviews can help act as a filter, a helping hand if you will.
+
+</p>
+<p>
+Anyway, if anyone reading this far fancies contributing a review or two please let me know. I cant promise wealth, or fame and fortune just yet. But you should get a warm feeling that your helping a community, and you name up in lights if you like that sort of thing. And watch out for the May 1st launch over at the <a href="http://cssreboot.com">reboot</a>, should be another good one.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2006/04/14/where-to-put-all-that-data-s3-resources/">Where to put all that data? S3 resources</a>
+      </h1>
+      <span class="post-date">Apr 14, 2006 &middot; 2 minute read
+      </span>
+      
+      <p>
+Lets face it, web apps are getting bigger. At least in terms of the amount of data they store. Take two big poster siblings, <a href="http://flickr.com">Flickr</a> and <a href="http://del.icio.us">del.icio.us</a>. All those user accounts, all that interlinking between then, all that meta data. <a href="http://technorati.com">Technorati</a> is another example – trying to keep up with all blogs everywhere in as near to real time as possible has got to be seriously data intensive. And at times this has shown through, all have had <a href="http://blog.del.icio.us/blog/2005/12/continued_hiccu.html">problems</a> at <a href="http://www.businessweek.com/the_thread/blogspotting/archives/2005/07/why_technorati.html">some</a> <a href="http://ishavingamassage.com/">point</a> in their short histories.
+
+</p>
+<p>
+If you are looking to get into the world of big, community focused, web apps then you need space. And I know I cant afford a huge outlay on storage and bandwidth, even most small web shops would probably have something of a problem with the large outlay, limited short term money making problem.
+
+</p>
+<p>
+An interesting solution to this would appear to exist in the shape of <a href="http://aws.amazon.com/s3">S3</a> from <a href="http://amazon.com">Amazon</a>. It has been around a little time, and <a href="http://adactio.com/journal/1102/">others</a> have been intrigued enough to mention it, but I decided not to ramble on until I’d had a brief play. Well, it’s quite cool.
+
+</p>
+<p>
+Amazon themselves provide a number of <a href="http://developer.amazonwebservices.com/connect/kbcategory.jspa?categoryID=47">useful code examples</a>
+in different languages, including Perl, Python, C\#, Java, Ruby and PHP. They also provide examples of the raw HTTP requests for thos that way inclined.
+
+</p>
+<p>
+This openness (OK, so they dont really have a choicee, the whole product consists of an open API, it being closed would seem to limit it’s usage!), as always, has allowed the community to run with the idea, building up sample apps and some easy to use wrappers:
+
+</p>
+<ul>
+<li>
+<a href="http://townx.org/blog/elliot/s3_rails">Rails example</a>
+
+</li>
+<li>
+<a href="http://caffo.backpackit.com/pub/502395">Another Rails example</a>
+
+</li>
+<li>
+<a href="http://www.other10percent.com/?p=15">BitBucket for Python</a>
+
+</li>
+<li>
+<a href="http://www.neurofuzzy.net/2006/03/17/amazon-s3-php-class/">PHP 4 class</a>
+
+</li>
+<li>
+<a href="http://blog.apokalyptik.com/?p=12">PHP 5 example</a>
+
+</li>
+<li>
+<a href="http://search.cpan.org/dist/Net-Amazon-S3/">Perl CPAN module</a>
+
+</li>
+<li>
+<a href="http://www.carion.org/s3dav/index.html">Java based webDAV server</a>
+
+</li>
+</ul>
+<p>
+Nothing here feels complete as yet. Most are early hacks by people getting on board early and giving the rest of us a starting point.
+
+</p>
+<p>
+Overall I like things like S3. If it works reliably and scales well then it could become something that just sits behind all sorts of <a href="http://aws.typepad.com/aws/2006/03/firefox_s3_some.html">realy</a> <a href="http://www.holovaty.com/blog/archive/2006/04/07/0927">cool</a> <a href="http://jkeyes.com/2006/03/ten_ideas_for_amazon_s3_applic.php">ideas</a>, preventing data loss and removing another potential headache for the small developer.
+
+</p>
+<p>
+Any other resources, or ideas, more than welcome.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2006/04/07/speak-and-a-drink/">Speak and a Drink</a>
       </h1>
       <span class="post-date">Apr 7, 2006 &middot; 2 minute read
@@ -298,232 +523,6 @@ If your involved in the management of projects but come from a non software (don
 </p>
 <p>
 Anyone else got any books in a similar vein? I’m always on the look out for an interesting read. Or do you complely disagree – do you even still read books?
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2006/03/08/apples-and-pears/">Apples and PEARs</a>
-      </h1>
-      <span class="post-date">Mar 8, 2006 &middot; 2 minute read
-      </span>
-      
-      <p>
-I’ve finally decided that <a href="http://pear.php.net">PEAR</a> is a good thing. For those unfamiliar with it it’s a little like CPAN for Perl. For those unfamiliar with <em>that</em> it’s a repository of high quality PHP code, covering everything from benchmarking and debugging to database abstraction.
-
-</p>
-<p>
-I’m about to dive back into PHP after a minor break playing with mainly client side toys, and with my work now mainly on the markup/styles and planning side of things PHP is a nice break. <strong>PHP isn’t the devil</strong> as far as I’m concerned, and I think now I’ve grown up PEAR is part of the non devil like side to PHP – the professional side if you will.
-
-</p>
-<p>
-I like PHP for it’s flexibility. The same problems this causes in terms of it being easy to write poor, unmaintainable code are the same boons in brings if you use it nicely. I dont want static typing, on occasion being able to get down and dirty with procedural code is handy and with so much <em>good</em> code out there in places like PEAR it’s often very quick to put together something from existing parts.
-
-</p>
-<p>
-I even went as far as getting a book, <a href="http://www.amazon.com/gp/product/1590592808/104-7139045-1616718?v=glance&#38;n=283155">PHP Tools</a> to have a good going through. I’ve been on something of a mad web design book shopping spree of late, so I’ll try do a quick round up of books soon as well.
-
-</p>
-<p>
-Anyone else have much playtime with PEAR, or similar code repositories?
-
-</p>
-<p>
-<em>PS. Apologies for the two week hiatus. I’m something of a busy person at the moment. More quality posts as soon as possible. Promise.</em>
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2006/02/23/keyboards-and-web-applications/">keyboards and web applications</a>
-      </h1>
-      <span class="post-date">Feb 23, 2006 &middot; 2 minute read
-      </span>
-      
-      <p>
-Web applications are still evolving. This we know. One thing any power user tends to pick up on pretty quickly in desktop applications is the keyboard shortcuts. We just cant get enought of them. Why dont we see them more in web applications? Well a couple of reasons as it happens:
-
-</p>
-<ul>
-<li>
-Potential clashes with browser or OS shortcuts
-
-</li>
-<li>
-Many web applications are still evolving from more promotional websites. The learning curve for a website <em>needs</em> to be instantaneous, otherwise your potential customer just left. But what about a web application? The users may <em>have</em> to use it, as well as having documentation and maybe even training.
-
-</li>
-<li>
-Because we dont see them in web applications? The circular argument.
-
-</li>
-</ul>
-<p>
-Personally I think in some cases keyboard shortcuts would be nice, I have a little plan for something in mind as well so started experimenting. The clash issue I’m going to leave for another post as it will take a bit of brute force experimenting but I did start playing with a simple way of assigning functions to keys.
-
-</p>
-<p>
-The following code creates an object to store the lookup/hash/two dimensional array (pick one you like). This is a simple associate between a key, and a function to run when it’s pressed. A function is then assigned to the onkeyup and onkeydown events which monitors them, checks for one of the keys in the lookup to be pressed (in this case along with the ctrl key) and runs the assigned function.
-
-</p>
-<div>
-<code>
-
-    &lt;txp:php&gt;
-    include('/www/htdocs/morethanseven/scripts/sample/keyPress.js');
-    &lt;/txp:php&gt;
-
-</code>
-
-</div>
-<p>
-A simple library function is used to add the event to the document onload. My library obviously includes other helper functions but we dont need any of those for this example.
-
-</p>
-<div>
-<code>
-
-    &lt;txp:php&gt;
-    include('/www/htdocs/morethanseven/scripts/sample/lib.js'); 
-    &lt;/txp:php&gt;
-
-</code>
-
-</div>
-<p>
-Some improvements I can spot from here which I’ll implement as I actually take this out of the lab and into something production like.
-
-</p>
-<ul>
-<li>
-JSON (or YAML) data storage. Either one makes configuration simpler and scores geek points. It’s a win win.
-
-</li>
-<li>
-Abstract the use of the ctrl key from the function and allow other modifiers to be set when used.
-
-</li>
-</ul>
-<p>
-I’ll try get round to the look at keyboard shortcut clashes, or link to someone who already has, as I get round to it. In the mean time, what do people think about the use of keyboard shortcuts in web applications? Any good or bad examples welcome.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2006/02/19/last-week-with-ajax/">Last Week with Ajax</a>
-      </h1>
-      <span class="post-date">Feb 19, 2006 &middot; 3 minute read
-      </span>
-      
-      <p>
-Last friday I got the chance to stick around in London and attend the <a href="http://clearleft.com">Clearleft</a> Ajax workshop with <a href="http://adactio.com">Jeremy Keith</a>. 30 people from different web disciplines and backgrounds trying to get as much out of a single day on the latest buzz word has to sound like fun?
-
-</p>
-<p>
-I had heard Jeremy’s speak before at <a href="http://vivabit.com/atmedia2006">@media</a> last year where he was one of the highlights and friday was much of the same. In a good way. Clear, to the point, explanations. Examples where they help to make a point, some wry humour and the odd culinary simile. The only real let down there was he’s <a href="http://www.flickr.com/photos/adactio/96454214/">cut his hair short</a>. This tendency for <a href="http://www.flickr.com/photos/andybudd/98405129/in/pool-summit2006/">minimalism in hair cuts</a> amongst <a href="http://htmldog.com">web designers</a> is disturbing me. Only <a href="http://www.flickr.com/photos/andybudd/98405572/in/pool-summit2006/">Norm</a> can <a href="http://cackhanded.net/">save us now</a>.
-
-</p>
-<p>
-Back on topic the day covered everything from theory and first principals to some fully working examples, but stuck with playing with Javascript and code from scratch, rather than frameworks and server side stuff. A descision I think really made the day useful.
-
-</p>
-<p>
-The morning was, to be fair, less useful from my standpoint. The speed introduction to Javascript, and some of the concepts of Ajax where covering ground I’d already covered personally. That’s not to say they weren’t well placed or interesting though, far from it, and did provide some people with what was probably the best crash course in Javascript imaginable.
-
-</p>
-<p>
-The afternoon really kicked into gear though. Lots of examples; from simple updating content through to making use of the Yahoo API. Throw in some examples with server side code, the obligatory shopping basket example and, particularly impressive, a detailed look at JSON. This all in one afternoon remember.
-
-</p>
-<p>
-The code examples we got to take away with, and much of this was generic enough to have already found it’s way into my working library. I’m very much a fan of Jeremy’s DIY ethic with regards Javascript. I too am sceptical of using huge frameworks to crack nuts without a clue about what they are doing. The actual simplicity of the Ajax methods I think was one thing that Jeremy got over better than anyone I’ve listened to date. It really is about application design more than new, fancy, complex technology.
-
-</p>
-<p>
-A few other people who attended have posted <a href="http://www.molly.com/2006/02/17/jeremy-keith-and-the-truth-about-ajax/">their</a> <a href="http://www.brucelawson.co.uk/index.php/2006/ajax-hijax-and-accessibility/">opinions</a> .<em>I’m really not stalking Molly by the way</em>.
-
-</p>
-<p>
-As Molly had hinted, Jermey is also very quotable. So here are a few of the things I’m sure he said, any loss of context here is completely my fault though:
-
-</p>
-<blockquote>
-<p>
-The validator is my friend
-
-</p>
-</blockquote>
-<blockquote>
-<p>
-What’s the problem? Reality! (refering to IE)
-
-</p>
-</blockquote>
-<blockquote>
-<p>
-DOM is like a scalpel, innerHTML is like a sledgehammer!
-
-</p>
-</blockquote>
-<blockquote>
-<p>
-It’s hard to argue with one line of code (on innerHTML vs DOM)
-
-</p>
-</blockquote>
-<blockquote>
-<p>
-Pointing at Google maps as an example of Ajax is like pointing at a ferari on a race course as an example of the combustion engine. You spend most of your time going wow!
-
-</p>
-</blockquote>
-<p>
-We closed up the afternoon with some discussion of the accessibility concerns, some of the development issues (wireframing ajax apps anyone?) and a whistle stop look at frameworks. All in all a very useful day, both personally (ie. I had fun) and professionally (I think my employer got value for money.) It also reinforced what I’ve been thinking more and more recently. It’s nearly all about design when it comes to real work. <em>When</em> and <em>where</em> and <em>why</em> must come first, and <em>how</em> is often more trivial than you think.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2006/02/14/easy-for-whom-a-minor-rant-about-help-from-framewo/">Easy for whom? - a minor rant about help from frameworks</a>
-      </h1>
-      <span class="post-date">Feb 14, 2006 &middot; 2 minute read
-      </span>
-      
-      <p>
-Some people think that <a href="http://www.lscheffer.com/malbolge.shtml">programming should be hard</a> while others, like me, quite like the idea of anyone being able to build things, especially web sites. To me the fact that either of my housemates (non IT types) could probably build a website this evening if they so choose is great. And to be honest if they did I’d be unlikely to complain about the code or the programme they chose to build it with (Ok, I would, but that’s me and I’d like to pretend I wouldn’t.)
-
-</p>
-<p>
-It’s pretty unlikely however that either of them, or any beginnner, would go along the route of choosing say <a href="http://asp.net">ASP.NET</a> or <a href="http://rubyonrails.com">Ruby on Rails</a> for that first site. Which leads me to some sort of assumption – <em>that both of these</em> are for experts and <a href="http://www.molly.com/2005/11/14/web-standards-and-the-new-professionalism/">professionals</a>. There are other facets which could be used to back up this argument but I dont want to go on – rails making use of the command line (in very cool ways) or ASP.NET requiring IIS configuration for a start. Not something I fancy talking non experts through to be fair.
-
-</p>
-<p>
-Using that assumption brings me nicely to helpers. Both are frameworks that try (and in may places succeed) in making life easier for developers. This is a good thing. What’s not so good is where this goes too far, in my opinion. ASP.NET <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemwebuiwebcontrolslinkbuttonclasstopic.asp">linkButtons</a> are simply Evil. No questions. At All. Stop using them. Now. Rails wades in as well with it’s reliance, when it comes to certain controls, on inline Javascript. Did someone not get the <a href="http://adactio.com/atmedia2005/">memo</a>?
-
-</p>
-<p>
-As good web standards people we have divided content from presentation. Behaviour from both (sort of). Now we have great (in both senses of the word) frameworks coming along and riding roughshod over our labour of love to make the web a better place. Making the developers life easier, but impacting negatively on the end users. Such wide ranging and powerful tools for experts need not treat all users as experts in everything. ASP.NET (or Ruby on Rails) does it so it must be OK? cannot be allowed to undo good works.
-
-</p>
-<p>
-Lots of similar talk abounds at the moment, with certainly some light in some of these areas showing through. Visit <a href="http://www.vivabit.com/bollocks/2006/02/09/rails-is-the-devil-in-your-client-side-shoulder">Dan</a> and <a href="http://domscripting.com/blog/display/49">Jeremy</a> for more.
-
-</p>
-<p>
-end Rant – mmm Rails
 
 </p>
 

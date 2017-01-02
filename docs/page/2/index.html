@@ -63,6 +63,472 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2015/12/27/operations-more-than-systems-administration/">Operations is more than just Systems Administration</a>
+      </h1>
+      <span class="post-date">Dec 27, 2015 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>I think one of the patterns of the last few years has been the
+democratization of systems administration, especially for web
+applications. Whether that&rsquo;s Heroku or Docker, or Chef or Puppet, more
+and more traditional developers are doing work that would have been
+<em>somebody else&rsquo;s problem</em> only a few years ago. But running in parallel
+to that thread is another less positive trend, that of conflating
+operations with <em>just</em> systems administation. The story seems to go that
+now we know Ansible (or some other tool) we just need developers to run
+the show.</p>
+
+<p>In this post I&rsquo;m going to try and introduce some of the other
+operational disciplines, especially for developers who maybe have come
+to operations via the above resurgence in infrastructure tooling over
+the past few years.</p>
+
+<p>Note that this post has a slight bias towards more <em>normal</em>
+organisations. That is to say if you&rsquo;re in a 5 person software startup
+you probably don&rsquo;t have operational problems to worry too much about
+yet. I&rsquo;m also not playing down the practice of systems administration,
+most experienced sysadmins I know are also quite rounded operations pros
+as well.</p>
+
+<h2 id="service-management">Service Management</h2>
+
+<p>If you&rsquo;ve worked in operations, or in many large organisations you&rsquo;ll have
+come across the term Service Management. This tends to be linked to
+various service management frameworks; like ITIL or MOF (Microsoft
+Operations Framework). The framework will describe, often in great
+detail, activities and processes for things like incident response,
+configuration management, change management, capacity planning and more.</p>
+
+<p>While I was at <a href="https://gds.blog.gov.uk/">The Government</a> I wrote what I
+think is a reasonable introduction to <a href="https://www.gov.uk/service-manual/operations/service-management.html">Service
+Management</a>
+albeit from a specific point-of-view. This was based on my experience of
+trying, and likely sometimes failing, to encourage teams to think about
+how the products they we&rsquo;re working on would be run. Each of the topics
+touched on in the overview is worthy of it&rsquo;s own stack of books, but I
+will repeat the ITIL service list here as (whatever you might think of
+the framework or a specific implementation) I&rsquo;d found it a useful starting
+point for conversations - in particular stressing the breadth of
+topics under service management.</p>
+
+<h4 id="service-strategy">Service Strategy</h4>
+
+<ul>
+<li>IT service management</li>
+<li>Service portfolio management</li>
+<li>Financial management for IT services</li>
+<li>Demand management</li>
+<li>Business relationship management</li>
+</ul>
+
+<h3 id="service-design">Service Design</h3>
+
+<ul>
+<li>Design coordination</li>
+<li>Service Catalogue management</li>
+<li>Service level management</li>
+<li>Availability management</li>
+<li>Capacity Management</li>
+<li>IT service continuity management</li>
+<li>Information security management system</li>
+<li>Supplier management</li>
+</ul>
+
+<h3 id="service-transition">Service Transition</h3>
+
+<ul>
+<li>Transition planning and support</li>
+<li>Change management</li>
+<li>Service asset and configuration management</li>
+<li>Release and deployment management</li>
+<li>Service validation and testing</li>
+<li>Change evaluation</li>
+<li>Knowledge management</li>
+</ul>
+
+<h3 id="service-operation">Service Operation</h3>
+
+<ul>
+<li>Event management</li>
+<li>Incident management</li>
+<li>Request fulfillment</li>
+<li>Problem management</li>
+<li>Identity management</li>
+<li>Continual Service Improvement</li>
+</ul>
+
+<p>For each of the above points, whether you are using ITIL or not, it&rsquo;s
+useful to have a conversation. Some of these areas do provide ample
+opportunity for automation and for using tooling to minimise the effort
+required. But much of this is about designing <em>how</em> you are going to
+operate a service throughout it&rsquo;s lifetime.</p>
+
+<h2 id="operations-user-stories">Operations user stories</h2>
+
+<p>One of the other things I published while at The Government was a set of
+<a href="https://www.gov.uk/service-manual/operations/web-operations-stories.html">user stories for a web operations
+team</a>.
+These grew out of work on launching GOV.UK and have had input from
+various past colleagues. In hindsight I&rsquo;d probably do somethings
+here differently, the stories assume a certain context which isn&rsquo;t explicitly
+spelled out for instance. But they have a couple of things going for them in that
+they demonstrate how traditional operations activities can be planned out as part
+of a more developer-friendly planning approach, and also they are public and
+have been tested by more than a single team.</p>
+
+<h2 id="not-everything-is-a-programming-problem">Not everything is a programming problem</h2>
+
+<p>The main point I think is that not everything can be turned into a
+programming problem to solve. Automation has it&rsquo;s place, and many manual
+processes and practices can benefit from automation. But the wide range
+of activities involved in running a non-trivial and often non-ideal
+system in production tend to mean making trade-offs and prioritization
+decisions frequently. This is where softer skills like arguing for
+funding or additional head count, or building a business case for
+further work, come into play. Operations management is much more than
+systems administration.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>This is little more than a plea for people to think more about
+operations, separate to the more technical aspects of systems
+administration. If you&rsquo;re interested in learning more however I would
+recommend some good reading material:</p>
+
+<ul>
+<li><a href="http://www.itpi.org/the-visible-ops-handbook-review.html">Visible Ops
+Handbook</a> -
+still an excellent and pragmatic introduction to many of the topics
+noted above.</li>
+<li><a href="http://shop.oreilly.com/product/0636920033080.do">Designig Delivery</a> -
+a bang up-to-date tome covering a range of service design topics.</li>
+<li><a href="http://www.basicsm.com/bsm-basic-service-management-book">Basic Service
+Management</a> -
+a 50 page starter book covering the fundamentals of service
+management as generally discussed in more detail elsewhere. A great
+starting point.</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2015/12/04/provisioning-droplets-with-puppet/">Provisioning droplets with Puppet</a>
+      </h1>
+      <span class="post-date">Dec 4, 2015 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>I love <a href="https://www.digitalocean.com/">DigitalOcean</a> for quickly spinning
+up machines. I also like managing my infrastructure using Puppet. Enter the
+<a href="https://forge.puppetlabs.com/garethr/digitalocean">garethr-digitalocean</a> module.
+This currently provides a single Puppet type; <code>droplet</code>.</p>
+
+<p>Lets show a quick example of that, by launching two droplets, called
+test-digitalocean and test-digitalocean-1.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #336699">droplet</span> { [<span style="color: #dd2200; background-color: #fff0f0">&#39;test-digitalocean&#39;</span>, <span style="color: #dd2200; background-color: #fff0f0">&#39;test-digitalocean-1&#39;</span>]:
+  <span style="color: #336699">ensure</span> =&gt; <span style="color: #008800; font-weight: bold">present</span>,
+  <span style="color: #336699">region</span> =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;lon1&#39;</span>,
+  <span style="color: #336699">size</span>   =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;512mb&#39;</span>,
+  <span style="color: #336699">image</span>  =&gt; <span style="color: #0000DD; font-weight: bold">14169855</span>,
+}
+</pre></div>
+
+<p>With the above manifest saved as <code>droplets.pp</code> we can run it with:</p>
+
+<pre><code>$ puppet apply --test droplets,pp
+</code></pre>
+
+<p>This will ensure those two droplets exist in that region, and have that
+size. If they don&rsquo;t exist it will launch droplets using the specified image.
+This means we can run the same command again, and rather that create
+more instances it will simply report that we currently have those
+droplets already.</p>
+
+<h2 id="querying-resources">Querying resources</h2>
+
+<p>Puppet also comes with <code>puppet resource</code>, a handy way of querying the
+state of a given resource or type. Running the following will list all
+of your droplets, whether you created them using Puppet or not.</p>
+
+<pre><code>$ puppet resource droplet
+droplet { 'test-digitalocean':
+  ensure              =&gt; 'present',
+  backups             =&gt; 'false',
+  image               =&gt; '14169855',
+  image_slug          =&gt; 'ubuntu-15-10-x64',
+  ipv6                =&gt; 'true',
+  price_monthly       =&gt; '10.0',
+  private_address     =&gt; '10.131.98.186',
+  private_networking  =&gt; 'true',
+  public_address      =&gt; '178.62.25.100',
+  public_address_ipv6 =&gt; '2A03:B0C0:0001:00D0:0000:0000:0090:B001',
+  region              =&gt; 'lon1',
+  size                =&gt; '1gb',
+}
+</code></pre>
+
+<h2 id="mutating-resources">Mutating resources</h2>
+
+<p>The type also supports mutating droplets, for instance changing the
+size of a droplet if you change the model in Puppet. The API client
+doesn&rsquo;t support all possible changes, but you can disable backups, enable
+IPv6 and switch on private networking as needed. Here&rsquo;s a quick sample
+of the output showing this in action.</p>
+
+<pre><code>Info: Loading facts
+Notice: Compiled catalog for gareths-macbook.local in environment production in 0.43 seconds
+Info: Applying configuration version '1449225401'
+Info: Checking if droplet test-digitalocean exists
+Info: Powering off droplet test-digitalocean
+Info: Resizing droplet test-digitalocean
+Info: Powering up droplet test-digitalocean
+Notice: /Stage[main]/Main/Droplet[test-digitalocean]/size: size changed '1gb' to '512mb'
+Error: Disabling IPv6 for test-digitalocean is not supported
+Error: /Stage[main]/Main/Droplet[test-digitalocean]/ipv6: change from true to false failed: Disabling IPv6 for test-digitalocean is not supported
+Error: Disabling private networking for test-digitalocean is not supported
+Error: /Stage[main]/Main/Droplet[test-digitalocean]/private_networking: change from true to false failed: Disabling private networking for test-digitalocean is not supported
+Info: Checking if droplet test-digitalocean-1 exists
+Info: Created new droplet called test-digitalocean-1
+Notice: /Stage[main]/Main/Droplet[test-digitalocean-1]/ensure: created
+Info: Class[Main]: Unscheduling all events on Class[Main]
+Notice: Applied catalog in 60.61 seconds
+</code></pre>
+
+<h2 id="but-why">But why?</h2>
+
+<p>Describing your infrastructure at this level in code has several advantages:</p>
+
+<ul>
+<li>Having a shared model of your infrastructure in code allows for a discussion
+around that model</li>
+<li>You can be convident in the model because of the idempotent nature of running
+the code</li>
+<li>The use of code for this model allows for activities like code review, change
+control based on pull requests, unit testing, user created abstrations and more</li>
+<li>The use of Puppet means you can use it as above as a command line interface, or
+run it every period of time to enfore and report on the state of you infrastructure</li>
+<li>Puppet ecosystem tools like PuppetDB, Puppet Board or Puppet Enterprise mean you can
+store data over time for later analysis</li>
+</ul>
+
+<p>The module also acts as a reasonable example of a simple Puppet type and provider.
+If you&rsquo;re interested in extending Puppet for your own services this is hopefully a
+good place to start understanding the API.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2015/09/20/security-implications-of-unikernels/">Some Security Implication of Unikernels</a>
+      </h1>
+      <span class="post-date">Sep 20, 2015 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>I was attending the first <a href="http://gotocon.com/goto-london-2015/">GOTO London conference</a> last week, in particlar the <a href="https://www.ruggedsoftware.org/">Rugged</a> Track. One of the topics of conversation that came up was unikernels, and their potential for improving the state of software security. Unikernels are pretty new outside research groups, I’m just lucky enough to live and work in Cambridge where some of that research is happening. The security advantages of unikernels are one of the things that attracted me in the first place. I thought it might be interesting to jot a few of those down for other people interested in security and the future of infrastructure.</p>
+
+<p>As with my <a href="http://www.morethanseven.net/2015/08/21/operating-unikernel-challenges/">last post</a>, it’s worth having a basic understand of Unikernels. I’d recommend reading <a href="http://queue.acm.org/detail.cfm?id=2566628">Unikernels - the rise of the virtual library operating system</a>.</p>
+
+<h2 id="hypervisor">Hypervisor</h2>
+
+<p>Every unikernel is provided the isolation guarantees from a hypervisor. Not only are these guarantees reasonably well understood, they tend to make use of hardware features too. It’s interesting to note that recent container runtime work is heading in this direction too, with ptojects like <a href="https://clearlinux.org/features/clear-containers">Clear Containers from Intel</a>, <a href="https://blogs.vmware.com/cloudnative/introducing-project-bonneville/">Bonneville from VMware</a> and the <a href="https://coreos.com/blog/rkt-0.8-with-new-vm-support/">new stage1 in rkt</a>.</p>
+
+<h2 id="no-user-space">No User Space</h2>
+
+<p>With a typical server OS we have kernel space and user space. Part of the idea here is to ensure the underlying machine doesn’t crash, whatever horrible things people do in user space. But this means <em>you can do horrible things</em>. The unikernel model is similar to the Erlang philosophy of <em>let it crash</em>. You only have kernel space, you entire application resides in it. Most things out of the ordinary are going to crash the kernel. This makes the sort of exploratory testing useful in exploit development harder.</p>
+
+<h2 id="really-immutable-infrastructure">Really Immutable Infrastructure</h2>
+
+<p>People often talk about immutable infrastructure. I’d wager there is more talk than reality however. When you push, people are often not using read-only file systems and retain the capability to login to machines to make ad-hoc changes. What they mean by immutable is that they only change machines at deploy time. This ignores both the fact they have the technical capability to change them anytime, and that an attacker could change them outside that deployment cycle. With unikernel systems there is often just the compiled kernel, you can’t just change files on disk. The defaults force an immutable way of working.</p>
+
+<h2 id="clean-slate-tls">Clean Slate TLS</h2>
+
+<p>As a typical developer or operator you’ve probably learned more than you wanted to know about the OpenSSL source code. It’s not well understood and not likely to be so anytime soon and has some pretty spectacular bugs like <a href="http://heartbleed.com/">Heartbleed</a>. The <a href="https://www.coreinfrastructure.org/">Core Infrastructure Initiative</a> is laudable and will improve things but it’s still a problematic codebase. Functional programming is often regarded as an easier way of writing understandable code. Types are a good thing, especially when it comes to security systems. So a pure <a href="https://mirage.io/blog/introducing-ocaml-tls">OCaml TLS</a> implementation as used by <a href="https://mirage.io/">MirageOS</a> makes sense on lots of levels. Yes this is quite an undertaking, but the <a href="http://amirchaudhry.com/bitcoin-pinata/">bitcoin pinata</a> tests show promise.</p>
+
+<h2 id="formal-proofs">Formal Proofs</h2>
+
+<p>Knowing whether an application really does exactly what you want it to do (and no more) is a hard problem to solve. Unit tests and other form of automated testing help, but are still reliant on people to both write and design the tests. A formal proof system can provide much stronger guarentees of correctness, it’s an approach used in some cases for missing-critical components of <a href="http://cacm.acm.org/magazines/2015/4/184701-how-amazon-web-services-uses-formal-methods/fulltext">Amazon’s AWS</a>. MirageOS is implemented in OCaml. One of the most popular OCaml programmes is <a href="https://coq.inria.fr/">Coq</a>, which just so happens to be a formal proof management system. I’ve not seen many examples yet of this approach, probably due to the effort involved, but the capability is there for building formally specified unikernels. I’d wager a similar thing is possible with Haskell and <a href="https://github.com/GaloisInc/HaLVM">HalVM</a>. Making that easier to do for typical developers could open up much more secure development practices for certain usecases.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2015/08/21/operating-unikernel-challenges/">A Discussion of The Operational Challenges With Unikernels</a>
+      </h1>
+      <span class="post-date">Aug 21, 2015 &middot; 7 minute read
+      </span>
+      
+      
+
+<h2 id="what-are-unikernels">What are Unikernels</h2>
+
+<p>Most of this post assumes a basic understanding of what unikernels are
+so I’d recommend reading <a href="http://queue.acm.org/detail.cfm?id=2566628">Unikernels – the rise of the virtual library
+operating system</a> before moving
+on.</p>
+
+<h2 id="why-are-unikernels-interesting">Why are Unikernels interesting</h2>
+
+<p>As a starting point: complexity. Managing infrastructure, and the
+software that runs on it, is too complicated. You can impose
+organisational rules to control this complexity (we only deploy on
+Debian, we only run JVM applications, the only allowed database is
+MySQL) but that limits you in other ways too, and in reality is nearly
+always broken somewhere in any non-trivial environment (this appliance
+uses Ubuntu, this software is only certified on Windows, PostgreSQL
+doesn’t run on the JVM). So you turn to software to manage that
+complexity; Puppet or Chef do a great job of allowing configuration
+complexity to be managed in code (where you can test it) and Docker
+allows for bundles of complexity to be isolated from other bundles of
+complexity. But there are still an awful lot of moving parts.</p>
+
+<p>Another reason is the growing realisation that security is important.
+Securing systems on the internet is hard. Even though the basics are
+broadly understood they are often not implemented, and the people
+attempting to compromise systems are smart, well paid and highly
+incentivised (basically like you). It’s generally easier to break
+something than to build it. Part of this is a numbers game – to run a
+reasonable sixed system you might need to run 50 different services, and
+install 200 packages on every host. An attacker has to compromise just
+one of those to win.</p>
+
+<p>A further reason, if one were needed, is the proliferation of many small
+internet connected devices, aka. The Internet of Things. Part of this
+relates to the above points about security concerns, but some of it is
+simply a matter of managing that many single purpose, low power,
+devices. The overhead of a typical general purpose operating system and
+application runtime just don’t fit this model.</p>
+
+<p>Enter unikernels. Unikernels actually remove unneeded complexity. You’re
+running a hypervisor and the unikernel and that’s it. The unikernel
+contains only those libraries that you have specifically required. That
+drastically reduces the surface area for attack as well as meaning
+you’re running less software, hopefully enough less that your power
+needs are reduced too. By specifically requiring individual libraries
+you’re also making complexity visible. Rather than using a general
+purpose operating system with it’s 100s of packages and millions of
+lines of code you are at least choosing what to include.</p>
+
+<h2 id="operational-challenges">Operational challenges</h2>
+
+<p>While I think some part of the future looks like unikernels their are
+some large operational challenges to overcome before they break out of
+very specific niches or research projects. Note that</p>
+
+<p>there are architectural and software development challenges as well, I
+just happen to think they’re easier to deal with.</p>
+
+<h3 id="development-environment">Development environment</h3>
+
+<p>There are a few properties of a development environment that I think are
+essential to modern development; development/production parity being one
+of the most important. Tools like Vagrant, and a move towards
+infrastructure as code, and more recently Docker have made great strides
+here in the past several years. The different unikernel implementations
+are generally based on lesser known software stacks (Haskell, OCaml,
+Erlang, etc) so some of this is familiarity. But what does
+development/production partity mean for a unikernel based system? We’re
+not just talking about the individual unikernel here either – how do I
+deploy unikernels? How do I compose several unikernels together to build
+an application? What does a Continuous integration or deployment
+pipeline look like? In my view the unikernel movement should focus some
+efforts here. Not only will this make it easier for people to get
+started, but having strong opinions early will allow the nascent
+community to solve the problem together, rather than everyone solving it
+just-in-time for themselves.</p>
+
+<h3 id="managing-the-hypervisor">Managing the hypervisor</h3>
+
+<p>I’d argue today most developers don’t spent much time directly working
+with hypervisors. Either you’re running on an in-house VMware, KVM or
+Xen install with some (hopefully self-service, automated) provisioning
+mechanism in place or you’re using a public cloud like AWS, Azure, etc.
+The current generation of unikernel systems mainly target Xen. I think
+in the short term at least this means getting to know the hypervisor.
+Xen is solid software, but I don’t see a great deal of automation around
+it – say well maintained Puppet modules, API clients or a Terraform
+provider. In the long term we’ll hopefully have higher level interfaces,
+but in the short term efforts here would lower the barrier to entry
+considerably.</p>
+
+<h4 id="double-down-on-aws">Double down on AWS</h4>
+
+<p>Given the above, and given the ubiquity of EC2 (which is based on Xen)
+it might be wise to build up first-class tools around using EC2 as a
+target environment for unikernel deployments. EC2 supports custom
+kernels, but these require a number of convoluted steps that could be
+automated away (note that I’m talking about more than just a shell
+script here). Also what are the best practices around autoscaling groups
+andunikernels? Or VPC networks and unikernels?</p>
+
+<h3 id="the-network">The network</h3>
+
+<p>With the explosion in containers and microservices it’s becoming clearer
+(if it wasn’t already) how important the network is. By removing the
+operating system we remove things like host firewalls and the new breed
+of overlay networks. At the same time if we are to tap the dynamic
+potential of unikernels we’ll need a similarly dynamic and automatable
+network. Maybe this becomes more of an application concern, with
+services communicating via other services which act as firewalls and
+intelligent proxies, but that still leaves the underlying network to be
+managed.</p>
+
+<h3 id="debugging">Debugging</h3>
+
+<p>However much testing you do beforehand you’ll still likely end up with
+problems in production, and as you scale up you’ll hit issues that you
+simply can’t recreate outside the live environment. This is were good
+debugging capabilities come in. While general purpose operating systems
+might be complex they are well know, and tools like ps, top, free, ping,
+telnet, netcat, dtrace, etc. are commonly used by anyone debugging
+systems. Note that in many cases you’re debugging a combination of
+systems; is the performance issue an application problem, a network
+problem, a storage problem or some interesting combination of several
+facters?</p>
+
+<p>By removing the general purpose operating system, unikernel based
+environments remove most of the current debugging tools at the same
+time. Part of this Is good application development hygiene (logs,
+metrics and status endpoints for instance), but what about the more
+interactive debugging practices? What does debugging a system based on
+unikernels look like?</p>
+
+<h3 id="orchestration">Orchestration</h3>
+
+<p>The word may be overloaded but the need to arrange and manage a number
+of components that make up a larger system is a real need. This might be
+something like Docker&rsquo;s Compose file or <a href="https://brooklyn.incubator.apache.org/learnmore/blueprint-tour.html">Brooklyn&rsquo;s
+Blueprints</a>,
+or it could be something more akin to the APIs from Cloud Foundry,
+Kubernetes or Mesos. Testing some of these models with unikernel based systems
+will be an interesting test of how coupled to containers the existing models are.
+The lack of legacy again opens up the potential to come up with a truly
+modern alternative here too.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Unless you’re in an environment where security is your number 1 concern
+then the current state of Unikernels probably means choosing to adopt
+them now is a little bleeding edge. But I think that will change over
+time as the various projects mature and address some of the issues
+described above. In the meantime I’d love to see more discussion of some
+of the operational challenges. I think talking about the needs of
+operators at this early stage should make the resulting ecosystems more
+robust whsen it comes to future production deployments.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2015/08/20/puppet-module-skeleton-updates/">Update to Puppet Module Skeleton</a>
       </h1>
       <span class="post-date">Aug 20, 2015 &middot; 2 minute read
@@ -518,248 +984,6 @@ the above resources, but you get the idea.</p>
 <p>The above is implemented in a very simple
 <a href="https://github.com/garethr/garethr-key_value_config">proof of concept Puppet module</a>.
 Anyone with any feedback please do let me know.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2014/07/20/leaving-gds-never-easy/">Leaving GDS never easy</a>
-      </h1>
-      <span class="post-date">Jul 20, 2014 &middot; 2 minute read
-      </span>
-      
-      <p><em>The following is the email I sent to lots of my colleagues at the
-<a href="https://gds.blog.gov.uk/">Government Digital Service</a> last week.</em></p>
-
-<p>So, after 3 rather exciting years I&rsquo;ve decided to leave GDS.</p>
-
-<p>That&rsquo;s surprisingly difficult to write if I&rsquo;m honest.</p>
-
-<p>I was part of the team that built and shipped the beta of <a href="https://www.gov.uk">GOV.UK</a>.
-Since then I&rsquo;ve worked across half of what has become GDS, equally
-helping and frustrating (then hopefully helping) lots of you. I&rsquo;ve
-done a great deal and learnt even more, as well as collected arcane
-knowledge about government infosec and the dark arts of procurement
-along the way. I&rsquo;ve done, and helped others do, work I wouldn&rsquo;t even
-have thought possible (or maybe likely is the right word?) when I
-started.</p>
-
-<p>So why leave? For all the other things I do I&rsquo;m basically a tool
-builder. So I&rsquo;m going off to work for <a href="http://puppetlabs.com">Puppet Labs</a> to build
-infrastructure tools that don&rsquo;t suck. That sort of pretty specific
-work is something that <em>should</em> be done outside government in my
-opinion. I&rsquo;m a pretty firm believer in &ldquo;government should only do what
-only government can do&rdquo; (<a href="https://www.gov.uk/design-principles#second">design principle number 2</a> for those that
-haven&rsquo;t memorised them yet). And if I&rsquo;m honest, focusing on something
-smaller than fixing a country&rsquo;s civic infrastructure is appealing for
-now.</p>
-
-<p>I&rsquo;ll let you in on a secret; I didn&rsquo;t join what became GDS because of
-the GOV.UK project. I joined to work with friends I&rsquo;d not yet had the
-chance to work with and to see the inside of a growing organisation
-from the start. I remember <a href="http://twitter.com/tomskitomski">Tom Loosemore</a> promising me we&rsquo;d be 200
-people in 3 years! As far as anyone knows we&rsquo;re 650+ people. That&rsquo;s
-about a person a day for 2 years. I&rsquo;m absolutely not saying that came
-without a cost, but for me being part of that that was part of the
-point - so I can be a little accepting with hindsight.</p>
-
-<p>For me, apart from all the short term things (side-note: this job now
-has me thinking £10million is a small amount of money and 2 years is a
-small amount of time) there is one big mission:</p>
-
-<blockquote>
-<p>Make government a sustainable part of the UK tech community</p>
-</blockquote>
-
-<p>That means in 10 years time experienced tech people from across the
-country, as well as people straight from university, choosing to work
-for government. Not just for some abstract and personal reason (though
-that&rsquo;s fine too), but because it&rsquo;s a a genuinely interesting place to
-work. That one&rsquo;s on us.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2014/06/23/using-owasp-zap-from-the-command-line/">Using OWASP ZAP from the command line</a>
-      </h1>
-      <span class="post-date">Jun 23, 2014 &middot; 2 minute read
-      </span>
-      
-      <p>I&rsquo;m a big fan of <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a> or
-the Zed Attack Proxy. It&rsquo;s suprisingly user friendly and nicely pulls of
-it&rsquo;s aim of being useful to developers as well as more hardcore penetration testers.</p>
-
-<p>One of the features I&rsquo;m particularly fond of is the aforementioned
-proxy. Basically it can act as a transparent HTTP proxy, recording the
-traffic, and then analyse that to conduct various active security tests;
-looking for XSS issues or directory traversal vulnerabilities for
-instance. The simplest way of seeding the ZAP with something to analyse is using
-the simple inbuilt spider.</p>
-
-<p>So far, so good. Unfortunately ZAP isn&rsquo;t designed to be used from the
-command line. It&rsquo;s either a thick client, or it&rsquo;s a proxy with a simple
-API. Enter <a href="https://github.com/garethr/zapr">Zapr</a>.</p>
-
-<p>Zapr is a pretty simple wrapper around the ZAP API (using the
-<a href="https://github.com/vpereira/owasp_zap">owasp_zap</a> library under the
-hood). All it does is:</p>
-
-<ul>
-<li>Launch the proxy in headless mode</li>
-<li>Trigger the spider</li>
-<li>Launch various attacks against the collected URLs</li>
-<li>Print out the results</li>
-</ul>
-
-<p>This is fairly limited, in that a spider isn&rsquo;t going to work
-particularly well for a mor interactive application, but it&rsquo;s a farily good
-starting point. I may add different seed methods in the future (or would
-happily accept pull requests). Usage wise it&rsquo;s as simple as:</p>
-
-<pre><code>zapr --summary http://localhost:3000/
-</code></pre>
-
-<p>That will print you out something like the following, assuming it finds
-an issue.</p>
-
-<pre><code>+-----------------------------------+----------+----------------------------------------+
-| Alert                             | Risk     | URL                                    |
-+-----------------------------------+----------+----------------------------------------+
-| Cross Site Scripting (Reflected)  | High     |http://localhost:3000/forgot_password   |
-+-----------------------------------+----------+----------------------------------------+
-</code></pre>
-
-<p>The above alert is taken from a <a href="https://github.com/garethr/zapr-example">simple example</a>,
-using the <a href="https://github.com/OWASP/railsgoat">RailsGoat</a> vulnerable web
-application as a scape goat. You can see the resulting output from
-<a href="https://travis-ci.org/garethr/zapr-example">Travis running the tests</a>.</p>
-
-<p>Zapr is a bit of a proof of concept so it&rsquo;s not particularly robust or
-well tested. Depending on usage and interest I may tidy it up and extend
-it, or I may leave it as a useful experiment and try and finally get ZAP
-support into <a href="http://gauntlt.org">Gauntlt</a>, only time will tell.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2014/04/25/consul/">Consul, DNS and Dnsmasq</a>
-      </h1>
-      <span class="post-date">Apr 25, 2014 &middot; 2 minute read
-      </span>
-      
-      
-
-<p>While at <a href="http://craft-conf.com/2014">Craft</a> I decided to have a quick look at
-<a href="http://www.consul.io/">Consul</a>, a new service discovery framework with
-a few intersting features. One of the main selling points is a DNS
-interface with a nice API. The <a href="http://www.consul.io/intro/index.html">Introduction</a>
-shows how to use this via the dig command line tool, but how do you use
-a custom internal DNS server without modifying all your applications?
-One answer to this question is
-<a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">Dnsmasq</a>.</p>
-
-<p>I&rsquo;m not explaining Consul here, the above mentioned introduction does a
-good job of stepping through the setup. The following assumes you have
-installed and started consul.</p>
-
-<h2 id="installation-and-configuration">Installation and configuration</h2>
-
-<p>I&rsquo;m running these examples on an Ubuntu 14.04 machine, but dnsmasq
-should be available and packaged for lots of different operating
-systems.</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>apt-get install dnsmasq
-</pre></div>
-
-<p>Once installed we can create a very simple configuration.</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #003388">echo</span> <span style="color: #dd2200; background-color: #fff0f0">&quot;server=/consul/127.0.0.1#8600&quot;</span> &gt; /etc/dnsmasq.d/10-consul
-</pre></div>
-
-<p>All we&rsquo;re doing here is specifying that DNS requests for consul services
-are to be dealt with by the DNS server at 127.0.0.1 on port 8600. Unless
-you&rsquo;ve changed the consul defaults this should work.</p>
-
-<p>Just in case you prefer Puppet their is already a handy
-<a href="https://github.com/saz/puppet-dnsmasq">dnsmasq</a> module. The resulting
-puppet code then looks like this.</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #008800; font-weight: bold">include</span> <span style="color: #336699">dnsmasq</span>
-<span style="color: #336699">dnsmasq</span>::<span style="color: #336699">conf</span> { <span style="color: #dd2200; background-color: #fff0f0">&#39;consul&#39;</span>:
-  <span style="color: #336699">ensure</span>  =&gt; <span style="color: #008800; font-weight: bold">present</span>,
-  <span style="color: #336699">content</span> =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;server=/consul/127.0.0.1#8600&#39;</span>,
-}
-</pre></div>
-
-<h2 id="usage">Usage</h2>
-
-<p>The examples from the main documentation specify a custom DNS server for
-dig like so:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>dig @127.0.0.1 -p <span style="color: #0000DD; font-weight: bold">8600</span> web.service.consul
-</pre></div>
-
-<p>With Dnsmasq installed and configured as above you should just be able
-to do the following:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>dig web.service.consul
-</pre></div>
-
-<p>And now any of your existing applications will be able to use your
-consul instance for service discovery via DNS.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2014/03/15/testing-vagrant-runs-with-cucumber/">Testing Vagrant runs with Cucumber</a>
-      </h1>
-      <span class="post-date">Mar 15, 2014 &middot; 2 minute read
-      </span>
-      
-      <p>I&rsquo;ve been a big fan of <a href="http://www.vagrantup.com/">Vagrant</a> since it&rsquo;s
-initial release and still find myself using it for various tasks.</p>
-
-<p>Recently I&rsquo;ve been using it to test collections of Puppet modules. For a
-single host
-<a href="https://github.com/jvoorhis/vagrant-serverspec">vagrant-serverspec</a> is
-excellent. Simply install the plugin, add a provisioner and write your
-<a href="http://serverspec.org/">serverspec</a> tests. The serverspec provisioner
-looks like the following:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>config.vm.provision <span style="color: #aa6600; background-color: #fff0f0">:serverspec</span> <span style="color: #008800; font-weight: bold">do</span> |spec|
-  spec.pattern = <span style="color: #dd2200; background-color: #fff0f0">&#39;*_spec.rb&#39;</span>
-<span style="color: #008800; font-weight: bold">end</span>
-</pre></div>
-
-<p>But I also found myself wanting to test behaviour from the host
-(serverspec tests are run on the guest), and also wanted to write tests
-that checked the behaviour of a multi-box setup. I started by simply
-writing some <a href="http://cukes.info/">Cucumber</a> tests which I ran locally,
-but I decided I wanted this integrated with vagrant. Enter
-<a href="https://github.com/garethr/vagrant-cucumber-host">vagrant-cucumber-host</a>.
-This implements a new vagrant provisioner which runs a set of cucumber
-features locally.</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>config.vm.provision <span style="color: #aa6600; background-color: #fff0f0">:cucumber</span> <span style="color: #008800; font-weight: bold">do</span> |cucumber|
-  cucumber.features = []
-<span style="color: #008800; font-weight: bold">end</span>
-</pre></div>
-
-<p>Just drop your features in the features folder and run <code>vagrant
-provision</code>. If you just want to run the cucumber features, without any
-of the other provisioners running you can use:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>vagrant provision --provision-with cucumber
-</pre></div>
-
-<p>Another advantage of writing this as a vagrant plugin is that it uses
-the Ruby bundled with vagrant, meaning you just install the plugin
-rather than faff about with a local Ruby install.</p>
-
-<p>A couple of other vagrant plugins that I&rsquo;ve used to make the testing
-setup easier are <a href="https://github.com/cogitatio/vagrant-hostsupdater">vagrant-hostsupdater</a>
-and <a href="https://github.com/adrienthebo/vagrant-hosts">vagrant-hosts</a>. Both
-help with managing hosts files, which makes writing tests without
-knowing the IP addresses easier.</p>
 
       
     </div>

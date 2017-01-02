@@ -63,6 +63,213 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2008/02/04/continuous-integration-for-front-end-developers/">Continuous Integration for Front End Developers</a>
+      </h1>
+      <span class="post-date">Feb 4, 2008 &middot; 4 minute read
+      </span>
+      
+      <p>Most software developers, especially those with a grounding in Agile development methodologies, will probably be familiar with <a href="http://www.martinfowler.com/articles/continuousIntegration.html">Continuous Integration</a></p>
+
+<blockquote>
+<p>Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. <strong>Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible</strong>.</p>
+</blockquote>
+
+<p>The emphasis above is mine, purely as it&rsquo;s at the heart of what I&rsquo;m going to ramble on about. A little closer to home <a href="http://theryanking.com">Ryan King</a> just <a href="http://theryanking.com/entries/2008/02/02/inursite/">posted about</a> a new site; <a href="http://inursite.com/">inursite</a>. The premise is simple; enter a few of your sites and <em>inursite</em> will visit them once a day and run a markup validation service over the page. You then get a feed of the pass or failure status. It&rsquo;s simple but brilliant. For example, I have this very site added to the service. If I put some invalid markup in this post, tomorrow morning I&rsquo;ll get an item in my feedreader telling me of my mistake. I&rsquo;ll get that every day until I fix the problem.</p>
+
+<p>This green/red (pass/fail) type approach to simple tests is what I find most powerful about continuous integration systems like <a href="&quot;:http://cruisecontrol.sourceforge.net/">Cruise Control</a>. Ryan asked over on his site in one of the comments what I&rsquo;d like to see, so lets see:</p>
+
+<ul>
+<li>Has all the CSS been compressed using something like <a href="http://csstidy.sourceforge.net/">CSSTidy</a>.</li>
+<li>Has all the javascript been compressed using something like <a href="http://javascript.crockford.com/jsmin.html">JSMin</a>.</li>
+<li>Does any Javascript pass the harsh taskmaster that is <a href="http://www.jslint.com/">JSLint</a>.</li>
+<li>If my markup a little bloated? Maybe I could set a maximum size for the markup and get a fail is I go over that.</li>
+<li>Ditto CSS file size.</li>
+<li>Ditt Javascript.</li>
+<li>Ditto images.</li>
+<li>If pages have associated feeds, then validate them as well according to the relevant specification (probably RSS or Atom).</li>
+<li>How many HTTP Requests does it take to load the whole page, including all the relevant assets. <em>I&rsquo;d like to be able to set a maximum number.</em></li>
+<li>How many hosts are required to load the whole page? I&rsquo;d like to be able to set a maximum number and get a fail if I go over that.</li>
+<li>Is the page gzipped on the server.</li>
+<li>And just to keep this topical, does the page have either the IE8 meta element or the associated HTTP header set to a particular value.</li>
+</ul>
+
+<p>Lots of this is front-end best practice, some coming from the YAHOO! <a href="http://developer.yahoo.com/performance/">exceptional performance</a> work. It&rsquo;s something <a href="http://24ways.org/2007/minification-a-christmas-diet">I&rsquo;ve touched on before</a> too. Can anyone else think of other things you&rsquo;d like to see when you&rsquo;re working away crafting markup and CSS? Once you have all these tests running you could display them in widgets, gadgets, twitter, firefox extensions, large displays, mobile devices, the works.</p>
+
+<p>Now that sounds like an awful lot of stuff for one person (or even for one application) but I have something else in mind. If <em>inursite</em> allowed you to hook up external webservices which accept a URL as an argument, along with any service specific parameters, and return true or false then, in theory, anyone could add their own custom checks to it. This becomes particularly useful for larger teams than are likely to have internal quality tools already. On top of all that I&rsquo;d probably pay for a service like this that let me run it on demand (rather than once per day) - or maybe even better, pay for a downloadable version (a.l.a. <a href="http://haveamint.com">Mint</a>) I can install locally.</p>
+
+<p>As you can probably tell, I think the general idea of continuous integration for front end web developer is one for which time has come. It&rsquo;s simply part of our discipline growing up and becoming more professional. Whether Ryan looks to extend his fantastic simple service in this direction or not I hope something will come along that does all this and more. I might even work on it myself - but then I always say that!</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2008/01/30/simple-deployment-with-svn-and-phing/">Simple deployment with SVN and Phing</a>
+      </h1>
+      <span class="post-date">Jan 30, 2008 &middot; 4 minute read
+      </span>
+      
+      <p>Another approach to deploying web apps is to use <a href="http://phing.info/">Phing</a>. Phing is at heart a PHP clone of Ant, another common build and deployment tool. The main advantage of using Phing, at least if you&rsquo;re already using PHP, is close integration with other PHP specific tools (PHPDocumentor, PHPLint and PHPUnit to name a few) and ease of install.</p>
+
+<p>Speaking to installation Phing has it&rsquo;s own PEAR channel. I still think PEAR is great in so many different ways - it always makes me frown when I see people cussing at PEAR (especiallly the installer). You can install Phing as follows.</p>
+
+<pre><code>&lt;code&gt;pear channel-discover pear.phing.info
+pear install phing/phing&lt;/code&gt;
+</code></pre>
+
+<p>The <a href="http://phing.info/docs/guide/current/">Phing documentation</a> is nothing if not comprehensive. Unfortunately, unless you are pretty familiar with Ant or you&rsquo;re trying to do something complex (and willing to invest the time) the chances are you&rsquo;ll be a little lost. More and simpler examples for common problems would be useful for those beginners.</p>
+
+<p>I might publish a few little recipes down the line or even a full commented production recipe but for the moment lets start simple. The following build script is designed to be run on your remote web server and relies on a subversion repository (hopefully you&rsquo;re using source control, if not that&rsquo;s another post I&rsquo;m afraid). It simply exports the specified repository to the specified export directory on the server. Note that you need to set your own SVN details and replace the capitalised properly values. The following should be saved as <em>build.xml</em> on your web server, outside the web root.</p>
+
+<pre><code>&lt;code&gt;&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;project name=&quot;build&quot; default=&quot;main&quot;&gt;
+
+  &lt;property name=&quot;exportdir&quot;  value=&quot;WEB_ROOT&quot; /&gt;
+  &lt;property name=&quot;svnpath&quot; value=&quot;YOUR_SVNPATH&quot; /&gt;
+  &lt;property name=&quot;username&quot; value=&quot;YOUR_SVN_USERNAME&quot; /&gt;
+  &lt;property name=&quot;password&quot; value=&quot;YOUR_SVN_PASSWORD&quot; /&gt;
+  &lt;property name=&quot;repo&quot; value=&quot;YOUR_SVN_REPO&quot; /&gt;
+
+  &lt;target name=&quot;main&quot; depends=&quot;svnexport&quot;/&gt;
+
+  &lt;target name=&quot;svnexport&quot;&gt;
+    &lt;svnexport
+       svnpath=&quot;${svnpath}&quot;
+       username=&quot;${username}&quot;
+       password=&quot;${password}&quot;
+       nocache=&quot;true&quot;
+       repositoryurl=&quot;${repo}&quot;
+       todir=&quot;${exportdir}&quot;/&gt;
+  &lt;/target&gt;
+&lt;/project&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Let&rsquo;s break some of that down. Property definitions allow you to specify variables for use in your build script. In this example we only have one task specified so maybe we don&rsquo;t need the extra abstraction but the moment we start reusing scripts or adding more tasks it&rsquo;s a good idea.</p>
+
+<pre><code>&lt;code&gt;&lt;property name=&quot;exportdir&quot;  value=&quot;./web&quot; /&gt;&lt;/code&gt;
+</code></pre>
+
+<p>The other major point of interest is the task itself. Here we make use of the properties we have already specified to run a subversion export. The <em>svnexport</em> task is build in to Phing.</p>
+
+<pre><code>&lt;code&gt;&lt;target name=&quot;svnexport&quot;&gt;
+  &lt;svnexport
+     svnpath=&quot;${svnpath}&quot;
+     username=&quot;${username}&quot;
+     password=&quot;${password}&quot;
+     nocache=&quot;true&quot;
+     repositoryurl=&quot;${repo}&quot;
+     todir=&quot;${exportdir}&quot;/&gt;
+&lt;/target&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Also of note is the setting of a default task, <em>main</em>, as a property of the project element and specifying that the main task depends on another task, <em>svnexport</em>. Again, we could avoid that at this stage but the moment we add another few tasks then we&rsquo;ll want more control over execution order.</p>
+
+<p>Phing should be run from the directory containing the build script. You can run the command without any arguments, in which case the default task will be run (in our case <em>main</em>) or you can pass an argument to specify a specific task. For our simple build script the two following commands do the same thing:</p>
+
+<pre><code>&lt;code&gt;phing&lt;/code&gt;
+
+&lt;code&gt;phing svnexport&lt;/code&gt;
+</code></pre>
+
+<p>Given the above build script simple runs a subversion export command you might be wondering what use it is. The answer is not much at this stage. You <em>do</em> get a simple build script which can be stored in your source control system and used by the whole team. The real advantage is where you might go from here. If everyone in your team deploys in the same way (ie. using the build script) then anyone can add extra tasks and everyone gets the benefit. Simple example might be generating code documentation, running Unit tests (and not running the export if the tests fail) and creating a zip file of the deployed source for backup purposes.</p>
+
+<p>Build scripts can get complicated quickly, but if you start out small and add tasks as you need and understand them, you should be able to raise the quality of your application and avoid easy to make mistakes.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2008/01/27/questions-pointers-and-reality/">Questions, Pointers and Reality</a>
+      </h1>
+      <span class="post-date">Jan 27, 2008 &middot; 3 minute read
+      </span>
+      
+      <p>Along with an awful lot of noise, the whole X-UA-COMPATIBLE IE8 issue is also bringing out some well rounded and thought through arguments from people I admire.</p>
+
+<p>I still disagree with <a href="http://adactio.com/journal/1403/">Jeremy Keith</a> on the default issue but agree with everything else. Jeremy says:</p>
+
+<blockquote>
+<p>Let me make it perfectly clear: I understand the need for version targeting. But the onus must be on the publisher to enable it.</p>
+</blockquote>
+
+<p>At the moment it comes down to a sense of stubborn realism on my part. All the people who know about the issue and the need for the new header (that would be me, Jeremy, probably you and the whole <em>web standards developer</em> crowd) are probably also in a position to add it fairly easily. All those that don&rsquo;t know about the header <em>don&rsquo;t have to know</em> about it. Ever. I would prefer if this wasn&rsquo;t the case but alas I think it might be.</p>
+
+<p><a href="http://www.isolani.co.uk/blog/standards/InternetExplorerReality">Mike Davies</a> has one of the most well argued points out their. Throwing into the pot the issue of content not served via a web server raises even more issues that make changing the default behaviour difficult. I think Mike sums this up pretty well:</p>
+
+<blockquote>
+<p>Every other browser has either started from scratch from the ground up (Firefox and Opera), or created a browser after the browser-wars (Safari). As such, all three have benefited from not having to support Microsoft&rsquo;s excess baggage. And Microsoft being dragged to a complete stop because of it. This is Microsoft&rsquo;s browser-war victory biting them in the ass.</p>
+</blockquote>
+
+<p>Whether we like it or not this issue is about Microsoft, and I (maybe naively) believe Microsoft would like nothing better than to get back up from the mat and innovate in the browser space. But they can&rsquo;t because of the ball and chain.</p>
+
+<p>Who hasn&rsquo;t written at least some code that, in hindsight, turned into a horrible maintenance nightmare? You might dream of jumping in and rewriting it from scratch but if that code has already been shipped to a client then what is that client doing to do? Turning around and saying <em>actually, what we gave you originally was pretty rubbish</em> isn&rsquo;t going to go down well - even when it&rsquo;s the right thing to do.</p>
+
+<p>Mike is right in that the IE team are actually going to be shipping two browsers. That has got to be a massive issue for them - certainly a bigger issue than me adding a new header to my site or a meta element to my pages. But if it lets the second of those browsers support CSS3, HTML5, XHTML, Canvas and anything else we dream of then I&rsquo;m all for it. We all know the first of those browsers just won&rsquo;t be up to the task.</p>
+
+<p>One particular thorny problem I wasn&rsquo;t aware of was issues surrounding accessibility. <a href="http://www.brucelawson.co.uk/index.php/2008/accessibility-implications-microsoft-versioning/">Bruce Lawson</a> has some of the details but in short by locking a large number of sites into the ways of IE7 we essentially freeze the (poor) state of accessibility on the web. <a href="http://splintered.co.uk">Patrick Lauke</a> also raises a related issue in the comments regarding further alienating screen reader and assistive technology developers. These points for me are ones I want addressing by Microsoft and one&rsquo;s without resolution which would make me change my mind on this whole issue of defaults.</p>
+
+<p>So, the jury is still out in my mind. I hope it is in the minds of those working closer to the heart of this problem at Microsoft. Like <a href="http://molly.com">Molly</a> I&rsquo;m glad this issue has been raised now, rather than simply revealed at launch. I just hope the reason for that was to get the sort of high quality feedback we&rsquo;re seeing in some areas of the community in order to test the waters and come to a consensus.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2008/01/22/who-loses-out-to-x-ua-compatible/">Who loses out to X-UA-Compatible?</a>
+      </h1>
+      <span class="post-date">Jan 22, 2008 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>If you work on the web you&rsquo;ll probably have already seen or noted the existence of the <a href="http://alistapart.com/issues/251">latest issue of A List Apart</a>:</p>
+
+<ul>
+<li><a href="http://alistapart.com/articles/beyonddoctype">Beyond DOCTYPE: Web Standards, Forward Compatibility, and IE8</a></li>
+<li><a href="http://alistapart.com/articles/fromswitchestotargets">From Switches to Targets: A Standardista&rsquo;s Journey</a></li>
+</ul>
+
+<p>My twitter feed positively exploded with negative feedback on this issue but I&rsquo;ve only just got round to reading (and re-reading) the various interesting articles and (some half through through) comments. I though I&rsquo;d have a think through who this affects.</p>
+
+<p>What we&rsquo;re disucssing is either adding a meta element to your documents or alternatively sending the relevant HTTP header. The code for that looks like:</p>
+
+<pre><code>&lt;code&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=8&quot; /&gt;&lt;/code&gt;
+</code></pre>
+
+<h3 id="ie-users">IE Users</h3>
+
+<p>Users of Internet Explorer get a bum deal here I think. Their browser is going to get bigger - potentially a lot bigger. With all those rendering engines rolled into one it&rsquo;s also likely to need lots of memory. How this affects the mobile version of IE is anyones guess. Memory and file size are even more important here.</p>
+
+<h3 id="other-browser-vendors">Other Browser Vendors</h3>
+
+<p>I have a feeling they will all go <em>Meh</em> and move along as if nothing happened. Certainly my experience of upgrades to Firefox, Safari and Opera (including recent bleeding edge versions) doesn&rsquo;t break any of my bits of the web or the bits I frequent.</p>
+
+<h3 id="web-standards-savvy-designers-and-developers">Web Standards Savvy Designers and Developers</h3>
+
+<p>A really cool feature for us designers and developers has gone unmentioned I feel. We&rsquo;ve been asking Microsoft for one application in which we can test all their browsers in. IE8 will be that browser. Think about it. By changing the contents of the meta element (or the header) we can trigger the rendering engine to use IE6, IE7 or IE8.</p>
+
+<p>I&rsquo;m a big fan of the whole progressive enhancement approach, using new browser features that not everyone supports (generated content, CSS3 selectors, etc.) in a way that they don&rsquo;t affect older browsers. If I were to use a feature not yet supported by IE7 but expected in IE8 for instance in this way I would expect it work in IE8. If I include an IE7 <em>X-UA-Compatible</em> declaration this won&rsquo;t happen. Which is why I probably won&rsquo;t include one. The problem is if I don&rsquo;t include it at all I still have the same problem. I&rsquo;ll come back to the solution (and the problem with the solution) in a moment.</p>
+
+<h3 id="other-web-designers-and-developers">Other Web Designers and Developers</h3>
+
+<p>Not everyone is using Web Standards, and even less get progressive enhancement. Most of the web is broken and we <em>are not going to fix this</em>. Virtually no one thinks XHTML2 is a good idea because it starts with this fact and says <em>&ldquo;Let&rsquo;s start again, but get it right this time&rdquo;</em>. The fact that all those websites (and more importantly for Microsoft the users of those websites) standardise on IE7 is fine by me. IE7 isn&rsquo;t that bad remember.</p>
+
+<p>So, all in all I don&rsquo;t see a major problem for me, or other savvy web designers and developers. I have one issue; namely the strong language around the use of <em>edge</em>.</p>
+
+<blockquote>
+<p>This option, though strongly discouraged, will cause a site to target the latest IE browser versions as they release.</p>
+</blockquote>
+
+<p>What this is describing is how things work now. It&rsquo;s also how I want to work - using progressive enhancement to make my websites better when people have browsers that support them. I&rsquo;ll be adding the relevant <em>edge</em> headers to my sites by default as I get a moment to tinker.</p>
+
+<p>In my view this should allow the web to move forward faster with newer features hitting IE sooner, leaving a ghetto populated by IE users who don&rsquo;t upgrade quickly and designers and developers who don&rsquo;t want to be professional about their craft (or tools that aim for the lowest common denominator). Yes, I&rsquo;ll need to add a header to all of my sites in the future but in return I get the latest version of IE that lets me test all previous versions of IE.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2008/01/19/a-few-interesting-upcoming-events/">A few interesting upcoming events</a>
       </h1>
       <span class="post-date">Jan 19, 2008 &middot; 2 minute read
@@ -259,163 +466,6 @@ For anyone in the Newcastle are we&rsquo;re having a meetup next week, on Thursd
       <p>Did you love the simplicity of <a href="http://isitchristmas.com">Is it Christmas?</a> but feel left out, wondering why Christmas should be more important than, say, <em>you</em>? Well here&rsquo;s your answer; <a href="http://isitbirthday.com">Is it Birthday?</a></p>
 
 <p><img src="http://morethanseven.net/_assets/media/imgIsitbirthday.png" alt="Is it Birthday? home page" title="Is it Birthday? home page" />:<a href="http://isitbirthday.com">http://isitbirthday.com</a></p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/12/26/nice-bits-of-symfony-web-debug-toolbar/">Nice bits of symfony: Web Debug Toolbar</a>
-      </h1>
-      <span class="post-date">Dec 26, 2007 &middot; 2 minute read
-      </span>
-      
-      <p>I <a href="http://morethanseven.net/posts/getting-going-with-symfony/">mentioned previously</a> that I&rsquo;d been playing with the <a href="http://www.symfony-project.org/">symfony</a> framework on a couple of projects and I have to admit to being more and more impressed as I wade in looking for things. I&rsquo;ve worked with enough MVC-like frameworks to know they are all quite similar in more ways than they are dramatically different. So it&rsquo;s the little bits and pieces that win you over.</p>
-
-<p>One of my favourite little bits in symfony has to be the Web Debug Toolbar. When running in development mode you get a little menu floating above your application like so (top right hand corner).</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgSymfonyToolbar.png" alt="Web page showing the symfony web debug toolbar in the top right corner" title="Web page showing the symfony web debug toolbar in the top right corner" /></p>
-
-<p>This gives you all sorts of useful information as you&rsquo;re developing your application - from the number of database queries to the rendering time, with a full logger built in. It&rsquo;s also been particularly useful in learning symfony - being able to follow the entire request through the stack from the logger is really handy when you don&rsquo;t know what is going on.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgSymfonyToolbar2.png" alt="Web page showing the symfony web debug toolbar fully expanded" title="Web page showing the symfony web debug toolbar fully expanded" /></p>
-
-<p>With the increasing use of object relational mapping in web frameworks it&rsquo;s quite easy to end up with a <em>working</em> application on your development box that turns out to absolutely hammer your database when used in the real world by only a few hundred people (I&rsquo;m looking at you tagging). The database utilities, showing the number of queries and the SQL for those queries, is particularly handy for finding bottlenecks here.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgSymfonySQL.png" alt="Web page showing the symfony web debug toolbar SQL view" title="Web page showing the symfony web debug toolbar SQL view" /></p>
-
-<p>I&rsquo;ve not come across something similar in other frameworks, PHP or otherwise. I&rsquo;d be interested to know if similar things do exist for Rails or Django in particular.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/12/23/happy-with-my-eeepc/">Happy with my eeepc</a>
-      </h1>
-      <span class="post-date">Dec 23, 2007 &middot; 3 minute read
-      </span>
-      
-      <p>I like small. I have a macbook rather than a macbook pro because it&rsquo;s smaller. Especially now I&rsquo;m wandering about more often with work (and play) lugging a machine around is less and less appealing. So, armed with that excuse I felt justified in going out and buying a new <a href="http://eeepc.asus.com">Asus Eee PC</a>. I managed to just walk in to <a href="www.microanvika.com/">Micro Anvika</a> in Newcastle and buy one from a bemused staff member who was pretty shocked to find one in stock and not allocated (sorry <a href="http://www.reyhan.org/">Rey</a>).</p>
-
-<p>For anyone who hasn&rsquo;t seen one before, the Eee PC is a tiny linux laptop a little like the One Laptop Per Child machine but aimed more at traditional computer users (at the moment read <em>early adopting geeks</em>). The distro is setup to be pretty user friendly for those pesky Windows users but a little hacking turns it into a pretty darn nice machine.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgEeepcApple.jpg" alt="My new eeepc with an apple logo on the back" title="My new eeepc with an apple logo on the back" /></p>
-
-<p>And yes, I have stuck an apple sticker on back. I&rsquo;m sure that should get some entertained looks next time I&rsquo;m at a relevant event! I think the machine itself is actually pretty good looking, but the default desktop themes are all pretty uninspiring.</p>
-
-<p>I&rsquo;ve stuck with the appliance like IceWM window manager and the launcher application as it makes starting things up from the keyboard with one hand pretty fast. I then jumped into various hidden away files to get the desktop setup how I like. The <a href="http://wiki.eeeuser.com">wiki</a> over on <a href="http://eeeuser.com">eee user</a> has a number of useful tutorials; <a href="http://wiki.eeeuser.com/howto:customizeeasymode">customising easy mode</a> and the debian repo from <a href="http://wiki.eeeuser.com/howto:installruby">a ruby tutorial</a> were particularly handy.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgEeepcDesktop.jpg" alt="Minimal IceWM desktop with Asus Launcher" title="Minimal IceWM desktop with Asus Launcher" /></p>
-
-<p>Still lots more I could install (this is Linux after all) but so far have installed Ruby, Rails, Python, Django, Erlang, MySQL, SQLite, Apache2, PHP5, PEAR and symfony all without a hitch. I do love apt when it just works. I&rsquo;ll try and get Mono and Java on their as well just for completeness when I get a moment.</p>
-
-<p>The only thing I can think of that I&rsquo;ll really miss at the moment is Keynote. It has a VGA out port (which not even the macbook has) which will support a decent resolution for presentations. But Keynote is so pretty and easy to use compared to the alternatives. We&rsquo;ll have to see next time I have to do a presentation.</p>
-
-<p>I can see lots of places (past the obsessive tech geeks like me) where a machine like this will be really interesting. Obviously the low cost of the machine means that schools might just get interested in Linux. For people who prefer a desktop machine as their main computer and only occasionally need a laptop it&rsquo;s a pretty cost effective option. As a machine to experiment with Linux it&rsquo;s pretty useful too - I&rsquo;d recommend being familiar with basic commands on Linux to anyone doing web development work for instance. With so many possible audiences, and what is already a pretty nice machine, Asus might be onto something here.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/12/17/css-uprising/">CSS Uprising</a>
-      </h1>
-      <span class="post-date">Dec 17, 2007 &middot; 3 minute read
-      </span>
-      
-      <p>For those not following along closely I thought it worth highlighting some interesting goings on around the web. <a href="http://www.stuffandnonsense.co.uk/">Andy Clarke</a> put the CSS cat amongst the W3C pigeons with a couple of posts; <a href="http://www.stuffandnonsense.co.uk/malarkey/more/css_unworking_group/">CSS Unworking Group</a> and a following up <a href="http://www.stuffandnonsense.co.uk/malarkey/more/csswg_proposals/">CSSWG Proposals</a></p>
-
-<p>How I&rsquo;ve had a <a href="http://morethanseven.net/posts/css-snapshots-css3-modules-and-an-agile-way-forward/">few ideas</a> myself previously around what I&rsquo;d like to see from the CSS3 working group. I&rsquo;m now avidly following along with <a href="http://www.stuffandnonsense.co.uk/malarkey/comments/csswg_proposals/">the comments</a> and I&rsquo;d urge anyone working even on an occasional basis with CSS to do the same.</p>
-
-<p><a href="http://webkit.org/blog/">Maciej Stachowiak</a> said a few very interesting things in the comments I thought worth commenting on:</p>
-
-<blockquote>
-<p>Being an expert user is not necessarily enough to know how to extend it. A key part of extending a technology is knowing how it works on the inside.</p>
-</blockquote>
-
-<p>I think their-in lies an opportunity. The weight of comments on this issue, and the heat of the argument, would suggest people are interested. But I think a-lot of those interested parties are those working day-in with CSS (rather than on it) and lack this critical information. As a web designer how do I find this information out? Who are the interesting bloggers in the area of standardisation? Is their are good reference site? Or a wiki? Or an active friendly mailing list of people willing to answer simple questions? The web (standards) design community is used to open discussion and debate - whether from blogs or projects like <a href="http://microformats.org">microformats</a>.</p>
-
-<p>You could of course also argue that <em>being an expert implementer is not necessarily enough to know what needs extending. A key part of extending a technology is knowing what is needed first in the real world</em>.</p>
-
-<blockquote>
-<p>But the cost of a serious mistake in a standard is much higher than the cost of an implementation bug.</p>
-</blockquote>
-
-<p>I think this depends on the software in question - what about critical military systems, satellites or space shuttles, power stations, etc. - but I agree in principle. Most web designers do not have the experience of working on this sort of software project. But then Andy is not putting himself up as a project management guru.</p>
-
-<p>Their are obviously strong feelings on both sides of this debate. But something I would be interested to hear - from someone with a standards focus - is whether you think their is a fundamental problem at the moment with regards CSS? If not then why not? If so then what are your ideas for moving forward?</p>
-
-<p>And feel free to say you don&rsquo;t know yet. I think what Andy has done is put down his ideas. If you don&rsquo;t like them then suggest better ones. If that&rsquo;s sticking to the status quo then say why you it feel will work out.</p>
-
-<p>(I&rsquo;ve posted the above in the comments to the original post, but wanted to repeat it here more in the hope of getting more interested people involved in that thread.)</p>
-
-<p>I don&rsquo;t really expect Andy to have the answers to this issue, but by him kicking the discussion off in such a public way the least we can <em>all</em> do is have the debate we need and come up with the solutions for everyone. Especially on the list of <em>getting started with standards</em> links and reading materials alluded to above, if someone has this information but not the time to get it online in a coherent fashion, or to present it to the wider community then please get in touch.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/12/11/using-curl-to-play-with-couchdb/">Using Curl to play with CouchDB</a>
-      </h1>
-      <span class="post-date">Dec 11, 2007 &middot; 3 minute read
-      </span>
-      
-      <p>As a big big fan of all things HTTP, the new <a href="http://www.erlang.org/">Erlang</a> based database, <a href="http://couchdb.org">CouchDB</a>, piqued my interest. With the recent <a href="http://damienkatz.net/2007/11/couchdb_070.html">release of 0.7</a> it&rsquo;s now intended for widespread use. Now I&rsquo;m a fan of databases as long as I don&rsquo;t have to go too near them. SQL, triggers and stored procedures are all a little too close to magic for me.</p>
-
-<p>The reason CouchDB looks particularly good fun was it&rsquo;s build around a REST API using JSON for data transport. I&rsquo;m generally not an acronym guy, but REST, JSON, API and HTTP in one open source piece of code? Sounds like fun to me.</p>
-
-<p>The CouchDB community have built up an already <a href="http://www.couchdbwiki.com/">excellent wiki</a> with all the information you need to get started and get the <a href="http://www.couchdbwiki.com/index.php?title=Installation">software installed</a>. I just used the magic of <a href="http://www.macports.org/">MacPorts</a> but the page covers all the various dependencies and setups (though nothing on their yet about the N800).</p>
-
-<pre><code>&lt;code&gt;sudo port install couchdb&lt;/code&gt;
-</code></pre>
-
-<p>You might then need to set-up a user and some permissions. Again the wiki has more <a href="http://www.couchdbwiki.com/index.php?title=Installation#Security_Considerations">detailed installation instructions</a>. All being well you should then be able to fire up CouchDB:</p>
-
-<pre><code>&lt;code&gt;sudo -u couchdb couchdb&lt;/code&gt;
-</code></pre>
-
-<p>So first things first. Their are getting started code examples on the wiki in all the usual languages so you can just dive in. CouchDB also comes with a few in-build tools which are both pretty attractive and useful. You have a <a href="http://localhost:8888/_utils/browse/index.html">database browser</a>, a full <a href="http://localhost:8888/_utils/couch_tests.html">test suite</a> and a <a href="http://localhost:8888/_utils/shell.html">command shell</a>.</p>
-
-<p><a href="http://curl.haxx.se/">Curl</a>, for those not familiar with it, is a fantastic command line utility for throwing around HTTP requests. I already use it for testing and generally prodding sites but it&rsquo;s absolutely perfect for demonstrating CouchDB. Let&rsquo;s start with creating a database called <em>test</em>:</p>
-
-<pre><code>&lt;code&gt;curl -X PUT http://localhost:8888/test/&lt;/code&gt;
-</code></pre>
-
-<p>That should have created the database. Let&rsquo;s get some information back about the database:</p>
-
-<pre><code>&lt;code&gt;curl -X GET http://localhost:8888/test/&lt;/code&gt;
-</code></pre>
-
-<p>Everything should be returning JSON strings telling us something about what it finds. Let&rsquo;s add a blank document to the database:</p>
-
-<pre><code>&lt;code&gt;curl -X POST http://localhost:8888/test/ \
--H &quot;Content-Type: application/json&quot; -d {}&lt;/code&gt;
-</code></pre>
-
-<p>Note the blank JSON object <em>{}</em> passed as Post data. What about retrieving a list of document from the database?</p>
-
-<pre><code>&lt;code&gt;curl -X GET http://localhost:8888/test/_all_docs&lt;/code&gt;
-</code></pre>
-
-<p>We&rsquo;re now done with that database so let&rsquo;s delete it.</p>
-
-<pre><code>&lt;code&gt;curl -X DELETE http://localhost:8888/test/&lt;/code&gt;
-</code></pre>
-
-<p>I&rsquo;ve just done the basics here, but the APIs are simple and nicely documented enough for you easily to find out more. This is the beauty of RESTfully designed APIs, they are just about self documenting. For the most part you just have a predefined HTTP method and a defined URL.</p>
-
-<ul>
-<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_View_API">HTTP View API</a></li>
-<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_Doc_API">HTTP Doc API</a></li>
-<li><a href="http://www.couchdbwiki.com/index.php?title=HTTP_Db_API">HTTP DB API</a></li>
-</ul>
-
-<p>The Erlang base of CouchDB makes for some interesting horizontal scaling possibilities (as well as a good excuse to play with Erlang.) Even if CouchDB wasn&rsquo;t cool enough already, it comes with probably the best start-up message I&rsquo;ve seen in software for ages:</p>
-
-<pre><code>&lt;code&gt;CouchDB has started. Time to relax.&lt;/code&gt;
-</code></pre>
 
       
     </div>

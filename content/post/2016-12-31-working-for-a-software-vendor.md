@@ -1,6 +1,7 @@
 +++
 date = "2016-12-31T14:37:50Z"
 title = "Working for a software vendor"
+url = "/2016/12/31/working-for-a-software-vendor/"
 +++
 
 One of the reasons I moved to Puppet two and a bit years ago was because

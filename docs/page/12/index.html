@@ -63,6 +63,93 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2010/02/11/djugl-february/">DJUGL February</a>
+      </h1>
+      <span class="post-date">Feb 11, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>The next Django User Group London is in two weeks time. You can register over on <a href="http://londonpython.eventwax.com/djugl-february">Eventwax</a>. So far we have <a href="http://intranation.com">Brad</a> talking with more speakers to be announced shortly. Hope to see a few people there.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/02/01/rise-house-team/">The rise of the in-house team?</a>
+      </h1>
+      <span class="post-date">Feb 1, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I was just thinking about the <a href="http://www.dibiconference.com/">Design it Build it</a> conference later in the year (full disclosure: I&rsquo;m speaking). Specifically the people speaking on the developer track. Between myself, Michael Brunton-Spall from The Guardian, David Singleton from Last.fm and Emma Persky from Gumtree four of the six speakers work on in-house teams. Not early stage start-ups, not large software/advertising companies, not as freelancers but in a reasonable sized company on a development team.</p>
+
+<p>My original background was working in agencies, and then a stint working for myself and I&rsquo;m constantly interested by the different facets of the web software industry. I think conferences or magazines aimed at your average interested web developer or designer play an interesting role in what people perceive as normal. If all you see are people who work as a freelancer you start to think that must be way cooler than whatever it is you&rsquo;re doing at the time. I remember attending the first @media event and being surprised at the small number of people from larger agencies. Everyone was from smaller boutique places, or Yahoo! or a freelancer. Now lots of people I see at events are involved in startups.</p>
+
+<p>Interestingly as well none of it is about a particular language or framework. Thinking about it as I type I think between the four of us we spend are day jobs mainly using different languages (java, python, php, perl). But I bet we all work in environments where we use other languages at least occasionally, or at the least the people around us do. Mixed environments are commonplace in companies that have been around a good while and run on software. They are far less common elsewhere with startups using whatever is cool (lets build a mobile search engine in Haskel anyone?) and small agencies often using whatever they built their first client website with (probably PHP).</p>
+
+<p>What I&rsquo;m really interested in though is the type of topics that are going to be talked about. Last.fm vs the Xbox, Scaling the Guardian, my rambling thoughts on a modern toolbox for developers beyond your average LAMP or .NET stack. This is the sort of think I&rsquo;m interested in. It&rsquo;s the sort of problems I like having. It&rsquo;s also, I think, the sort of stuff that doesn&rsquo;t get a showing a many mainstream conferences. I&rsquo;m hoping it&rsquo;s all going to be fairly practical too - things that whatever role people have they can take away and apply.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/01/30/rabbitmq-support-cucumber-nagios/">RabbitMQ support for Cucumber-nagios</a>
+      </h1>
+      <span class="post-date">Jan 30, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;ve been doing more operations related work of late and am starting to use <a href="http://auxesis.github.com/cucumber-nagios/">Cucumber-nagios</a> for various monitoring tasks. <a href="http://www.nagios.org/">Nagios</a> might not be the most attractive of web interfaces but it&rsquo;s so simple to get clients up and running and extend to do what you need. Cucumber however has a lovely, text based, user interface. And although I&rsquo;m mainly working with Python at the moment cucumber-nagios (written in Ruby) really is the easiest way I&rsquo;ve found of writing simple functional tests.</p>
+
+<p>Cucumber-nagios is the creation of <a href="http://holmwood.id.au/~lindsay/">Lindsay Holmwood</a> and after several brief conversations over Twitter I set about adding a feature I wanted for my own monitoring setup. Namely support for keeping an eye on RabbitMQ.</p>
+
+<p>At the moment the code is in a <a href="http://github.com/garethr/cucumber-nagios">fork on GitHub</a> but I&rsquo;m hoping that once any rough edges have been ironed out and a few people have kicked the tyres then it will make it&rsquo;s way into trunk. If you want to use this with an existing project straight away you can always drop the contents of <a href="http://github.com/garethr/cucumber-nagios/blob/master/lib/generators/project/features/steps/amqp_steps.rb">amqp_steps.rb</a> into your feature steps file after installing the <a href="http://gems.rubyforge.org/gems/amqp">amqp gem</a>.</p>
+
+<p>I&rsquo;ve included a little documentation in the fork as well with a quick example:</p>
+
+<pre><code>Feature: github.com
+  To make sure the rest of the system is in order
+  All our message queues must not be backed up
+  Scenario: test queue
+    Given I have a AMQP server on rabbit.github.com
+    And I want to check on the fork queue
+    Then it should have less than 400 messages
+    Then it should have at least 5 consumers
+    Then it should have less than 50 messages per consumer
+</code></pre>
+
+<p>My main usecase was to keep an eye on a known queue size and number of consumers. I&rsquo;m sure I&rsquo;m missing some features at the moment so any feedback much appreciated.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/01/26/processing-large-files-sed-and-awk/">Processing large files with sed and awk</a>
+      </h1>
+      <span class="post-date">Jan 26, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>I found myself using a couple of powerful but underused command line applications this week and felt like sharing.</p>
+
+<p>My problem involved a large text file with over three million lines and a script that processed the file line by line, in this case running a SQL query against a remote database.</p>
+
+<p>My script didn&rsquo;t try and process everything in one go, rather taking off large chunks and processing them in turn, then stopping and printing out the number of lines processed. This was mainly so I could keep an eye on it and make sure it wasn&rsquo;t having a detrimental affect on other systems. But once I&rsquo;d run the script once (and processed the first quarter of a million records or so) I wanted to run it again, except without the first batch of lines. For this I used sed. The following command creates a new file with the contents of the original file, minus the first 254263 lines.</p>
+
+<pre><code>sed '1,254263d' original.txt &gt; new.txt
+</code></pre>
+
+<p>I could then run my script with the input from new.txt and not have to reprocess the deleted lines. My next problem came when the network connection between the box running the script and the database dropped out. The script printed out the contents of the last line successfully processed, so what I wanted was a new file with the all contents of the old file past the last line. The following awk command does just that, assuming the last line processed was f251f9ee0b39beb5b5c4675ed4802113.</p>
+
+<pre><code>awk '/^f251f9ee0b39beb5b5c4675ed4802113/{f=1;next}f' original.txt &gt; new.txt
+</code></pre>
+
+<p>Now I could have made the script that did the work more complicated and ensure it dealt with these cases. But it would have involved much more code and the original scripts where only a handful of throw away code. For one off jobs like this a quick dive into the command line seemed more prudent.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2010/01/07/speaking-dibi/">Speaking at DIBI</a>
       </h1>
       <span class="post-date">Jan 7, 2010 &middot; 2 minute read
@@ -180,92 +267,6 @@ patch -p0 &lt; /path/to/MAPREDUCE-764.patch
 ant package -Djava5.home=/usr/lib/jvm/java-1.5.0-sun -Dforrest.home=/home/hadoop/apache-forrest-0.8/</p>
 
 <p>With all that out of the way you should be able to run the <a href="http://dumbotics.com/2009/05/31/dumbo-on-clouderas-distribution/">simple examples</a> found on the rather excellent <a href="http://dumbotics.com">dumbotics</a> blog. If you&rsquo;re using the Cloudera distribution, or when the Hadoop 0.21 gets a release, these problems will disappear but in the meantime hopefully this saves someone else a bit of head scratching.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/09/21/learnings-september/">Learnings from September</a>
-      </h1>
-      <span class="post-date">Sep 21, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>I&rsquo;m keep meaning to get around to writing about why I think the future of web developers is operations but in lieu of a proper post here&rsquo;s a list of things I&rsquo;ve been spending my work life getting to know this month:</p>
-
-<ul>
-<li><a href="http://reductivelabs.com/products/puppet">Puppet</a> - It&rsquo;s brilliant. Define (with a Ruby DSL of course) what software and services you want running on all your machines, install a daemon on each of them, and hey presto central configuration management.</li>
-<li><a href="http://www.vmware.com/products/vsphere/">VMWare vsphere</a> - puppet makes more sense the more boxes you have. With vsphere I can have as many boxes as I want (nearly). Command line scripts and an actually very nice windows gui for settings up virtual machines is all pretty nice, especially running on some meaty hardware.</li>
-<li><a href="http://nagios.org/">Nagios</a> - With lots of boxes comes lots of responsibility (or something). Nagios might look a bit ugly, and bug me with it&rsquo;s needless frames based admin, but I can see what people see in it. Which frankly is the ability to monitor everything everywhere for any change what-so-ever.</li>
-<li><a href="http://lucene.apache.org/solr/">Solr</a> - I&rsquo;m now also pretty well versed in using Solr. I&rsquo;ve used it in the past, but always behind a Ruby or Python library. Now I know my way around all the XML based configuration inards. Heck, I&rsquo;m even running a nighly release from a couple of days ago in a production environment because I wanted a cool new feature. A special mention to the Solr community on the mailing list, twitter and irc for being great when I had questions.</li>
-<li>Solaris - I nearly forgot, I spend more time than I care to remember working out how to use Open Solaris (conclusion: OK, but not Debian) and eventually Solaris 10 (conclusion: hope I don&rsquo;t have to do that again). My installation notes read like some hideous hack but everything works fine in production and it&rsquo;s scarily repeatable so I&rsquo;ll live with it for now.</li>
-</ul>
-
-<p>I do wonder if it&rsquo;s just me that&rsquo;s drawn to knowing how everything in the full web stack works. But personally I can&rsquo;t just write code if I don&rsquo;t understand how to deploy it or what it&rsquo;s running on. Front end types know this all too well. Being a master of CSS, HTML and Javascript simply isn&rsquo;t enough. You need to understand the browser to get anything done. I&rsquo;m not sure it&rsquo;s the same for all backend inclined folk; how many PHP programmers really understand Apache and a few other useful bits of web tech?</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/09/13/no-database-test-runner-added-test-extensions/">No database test runner added to test extensions</a>
-      </h1>
-      <span class="post-date">Sep 13, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>Thanks to <a href="http://intranation.com/">Brad</a> I&rsquo;ve just released a new version of <a href="http://pypi.python.org/pypi/django-test-extensions/0.5">Django Test Extensions</a> (also on <a href="http://github.com/garethr/django-test-extensions">GitHub</a> with support for running tests without the overhead of setting up and tearing down the database. Django still has a few places were it assumes you&rsquo;ll have a database somewhere in your project - and the default test runner is one of them.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/09/06/automating-web-site-deployment-barcamp-brighton/">Automating web site deployment at Barcamp Brighton</a>
-      </h1>
-      <span class="post-date">Sep 6, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>On the first day at Barcamp Brighton this year I did a brief talk about getting started with automating deployment. I kept it nice and simple and didn&rsquo;t focus on any specific technology or tool - just the general principles and pitfalls of doing anything manually. You can see the &ldquo;slides on Slideshare&rdquo;:</p>
-
-<p><object style="margin:0px" width="425" height="355">
-<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=automatingdeployment-090906054723-phpapp01&stripped_title=automating-web-site-deployment" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=automatingdeployment-090906054723-phpapp01&stripped_title=automating-web-site-deployment" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
-
-<p>As part of the presentation I even did a live demo and promised I&rsquo;d upload the code I used. The following is an incredibly simple fabric file that has most the basic set of tasks. <a href="http://pypi.python.org/pypi/Fabric/">Fabric</a> is a python tool similar to capistrano in Ruby. I don&rsquo;t really care whether you&rsquo;re using make, ant, rake, capistrano or just plain shell scripts. Getting from not automating things to automating deployments is the important part - and it&rsquo;s easier that you think.</p>
-
-<p><script src="http://gist.github.com/181755.js">
-</script>
-The other part of the code example was a very basic apache virtualhost so just in case anyone needed that as well here it is:</p>
-
-<pre><code>&amp;lt;VirtualHost *:80&amp;gt;
-    ServerName sample.local
-    DocumentRoot /srv/sample/releases/current
-    &amp;lt;Directory /srv/sample/releases/current&amp;gt;
-        Order deny,allow
-        Allow from all
-    &amp;lt;/Directory&amp;gt;
-    ErrorLog /var/log/apache2/sample/error.log
-    LogLevel warn
-    CustomLog /var/log/apache2/sample/access.log combined
-&amp;lt;/VirtualHost&amp;gt;
-</code></pre>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/08/31/another-chance-djugl/">Another chance to DJUGL</a>
-      </h1>
-      <span class="post-date">Aug 31, 2009 &middot; 2 minute read
-      </span>
-      
-      <p><a href="http://djugl.eventwax.com/djugllondon-python">DJUGL</a> is back, the <em>monthly</em> Django meetup in London. I think the last few times have been as much about useful Python stuff as just using Django, and this time it&rsquo;s officially a bit more broad ranging. If you&rsquo;re in or around London on the 24th September then come along.</p>
-
-<p>You can get more information on <a href="http://twitter.com/londonpython">Twitter</a> or by following <a href="http://twitter.com/robertlofthouse/">Rob</a>. But expect a few short talks, some interesting conversations and maybe some beer with other like minded developers.</p>
-
-<p>I&rsquo;m going to be talking about automating deployment of Python web applications. If you follow me on Twitter you&rsquo;ll have heard me rambling a little about some of what I&rsquo;ve been up to, and some of the posts here give an insight into what I&rsquo;ve been working on. But the short version is that several friends mentioned how difficult it could be to get a working Django application from a local machine to a production web server. And I though I better get down in script form my experiences of Django, WSGI applications and web server setup to make things easier.</p>
-
-<p>I think this situation is partially caused by the success of the Django development server, and partially by people coming from a PHP background. In my PHP days I think I always wanted to know how Apache did it&rsquo;s think, so long ago jumped into anything and everything in httpd.conf from loading modules to virtual hosts. But not everyone does the same, and PHP does make simple deployments easy enough that you might get away without doing so. Rails went through the same problems and seems to be coming out the other side. I&rsquo;m hoping that Django and Python is soon to be in the same position, where basic deployment is just a given.</p>
 
       
     </div>

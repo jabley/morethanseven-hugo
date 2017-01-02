@@ -63,7 +63,1123 @@
     
     <div class="post">
       <h1 class="post-title">
-        <a href="/post/2016-12-31-working-for-a-software-vendor/">Working for a software vendor</a>
+        <a href="/2017/01/01/republishing-service-manual-content/">Republishing service manual content</a>
+      </h1>
+      <span class="post-date">Jan 1, 2017 &middot; 2 minute read
+      </span>
+      
+      <p>One of the many things I did some work on while at
+<a href="https://gds.blog.gov.uk/">GDS</a> back in 2013 was the <a href="https://www.gov.uk/service-manual">Government Service Design
+Manual</a>. This was intended to be a
+central resource for teams across (and outside) Government about how to
+go about building, designing and running modern internet-era services.
+It was a good snapshot of opinions from the people that made up GDS on a
+wide range of different topics. Especially for the people who spent time
+in the field with other departments, having an official viewpoint published
+publicly was hugely helpful.</p>
+
+<p>Recently the Service Manual <a href="https://gds.blog.gov.uk/2016/12/19/introducing-the-next-stage-of-the-service-manual/">got a bit of a relaunch</a>
+but unfortunately this involved deleting much of the content about
+operations and running a service. Even more unfortunately the service
+manual is now described as something that:</p>
+
+<blockquote>
+<p>exists to help people across government build services that meet the
+Digital Service Standard and prepare for service assessments.</p>
+</blockquote>
+
+<p>So in basic terms it&rsquo;s refocusing on helping people pass the exam rather
+than being all about learning. Which is a shame. Compare that with the
+original intent:</p>
+
+<blockquote>
+<p>Build services so good that people prefer to use them</p>
+</blockquote>
+
+<p>However, all that content is not lost. Luckily the content is <a href="https://github.com/alphagov/government-service-design-manual">archived on GitHub</a>
+and was published under the terms of the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/">Open Government License</a>
+which allows for anyone to <em>&ldquo;copy, publish, distribute and transmit the Information&rdquo;</em>.
+So I&rsquo;m choosing to republish a few of the pieces I wrote and found
+useful when talking to and assisting other Government departments. These
+represent an interesting snapshot from a few years ago, but I think
+mainly stand the test of time, even if I&rsquo;d change a few things if I
+wrote them today.</p>
+
+<ul>
+<li><a href="https://www.morethanseven.net/2017/01/01/what-is-devops/">What is
+Devops?</a></li>
+<li><a href="https://www.morethanseven.net/2017/01/01/agile-and-it-service-management/">Agile and IT Service Management</a></li>
+<li><a href="https://www.morethanseven.net/2017/01/01/user-stories-for-web-operations/">User stories for web operations teams</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2017/01/01/what-is-devops/">What is Devops?</a>
+      </h1>
+      <span class="post-date">Jan 1, 2017 &middot; 4 minute read
+      </span>
+      
+      
+
+<p><em>This post was originally written as part of the Government Service
+Design Manual while I was working for the UK Cabinet Office. Since my
+original in 2013 it was improved upon <a href="https://github.com/alphagov/government-service-design-manual/blob/master/service-manual/operations/devops.md">by several
+others</a>
+I&rsquo;m republishing it here under the terms of the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/">Open Government
+licence</a>.</em></p>
+
+<p>Devops is a cultural and professional movement in response to the
+mistakes commonly made by large organisations. Often organisations will
+have very separate units for:</p>
+
+<ul>
+<li>development</li>
+<li>quality assurance</li>
+<li>operations business</li>
+</ul>
+
+<p>In extreme cases these units may be:</p>
+
+<ul>
+<li>based in different locations</li>
+<li>work for different organisations</li>
+<li>under completely different management structures</li>
+</ul>
+
+<p>Communication costs between these units, and their individual
+incentives, leads to slow delivery and a mountain of interconnected
+processes.</p>
+
+<p>This is what Devops aims to correct. It is not a methodology or
+framework, but a set of principles and a willingness to break down
+silos. Specifically Devops is all about:</p>
+
+<ul>
+<li><a href="#culture">culture</a></li>
+<li><a href="#automation">automation</a></li>
+<li><a href="#measurement">measurement</a></li>
+<li><a href="#sharing">sharing</a></li>
+</ul>
+
+<h3 id="culture">Culture</h3>
+
+<p>Devops needs a change in attitude so shared ownership and collaboration
+are the common working practices in building and managing a service.
+This culture change is especially important for established
+organisations.</p>
+
+<h3 id="automation">Automation</h3>
+
+<p>Many business processes are ready to be automated. Automation removes
+manual, error-prone tasks &ndash; allowing people to concentrate on the
+quality of the service. Common areas that benefit from automation are:</p>
+
+<ul>
+<li>release management (releasing software)</li>
+<li>provisioning</li>
+<li>configuration management</li>
+<li>systems integration</li>
+<li>monitoring</li>
+<li>orchestration (the arrangement and maintenance of complex computer
+systems)</li>
+<li>testing</li>
+</ul>
+
+<h3 id="measurement">Measurement</h3>
+
+<p>Data can be incredibly powerful for implementing change, especially when
+it’s used to get people from different groups involved in the quality of
+the end-to-end service delivery. Collecting information from different
+teams and being able to compare it across former silos can implement
+change on its own.</p>
+
+<h3 id="sharing">Sharing</h3>
+
+<p>People from different backgrounds (ie development and operations) often
+have different, but overlapping skill sets. Sharing between groups will
+spread an understanding of the different areas behind a successful
+service, so encourage it. Resolving issues will then be more about
+working together and not negotiating contracts.</p>
+
+<h2 id="why-devops">Why Devops</h2>
+
+<p>The quality of your service will be compromised if teams can&rsquo;t work
+together, specifically:</p>
+
+<ul>
+<li>those who build and test software</li>
+<li>those that run it in production</li>
+</ul>
+
+<p>The root cause is often functional silos; when one group owns a specific
+area (say quality) it’s easy for other areas to assume that it’s no
+longer their concern.</p>
+
+<p>This attitude is toxic, especially in areas such as:</p>
+
+<ul>
+<li>quality</li>
+<li>release management</li>
+<li>performance</li>
+</ul>
+
+<p>High quality digital services need to be able to adapt quickly to user
+needs, and this can only happen with close collaboration between
+different groups.</p>
+
+<p>Make sure the groups in your team:</p>
+
+<ul>
+<li>have a shared sense of ownership of the service</li>
+<li>have a shared sense of the problem</li>
+<li>develop a culture of making measurable improvements to how things work</li>
+</ul>
+
+<h2 id="good-habits">Good habits</h2>
+
+<p>Devops isn’t a project management methodology, but use these good habits
+in your organisation. While not unique to Devops, they help with
+breaking down silos when used with the above principles:</p>
+
+<ul>
+<li>cross-functional teams &ndash; make sure your
+teams are made up of people from different functions (this helps with
+the team owning the end-to-end quality of service and makes it easier to
+break down silos)</li>
+<li>widely shared metrics &ndash; it’s important
+for everyone to know what ‘good’ looks like so share high and low
+level metrics as widely as possible as it builds understanding</li>
+<li>automating repetitive tasks &ndash; use software development to automate
+tasks across the service as it:
+
+<ul>
+<li>encourages a better understanding of the whole service</li>
+<li>frees up smart people from doing repetitive manual tasks</li>
+</ul></li>
+<li>post-mortems &ndash; issues will happen so it’s critical that everyone
+across different teams learns from them; running post-mortems (an
+analysis session after an event) with people from different groups is a
+great way of spreading knowledge</li>
+<li>regular releases
+&ndash; the capacity for releasing software is often limited in siloed
+organisations, because the responsibilities of the different parts of
+the release are often spread out across teams &ndash; getting to a point
+where you can release regularly (even many times a day) requires extreme
+collaboration and clever automation</li>
+</ul>
+
+<h2 id="warning-signs">Warning signs</h2>
+
+<p>Like agile, the term Devops is often used for marketing or promotional
+purposes. This leads to a few common usages, which aren’t necessarily in
+keeping with what’s been said here. Watch out for:</p>
+
+<ul>
+<li>Devops tools (nearly always marketing)</li>
+<li>a Devops team (in many cases this is just a new silo of skills and
+knowledge)</li>
+<li>Devops as a job title (you wouldn’t call someone “an agile”)</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+<li><a href="https://www.chef.io/blog/2010/07/16/what-devops-means-to-me/">What Devops Means to
+Me</a></li>
+<li><a href="http://www.jedi.be/blog/2010/02/12/what-is-this-devops-thing-anyway/">What is this Devops thing
+anyway?</a></li>
+<li><a href="http://dev2ops.org/2010/02/what-is-devops/">What is Devops? (and the wall of
+confusion)</a></li>
+<li><a href="http://continuousdelivery.com/2012/10/theres-no-such-thing-as-a-devops-team/">There’s no such thing as a &ldquo;Devops
+Team&rdquo;</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2017/01/01/agile-and-it-service-management/">Agile and IT service management</a>
+      </h1>
+      <span class="post-date">Jan 1, 2017 &middot; 6 minute read
+      </span>
+      
+      
+
+<p><em>This post was originally written as part of the Government Service
+Design Manual while I was working for the UK Cabinet Office. Since my
+original in 2013 it was improved upon <a href="https://github.com/alphagov/government-service-design-manual/blob/master/service-manual/operations/service-management.md">by several
+others</a>
+I&rsquo;m republishing it here under the terms of the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/">Open Government
+licence</a>.</em></p>
+
+<p>The Digital by Default standard
+says that organisations should (emphasis on <em>operate</em> added):</p>
+
+<blockquote>
+<p>Put in place a sustainable multidisciplinary team that can design, build
+and <em>operate</em> the service, led by a suitably skilled and senior service manager
+with decision-making responsibility.</p>
+</blockquote>
+
+<p>This implies a change to how many organisations have traditionally run services,
+often with a team or organisation building a service separate from the one running it.
+This change however does not mean ignoring existing good practice when it comes to service
+management.</p>
+
+<h2 id="agile-and-service-management">Agile and service management</h2>
+
+<p>The principles of IT service management (ITSM) and those of agile do not necessarily
+conflict &ndash; issues can arise however when organisations implement rigid processes
+without considering wider service delivery matters, or design and build services
+without thinking about how they will be operated.</p>
+
+<p>The <a href="http://agilemanifesto.org/">agile manifesto</a> makes the case for:</p>
+
+<ul>
+<li>Individuals and interactions over processes and tools</li>
+<li>Working software over comprehensive documentation</li>
+<li>Customer collaboration over contract negotiation</li>
+<li>Responding to change over following a plan</li>
+</ul>
+
+<p>It is too easy to position service management as opposed to agile as
+traditional service management practices can be viewed as focusing on processes, tools,
+documentation, planning and contract negotiation &ndash; the items on the right hand
+side of the points above.</p>
+
+<p>However, the agile manifesto goes on to say:</p>
+
+<blockquote>
+<p>That is, while there is value in the items on the right, we
+value the items on the left more.</p>
+</blockquote>
+
+<p>To build and run a successful service you will need to work on suitable
+processes and manage third party relationships. Using existing service management
+frameworks (especially as a starting point) is one approach to this problem.</p>
+
+<h2 id="itil">ITIL</h2>
+
+<p><a href="https://www.axelos.com/itil">ITIL</a> (the Information Technology Infrastructure
+Library) is one such framework. ITIL does a particularly good job of facilitating shared
+language. For instance it&rsquo;s definition of a service is:</p>
+
+<blockquote>
+<p>A service is a means of delivering value to customers by facilitating outcomes
+customers want to achieve.</p>
+</blockquote>
+
+<p>The current version of ITIL currently provides 5 volumes and 26 processes
+describing in detail various aspects of service management:</p>
+
+<h3 id="service-strategy">Service Strategy</h3>
+
+<ul>
+<li>IT service management</li>
+<li>Service portfolio management</li>
+<li>Financial management for IT services</li>
+<li>Demand management</li>
+<li>Business relationship management</li>
+</ul>
+
+<h3 id="service-design">Service Design</h3>
+
+<ul>
+<li>Design coordination</li>
+<li>Service Catalogue management</li>
+<li>Service level management</li>
+<li>Availability management</li>
+<li>Capacity Management</li>
+<li>IT service continuity management</li>
+<li>Information security management system</li>
+<li>Supplier management</li>
+</ul>
+
+<h3 id="service-transition">Service Transition</h3>
+
+<ul>
+<li>Transition planning and support</li>
+<li>Change management</li>
+<li>Service asset and configuration management</li>
+<li>Release and deployment management</li>
+<li>Service validation and testing</li>
+<li>Change evaluation</li>
+<li>Knowledge management</li>
+</ul>
+
+<h3 id="service-operation">Service Operation</h3>
+
+<ul>
+<li>Event management</li>
+<li>Incident management</li>
+<li>Request fulfillment</li>
+<li>Problem management</li>
+<li>Identity management</li>
+</ul>
+
+<h3 id="continual-service-improvement">Continual Service Improvement</h3>
+
+<h3 id="functions">Functions</h3>
+
+<p>ITIL also describes four functions that should cooperate together to form
+an effective service management capability.</p>
+
+<ul>
+<li>Service operations</li>
+<li>Technical management</li>
+<li>Application management</li>
+<li>Operations management</li>
+</ul>
+
+<h2 id="the-importance-of-implementation">The importance of implementation</h2>
+
+<p>The above processes and functions make for an excellent high level list of topics
+to discuss when establishing an operating model for your service, whether
+or not you adopt the formal methods. In many cases if you have well understood,
+well established and well documented processes in place for all of the above
+you should be in a good position to run your service.</p>
+
+<p>When looking to combine much of the rest of the guidance on the service manual
+with ITIL or other service management frameworks it is important to challenge
+existing implementations. This is less about the actual implementation and more often
+about the problems that implementation was designed to originally solve.</p>
+
+<h3 id="an-example-service-transition">An example &ndash; service transition</h3>
+
+<p>As an example ITIL talks a great deal about Service Transition &ndash; getting working functionality
+into the hands of the users of the service. This is a key topic for The Digital Service Standard
+too which says that teams should:</p>
+
+<blockquote>
+<p>Make sure that you have the capacity and technical flexibility to update and
+improve the service on a very frequent basis.</p>
+</blockquote>
+
+<p><a href="https://www.gov.uk">GOV.UK</a> for instance made more than 100 production releases
+<a href="https://gds.blog.gov.uk/2012/11/02/regular-releases-reduce-risk/">during its first two weeks</a> after launch.</p>
+
+<p>This high rate of change tends to challenge existing processes designed for a
+slower rate of change. If you are releasing your service every month or every 6 months
+then a manual process (like a weekly or monthly in-person change approval board or CAB) may be
+the most suitable approach. If you&rsquo;re releasing many times a day then the approach to how
+change is evaluated, tested and managed tends towards being more automated. This
+moves effort from occasional but manual activities to upfront design and automation
+work. More work is put in to assure the processes rather than putting all the effort
+into assuring a specific <em>transition</em>.</p>
+
+<p>Service management frameworks tend to acknowledge this, for instance ITIL has a
+concept of a standard change (something commonly done, with known risks
+and hence pre-approved), but a specific implementation in a given organisation
+might not.</p>
+
+<h2 id="other-frameworks-exist">Other frameworks exist</h2>
+
+<p>It is important to note that other service management frameworks and standards
+exist, including some that are of a similar size and scope to ITIL:</p>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/ISO/IEC_20000">ISO/IEC 20000</a></li>
+<li><a href="https://www.microsoft.com/MOF">Microsoft Operations Framework</a></li>
+</ul>
+
+<p>Many organisations also use smaller processes and integrate them together.
+The needs of your service and organisation will determine what works best for you.</p>
+
+<h2 id="problematic-concepts">Problematic concepts</h2>
+
+<p>Some traditional language tends to cause some confusion when discussing service
+management alongside agile. It&rsquo;s generally best to avoid the following terms when possible,
+although given their widespread usage this isn&rsquo;t always possible. It is however worth
+being aware of the problems these concepts raise.</p>
+
+<h3 id="projects">Projects</h3>
+
+<p>Projects tend to imply a start and an end. The main goal of project work is to
+complete it, to reach the end. Especially for software development the project can
+too often be viewed as <em>done</em> when the software is released. What happens after that
+is another problem entirely &ndash; and often someone else&rsquo;s problem.</p>
+
+<p>However when building services the main goal is to meet user needs
+These needs may change over time, and are only met by software that is running in
+production and available to those users.</p>
+
+<p>This doesn&rsquo;t mean not breaking work down into easily understandable parts, but stories,
+sprints and epics are much more
+suited to agile service delivery.</p>
+
+<h3 id="business-as-usual">Business as usual</h3>
+
+<p>The concept of business as usual also clashes with a model of continuous
+service improvement. It immediately brings to mind before and after
+states, often with the assumption that change is both much slower and
+more constrained during <em>business as usual</em>. In reality, until you put your
+service in the hands of real users as part of an alpha
+or beta you won&rsquo;t have all the information
+needed to build the correct service. And even once you pass the live standard
+you will be expected to:</p>
+
+<blockquote>
+<p>continuously update and improve the service on the basis of user feedback,
+performance data, changes to best practice and service demand</p>
+</blockquote>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+<li><a href="http://www.slideshare.net/nuwulang/functions-in-service-operation">Functions in service management</a></li>
+<li><a href="https://en.wikipedia.org/wiki/ITIL">ITIL on Wikipedia</a></li>
+<li><a href="http://www.best-management-practice.com/gempdf/itsmf_an_introductory_overview_of_itil_v3.pdf">Introduction to ITIL v3</a></li>
+<li><a href="http://blog.ingineering.it/post/59414765140/itil-vs-devops-slugfest-or-lovefest">Discussion of Devops and ITIL</a></li>
+<li><a href="http://changeandrelease.com/2014/04/05/devops-and-itil-continuous-delivery-doesnt-stop-at-software/">Discussion of ITIL and Continuous Delivery</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2017/01/01/user-stories-for-web-operations/">User stories for web operations teams</a>
+      </h1>
+      <span class="post-date">Jan 1, 2017 &middot; 21 minute read
+      </span>
+      
+      
+
+<p><em>This post was <a href="https://github.com/alphagov/government-service-design-manual/blob/master/service-manual/operations/web-operations-stories.md">originally written</a>
+as part of the Government Service Design Manual while I was working for the UK
+Cabinet Office in 2013. I&rsquo;m republishing it here under the terms of the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/">Open
+Government licence</a>.</em></p>
+
+<p>This document outlines the typical scope of infrastructure and web operations
+(sometimes erroneously referred to as hosting) work on a large service
+redesign project.</p>
+
+<p>The sample list of user stories provided is not intended to be a complete list of
+all areas of interest nor are you likely to need to do all of this for every service.
+The idea is for this list to be a good starting place from where to you can write
+additional stories, delete ones you do not require and split stories into smaller
+ones. Importantly you also need to provide your own acceptance criteria
+specific to the needs of your service.</p>
+
+<p>Remember these stories are a placeholder for a conversation.
+For some contexts, that conversation will be &lsquo;this does not apply to my
+service&rsquo; &ndash; that is fine. But there will almost certainly be other stories not
+listed here which do apply.</p>
+
+<h2 id="the-problem">The problem</h2>
+
+<p>An issue we have observed on a number of projects is a lack of understanding
+early on in a project about the work required to run a large online
+service. Often this is placed under  <em>hosting</em> and is investigated too late
+in the process.</p>
+
+<h2 id="intended-audience">Intended audience</h2>
+
+<p>The hosting of a complex and sensitive software application requires a team
+of people with specialist skills to design, setup and operate. Because this
+work is generally not user facing and can be highly technical it is sometimes
+easy to leave until later &ndash; with potentially dire consequences for launching
+safely and on time.</p>
+
+<h3 id="service-managers">Service managers</h3>
+
+<p>Does your team have people who deeply understand this topic? If you are not an
+expert then it is important to involve people permanently in the team
+who are. They can explain the technical trade offs and decisions which may
+affect your service.</p>
+
+<h3 id="delivery-managers">Delivery managers</h3>
+
+<p>As well as understanding the potentially large scope of work, many of the areas
+discussed here have lead times associated with third parties. The earlier
+stories related to these topics are brought into project backlogs the sooner
+estimates can be made and deadlines understood.</p>
+
+<h2 id="stories">Stories</h2>
+
+<p>The following stories are intended to provide a starting point for any project,
+rather than be a complete set. Individual projects would be expected to take
+and modify stories as needed and importantly to apply their own acceptance
+criteria specific to their requirements.</p>
+
+<p>The majority of these stories are from the point of view of developers, web
+operations engineers and the responsible service manager. Although not ideal,
+for this particular technical topic this works reasonably well. Feel free
+to change the focus when using them in your backlog.</p>
+
+<h3 id="process">Process</h3>
+
+<p><em>Development process</em><br />
+As a developer working on the service<br />
+So that we can ensure a high level of quality<br />
+And so we can maximise the integrity of the source code<br />
+I want a well documented and understood development process</p>
+
+<p><em>Out-of-hours support</em><br />
+As the service manager responsible for the service<br />
+So that we can ensure a suitable level of availability and integrity<br />
+I want to understand the requirement for Out-of-hours support</p>
+
+<p><em>Disaster recovery</em><br />
+As the service manager responsible for the service<br />
+So that in the event of a disaster everyone doesn&rsquo;t panic and make things up<br />
+I want a clear disaster recovery plan in place to deal with different types of catastrophic event</p>
+
+<p><em>Release process</em><br />
+As the service manager responsible for the service<br />
+So that the service can be changed on a very frequent basis<br />
+And so that changes do not cause problems for users<br />
+I want a well documented and understood release process</p>
+
+<p><em>Security response</em><br />
+As the service manager responsible for the service<br />
+So that security incidents are handled with extra care<br />
+And so that the service meets its wider Government obligation to GovCert<br />
+I want a well documented and understood security incident process</p>
+
+<p><em>Helpdesk</em><br />
+As the service manager responsible for the service<br />
+So that communication with users is done in a joined up way<br />
+I want a central helpdesk function to deal with events, incidents and requests</p>
+
+<p><em>Request Management</em><br />
+As the service manager responsible for the service<br />
+So that questions from users can be dealt with efficiently<br />
+I want a clear information request management policy</p>
+
+<p><em>Event Management</em><br />
+As the service manager responsible for the service<br />
+So that likely events that could affect the running of the service can be dealt with smoothly<br />
+I want a clear event management policy</p>
+
+<p><em>Incident Management</em><br />
+As the service manager responsible for the service<br />
+So that problems that arise with that service can be dealt with efficiently<br />
+I want a clear incident management policy</p>
+
+<p><em>Operations manual</em><br />
+As the service manager responsible for the service<br />
+So that information about the running of the service is not kept in individuals’ heads<br />
+And so information is readily available to people running the service<br />
+I want a single place to store content for a service operations manual</p>
+
+<h3 id="shared-service">Shared service</h3>
+
+<p><em>Source code hosting</em><br />
+As a developer working on the service<br />
+So we have somewhere to securely store our source code<br />
+I want access to a central source code hosting service or repository</p>
+
+<p><em>Continuous Integration</em><br />
+As a developer working on the service<br />
+So we can ensure a high level of quality in the code<br />
+And so we can minimise the time needed for regression testings<br />
+I want a Continuous Integration environment which automatically runs tests against every commit</p>
+
+<p><em>External DNS</em><br />
+As a web operations engineer<br />
+So that visitors to the service don&rsquo;t need to remember an IP address that will change<br />
+I want a process and supplier relationship to manage external DNS addresses</p>
+
+<h3 id="policy">Policy</h3>
+
+<p><em>Sensitivity of source code</em><br />
+As a developer working on the service<br />
+So that I understand the controls that need to be in place<br />
+And so that I know who and how I may share it<br />
+I want a clear policy around the sensitivity of source code</p>
+
+<p><em>Third party code</em><br />
+As a developer working on the service<br />
+I want a clear policy around use of third party source code libraries<br />
+So that I do not introduce unknown security problems</p>
+
+<p><em>Change evaluation</em><br />
+As the service manager responsible for the service<br />
+So that I can release changes to production quickly<br />
+And so that we can meet our obligation to the Digital by Default Service Standard<br />
+I want a documented process for evaluating and deciding on a change to the production service</p>
+
+<p><em>Access control</em><br />
+As the service manager responsible for the service<br />
+So that the confidentiality, integrity and availability of the service isn&rsquo;t compromised<br />
+And so that suitable technical controls can be put in place to enforce it<br />
+I want a clear policy on who has access to what on the production system</p>
+
+<p><em>Separation of duties</em><br />
+As the service manager responsible for the service<br />
+So that we can ensure the service has enough people in the right roles<br />
+I want to understand any required separation of duties (whether driven by legislation or security concerns)</p>
+
+<p><em>Clearances</em><br />
+As the service manager responsible for the service<br />
+So that security clearances can be arranged early in the project to avoid access restrictions later on<br />
+I want to know what level of clearances are required for different roles (including third parties)</p>
+
+<p><em>Releasing open source</em><br />
+As a developer working on the service<br />
+So that I do not introduce unknown security problems<br />
+And so that we can meet our obligation to the Digital by Default Service Standard<br />
+I want a clear policy around releasing code as open source</p>
+
+<h3 id="design">Design</h3>
+
+<p><em>Government networks</em><br />
+As a technical architect<br />
+So that the right suppliers are contracted<br />
+And so that long lead times are factored into the project plan early<br />
+I want to know whether the service requires access to a Government network like the PSN or GSI</p>
+
+<p><em>Multiple infrastructure providers</em><br />
+As the service manager for this service<br />
+So that I understand the intended availability constraints<br />
+I want to know whether multiple suppliers of Infrastructure are required</p>
+
+<p><em>Capacity planning</em><br />
+As a web operations engineer<br />
+So that we can estimate the number and size of infrastructure components (instances, firewalls, load balancers etc.)<br />
+And so that resource based costs can be estimated<br />
+I want to carry out some capacity planning activities</p>
+
+<p><em>Network architecture</em><br />
+As a technical architect<br />
+So that I can build out a production environment to an agreed specification<br />
+I want a network architecture design</p>
+
+<h3 id="components">Components</h3>
+
+<p><em>Web servers</em><br />
+As a web operations engineer working on the service<br />
+So that we can serve HTTP request<br />
+And so we can proxy requests to application servers<br />
+I want to install and configure a web server</p>
+
+<p><em>Databases</em><br />
+As a web operations engineer working on the service<br />
+So that data can be stored in a manner befitting its structure<br />
+And so the stored data can be queried as quickly as required<br />
+I want to install and configure a suitable database server</p>
+
+<p>As a web operations engineer working on the service<br />
+So that data can still be read even during a failure of a single database server<br />
+I want to configure some failover or other redundancy mechanism for the database</p>
+
+<p>As a web operations engineer working on the service<br />
+So that data can still be written even during a failure of a single database server<br />
+I want to configure some failover or other redundancy mechanism for the database</p>
+
+<p><em>Load balancers</em><br />
+As a web operations engineer working on the service<br />
+So that web requests can still be served even with the failure of one or more web servers<br />
+I want to install and/or configure a load balancer</p>
+
+<p><em>Internal DNS</em><br />
+As a web operations engineer working on the service<br />
+So that we can easily address our services and instances<br />
+I want to install and/or configure a mechanism to manage internal DNS</p>
+
+<p><em>Database backups</em><br />
+As the service manager for the service<br />
+So that we can recover from a large failure of our database infrastructure<br />
+I want regular automated backups to be taken of the data stored in the database</p>
+
+<p>As the service manager for the service<br />
+So that we can recover from a large failure of a single suppliers infrastructure<br />
+I want regular automated backups to be stored off site</p>
+
+<p><em>HTTP cache</em><br />
+As a web operations engineer working on the service<br />
+So that the service remains fast when serving identical content<br />
+And so load is minimised on the application servers<br />
+I want to install an HTTP cache</p>
+
+<p><em>Email gateway</em><br />
+As a developer working on the service<br />
+So that the service can send email to administrators or end users<br />
+I want to setup and configure a suitable email gateway</p>
+
+<p><em>Application servers</em><br />
+As a developer working on the service<br />
+So that the code I write can be run on server instances<br />
+I want to install and configure a suitable application server</p>
+
+<p><em>Internal package repository</em><br />
+As a web operations engineer working on the service<br />
+So that we can use software not available in our operating system repositories<br />
+And so that we can use the security, dependency management and versioning features<br />
+I want to install and configure an internal package repository</p>
+
+<p><em>Artifact repository</em><br />
+As a developer working on the service<br />
+So that we can share and version individual code components that need it<br />
+I want to install and configure an artifact repository</p>
+
+<p><em>Message queue</em><br />
+As a developer working on the service<br />
+So that I can easily and efficiently process work asynchronously<br />
+I want to install and configure a suitable message queue or work queue system</p>
+
+<p><em>Search server</em><br />
+As a developer working on the service<br />
+So that I can quickly and efficiently search through large amounts of data<br />
+I want to install and configure a suitable search engine</p>
+
+<p><em>Object cache</em><br />
+As a developer working on the service<br />
+So that I can minimise the number of queries to the database<br />
+And so that I can keep the service fast and responsive to users<br />
+I want to install and configure a object caching system</p>
+
+<h3 id="monitoring">Monitoring</h3>
+
+<p><em>Metric collection service</em><br />
+As a web operations engineer working on the service<br />
+So that we can collect large numbers of time series metrics from the running service<br />
+I want to install and configure a metric collection system</p>
+
+<p><em>Application running monitoring checks</em><br />
+As a web operations engineer working on the service<br />
+So that we can run checks against metrics from the metrics system<br />
+And so that we can run active checks based on arbitrary code<br />
+I want to install and configure a monitoring system</p>
+
+<p><em>Smoke tests</em><br />
+As a developer working on the service<br />
+So that I know that I haven’t broken anything when deploying my application<br />
+I want a series of smoke tests to be run after all deployments</p>
+
+<p><em>Application metrics</em><br />
+As a developer working on the service<br />
+So that I can gain visibility of how my application is running in production<br />
+And so we can find and fix problems with it quickly<br />
+I want a simple way of instrumenting my application to feed metrics to the metrics system</p>
+
+<p><em>System metrics</em><br />
+As a web operations engineer working on the service<br />
+So that we can identify and fix problems with the system, ideally before they occur<br />
+I want to set up collection of low level system metrics like load, disk, network io, etc.</p>
+
+<p><em>Security monitoring</em><br />
+As a web operations engineer working on the service<br />
+So that we notice quickly and are alerted to any incidents with a security flavour<br />
+I want to configure suitable security monitoring tools</p>
+
+<p><em>Notifications</em><br />
+As a web operations engineer or developer supporting the service<br />
+So that I know about any issues as they happen<br />
+I want to set up suitable notifications from the monitoring system</p>
+
+<p><em>Transactional monitoring</em><br />
+As a developer working on a transactional service<br />
+So that we can block fraudulent or otherwise suspect transactions<br />
+I want to install and configure a transactional monitoring system with suitable rules</p>
+
+<p><em>External monitoring</em><br />
+As the service manager for the service<br />
+So that in the event of a failure of the monitoring system<br />
+And so that the service is monitoring from outside our local network<br />
+I want an external monitoring capability with basic checks to monitoring service uptime</p>
+
+<p><em>Monitoring data feed from infrastructure provider</em><br />
+As a web operations engineer working on the service<br />
+So that I am aware of problems in the hypervisor, physical or network infrastructure<br />
+I want a feed of monitoring data from the Infrastructure supplier</p>
+
+<h3 id="logging">Logging</h3>
+
+<p><em>Log collection</em><br />
+As a web operations engineer working on the service<br />
+So that I can easily see everything that is happening in specific applications<br />
+I want to collect all the logs from applications running on the same host in one place</p>
+
+<p><em>Log aggregation</em><br />
+As a web operations engineer working on the service<br />
+So that I don&rsquo;t have to go to an individual machine to view its logs<br />
+I want all logs from all machines to be aggregated together</p>
+
+<p><em>Log storage</em><br />
+As a web operations engineer working on the service<br />
+So that logs can be kept for a suitable period of time<br />
+I want to provision enough storage for log archiving</p>
+
+<p><em>Log viewing</em><br />
+As a web operations engineer working on the service<br />
+So that I can see what is happening across the infrastructure<br />
+I want a mechanism for viewing and searching logs in as near real time as possible</p>
+
+<p>As a developer working on the service<br />
+So that I can extract information from logs to aid with improving the service<br />
+I want a mechanism to run queries across the aggregated logs</p>
+
+<h3 id="configuration-management">Configuration management</h3>
+
+<p><em>Configuration management client</em><br />
+As a web operations engineer working on the service<br />
+So that changes to server configuration can be made safely and quickly<br />
+I want to install software to manage configuration management</p>
+
+<p><em>Configuration management database</em><br />
+As a web operations engineer working on the service<br />
+So that configuration changes are tracked over time<br />
+And so that current state of available to query<br />
+I want to install software to manage a configuration management database</p>
+
+<p><em>Configuration management server</em><br />
+As a web operations engineer working on the service<br />
+So that all nodes do not have all configuration information<br />
+I want to install software to allow centralised management of Configuration management code</p>
+
+<h3 id="deployment">Deployment</h3>
+
+<p><em>Configuration management code deployment mechanism</em><br />
+As a web operations engineer working on the service<br />
+So that configuration changes can be made safely and in an auditable manner<br />
+I want a deployment process and tooling for configuration management code</p>
+
+<p><em>Application deployment mechanism</em><br />
+As a developer working on the service<br />
+So that changes to applications can be made available to users<br />
+And so that changes are made in a safe and auditable manner<br />
+I want a deployment process and tooling for application code</p>
+
+<p><em>Release tracking</em><br />
+As the service manager for the service<br />
+So that we have an auditable log of what was changed when by whom<br />
+I want an up-to-date list of releases to be maintained</p>
+
+<p><em>Packaging</em><br />
+As a web operations engineer working on the service<br />
+So that we don’t have to compile customised applications from source before using them<br />
+And so we can take advantage of dependency and version management capabilities of the OS<br />
+I want a process and tooling for creating our own system packages</p>
+
+<p><em>Orchestration</em><br />
+As a web operations engineer working on the service<br />
+So that I can run commands across multiple instances quickly<br />
+I want tooling in place which allows some orchestration based on the current instances</p>
+
+<p><em>Database migrations</em><br />
+As a web operations engineer working on the service<br />
+So that I can have confidence that database migration scripts will work when applied to production<br />
+I want database migrations to be deployed through the same sequence of environments as code changes</p>
+
+<p><em>Management of secrets</em><br />
+As a web operations engineer working on the service<br />
+So that I can ensure confidential communication between particular parts of the system<br />
+I want a process or tool for managing secrets such as keys and passwords</p>
+
+<h3 id="access-control">Access control</h3>
+
+<p><em>End user devices</em><br />
+As the service manager responsible for the service<br />
+So that management access to the infrastructure can be locked down to prevent unauthorised access<br />
+I want to know what kind of protection the management end user devices require</p>
+
+<p><em>User directory</em><br />
+As a web operations engineer<br />
+So that we do not have to maintain multiple lists of privileged users<br />
+And so that users can be added and removed once in a central fashion<br />
+I want to install and configure something to provide a single user directory</p>
+
+<p><em>Key based authentication</em><br />
+As a web operations engineer<br />
+So that we are not vulnerable to password based login attempts to individual servers<br />
+I want to set-up public key based authentication</p>
+
+<p><em>Single sign-on</em><br />
+As a web operations engineer<br />
+So that any third party web interfaces we use can be accessed via a single login<br />
+I want to install and configure a single sign-on systems</p>
+
+<p><em>Network/VPN configuration</em><br />
+As a web operations engineer<br />
+So that management functions can not be accessed via the public internet<br />
+And so that we reduce the surface area for attack<br />
+I want to restrict management access to a VPN and/or non-public restricted network</p>
+
+<h3 id="provisioning">Provisioning</h3>
+
+<p><em>Other environments</em><br />
+As the service manage for the service<br />
+So that I can see the very latest working version of the service at any time<br />
+And so I can share that with people in and outside the team<br />
+I want a preview environment to be provisioned which is similar to production</p>
+
+<p>As a web operations engineer working on the service<br />
+So that the we have a clean environment in which to test production deployments<br />
+And so that we have a secure environment to test with production-like data<br />
+I want to provision a staging environment which mimics production as closely as possible</p>
+
+<p><em>Production environment</em><br />
+As a web operations engineer working on the service<br />
+So that the service can launch to the public<br />
+I want to provision a production environment</p>
+
+<p><em>Base image(s)</em><br />
+As a web operations engineer working on the service<br />
+So that all server instances start out with sensible security settings<br />
+I want to create a base image running the chosen operating system with hardened configuration</p>
+
+<p><em>Public network interfaces</em><br />
+As a web operations engineer working on the service<br />
+So that the application only receives wanted traffic from the internet<br />
+And so that we don’t accidentally expose sensitive or insecure components of the system<br />
+I want to configure and test the public network interfaces for the system</p>
+
+<p><em>Private network configuration</em><br />
+As a web operations engineer working on the service<br />
+So that individual internal components can only talk with known parts of the system<br />
+And so we limit the extent of any security breach<br />
+I want to configure and test the private network interfaces for the system</p>
+
+<p><em>Network codes of connection</em><br />
+As a web operations engineer working on the service<br />
+Given I need to communicate with a system only available on a Government network<br />
+So that the two systems can talk with each other<br />
+I want to meet the code of connection requirements and configure access to the network</p>
+
+<p><em>Management network</em><br />
+As a web operations engineer working on the service<br />
+So that network traffic used to manage the infrastructure is separate from public traffic<br />
+And so we can monitor irregularities in network traffic separately<br />
+I want to configure a separate management network</p>
+
+<p><em>Platform load balancers</em><br />
+As a web operations engineer working on the service<br />
+So that we can reduce the number of single points of failure<br />
+And so that we can scale out to deal with a large amount of traffic<br />
+I want to provision load balancers to distribute traffic between multiple instances</p>
+
+<p><em>Platform firewalls</em><br />
+As a web operations engineer working on the service<br />
+So that unwanted traffic can be filtered before it enters our virtual infrastructure<br />
+I want to configure the external facing IaaS firewalls to only allow certain traffic</p>
+
+<p><em>Dynamic environments</em><br />
+As a web operations engineer working on the service<br />
+So that we are not constrained by a fixed number of environments<br />
+And so we can easy run full stack tests or experiments<br />
+I want to be able to easily provision an environment running the full service</p>
+
+<p><em>Elastic scaling</em><br />
+As a web operations engineer working on the service<br />
+So that the service can automatically deal with unexpected increases in traffic<br />
+I want to configure tooling to automatically scale the number of instances based on load</p>
+
+<h3 id="security-controls">Security controls</h3>
+
+<p><em>Operating system hardening</em><br />
+As a web operations engineer<br />
+So that we are making use of built-in operating system security controls<br />
+I want to automate a default set of hardening rules for our chosen operating system</p>
+
+<p><em>Malware detection</em><br />
+As a web operations engineer<br />
+So that instances which may be compromised can be dealt with quickly<br />
+I want to automate the detection of potential malware</p>
+
+<p><em>Intrusion detection</em><br />
+As a web operations engineer<br />
+So that instances which are being attacked or probed can defend themselves<br />
+I want to configure an intrusion detection and prevention system</p>
+
+<p><em>Virus scanning</em><br />
+As a web operations engineer<br />
+So we can be sure that files in the system don&rsquo;t have viruses<br />
+I want to install virus scanning for files passing a network boundary</p>
+
+<p><em>Host firewalls</em><br />
+As a web operations engineer<br />
+So that the surface area for attack is limited<br />
+And so that services which should only be available locally aren&rsquo;t exposed on the internet<br />
+I want to install and configure a local firewall</p>
+
+<p><em>On instance event auditing</em><br />
+As a web operations engineer<br />
+So that I know when things like logins or other sensitive events happen on instances<br />
+I want to set-up some auditing of events</p>
+
+<p><em>Rate/connection limiting</em><br />
+As a web operations engineer<br />
+So that large spikes in traffic from a single source don&rsquo;t overwhelm application<br />
+I want to configure some level of rate and connection limiting for web requests</p>
+
+<p><em>Secure storage of key material</em><br />
+As a web operations engineer<br />
+So that any highly sensitive cryptographic keys are not lost, resulting in a compromise<br />
+I want to have a mechanism in place to securely store key material</p>
+
+<p><em>Third party DDoS protection</em><br />
+As a web operations engineer<br />
+So that a the site does not go down under a denial of service attack<br />
+I want to purchase and/or configure a level of DDoS protection</p>
+
+<h3 id="testing">Testing</h3>
+
+<p><em>Performance testing</em><br />
+As the service manager responsible for the service<br />
+So that we know the service will be fast and responsive under realistic traffic<br />
+I want to be able to run a comprehensive performance test suite against the service</p>
+
+<p><em>As a developer working on the service</em><br />
+So that we know changes to the code do not negatively affect performance<br />
+I want the performance test suite to run as part of the continuous integration system</p>
+
+<p><em>Load testing</em><br />
+As the service manager responsible for the service<br />
+So that we know the service will still be working under larger amounts of traffic than are expected<br />
+I want to be able to run a comprehensive load test suite against the service</p>
+
+<p><em>Application penetration testing</em><br />
+As the service manager responsible for the service<br />
+So that the service does not get compromised due to a vulnerability<br />
+And so we meet our accreditation obligations<br />
+I want to run a suitable number of penetration tests against the applications under development</p>
+
+<p><em>As the service manager responsible for the service</em><br />
+So that the service does not get compromised due to a vulnerability<br />
+And so we meet our accreditation obligations<br />
+I want to run a suitable number of penetration tests against third party installed applications used as part of the service</p>
+
+<p><em>Infrastructure penetration testing</em><br />
+As the service manager responsible for the service<br />
+So that the service does not get compromised due to a vulnerability<br />
+And so we meet our accreditation obligations<br />
+I want to run a suitable number of penetration tests against the infrastructure configuration</p>
+
+<h3 id="operating-system">Operating system</h3>
+
+<p><em>Operation system selection</em><br />
+As a web operations engineer working on the service<br />
+So that we have a clear path to receiving security updates<br />
+And so we can more easily find support for our systems<br />
+I want to select and install a suitable default operating system for the service</p>
+
+<p><em>File systems</em><br />
+As a web operations engineer working on the service<br />
+So that we get the best possible performance and reliability from the disk<br />
+I want to select a suitable file system and partition layout</p>
+
+<p><em>Resource isolation</em><br />
+As a web operations engineer working on the service<br />
+So that noisy applications cannot affect other applications on the instance<br />
+I want to be able to isolate running applications from each other in terms of memory and CPU</p>
+
+<p><em>Read-only file systems</em><br />
+As a web operations engineer working on the service<br />
+So that I can protect against files being changed due to compromises in the application<br />
+I want to be able to configure a read-only file system if appropriate.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2016/12/31/working-for-a-software-vendor/">Working for a software vendor</a>
       </h1>
       <span class="post-date">Dec 31, 2016 &middot; 8 minute read
       </span>
@@ -823,472 +1939,6 @@ company, or really question what we actually mean by <em>everyone</em>. But I
 think the central point holds: Everyone is NOT a software company, nor
 will everyone be a software company any time soon, unless we come up
 with a fundamentally better approach to service delivery.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2015/12/27/operations-more-than-systems-administration/">Operations is more than just Systems Administration</a>
-      </h1>
-      <span class="post-date">Dec 27, 2015 &middot; 4 minute read
-      </span>
-      
-      
-
-<p>I think one of the patterns of the last few years has been the
-democratization of systems administration, especially for web
-applications. Whether that&rsquo;s Heroku or Docker, or Chef or Puppet, more
-and more traditional developers are doing work that would have been
-<em>somebody else&rsquo;s problem</em> only a few years ago. But running in parallel
-to that thread is another less positive trend, that of conflating
-operations with <em>just</em> systems administation. The story seems to go that
-now we know Ansible (or some other tool) we just need developers to run
-the show.</p>
-
-<p>In this post I&rsquo;m going to try and introduce some of the other
-operational disciplines, especially for developers who maybe have come
-to operations via the above resurgence in infrastructure tooling over
-the past few years.</p>
-
-<p>Note that this post has a slight bias towards more <em>normal</em>
-organisations. That is to say if you&rsquo;re in a 5 person software startup
-you probably don&rsquo;t have operational problems to worry too much about
-yet. I&rsquo;m also not playing down the practice of systems administration,
-most experienced sysadmins I know are also quite rounded operations pros
-as well.</p>
-
-<h2 id="service-management">Service Management</h2>
-
-<p>If you&rsquo;ve worked in operations, or in many large organisations you&rsquo;ll have
-come across the term Service Management. This tends to be linked to
-various service management frameworks; like ITIL or MOF (Microsoft
-Operations Framework). The framework will describe, often in great
-detail, activities and processes for things like incident response,
-configuration management, change management, capacity planning and more.</p>
-
-<p>While I was at <a href="https://gds.blog.gov.uk/">The Government</a> I wrote what I
-think is a reasonable introduction to <a href="https://www.gov.uk/service-manual/operations/service-management.html">Service
-Management</a>
-albeit from a specific point-of-view. This was based on my experience of
-trying, and likely sometimes failing, to encourage teams to think about
-how the products they we&rsquo;re working on would be run. Each of the topics
-touched on in the overview is worthy of it&rsquo;s own stack of books, but I
-will repeat the ITIL service list here as (whatever you might think of
-the framework or a specific implementation) I&rsquo;d found it a useful starting
-point for conversations - in particular stressing the breadth of
-topics under service management.</p>
-
-<h4 id="service-strategy">Service Strategy</h4>
-
-<ul>
-<li>IT service management</li>
-<li>Service portfolio management</li>
-<li>Financial management for IT services</li>
-<li>Demand management</li>
-<li>Business relationship management</li>
-</ul>
-
-<h3 id="service-design">Service Design</h3>
-
-<ul>
-<li>Design coordination</li>
-<li>Service Catalogue management</li>
-<li>Service level management</li>
-<li>Availability management</li>
-<li>Capacity Management</li>
-<li>IT service continuity management</li>
-<li>Information security management system</li>
-<li>Supplier management</li>
-</ul>
-
-<h3 id="service-transition">Service Transition</h3>
-
-<ul>
-<li>Transition planning and support</li>
-<li>Change management</li>
-<li>Service asset and configuration management</li>
-<li>Release and deployment management</li>
-<li>Service validation and testing</li>
-<li>Change evaluation</li>
-<li>Knowledge management</li>
-</ul>
-
-<h3 id="service-operation">Service Operation</h3>
-
-<ul>
-<li>Event management</li>
-<li>Incident management</li>
-<li>Request fulfillment</li>
-<li>Problem management</li>
-<li>Identity management</li>
-<li>Continual Service Improvement</li>
-</ul>
-
-<p>For each of the above points, whether you are using ITIL or not, it&rsquo;s
-useful to have a conversation. Some of these areas do provide ample
-opportunity for automation and for using tooling to minimise the effort
-required. But much of this is about designing <em>how</em> you are going to
-operate a service throughout it&rsquo;s lifetime.</p>
-
-<h2 id="operations-user-stories">Operations user stories</h2>
-
-<p>One of the other things I published while at The Government was a set of
-<a href="https://www.gov.uk/service-manual/operations/web-operations-stories.html">user stories for a web operations
-team</a>.
-These grew out of work on launching GOV.UK and have had input from
-various past colleagues. In hindsight I&rsquo;d probably do somethings
-here differently, the stories assume a certain context which isn&rsquo;t explicitly
-spelled out for instance. But they have a couple of things going for them in that
-they demonstrate how traditional operations activities can be planned out as part
-of a more developer-friendly planning approach, and also they are public and
-have been tested by more than a single team.</p>
-
-<h2 id="not-everything-is-a-programming-problem">Not everything is a programming problem</h2>
-
-<p>The main point I think is that not everything can be turned into a
-programming problem to solve. Automation has it&rsquo;s place, and many manual
-processes and practices can benefit from automation. But the wide range
-of activities involved in running a non-trivial and often non-ideal
-system in production tend to mean making trade-offs and prioritization
-decisions frequently. This is where softer skills like arguing for
-funding or additional head count, or building a business case for
-further work, come into play. Operations management is much more than
-systems administration.</p>
-
-<h2 id="further-reading">Further reading</h2>
-
-<p>This is little more than a plea for people to think more about
-operations, separate to the more technical aspects of systems
-administration. If you&rsquo;re interested in learning more however I would
-recommend some good reading material:</p>
-
-<ul>
-<li><a href="http://www.itpi.org/the-visible-ops-handbook-review.html">Visible Ops
-Handbook</a> -
-still an excellent and pragmatic introduction to many of the topics
-noted above.</li>
-<li><a href="http://shop.oreilly.com/product/0636920033080.do">Designig Delivery</a> -
-a bang up-to-date tome covering a range of service design topics.</li>
-<li><a href="http://www.basicsm.com/bsm-basic-service-management-book">Basic Service
-Management</a> -
-a 50 page starter book covering the fundamentals of service
-management as generally discussed in more detail elsewhere. A great
-starting point.</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2015/12/04/provisioning-droplets-with-puppet/">Provisioning droplets with Puppet</a>
-      </h1>
-      <span class="post-date">Dec 4, 2015 &middot; 3 minute read
-      </span>
-      
-      
-
-<p>I love <a href="https://www.digitalocean.com/">DigitalOcean</a> for quickly spinning
-up machines. I also like managing my infrastructure using Puppet. Enter the
-<a href="https://forge.puppetlabs.com/garethr/digitalocean">garethr-digitalocean</a> module.
-This currently provides a single Puppet type; <code>droplet</code>.</p>
-
-<p>Lets show a quick example of that, by launching two droplets, called
-test-digitalocean and test-digitalocean-1.</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #336699">droplet</span> { [<span style="color: #dd2200; background-color: #fff0f0">&#39;test-digitalocean&#39;</span>, <span style="color: #dd2200; background-color: #fff0f0">&#39;test-digitalocean-1&#39;</span>]:
-  <span style="color: #336699">ensure</span> =&gt; <span style="color: #008800; font-weight: bold">present</span>,
-  <span style="color: #336699">region</span> =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;lon1&#39;</span>,
-  <span style="color: #336699">size</span>   =&gt; <span style="color: #dd2200; background-color: #fff0f0">&#39;512mb&#39;</span>,
-  <span style="color: #336699">image</span>  =&gt; <span style="color: #0000DD; font-weight: bold">14169855</span>,
-}
-</pre></div>
-
-<p>With the above manifest saved as <code>droplets.pp</code> we can run it with:</p>
-
-<pre><code>$ puppet apply --test droplets,pp
-</code></pre>
-
-<p>This will ensure those two droplets exist in that region, and have that
-size. If they don&rsquo;t exist it will launch droplets using the specified image.
-This means we can run the same command again, and rather that create
-more instances it will simply report that we currently have those
-droplets already.</p>
-
-<h2 id="querying-resources">Querying resources</h2>
-
-<p>Puppet also comes with <code>puppet resource</code>, a handy way of querying the
-state of a given resource or type. Running the following will list all
-of your droplets, whether you created them using Puppet or not.</p>
-
-<pre><code>$ puppet resource droplet
-droplet { 'test-digitalocean':
-  ensure              =&gt; 'present',
-  backups             =&gt; 'false',
-  image               =&gt; '14169855',
-  image_slug          =&gt; 'ubuntu-15-10-x64',
-  ipv6                =&gt; 'true',
-  price_monthly       =&gt; '10.0',
-  private_address     =&gt; '10.131.98.186',
-  private_networking  =&gt; 'true',
-  public_address      =&gt; '178.62.25.100',
-  public_address_ipv6 =&gt; '2A03:B0C0:0001:00D0:0000:0000:0090:B001',
-  region              =&gt; 'lon1',
-  size                =&gt; '1gb',
-}
-</code></pre>
-
-<h2 id="mutating-resources">Mutating resources</h2>
-
-<p>The type also supports mutating droplets, for instance changing the
-size of a droplet if you change the model in Puppet. The API client
-doesn&rsquo;t support all possible changes, but you can disable backups, enable
-IPv6 and switch on private networking as needed. Here&rsquo;s a quick sample
-of the output showing this in action.</p>
-
-<pre><code>Info: Loading facts
-Notice: Compiled catalog for gareths-macbook.local in environment production in 0.43 seconds
-Info: Applying configuration version '1449225401'
-Info: Checking if droplet test-digitalocean exists
-Info: Powering off droplet test-digitalocean
-Info: Resizing droplet test-digitalocean
-Info: Powering up droplet test-digitalocean
-Notice: /Stage[main]/Main/Droplet[test-digitalocean]/size: size changed '1gb' to '512mb'
-Error: Disabling IPv6 for test-digitalocean is not supported
-Error: /Stage[main]/Main/Droplet[test-digitalocean]/ipv6: change from true to false failed: Disabling IPv6 for test-digitalocean is not supported
-Error: Disabling private networking for test-digitalocean is not supported
-Error: /Stage[main]/Main/Droplet[test-digitalocean]/private_networking: change from true to false failed: Disabling private networking for test-digitalocean is not supported
-Info: Checking if droplet test-digitalocean-1 exists
-Info: Created new droplet called test-digitalocean-1
-Notice: /Stage[main]/Main/Droplet[test-digitalocean-1]/ensure: created
-Info: Class[Main]: Unscheduling all events on Class[Main]
-Notice: Applied catalog in 60.61 seconds
-</code></pre>
-
-<h2 id="but-why">But why?</h2>
-
-<p>Describing your infrastructure at this level in code has several advantages:</p>
-
-<ul>
-<li>Having a shared model of your infrastructure in code allows for a discussion
-around that model</li>
-<li>You can be convident in the model because of the idempotent nature of running
-the code</li>
-<li>The use of code for this model allows for activities like code review, change
-control based on pull requests, unit testing, user created abstrations and more</li>
-<li>The use of Puppet means you can use it as above as a command line interface, or
-run it every period of time to enfore and report on the state of you infrastructure</li>
-<li>Puppet ecosystem tools like PuppetDB, Puppet Board or Puppet Enterprise mean you can
-store data over time for later analysis</li>
-</ul>
-
-<p>The module also acts as a reasonable example of a simple Puppet type and provider.
-If you&rsquo;re interested in extending Puppet for your own services this is hopefully a
-good place to start understanding the API.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2015/09/20/security-implications-of-unikernels/">Some Security Implication of Unikernels</a>
-      </h1>
-      <span class="post-date">Sep 20, 2015 &middot; 4 minute read
-      </span>
-      
-      
-
-<p>I was attending the first <a href="http://gotocon.com/goto-london-2015/">GOTO London conference</a> last week, in particlar the <a href="https://www.ruggedsoftware.org/">Rugged</a> Track. One of the topics of conversation that came up was unikernels, and their potential for improving the state of software security. Unikernels are pretty new outside research groups, I’m just lucky enough to live and work in Cambridge where some of that research is happening. The security advantages of unikernels are one of the things that attracted me in the first place. I thought it might be interesting to jot a few of those down for other people interested in security and the future of infrastructure.</p>
-
-<p>As with my <a href="http://www.morethanseven.net/2015/08/21/operating-unikernel-challenges/">last post</a>, it’s worth having a basic understand of Unikernels. I’d recommend reading <a href="http://queue.acm.org/detail.cfm?id=2566628">Unikernels - the rise of the virtual library operating system</a>.</p>
-
-<h2 id="hypervisor">Hypervisor</h2>
-
-<p>Every unikernel is provided the isolation guarantees from a hypervisor. Not only are these guarantees reasonably well understood, they tend to make use of hardware features too. It’s interesting to note that recent container runtime work is heading in this direction too, with ptojects like <a href="https://clearlinux.org/features/clear-containers">Clear Containers from Intel</a>, <a href="https://blogs.vmware.com/cloudnative/introducing-project-bonneville/">Bonneville from VMware</a> and the <a href="https://coreos.com/blog/rkt-0.8-with-new-vm-support/">new stage1 in rkt</a>.</p>
-
-<h2 id="no-user-space">No User Space</h2>
-
-<p>With a typical server OS we have kernel space and user space. Part of the idea here is to ensure the underlying machine doesn’t crash, whatever horrible things people do in user space. But this means <em>you can do horrible things</em>. The unikernel model is similar to the Erlang philosophy of <em>let it crash</em>. You only have kernel space, you entire application resides in it. Most things out of the ordinary are going to crash the kernel. This makes the sort of exploratory testing useful in exploit development harder.</p>
-
-<h2 id="really-immutable-infrastructure">Really Immutable Infrastructure</h2>
-
-<p>People often talk about immutable infrastructure. I’d wager there is more talk than reality however. When you push, people are often not using read-only file systems and retain the capability to login to machines to make ad-hoc changes. What they mean by immutable is that they only change machines at deploy time. This ignores both the fact they have the technical capability to change them anytime, and that an attacker could change them outside that deployment cycle. With unikernel systems there is often just the compiled kernel, you can’t just change files on disk. The defaults force an immutable way of working.</p>
-
-<h2 id="clean-slate-tls">Clean Slate TLS</h2>
-
-<p>As a typical developer or operator you’ve probably learned more than you wanted to know about the OpenSSL source code. It’s not well understood and not likely to be so anytime soon and has some pretty spectacular bugs like <a href="http://heartbleed.com/">Heartbleed</a>. The <a href="https://www.coreinfrastructure.org/">Core Infrastructure Initiative</a> is laudable and will improve things but it’s still a problematic codebase. Functional programming is often regarded as an easier way of writing understandable code. Types are a good thing, especially when it comes to security systems. So a pure <a href="https://mirage.io/blog/introducing-ocaml-tls">OCaml TLS</a> implementation as used by <a href="https://mirage.io/">MirageOS</a> makes sense on lots of levels. Yes this is quite an undertaking, but the <a href="http://amirchaudhry.com/bitcoin-pinata/">bitcoin pinata</a> tests show promise.</p>
-
-<h2 id="formal-proofs">Formal Proofs</h2>
-
-<p>Knowing whether an application really does exactly what you want it to do (and no more) is a hard problem to solve. Unit tests and other form of automated testing help, but are still reliant on people to both write and design the tests. A formal proof system can provide much stronger guarentees of correctness, it’s an approach used in some cases for missing-critical components of <a href="http://cacm.acm.org/magazines/2015/4/184701-how-amazon-web-services-uses-formal-methods/fulltext">Amazon’s AWS</a>. MirageOS is implemented in OCaml. One of the most popular OCaml programmes is <a href="https://coq.inria.fr/">Coq</a>, which just so happens to be a formal proof management system. I’ve not seen many examples yet of this approach, probably due to the effort involved, but the capability is there for building formally specified unikernels. I’d wager a similar thing is possible with Haskell and <a href="https://github.com/GaloisInc/HaLVM">HalVM</a>. Making that easier to do for typical developers could open up much more secure development practices for certain usecases.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2015/08/21/operating-unikernel-challenges/">A Discussion of The Operational Challenges With Unikernels</a>
-      </h1>
-      <span class="post-date">Aug 21, 2015 &middot; 7 minute read
-      </span>
-      
-      
-
-<h2 id="what-are-unikernels">What are Unikernels</h2>
-
-<p>Most of this post assumes a basic understanding of what unikernels are
-so I’d recommend reading <a href="http://queue.acm.org/detail.cfm?id=2566628">Unikernels – the rise of the virtual library
-operating system</a> before moving
-on.</p>
-
-<h2 id="why-are-unikernels-interesting">Why are Unikernels interesting</h2>
-
-<p>As a starting point: complexity. Managing infrastructure, and the
-software that runs on it, is too complicated. You can impose
-organisational rules to control this complexity (we only deploy on
-Debian, we only run JVM applications, the only allowed database is
-MySQL) but that limits you in other ways too, and in reality is nearly
-always broken somewhere in any non-trivial environment (this appliance
-uses Ubuntu, this software is only certified on Windows, PostgreSQL
-doesn’t run on the JVM). So you turn to software to manage that
-complexity; Puppet or Chef do a great job of allowing configuration
-complexity to be managed in code (where you can test it) and Docker
-allows for bundles of complexity to be isolated from other bundles of
-complexity. But there are still an awful lot of moving parts.</p>
-
-<p>Another reason is the growing realisation that security is important.
-Securing systems on the internet is hard. Even though the basics are
-broadly understood they are often not implemented, and the people
-attempting to compromise systems are smart, well paid and highly
-incentivised (basically like you). It’s generally easier to break
-something than to build it. Part of this is a numbers game – to run a
-reasonable sixed system you might need to run 50 different services, and
-install 200 packages on every host. An attacker has to compromise just
-one of those to win.</p>
-
-<p>A further reason, if one were needed, is the proliferation of many small
-internet connected devices, aka. The Internet of Things. Part of this
-relates to the above points about security concerns, but some of it is
-simply a matter of managing that many single purpose, low power,
-devices. The overhead of a typical general purpose operating system and
-application runtime just don’t fit this model.</p>
-
-<p>Enter unikernels. Unikernels actually remove unneeded complexity. You’re
-running a hypervisor and the unikernel and that’s it. The unikernel
-contains only those libraries that you have specifically required. That
-drastically reduces the surface area for attack as well as meaning
-you’re running less software, hopefully enough less that your power
-needs are reduced too. By specifically requiring individual libraries
-you’re also making complexity visible. Rather than using a general
-purpose operating system with it’s 100s of packages and millions of
-lines of code you are at least choosing what to include.</p>
-
-<h2 id="operational-challenges">Operational challenges</h2>
-
-<p>While I think some part of the future looks like unikernels their are
-some large operational challenges to overcome before they break out of
-very specific niches or research projects. Note that</p>
-
-<p>there are architectural and software development challenges as well, I
-just happen to think they’re easier to deal with.</p>
-
-<h3 id="development-environment">Development environment</h3>
-
-<p>There are a few properties of a development environment that I think are
-essential to modern development; development/production parity being one
-of the most important. Tools like Vagrant, and a move towards
-infrastructure as code, and more recently Docker have made great strides
-here in the past several years. The different unikernel implementations
-are generally based on lesser known software stacks (Haskell, OCaml,
-Erlang, etc) so some of this is familiarity. But what does
-development/production partity mean for a unikernel based system? We’re
-not just talking about the individual unikernel here either – how do I
-deploy unikernels? How do I compose several unikernels together to build
-an application? What does a Continuous integration or deployment
-pipeline look like? In my view the unikernel movement should focus some
-efforts here. Not only will this make it easier for people to get
-started, but having strong opinions early will allow the nascent
-community to solve the problem together, rather than everyone solving it
-just-in-time for themselves.</p>
-
-<h3 id="managing-the-hypervisor">Managing the hypervisor</h3>
-
-<p>I’d argue today most developers don’t spent much time directly working
-with hypervisors. Either you’re running on an in-house VMware, KVM or
-Xen install with some (hopefully self-service, automated) provisioning
-mechanism in place or you’re using a public cloud like AWS, Azure, etc.
-The current generation of unikernel systems mainly target Xen. I think
-in the short term at least this means getting to know the hypervisor.
-Xen is solid software, but I don’t see a great deal of automation around
-it – say well maintained Puppet modules, API clients or a Terraform
-provider. In the long term we’ll hopefully have higher level interfaces,
-but in the short term efforts here would lower the barrier to entry
-considerably.</p>
-
-<h4 id="double-down-on-aws">Double down on AWS</h4>
-
-<p>Given the above, and given the ubiquity of EC2 (which is based on Xen)
-it might be wise to build up first-class tools around using EC2 as a
-target environment for unikernel deployments. EC2 supports custom
-kernels, but these require a number of convoluted steps that could be
-automated away (note that I’m talking about more than just a shell
-script here). Also what are the best practices around autoscaling groups
-andunikernels? Or VPC networks and unikernels?</p>
-
-<h3 id="the-network">The network</h3>
-
-<p>With the explosion in containers and microservices it’s becoming clearer
-(if it wasn’t already) how important the network is. By removing the
-operating system we remove things like host firewalls and the new breed
-of overlay networks. At the same time if we are to tap the dynamic
-potential of unikernels we’ll need a similarly dynamic and automatable
-network. Maybe this becomes more of an application concern, with
-services communicating via other services which act as firewalls and
-intelligent proxies, but that still leaves the underlying network to be
-managed.</p>
-
-<h3 id="debugging">Debugging</h3>
-
-<p>However much testing you do beforehand you’ll still likely end up with
-problems in production, and as you scale up you’ll hit issues that you
-simply can’t recreate outside the live environment. This is were good
-debugging capabilities come in. While general purpose operating systems
-might be complex they are well know, and tools like ps, top, free, ping,
-telnet, netcat, dtrace, etc. are commonly used by anyone debugging
-systems. Note that in many cases you’re debugging a combination of
-systems; is the performance issue an application problem, a network
-problem, a storage problem or some interesting combination of several
-facters?</p>
-
-<p>By removing the general purpose operating system, unikernel based
-environments remove most of the current debugging tools at the same
-time. Part of this Is good application development hygiene (logs,
-metrics and status endpoints for instance), but what about the more
-interactive debugging practices? What does debugging a system based on
-unikernels look like?</p>
-
-<h3 id="orchestration">Orchestration</h3>
-
-<p>The word may be overloaded but the need to arrange and manage a number
-of components that make up a larger system is a real need. This might be
-something like Docker&rsquo;s Compose file or <a href="https://brooklyn.incubator.apache.org/learnmore/blueprint-tour.html">Brooklyn&rsquo;s
-Blueprints</a>,
-or it could be something more akin to the APIs from Cloud Foundry,
-Kubernetes or Mesos. Testing some of these models with unikernel based systems
-will be an interesting test of how coupled to containers the existing models are.
-The lack of legacy again opens up the potential to come up with a truly
-modern alternative here too.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Unless you’re in an environment where security is your number 1 concern
-then the current state of Unikernels probably means choosing to adopt
-them now is a little bleeding edge. But I think that will change over
-time as the various projects mature and address some of the issues
-described above. In the meantime I’d love to see more discussion of some
-of the operational challenges. I think talking about the needs of
-operators at this early stage should make the resulting ecosystems more
-robust whsen it comes to future production deployments.</p>
 
       
     </div>

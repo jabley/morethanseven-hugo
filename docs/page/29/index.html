@@ -63,6 +63,190 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2007/03/18/semantic-web-acronym-links-primer/">Semantic Web acronym links primer</a>
+      </h1>
+      <span class="post-date">Mar 18, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>One thing you hit pretty rapidly when you start having a look into all this Semantic Web malarkey is the number of rather <em>silly</em> acronyms and abbreviations. In fairness it&rsquo;s true of pretty much every technical or academic discipline I&rsquo;ve come across and you can ask the people I work with what I think about that - I wont ramble on here.</p>
+
+<p>And dont think this is all because I&rsquo;m not technical enough for ya, I have code on my blog and a faintly scary collection of technical tomes. I just think acronyms tend to breed elitism and make the world less penetrable, especially when they are often described in relation to other acronyms. So, after pointing out a problem here&rsquo;s a stab at a solution; a web designers guide (with the relevant links) to my understanding of the different things involved. I&rsquo;m not an expert on this yet mind, so if I&rsquo;m wrong and someone more knowlegable can provide a better description then please comment. If the descriptions from the relevant links I have are good enough I&rsquo;ll just use those as well.</p>
+
+<p>Most people will probably have come across <a href="http://www.w3.org/XML/">XML</a> so hopefully this is an easy one. XML is the eXtensible Markup Language. For me that means it&rsquo;s a set of rules for defining your own markup language; from simple data exchange formats to whole programming languages. The W3C says (which I think nicely highlights my problem from above)</p>
+
+<blockquote>
+<p>Extensible Markup Language (XML) is a simple, very flexible text format derived from SGML (ISO 8879)</p>
+</blockquote>
+
+<p><a href="http://www.w3.org/TR/xslt">XSLT</a> is another quite common tool. The W3C again defines it in relation to another acronym but this time I dont mind as much and we&rsquo;ve got a defintion of XML here anyway.</p>
+
+<blockquote>
+<p>[XSLT is] a language for transforming XML documents into other XML documents</p>
+</blockquote>
+
+<p>This is a pretty straighforward description, the only real problem for the outsider is wondering why you would want to do that!</p>
+
+<p><a href="http://www.w3.org/RDF/">RDF</a> <a href="http://www.w3schools.com/rdf/default.asp">W3Schools says</a> is really where the Semantic Web stuff starts. The W3C start off with:</p>
+
+<blockquote>
+<p>The Resource Description Framework (RDF) integrates a variety of application&hellip;</p>
+</blockquote>
+
+<p>Ah. It integrates applications&hellip; What! But wait:</p>
+
+<blockquote>
+<p>The RDF specifications provide a lightweight ontology system to support the exchange of knowledge on the Web</p>
+</blockquote>
+
+<p>This is pretty good actually, as long as you&rsquo;re happy with the word <a href="http://en.wikipedia.org/wiki/Ontology_%28computer_science%29">ontology</a>. Their is a <a href="http://www.xml.com/pub/a/2001/01/24/rdf1.html">good article</a> that takes a stab at the question from Tim Bray. I think, simply put, RDF is common set of rules for defining your own meta data (information about information) so it&rsquo;s interopable with everyone else doing the same thing.</p>
+
+<p>But how are we going to get all that RDF into our web pages (Semantic or otherwise)? <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">RDFa</a> is one possibility (not going there right now) which involves extending HTML (all varieties) with some additional attributes with the purpose of being able to embed RDF in the document. Or from the W3C:</p>
+
+<blockquote>
+<p>RDFa is a syntax that expresses this structured data using a set of elements and attributes that embed RDF in HTML</p>
+</blockquote>
+
+<p><a href="http://www.w3.org/TR/2004/NOTE-grddl-20040413/">GRDDL</a> is probably the worst offender here in terms of someone spending too much time coming up with the acronym. It stands for <em>Gleaning Resource Descriptions from Dialects of Languages</em>. From looking it appears to be a standard way of saying:</p>
+
+<blockquote>
+<p>Here be some RDF. If you want the RDF for this document please use this XSL transformation.</p>
+</blockquote>
+
+<p><a href="http://research.talis.com/2005/erdf/wiki/Main/RdfInHtml">eRDF</a>, or embedded RDF is a simpler approach to RDFa which involves no additional custom attributes but does not aim to be able to represent all the possible RDF constructs.</p>
+
+<p>Of course their are many more, but at least that&rsquo;s a start. Let me know what you think.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/03/10/im-not-a-werewolf/">I&amp;#39;m not a Werewolf!</a>
+      </h1>
+      <span class="post-date">Mar 10, 2007 &middot; 1 minute read
+      </span>
+      
+      <p>After the numerous games of <a href="http://en.wikipedia.org/wiki/Mafia_(game) ">Werewolf</a> at <a href="http://barcamp.org/BarCampLondon2">Barcamp London</a> recently a few of us <a href="http://kid666.com/blog/2007/02/19/werewolf-cards/">got chatting</a> about the idea of custom Werewolf cards using <a href="http://flickr.com">Flickr</a>. Well I&rsquo;ve just finished a very simple example of this and thought I&rsquo;d post it up.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgFlickrwerewolf.jpg" alt="Definately a Werewolf" title="Definately a Werewolf" /></p>
+
+<p>Head over to <a href="http://morethanseven.net/presents/werewolf">morethanseven.net/presents/werewolf</a> for a set of printable cards based on Flickr Machine Tags.</p>
+
+<p>In the future I may enhance this with a nifty interface which lets visitors select the number of each card they want - and I spoke briefly with <a href="http://www.whitelabel.org/">Stefan</a> from <a href="http://www.moo.com/">Moo</a> about if it&rsquo;s possible to link into printing them on those lovely Moo cards.</p>
+
+<p>If you want anyone to appear just add the relevant werewolf machine tag!</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/03/04/parsing-erdf/">Parsing ERDF</a>
+      </h1>
+      <span class="post-date">Mar 4, 2007 &middot; 2 minute read
+      </span>
+      
+      
+
+<p>Now we&rsquo;ve got some <a href="http://morethanseven.net/posts/microformats-and-erdf-sitting-in-a-tree/">eRDF in our pages</a> we need to extract it out in preparation for doing someting with it.</p>
+
+<h3 id="with-xsl">With XSL</h3>
+
+<p>First up we want to try and extract the eRDF in our page into an RDF document. <a href="http://iandavis.com">Ian Davis</a> has already created a nice XSL document to do just that. and I&rsquo;ve implemented a <a href="http://morethanseven.net/presents/erdf/">nice service wrapper</a> to extract the RDF from a given URL. Try pointing it at <a href="http://morethanseven.net">morethanseven.net</a> or <a href="http://iandavis.com">iandavis.com</a> for an example of it in action. Next step here is to extend it to allow extracting a simple vcard from the RDF in a similar manner to <a href="http://suda.co.uk/">Brian Suda&rsquo;s</a> <a href="http://suda.co.uk/projects/X2V/">Microformats extractor</a>.</p>
+
+<h3 id="with-javascript">With Javascript</h3>
+
+<p><a href="http://www.danwebb.net/">Dan Webb</a> has recently written up his <a href="http://www.danwebb.net/2007/2/9/sumo-a-generic-microformats-parser-for-javascript">Sumo! microformas parser</a> and boy is it really rather fancy. At the moment he&rsquo;s only got profiles for hCard, hCalendar and hResume but writing profiles is relatively simple. Accoring to one of Dans comments he&rsquo;s working on adding support for rel and rev style microformats like rel-tag and XFN.</p>
+
+<p>Although billed as a Microformats parser, in reality what Dan&rsquo;s created is pretty generic. You can use it to parse out any information marked up with any semantic class names - just like our eRDF.</p>
+
+<p>I&rsquo;ve set up a very basic Sumo! profile for FOAF and some <a href="http://morethanseven.net/presents/foaf/">simple tests to extract eRDF data from a test page</a>. This is very much a proof of concept of extracting eRDF using Javascript but would be relatively simple to extend for the full FOAF spec once Dan or someone else extends Sumo! to support rel and rev.</p>
+
+<p>On a related note the combination of Sumo! and the <a href="http://www.getfirebug.com/">Firebug</a> javascript console is just perfect. Anyone who hasn&rsquo;t yet downloaded the latest version should get over there quick.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgFirebug.png" alt="Firebug" title="Firebug" /></p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/03/03/microformats-and-erdf-sitting-in-a-tree/">Microformats and eRDF sitting in a tree</a>
+      </h1>
+      <span class="post-date">Mar 3, 2007 &middot; 3 minute read
+      </span>
+      
+      <p>Following on from <a href="http://morethanseven.net/posts/what-erdf-can-learn-from-microformats/">my previous post</a> on <a href="http://www.w3.org/RDF/">eRDF</a> I&rsquo;ve started to play around with it. For anyone bored enought to have read the source of this site today you&rsquo;ll have seen a couple of behind the scenes changes - specifically I&rsquo;ve added a dash of <a href="http://www.foaf-project.org/">FOAF</a>.</p>
+
+<p>The FOAF, or Friend of a Friend, project is:</p>
+
+<blockquote>
+<p>creating a Web of machine-readable pages describing people, the links between them and the things they create and do.</p>
+</blockquote>
+
+<p>I sort of see it as a bigger and more complicated older brother to <a href="http://gmpg.org/xfn">XFN</a> and <a href="http://microformats.org/wiki/hcard">hCard</a>.</p>
+
+<p>First things first, unlike <a href="http://microformats.org">Microformats</a>, using eRDF needs a bit of setup outside just adding classes and attributes - specifically you need to add a profile to the <em>head</em> element of your document and then add some namespaces links into the <em>head</em> like so:</p>
+
+<pre><code>&lt;code&gt;&lt;head profile=&quot;http://purl.org/NET/erdf/profile&quot;&gt;
+  &lt;link rel=&quot;schema.rdfs&quot; href=&quot;http://www.w3.org/2000/01/rdf-schema#&quot; /&gt;
+  &lt;link rel=&quot;schema.foaf&quot; href=&quot;http://xmlns.com/foaf/0.1/&quot; /&gt;
+&lt;/head&gt;&lt;/code&gt;
+</code></pre>
+
+<p>Then you&rsquo;re onto the more familiar ground (if you&rsquo;re used to Microformats) of adding semantic attributes. I already had the following snippet markup up in hCard, i just needed to add a few more classes (-foaf-Person, foaf-weblog and foaf-name) to existing elements.</p>
+
+<pre><code>&lt;code&gt;&lt;div id=&quot;iHead&quot;&gt;
+  &lt;h2 class=&quot;vcard -foaf-Person&quot; id=&quot;gareth&quot;&gt;
+  &lt;a href=&quot;/&quot; class=&quot;url org foaf-weblog&quot;&gt;Morethanseven&lt;/a&gt;
+  &lt;span&gt;is where &lt;a href=&quot;mailto:&amp;#103;&amp;#097;&amp;#114;&amp;#101;&amp;#116;&amp;#104;&amp;#064;&amp;#109;&amp;#111;&amp;#114;&amp;#101;&amp;#116;&amp;#104;&amp;#097;&amp;#110;&amp;#115;&amp;#101;&amp;#118;&amp;#101;&amp;#110;&amp;#046;&amp;#110;&amp;#101;&amp;#116;&quot; 
+    class=&quot;email fn foaf-name&quot;&gt;Gareth Rushgrove&lt;/a&gt; plays with the web
+    &lt;/span&gt;&lt;/h2&gt;
+&lt;/div&gt;&lt;/code&gt;
+</code></pre>
+
+<p>The full <a href="http://xmlns.com/foaf/0.1/">FOAF Specification</a> details a huge range of other elements - everything from <a href="http://xmlns.com/foaf/0.1/#term_Project">foaf:Project</a> for making associations between yourself and projects you have worked on, to <a href="http://xmlns.com/foaf/0.1/#term_OnlineGamingAccount">foaf:OnlineGamingAccount</a> which is pretty self explanatory.</p>
+
+<p>When parsed out that gives you a foaf document a little something like:</p>
+
+<pre><code>&lt;code&gt;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;rdf:RDF xmlns:admin=&quot;http://webns.net/mvcb/&quot; 
+  xmlns:doap=&quot;http://usefulinc.com/ns/doap#&quot; 
+  xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; 
+  xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; 
+  xmlns:h=&quot;http://www.w3.org/1999/xhtml&quot; 
+  xmlns:rdfs=&quot;http://www.w3.org/2000/01/rdf-schema#&quot;
+  xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt;
+  &lt;rdf:Description rdf:about=&quot;&quot;&gt;
+    &lt;admin:generatorAgent 
+      rdf:resource=&quot;http://purl.org/NET/erdf/extract&quot;/&gt;
+  &lt;/rdf:Description&gt;
+  &lt;rdf:Description rdf:about=&quot;&quot;/&gt;
+  &lt;rdf:Description rdf:about=&quot;#gareth&quot;&gt;
+    &lt;rdf:type rdf:resource=&quot;http://xmlns.com/foaf/0.1/Person&quot;/&gt;
+    &lt;ns_13:weblog xmlns:ns_13=&quot;http://xmlns.com/foaf/0.1/&quot;&gt;
+      Morethanseven
+    &lt;/ns_13:weblog&gt;
+    &lt;ns_14:name xmlns:ns_14=&quot;http://xmlns.com/foaf/0.1/&quot;&gt;
+      Gareth Rushgrove
+    &lt;/ns_14:name&gt;
+  &lt;/rdf:Description&gt;
+  &lt;rdf:Description rdf:about=&quot;http://morethanseven.net&quot;/&gt;
+  &lt;rdf:Description rdf:about=&quot;mailto:gareth@morethanseven.net&quot;/&gt;
+&lt;/rdf:RDF&gt;&lt;/code&gt;
+</code></pre>
+
+<p>So far I&rsquo;d agree with <a href="http://ben-ward.co.uk/journal/fao-rdf/">Ben</a>. All I&rsquo;ve done is something people (including me) have been doing already with hCard. But I&rsquo;ve done it in a way, using eRDF, that doesn&rsquo;t in any way stop me continuing using Microformats.</p>
+
+<p>Marking things up with Microformats for it&rsquo;s own sake was only ever really of interest to markup junkies (including me again). It&rsquo;s only when you can parse that information out that it gets more interesting. I&rsquo;ve got a follow up post to this on just that subject involving some XSL, Javascript, PHP and some standing on the shoulder of giants. It will be left to a post after that when I try do something a little different.</p>
+
+<p>On a related note; so far I&rsquo;ve found only scattered and often overly technical and verbose documentation on eRDF and RDF in general. I&rsquo;ve been adding links to <a href="http://del.icio.us/garethr">del.icio.us</a> as I find useful resources but I can see how useful <a href="http://getsemantic.com">Get Semantic</a> has the potential to be if any of this is going to take off in the web standards community.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2007/02/28/uk-web-design-meetups-map/">UK Web Design Meetups Map</a>
       </h1>
       <span class="post-date">Feb 28, 2007 &middot; 2 minute read
@@ -317,265 +501,6 @@ I ended up talking some about ommissions in Radiant, which I’m not sure I got 
 </p>
 <p>
 It at least got me back in to presenting to an industry audience, quite different from the teaching I’d been doing. Hopefully a good thing ahead of <a href="http://barcamp.org/BarCampLondon2">BarCamp</a> in a weeks time.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/02/04/webdd/">WebDD</a>
-      </h1>
-      <span class="post-date">Feb 4, 2007 &middot; 2 minute read
-      </span>
-      
-      <p>
-Just back from <a href="//webdd.org.uk">WebDD</a> down in Reading at the Microsoft Campus and thought I’d post a few thoughts. I’ll get into a few of these topics in more detail down the line when time permits but for now…
-
-</p>
-<p>
-I went to a few talks, one on Microformats by <a href="http://www.glennjones.net">Glenn Jones</a> and the other on web standards design by <a href="http://www.splintered.co.uk">Patrick Lauke</a> that I enjoyed but didn’t learn much. I wasn’t the intended audience really and I’d gone along because I didn’t fancy the alternatives. Both were entertaining and well attended anyhow, and I’m sure the more developer orientated folk got a lot out of both.
-
-</p>
-<p>
-The main two things I came away thinking about however were the upcoming version of <a href="http://msdn2.microsoft.com/en-us/vstudio/aa700830.aspx">Visual Studio</a> (codename “Orcas”) and Microsofts new identity platform <a href="http://cardspace.netfx3.com/">CardSpace</a>
-
-</p>
-<p>
-Now I’m not generally a fan of IDEs, but someone has been thinking <em>alot</em> about how Visual Studio (and the new Expression Web) can be of use to web designers. Some of the CSS tools are very cool, I might do some screenshot from Expression (we all got free copies) if I get the chance. Their has also been a huge effort to integrate Javascript functionality, including full debugging and breakpoint support as well as intelissense. All of which looks really rather nice.
-
-</p>
-<p>
-According to Microsoft <q><a href="http://cardspace.netfx3.com/">Windows CardSpace</a> enables users to provide their digital identities in a familiar, secure and easy way.</q> Which should have alarm bells going off and (bad) memories of Passport flooding back. I went in not knowing much and in quite a sceptical mood, assuming the worst. Turns out I was wrong. The presentation, by <a href="http://www.idunno.org/">Barry Dorrans</a>, covered quite a bit of ground from an introduction, through code and working examples and even a big discussion of the issue of identity and <a href="http://openid.net/">OpenID</a> in particularly. I’m suprised that I haven’t seen any mention of CardSpace along with the recent rise in discussion around identity and OpenID. More on this soon.
-
-</p>
-<p>
-One last thing on the WebDD site caught my eye: <q>around 350 people with a 50/50 split of web developers and web designers</q>. In reality I think about 20 of us registered as designers which amused me. Microsoft doesn’t (yet) have a pull over designers as it does over developers. More on that too when I get my thoughts in order.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/02/01/experiment-over/">Experiment over</a>
-      </h1>
-      <span class="post-date">Feb 1, 2007 &middot; 1 minute read
-      </span>
-      
-      <p>
-Ok, well, that was interesting I thought. For those that haven’t followed along on the site I thought I’d recap some of the weird and wonderful colour schemes that have been used on this site as part of my experiment with <a href="http://www.firewheeldesign.com/widgets/">colorburn</a>
-
-</p>
-<p>
-Some were just about OK, some were quite nice really and a few were, er, pretty much unreadable (sorry). I’ll let you decide which where which:
-
-</p>
-<p>
-<img src="http://morethanseven.net/_assets/media/colorburn/20.png" alt="20th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/21.png" alt="21st" />
-<img src="http://morethanseven.net/_assets/media/colorburn/22.png" alt="22nd" />
-<img src="http://morethanseven.net/_assets/media/colorburn/23.png" alt="23rd" />
-<img src="http://morethanseven.net/_assets/media/colorburn/24.png" alt="24th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/25.png" alt="25th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/27.png" alt="27th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/28.png" alt="28th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/29.png" alt="29th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/30.png" alt="30th" />
-<img src="http://morethanseven.net/_assets/media/colorburn/31.png" alt="31st" />
-<img src="http://morethanseven.net/_assets/media/colorburn/1.png" alt="1st" />
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/01/27/incoming/">Incoming!</a>
-      </h1>
-      <span class="post-date">Jan 27, 2007 &middot; 2 minute read
-      </span>
-      
-      <p>
-Just a few things coming up in the next month that I’m attending that I thought warranted a post.
-
-</p>
-<table>
-<tr>
-<td>
-WebDD
-
-</td>
-<td>
-3rd February
-
-</td>
-<td>
-Heading down to Microsoft in Reading for <a href="http://webdd.org.uk">Web Developer Day</a> for a weekend of web design and development discussions and listening to <a href="http://brucelawson.co.uk">Bruce</a> and <a href="http://www.splintered.co.uk">Patrick</a> go on about something interesting.
-
-</td>
-</tr>
-<tr>
-<td>
-Newcatle Rails Usergroup
-
-</td>
-<td>
-8th February
-
-</td>
-<td>
-I’m giving a talk on using <a href="http://radiantcms.org">Radiant</a> to our local <a href="http://rubyandrails.org/usergroups/newcastle/">Ruby and Rails Usergroup</a> so we’ll see how that goes. I’ll publish the slides afterwards given the chance.
-
-</td>
-</tr>
-<tr>
-<td>
-BarCamp London
-
-</td>
-<td>
-17th-18th February
-
-</td>
-<td>
-Yeah. I got a ticket for <a href="http://barcamp.pbwiki.com/BarCampLondon2">Barcamp</a> thanks to <a href="http://blog.meriwilliams.com/">Meri</a>. I just need to think of something to talk about now. Oh, and sort travel.
-
-</td>
-</tr>
-<tr>
-<td>
-Future of Web Apps
-
-</td>
-<td>
-20th-21st February
-
-</td>
-<td>
-Been looking forward to heading down to <a href="http://futureofwebapps.com">FOWA</a> for a while and a few people from <a href="http://thinkco.com">work</a> are coming too. Be good to see all the usual suspects as well, at least those that aren’t going to Barcamp a few days before.
-
-</td>
-</tr>
-<tr>
-<td>
-Geek Dinner
-
-</td>
-<td>
-21st February
-
-</td>
-<td>
-I’d already booked the day after FOWA off work knowing that something would come up. As if by magic I’m finally in London for one of <a href="http://cubicgarden.com">Ian’s</a> famous <a href="http://www.geekdinner.co.uk/">GeekDinners</a>.
-
-</td>
-</tr>
-</table>
-<p>
-Now I think about it, or rather now I write them all down in one place, I think I might have got carried away.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/01/24/uri-templates-in-the-real-world/">URI Templates in the Real World</a>
-      </h1>
-      <span class="post-date">Jan 24, 2007 &middot; 2 minute read
-      </span>
-      
-      <p>
-I do quite a bit of big picture web site/application design at work (ok, that probably needs more of a description). I get involved in alot of the details that lie somewhere off to the side of the obvious bits that need to be done (mmm, not much better). All those technologies and tools and ideas only tell part of the story of building a successful site or online application. Even something stringing together a good idea, clean markup, good CSS, some fancy backend code (insert prefered option) and a sprinkling of user centred design tools can fall down on the hidden details; good form labels, help messages that actually help rather than just repeating the problem, organising file systems to allow for simple scaling, skinning and internationalisation, etc.
-
-</p>
-<p>
-<a href="http://plasticbag.org">Tom Coates</a> spoke last year about his concept of <a href="http://www.plasticbag.org/files/native/">Native to a Web of Data</a> which really struck a chord at the time, and not just because I still want <a href="http://www.flickr.com/photos/redux/97126279/">this on a t-shirt</a>. More recently the idea of <a href="http://en.wikipedia.org/wiki/REST">REST</a> has really caught on, especially amongst the dynamic languages crowd – you just need to look at Rails 1.2 for an example their. The big picture is <a href="http://www.faqs.org/rfcs/rfc2616.html">HTTP</a> is back and everyone who didn’t already get it should be doing some reading.
-
-</p>
-<p>
-Another notable person talking quite a bit about REST, HTTP and related issues is <a href="http://bitworking.org">Joe Gregorio</a>. Amongst other interesting posts, I came across one on <a href="http://bitworking.org/news/URI_Templates">URI Templates</a> a good while ago and have been following the specification to produce recent documentation. The idea is simple and so is the <a href="http://bitworking.org/projects/URI-Templates/draft-gregorio-uritemplate-00.html">specification</a>. A quick example, for a simple CRUD interface might be:
-
-</p>
-<table>
-<tr>
-<th>
-Action
-
-</th>
-<th>
-URI
-
-</th>
-<th>
-Method
-
-</th>
-</tr>
-<tr>
-<td>
-View
-
-</td>
-<td>
-/view/{id}
-
-</td>
-<td>
-Get
-
-</td>
-</tr>
-<tr>
-<td>
-Add
-
-</td>
-<td>
-/page/add
-
-</td>
-<td>
-Get, Post
-
-</td>
-</tr>
-<tr>
-<td>
-Edit
-
-</td>
-<td>
-/page/edit/{id}
-
-</td>
-<td>
-Get, Post
-
-</td>
-</tr>
-<tr>
-<td>
-Delete
-
-</td>
-<td>
-/page/delete/{id}
-
-</td>
-<td>
-Post
-
-</td>
-</tr>
-</table>
-<p>
-Doing this for a site or application in the early stages of development really helps to highlight what actions are available, and to remove the need for costly changes later in the day. It also helps others learn, mainly through discussion, about the different HTTP methods and the importance of the URI in general.
 
 </p>
 

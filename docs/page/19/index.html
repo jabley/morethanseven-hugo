@@ -63,6 +63,141 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2009/01/20/django-testing-presentation-djugl/">Django Testing Presentation at DJUGL</a>
+      </h1>
+      <span class="post-date">Jan 20, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>The second <a href="http://upcoming.yahoo.com/event/1463406">Django User Group (DJUGL)</a> meeting was last night and was a great success as far as I could tell. Our boardroom at work was chock full of budding Django developers and interested parties - 70 people or so in all. Good work by Rob to get everything back on track at the start of the year and the next event is already planned for the back end of February so I hear. More news soon on the <a href="http://groups.google.com/group/django-london">mailing list</a> hopefully.</p>
+
+<p>Rather unfortunately <a href="http://simonwillison.net">Simon</a> had to pull out at the last minute and I stepped in to do a quick 20 minutes or so talk on writing tests for your Django applications.</p>
+
+<p><div style="width:425px;text-align:left" id="__ss_933741">
+<object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=testingdjangoapps-1232444197115958-3&rel=0&stripped_title=testing-django-applications-presentation" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=testingdjangoapps-1232444197115958-3&rel=0&stripped_title=testing-django-applications-presentation" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p></div>
+I was rather surprised that only about a third of the people coming along were using Django in some work related capacity, and when I asked who was writing tests for their code a few more hands went down. Very few of the people <em>not</em> using Django at work are writing tests which is unfortunate (and contrasts rather interestingly with my experiences of the Ruby community).</p>
+
+<p>For a presentation done in less than a day while at work I felt it went OK. testing is a hard sell at the best of times and trying to talk to both those without experience of writing tests and at the same time trying to get in a few of the more interesting things we&rsquo;ve done at work was maybe a bit of an ask.</p>
+
+<p>It not being a blog post round here these days unless I include a link to GitHub I did mention a small project last night in the talk - <a href="http://github.com/garethr/django-test-extensions/">Django Test Extensions</a>. It&rsquo;s more just a collection of useful common testing code: additional assertions, custom test runners, etc. Thanks to <a href="http://agileweb.org/">Ross</a> for the last minute patch with a couple of bug fixes as well.</p>
+
+<p>The other two presentations went great. Andrew talking about the South migrations system and Aral talking about real world Google App Engine were both up my street of things I&rsquo;m interested in. We have video of all the talks as well so hopefully that will make it out into the wild at some point once it&rsquo;s been edited.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/01/18/simple-python-jabber-bot/">A Simple Python Jabber Bot</a>
+      </h1>
+      <span class="post-date">Jan 18, 2009 &middot; 3 minute read
+      </span>
+      
+      <p>I&rsquo;ve been knocking together various little instant messaging bots recently, partly as a way to play around with XMPP. As well as using the low level <a href="http://xmpppy.sourceforge.net/">xmppy</a> and <a href="http://code.google.com/p/xmpp4r-simple/">XMPP4R-Simple</a> libraries I&rsquo;ve been having lots of fun with the <a href="http://thpinfo.com/2007/python-jabberbot/">JabberBot</a> framework.</p>
+
+<p>Jabberbot lets you write simple bots incredibly quickly, using simple conventions to determine what commands the bot exposes. It&rsquo;s easier to explain with a simple example. The following bot lets you send the command <em>time</em> to it and returns the current time on the server on which the bot is running. The magic is in the name of the method <em>bot_time</em>. Any methods that start bot_ are automatically exposed as commands for the bot to accept.</p>
+
+<p>You&rsquo;ll need an xmpp server for the bot to connect to but you could always just register an additional google account and use it over gtalk if you wanted to. Personally I&rsquo;m running <a href="http://www.ejabberd.im">ejabberd</a> on a local Ubuntu VM as well for testing.</p>
+
+<p>pre. from jabberbot import JabberBot
+import datetime
+class SystemInfoJabberBot(JabberBot):
+def bot_time( self, mess, args):
+&ldquo;&rdquo;&ldquo;Displays current server time&rdquo;&ldquo;&rdquo;
+return str(datetime.datetime.now())
+username = &lsquo;my-jabberid@jabberserver.example.org&rsquo;
+password = &lsquo;my-password&rsquo;
+bot = SystemInfoJabberBot(username,password)
+bot.serve_forever()</p>
+
+<p>The JabberBot site has a few more examples as well with fancier features. At the recent Last.fm hackday I spent a bit of time knocking together a bot which talks to the Last.fm API (using the <a href="http://code.google.com/p/pylast/">PyLast</a> library for the API backwards and forwards.) I did this mainly as a demonstration of how simple it can be to create a useful command line interface to your API using an instant messaging client.</p>
+
+<p>The code for <a href="http://github.com/garethr/lastbot/tree/master">LastBot</a> is on GitHub. It has a few limitations and doesn&rsquo;t intent to cover anywhere near all the API. When up and running you should be able to talk to it with your IM client. Simply send the user specified in the settings file a message like so:</p>
+
+<p>pre. search {query}</p>
+
+<p>So if you wanted to search for “astley” you would type:</p>
+
+<p>pre. search astley</p>
+
+<p>Which would probably give you:</p>
+
+<p>pre. you probably mean Never Gonna Give You Up by Rick Astley
+<a href="http://www.last.fm/music/Rick_Astley/_/Never_Gonna_Give_You_Up">http://www.last.fm/music/Rick_Astley/_/Never_Gonna_Give_You_Up</a>
+Richard Paul Astley (born February 6, 1966) is an English dance-pop singer,
+songwriter and musician. He was born in Newton-le-Willows, St Helens,
+Lancashire, England. Astley currently resides in Richmond, Surrey with his
+Danish girlfriend, Lene Bausager, and their daughter, Emilie. In 1985, Astley
+was playing the club circuit as a singer with a soul band named FBI, when he
+was seen by the record producer Pete Waterman and persuaded to come to London
+to work at the PWL recording studio.</p>
+
+<p>If the first result that comes back isn’t the one you wanted you can ask for the next result by simply sending next in another message. You can use prev as well to come back through the set.</p>
+
+<p>pre. next</p>
+
+<p>You can always send it a call for help at any time which should return the instructions to you via an IM message.</p>
+
+<p>pre. help</p>
+
+<p>Which should return something like:</p>
+
+<p>pre. Personal LastFM search bot. Useful for looking for tracks you can&rsquo;t
+remember the full name of. Or for findind out who sung a track.
+search: do a search for tracks
+prev: get details about the previous track in the list
+next: get details about the next track in the list</p>
+
+<p>More instructions, and the code behind the bot, can be found in the <a href="http://github.com/garethr/lastbot/tree/master">README</a>.</p>
+
+<p>As developers we spend a lot of time using command line interfaces - mainly for speed and because you can cram a lot of functionality into a small amount of screen real estate. We&rsquo;re increasingly spending time debugging API calls as well and exposing your API calls for use by instant messaging clients has the potential to make development easier. Think of the Python interactive shell or of IRB, but for APIs.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/01/15/are-xmpp-and-offline-processing-coming-google-app-/">Are XMPP and offline processing coming to Google App Engine?</a>
+      </h1>
+      <span class="post-date">Jan 15, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>Google <a href="http://google-code-updates.blogspot.com/2009/01/changes-for-jaiku-and-farewell-to.html">just announced</a> that, once the port of <a href="http://www.jaiku.com">Jaiku</a> to App Engine is complete they will be Open Sourcing the code and stopping official development. I only used Jaiku sporadically in the heady days when everyone had to sign up for a new web 2.0 service every week or be mocked by their colleagues. What really interests me about this move though is what it means for App Engine.</p>
+
+<p>If memory serves <a href="http://www.jaiku.com/blog/2007/08/30/jaiku-from-your-instant-messenger/">Jaiku had an instant message interface</a>. Does that mean App Engine is going to get an XMPP interface?</p>
+
+<p>I&rsquo;m also presuming the original Jaiku application had at least some features powered by offline processing or used a message based architecture behind the scenes? Or used scheduled batch jobs for reporting or data mungling?</p>
+
+<p>All of these issues are high up on the <a href="http://code.google.com/p/googleappengine/issues/list">App Engine issues list</a> and solutions to these two outstanding problems would move App Engine, in my opinion, to being very cool to being very useful. I&rsquo;ve been impressed with the simple, well designed and well documented current set of APIs and I&rsquo;d love to see a few more added for XMPP and offline processing. If the Jaiku code is open source but relies on Google only APIs it would seem a little odd.</p>
+
+<p>So does anyone have any more information on this? Any passing Googlers who can get us an answer?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/01/14/localbuilder-github/">Localbuilder on GitHub</a>
+      </h1>
+      <span class="post-date">Jan 14, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>One of several little projects I have up and running on <a href="http://github.com">GitHub</a> at present is <a href="http://github.com/garethr/localbuilder/tree/master">LocalBuilder</a>. It&rsquo;s a pretty simple little script which watches for changes in a given directory and when they occur runs a given command. I knocked it together to use to trigger the running of a test suite each time I save files in a project. It&rsquo;s written in Python but you could use it to run commands in any language you like.</p>
+
+<p>It&rsquo;s all pretty simple Python really and is hopefully reasonably commented and tested so if you&rsquo;re interested you can follow along with <a href="http://github.com/garethr/localbuilder/tree/master">the code</a>. If you just want to use the damn thing then:</p>
+
+<pre><code>&lt;code&gt;./localbuilder --path /path/to/watch --command /command/to/execute&lt;/code&gt;
+</code></pre>
+
+<p>It turns out Ruby has a much nicer tool to do this and more in autotest, part of the <a href="http://www.zenspider.com/ZSS/Products/ZenTest/">ZenTest</a> suite of testing tools. I&rsquo;m finding more and more very nice bits of code written in Ruby of late, but that&rsquo;s probably a whole different blog post.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2009/01/11/speaking-bamboo-juice/">Speaking at Bamboo Juice</a>
       </h1>
       <span class="post-date">Jan 11, 2009 &middot; 2 minute read
@@ -209,82 +344,6 @@ conn.request(&quot;POST&quot;, &quot;/appengine-books/builds&quot;)
 <blockquote>
 <p>gmemsess is a secure lightweight memcache-backed session class for Google appengine.</p>
 </blockquote>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2008/11/30/where-will-all-web-developers-go/">Where will all the web developers go?</a>
-      </h1>
-      <span class="post-date">Nov 30, 2008 &middot; 4 minute read
-      </span>
-      
-      <p>I&rsquo;ve been thinking recently about what happens when we all get older. Now, I&rsquo;m not actually referring to everyone here but more specifically what I&rsquo;m going to call second generation web developers. I don&rsquo;t mean Tim and friends here, or the early entrepreneurs of Yahoo! and Netscape. I mean the people who came along when the commercial web design and development industry had settled down a little bit, lets say 10 years ago. People like me.</p>
-
-<p>Work seems to exist in lots of places; big in-house teams, small in-house teams, agencies, startups and freelancers. Where the jobs are at any given point seems to be tied to economic conditions and location. Most people I seem to speak to have tended to work in one of these areas, but I&rsquo;ve not really got anything but vague memories to back that accusation up. I&rsquo;m a little odd here in having previously worked mainly for agencies followed by a stint of freelancing, and now work for a decent sized in-house team at Global Radio.</p>
-
-<p>As I see it the industry rules are predominantly made up by people involved as they go along. Their is no real impetus behind any trade body that I&rsquo;m aware of, no real understanding within education and no consensus on organisational structure and jobs within it. That means, unlike accountants or people in many other professions, we&rsquo;ve very little idea about what will happen in the long term.</p>
-
-<p>So. What happens in 10-20 years time to the now quite large number of professional web developers.</p>
-
-<p>Do we all just do the same thing we&rsquo;re doing now. Just with higher version numbers? The problem with this is maintaining the challenge. If the core problems remain the same will it be much fun? I fear their are only so many times you can learn a new programming language and then solve the same problem you worked on at your last job before the world catches on.</p>
-
-<p>Do we all become managers? The problem then is who do we manage? If the industry just gets bigger and bigger this works. But that sounds unreasonable. So if their are a limited number of managerial positions who gets them? The people their first?</p>
-
-<p>Is their another industry that will have us? Computer games are starting to look to the web for ideas about community and collaboration, pretty much at the same time as the web is looking at games for thoughts on experience and engagement. But long term I can&rsquo;t see a mass exodus or a huge cross over of people, just a huge overlap of ideas.</p>
-
-<p>Do some of the areas like agencies, in-house teams, etc. disappear, or at least employ less skilled people? Experience costs money, and not always because it&rsquo;s worth the extra expense.</p>
-
-<p>Or is it simply that the world in twnety years time will be so different to now that we don&rsquo;t really have a clue. And that a large group of computer savvy problem solvers will find something to do?</p>
-
-<p>The real question I guess is what does the demand for skilled professional web developers look like in ten to twenty years? In reality most of the people currently doing the job won&rsquo;t be getting to retirement age any time soon. That means every newly trained graduate or kid with a computer getting their first job adds to the size of the workforce. And how big do we think that workforce can get before it reaches a nice equilibrium? Certainly in London at the moment their are jobs aplenty. Many good friends have just left Yahoo! rather promptly and I&rsquo;d be worried for them if I didn&rsquo;t know how many people will be knocking down their doors.</p>
-
-<p>I&rsquo;d love it if their were numbers somewhere on this that you could graph. Maybe spot a plateau coming. It&rsquo;s the sort of thing the Institute of Physics or the Chartered Institute of Marketing do. But as I said, we don&rsquo;t have anything similar.</p>
-
-<p>So maybe their is another option when the workforce has expanded as much as it&rsquo;s going to do. We could get all work for The Institute of Web Development.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2008/11/29/app-engine-samples/">App Engine Samples</a>
-      </h1>
-      <span class="post-date">Nov 29, 2008 &middot; 1 minute read
-      </span>
-      
-      <p>It&rsquo;s probably old hat to those who have been using Google Appengine for a while but I just found <a href="http://code.google.com/p/google-app-engine-samples/">some sample apps</a> on Google Code. I prefer learning from actual code like this, at least until the App Engine books make it out next year.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2008/11/29/spyder/">Spyder</a>
-      </h1>
-      <span class="post-date">Nov 29, 2008 &middot; 1 minute read
-      </span>
-      
-      <p><a href="http://muffinresearch.co.uk/">Stuart</a> at work has been playing with a nice <a href="https://edge.launchpad.net/spyder">Python web crawler</a> recently. I&rsquo;ve used <a href="http://www.harvestmanontheweb.com/">Harvestman</a> before but it&rsquo;s not the most straightforward thing to work with. Spyder has a really nifty callback based approach and a couple of hooks which allows you to write code like:</p>
-
-<p>pre. crawler = Spyder()
-crawler.register(my_custom_method, &lsquo;post_fetch_html&rsquo;)
-crawler.run(URL)</p>
-
-<p>On a side note I wish <a href="http://launchpad.net">Launchpad</a> was as clean and tidy as <a href="http://github.com">GitHub</a> though. I can see GitHub adding some of the features that Launchpad has eventually, but I hope they fit them in around the existing features.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2008/11/22/css-test-github/">CSS Test on GitHub</a>
-      </h1>
-      <span class="post-date">Nov 22, 2008 &middot; 1 minute read
-      </span>
-      
-      <p>I upload the <a href="http://github.com/garethr/css-test/tree/master">work I&rsquo;ve done so far</a> on testing CSS. It&rsquo;s still work in progress obviously but if you&rsquo;re interested do let me know. I&rsquo;ve stared with the image approach but will hopefully have something up demonstrating the selenium/rendered DOM position approach as well.</p>
 
       
     </div>

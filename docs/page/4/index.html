@@ -63,6 +63,302 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2013/12/28/introducing-hyde/">Introducing Hyde</a>
+      </h1>
+      <span class="post-date">Dec 28, 2013 &middot; 2 minute read
+      </span>
+      
+      
+
+<p>Hyde is a brazen two-column <a href="http://jekyllrb.com">Jekyll</a> theme that pairs a prominent sidebar with uncomplicated content. It&rsquo;s based on <a href="http://getpoole.com">Poole</a>, the Jekyll butler.</p>
+
+<h3 id="built-on-poole">Built on Poole</h3>
+
+<p>Poole is the Jekyll Butler, serving as an upstanding and effective foundation for Jekyll themes by <a href="https://twitter.com/mdo">@mdo</a>. Poole, and every theme built on it (like Hyde here) includes the following:</p>
+
+<ul>
+<li>Complete Jekyll setup included (layouts, config, <a href="/404">404</a>, <a href="/atom.xml">RSS feed</a>, posts, and <a href="/about">example page</a>)</li>
+<li>Mobile friendly design and development</li>
+<li>Easily scalable text and component sizing with <code>rem</code> units in the CSS</li>
+<li>Support for a wide gamut of HTML elements</li>
+<li>Related posts (time-based, because Jekyll) below each post</li>
+<li>Syntax highlighting, courtesy Pygments (the Python-based code snippet highlighter)</li>
+</ul>
+
+<h3 id="hyde-features">Hyde features</h3>
+
+<p>In addition to the features of Poole, Hyde adds the following:</p>
+
+<ul>
+<li>Sidebar includes support for textual modules and a dynamically generated navigation with active link support</li>
+<li>Two orientations for content and sidebar, default (left sidebar) and <a href="https://github.com/poole/lanyon#reverse-layout">reverse</a> (right sidebar), available via <code>&lt;body&gt;</code> classes</li>
+<li><a href="https://github.com/poole/hyde#themes">Eight optional color schemes</a>, available via <code>&lt;body&gt;</code> classes</li>
+</ul>
+
+<p><a href="https://github.com/poole/hyde#readme">Head to the readme</a> to learn more.</p>
+
+<h3 id="browser-support">Browser support</h3>
+
+<p>Hyde is by preference a forward-thinking project. In addition to the latest versions of Chrome, Safari (mobile and desktop), and Firefox, it is only compatible with Internet Explorer 9 and above.</p>
+
+<h3 id="download">Download</h3>
+
+<p>Hyde is developed on and hosted with GitHub. Head to the <a href="https://github.com/poole/hyde">GitHub repository</a> for downloads, bug reports, and features requests.</p>
+
+<p>Thanks!</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2013/10/13/looking-into-monitoring-and-logging-tools/">Looking into monitoring and logging tools</a>
+      </h1>
+      <span class="post-date">Oct 13, 2013 &middot; 3 minute read
+      </span>
+      
+      <p><em>Originally published on <a href="https://medium.com/p/1cbb173faa3a">Medium</a>.</em></p>
+
+<p>We have a bunch of internal mailing lists at <a href="http://digital.cabinetoffice.gov.uk/">work</a>, and on one of them someone asked:</p>
+
+<blockquote>
+<p>we’re looking into monitoring/logging tools…</p>
+</blockquote>
+
+<p>I ended up writing a bit of a long reply which a few people found useful, so I thought I’d repost it here for posterity. I’m sure this will date but I think it’s a reasonable snapshot of the state of open source monitoring tools at the end of 2013.</p>
+
+<p>Simply put, think about four elements and you won’t be far off on the
+technical front. Miss one and you’re probably in trouble.</p>
+
+<ul>
+<li>logs</li>
+<li>metric storage</li>
+<li>metric collection</li>
+<li>monitoring checks</li>
+</ul>
+
+<p>For logs, some combination of syslog at one end and elasticsearch and
+<a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a> at the other are probably the state of the open source art at
+the moment. The shipping around is more interesting; <a href="http://logstash.net/">Logstash</a> is improving constantly, <a href="http://heka-docs.readthedocs.org/en/latest/">Heka</a> is an similar alternative from Mozilla, and <a href="http://fluentd.org/">Fluentd</a> looks nice too.</p>
+
+<p>For pure metrics it’s all about <a href="http://graphite.wikidot.com/">Graphite</a>, which is both awesome and
+perilous. Not much else really competes in the open source world at
+present. Maybe <a href="http://opentsdb.net/">OpenTSB</a> (is you’re into a Hadoop stack.)</p>
+
+<p>For collecting metrics on boxes I’d probably look at <a href="http://collectd.org/">collectd</a> or <a href="https://github.com/BrightcoveOS/Diamond">diamond</a> both of which have pros and cons but work well. <a href="https://github.com/etsy/statsd/">Statsd</a> is also useful here for different types of metric collection and aggregation. <a href="http://ganglia.sourceforge.net/">Ganglia</a> is interesting too, it combines some aspects of the metrics collection tools with an integrated storage and visualisation tool similar to Graphite.</p>
+
+<p>Monitoring checks is a bit more painful. I’ve been experimenting with <a href="http://sensuapp.org/">Sensu</a> in hope of not installing Nagios. Nagios works but it’s just a bit ungainly. But you do need somewhere to write checks against metrics or other aspects of your system and to issue alerts.</p>
+
+<p>At this point everyone loves dashboards, and <a href="http://shopify.github.io/dashing/">Dashing</a> is particularly lovely. <a href="https://github.com/paperlesspost/graphiti">Graphiti</a> and <a href="https://github.com/obfuscurity/tasseo">Tasseo</a> for Graphite are useful too.</p>
+
+<p>For bonus points things like <a href="http://flapjack.io/">Flapjack</a> and <a href="http://riemann.io/">Reimann</a> provide some interesting extra capabilities around alert control or real time monitoring respectively.</p>
+
+<p>And for that elusive top of the class grade take a look at <a href="http://codeascraft.com/2013/06/11/introducing-kale/">Kale</a>, which provides anomaly detection on top of Graphite and Elasticsearch .</p>
+
+<p>You might be thinking that’s a lot of moving parts and you’d be right. If you’re a small project running all of that is too much overhead, turning to something like Zabbix might be more sensible.</p>
+
+<p>Depending on money/sensitivity/control issues lots of nice and not so
+nice commercial products exist. <a href="http://www.circonus.com/">Circonus</a>, <a href="http://www.splunk.com/">Splunk</a>, <a href="http://newrelic.com/">New Relic</a>, <a href="http://boundary.com/">Boundary</a> and <a href="https://metrics.librato.com/">Librato Metrics</a> are all lovely in different ways and provide part of the puzzle.</p>
+
+<p>And that’s just the boring matter of tools. Now you get into alert design and other gnarly people stuff.</p>
+
+<p>If you got this far you should watch all the <a href="http://vimeo.com/monitorama">Monitorama videos</a> too.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2013/08/11/platform-as-a-service-and-the-network-gap/">Platform as a Service and the network gap</a>
+      </h1>
+      <span class="post-date">Aug 11, 2013 &middot; 5 minute read
+      </span>
+      
+      
+
+<p><em>Originally published on <a href="https://medium.com/p/817849715f0a">Medium</a>.</em></p>
+
+<p>I&rsquo;m a big fan of the Platform as a Service (PaaS) model of operating web
+application infrastructure. But I&rsquo;m a much bigger user and exponent of
+Infrastructure as a Service (IaaS) products within my current role
+working for the UK Government. This post describes why that is, and
+hopefully helps anyone else inside other large enterprise organisations
+reason about the advantages and disadvantages, and helps PaaS vendors
+and developers understand what I personally thing is a barrier to
+adoption in that type of organisation.</p>
+
+<p>A quick word of caution, I don’t know every product inside out. It’s
+very possible a PaaS product exists that deals with the problems I will
+describe. If you know of such a product do let me know.</p>
+
+<h2 id="a-simple-use-case">A simple use case</h2>
+
+<p>PaaS products make for the very best demos. Have a working application?
+Deployment is probably as simple as:</p>
+
+<pre><code>git push azure master 
+</code></pre>
+
+<p>Your app has started to run slowly because visitors are flooding in?
+Just scale out with something like:</p>
+
+<pre><code>heroku ps:scale web+2
+</code></pre>
+
+<p>The amount of complexity being hidden is astounding and the ability to
+move incredibly quickly is obvious for anyone with experience of doing
+this in a more traditional organisation.</p>
+
+<h2 id="a-not-so-simple-use-case">A not so simple use case</h2>
+
+<p>Even small systems are often being built out of many small services
+these days. Many large organisations have been up to this for a while
+under the banner of Service Orientated Architecture. I&rsquo;m a big fan of
+this approach, in my view it moves operational and organisational
+complexity back into the development team where its impact can often be
+minimised by automation. But that’s a topic for another post.</p>
+
+<p>In a PaaS world having many services is fine. We just have more
+applications running on the Platform which can be independently scaled
+out to meet our needs. But services need to communicate with each other
+somehow, and this is where our problems start. We’ll keep things simple
+here by assuming communication is over HTTPS (which should be pretty
+typical) but I don’t think other protocols make the problem I have go
+away. The same problem applies if you’re using a SaaS database for
+example.</p>
+
+<h2 id="it-s-the-network-stupid">It’s the network, stupid</h2>
+
+<p>Over what network does my HTTPS internal service call travel? The
+internet? The internal PaaS vendor’s network? If the latter, is my
+traffic travelling over the same network as other clients on the
+platform? Maybe I&rsquo;m running my own PaaS in-house. But do I trust
+everyone else in my very large organisation and want my traffic on the
+same network as other things I don’t even know about? Even if it’s just
+me do I want internal service traffic mixing with requests coming from
+the internet? And are all my services created equally with regards what
+they can and cannot access?</p>
+
+<p>Throw in questions like: is the PaaS supplier running on infrastructure
+provided by a public IaaS suppliers who you don’t have a relationship
+with and you start to question the suitability of the current public
+PaaS products for building secure service based systems.</p>
+
+<h2 id="a-journey-into-enterprise-architectures">A journey into Enterprise Architectures</h2>
+
+<p>You might be thinking, pah, what’s the worst that can happen? If you
+work for a small company or a shiny startup that might be completely
+valid. If on the other hand you’re working in a regulated environment
+(say PCI) or dealing with large volumes of highly sensitive information
+you’re very likely to have to build systems that provide layers of
+trust, and to be doing inspection, filtering and integrity checking as
+requests flow between those layers.</p>
+
+<p>Imagine that I have a service dealing with some sensitive data. If I
+control the infrastructure (virtualised or not, IaaS provided or not)
+I’ll make sure that service endpoint isn’t available to anything that
+doesn’t need access to it via my network configuration. If I’m being
+more thorough I’ll filter traffic through some sort of proxy that does
+checking of the content; It should be JSON (or XML), it should meet this
+schema, It shouldn’t exceed this rate, it shouldn’t exceed this payload
+size or response size, etc. That is before anything even reaches the
+services application. And that’s on top of SSL and maybe client
+certificates.</p>
+
+<p>If I don’t control the infrastructure, for example when running on a
+PaaS, I lose some of the ability to have the network protect me. I can
+probably get some of this back by running my own PaaS on my own
+infrastructure, but without awareness and a nice interface to that
+functionality at the PaaS layer I’m going to lose lots of the benefits
+of running the PaaS in the first place. It’s nice that I can scale my
+application out, but if new instances can’t connect to the required
+backend services without some additional network configuration that’s
+invisible to the PaaS what use is that?</p>
+
+<p>The question becomes; how to implement security layers within existing
+PaaS products (without changing them). And my answer is “I don’t know”.
+Yet.</p>
+
+<h2 id="why-isn-t-ssl-enough">Why isn’t SSL enough?</h2>
+
+<p>SSL doesn’t help as much as you’d like to think here because if I’m an
+attacker what I’m probably going to attack is your buggy code rather
+than the transport mechanism. SSL doesn’t protect you from SQL injection
+or unpatched software or zero-day exploits. If the only thing that my
+backend service will talk to is my frontend application, an attacker has
+to compromise two things rather than just ignore the frontend and go
+after the data. Throw in a filter as described above and it’s really
+three things that need to be overcome.</p>
+
+<h2 id="the-paas-iaas-interface">The PaaS/IaaS interface</h2>
+
+<p>I think part of the solution lies in exposing some of the underlying
+infrastructure via the PaaS interface. IaaS is often characterised as
+compute, storage and network. In my experience everyone forgets the
+network part. In a PaaS world I don’t want to be exposed to storage
+details (I just want it to appear infinite and pay for what I use) or
+virtual machines (I just care about computing power, say RAM, not the
+number of machines I’m running on) but I think I do, sometimes, want to
+be exposed to the (virtual) network configuration.</p>
+
+<p>Hopefully someone working on OpenShift or CloudFoundry or Azure or
+Heroku or DotCloud or insert PaaS here is already working on this. If
+not maybe this post will prompt someone to do so.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2013/04/23/web-application-security-tools/">Web application security tools</a>
+      </h1>
+      <span class="post-date">Apr 23, 2013 &middot; 3 minute read
+      </span>
+      
+      
+
+<p>I&rsquo;ve become increasingly interested in web application security issues over the last year or so. Working in Government will do that to you. And I&rsquo;ve come to the conclusion that a) there are lots of good open source security tools, b) many of them are terribly packaged and c) most developers don&rsquo;t use any of them.</p>
+
+<p>I&rsquo;ve been having related conversations at recent events I&rsquo;ve made it along to, including Devopsdays London which featured some good open spaces discussions on the subject. Security is one of those areas that, for many organisations, is basically outsourced to third party penetration testing firms or consultants. Specialists definitely have a role to play, but with a move towards increasingly rapid releases I think in-house security testing and monitoring is going to get more and more important.</p>
+
+<h2 id="a-collection-of-security-tools">A collection of security tools</h2>
+
+<p>I&rsquo;ve started to build a <a href="https://github.com/garethr/pentesting-playground">collection of tools on GitHub</a>, along with a vagrant setup to test them out. Full instructions are available on that repository but the short version is you can run one command and have one virtual machine filled with security testing tools and, if useful, another machine running a vulnerable web application with which to test. The current list of tools runs to:</p>
+
+<ul>
+<li><a href="http://code.google.com/p/skipfish/">skipfish</a></li>
+<li><a href="http://nmap.org/">nmap</a></li>
+<li><a href="http://www.cirt.net/nikto2">nikto</a></li>
+<li><a href="http://w3af.org/">w3af</a></li>
+<li><a href="https://github.com/mozilla/Garmr">garmr</a></li>
+<li><a href="https://github.com/iSECPartners/sslyze">sslyze</a></li>
+<li><a href="https://github.com/metachris/wpscanner">wpscanner</a></li>
+<li><a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">owasp zap</a></li>
+<li><a href="http://arachni-scanner.com/">arachni</a></li>
+<li><a href="https://github.com/gauntlt/gauntlt">gauntlt</a></li>
+<li><a href="http://sqlmap.org/">sqlmap</a></li>
+<li><a href="http://wpscan.org/">wpscan</a></li>
+<li><a href="http://sourceforge.net/projects/sslscan/">sslscan</a></li>
+<li><a href="http://blog.taddong.com/2013/02/tlssled-v13.html">TLSSLed</a></li>
+</ul>
+
+<p>But I&rsquo;ll add more tools as I discover them or as people file issues or pull requests.</p>
+
+<h2 id="what-about-backtrack">What about Backtrack?</h2>
+
+<p>When I started investigating tools for security and penetration testing most roads led to <a href="http://www.backtrack-linux.org/">Backtrack</a>. This is a complete Linux distribution packed with a huge number of security tools, including many if not all of the above. Why then did I write puppet code rather than create a Vagrant box from Backtrack? Firstly, Backtrack is probably great if you&rsquo;re a professional penetration tester, but the barrier to entry to installing a new distibution for most developers is too high in my view. And with a view to using some of these tools as part of monitoring systems I don&rsquo;t always want a separate virtual machine. I want to be able to install the tools wherever I want. A good configuration management tool gives you that portability, and Vagrant gives you all the benefits of a local virtual machine.</p>
+
+<h2 id="future-plans">Future plans</h2>
+
+<p>As mentioned I&rsquo;d like to expand how some of these tools are used to include automated monitoring of applications, maybe look at ways of extracting data for metrics or possibily writing a Sensu plugin or two. The first step to that is probably breaking down the monolithic puppet manifest into separate modules for each tool. Along the way I can add support for more operating systems as required. I&rsquo;ve already done that for the <a href="http://forge.puppetlabs.com/garethr/wackopicko">wackopicko module which is up on the Forge</a>.</p>
+
+<p>I&rsquo;m also soliciting any and all feedback, especially from developers who don&rsquo;t do any security related testing but feel like they should.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2013/03/23/government-service-design-manual/">Government Service Design Manual</a>
       </h1>
       <span class="post-date">Mar 23, 2013 &middot; 2 minute read
@@ -191,155 +487,6 @@ rake repo:build             # Build the repository&lt;/code&gt;
 <p>The recipes commands allow for building new packages based on scripts. A few examples are included which use fpm, but you could use anything. The repo:build command triggers the debian repository to be rebuilt.</p>
 
 <p>The vagrant configuration shares various folders between and guest and host which also opens up a few useful features. One is I can just drop any old debian package into the debs folder and run the repo:build command and it will be in my repository. The other useful capability is that the resulting repo is shared back to the host, which means I can then check it into Git and in my case push it up to Heroku.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2012/12/03/on-the-forge/">On the forge</a>
-      </h1>
-      <span class="post-date">Dec 3, 2012 &middot; 3 minute read
-      </span>
-      
-      
-
-<p>I&rsquo;ve been spending a bit of time recently pushing a few Puppet modules to the <a href="http://forge.puppetlabs.com">Forge</a>. This is Puppetlabs attempt to make a central repository of reusable puppet modules. I started doing it as a bit of an experiment, to find out what I liked and what worked and I decided to writeup a few opinions.</p>
-
-<p>So far I&rsquo;ve shipped the following modules:</p>
-
-<ul>
-<li><a href="http://forge.puppetlabs.com/garethr/riemann">Riemann</a></li>
-<li><a href="http://forge.puppetlabs.com/garethr/graphite">Graphite</a></li>
-<li><a href="http://forge.puppetlabs.com/garethr/logstash">Logstash</a></li>
-<li><a href="http://forge.puppetlabs.com/garethr/freight">Freight</a></li>
-</ul>
-
-<p>Quite a few of these started as forks of other modules but have evolved quite a bit towards being more reusable.</p>
-
-<p>I&rsquo;ve also started sending pull requests for modules that basically do what I want but don&rsquo;t always play well with others.</p>
-
-<ul>
-<li><a href="https://github.com/thomasvandoren/puppet-redis/pull/10">Redis</a></li>
-</ul>
-
-<h2 id="improved-tools">Improved tools</h2>
-
-<p>It turns out the experience is mainly a pleasurable one, partly down to the much improved tooling around Puppet. Specifically I&rsquo;m making extensive use of:</p>
-
-<ul>
-<li><a href="http://rspec-puppet.com/">Rspec Puppet</a> - for writing tests for module behavious</li>
-<li><a href="https://github.com/rodjek/librarian-puppet">Librarian Puppet</a> - dependency management for modules</li>
-<li><a href="https://github.com/puppetlabs/puppetlabs_spec_helper">Puppet spec helper</a> - conventions and helpers for testing modules</li>
-<li><a href="https://travis-ci.org/">Travis CI</a> - easy continuous integration for module code</li>
-<li><a href="http://vagrantup.com/">Vagrant</a> - manage virtual machines, useful for smoke testing on different distributions</li>
-</ul>
-
-<p>Lots of those tools make testing Puppet modules both easier and useful. Here&rsquo;s an example of one of the above modules being tested. Note that it&rsquo;s run across Ruby 1.8.7, 1.9.2 and 1.9.3 and Puppet versions 2.7.17, 2.7.18 and 3.0.1 for a total of 9 builds. Handily the Redis module mentioned also had a test suite. The pull request includes changes to that, and Travis <a href="https://travis-ci.org/thomasvandoren/puppet-redis/builds/3462513">automatically tested the pull request</a> for the modules author.</p>
-
-<h2 id="antipatterns">Antipatterns</h2>
-
-<p>Using modules from the Forge really forces you to think about reusability. The pull request mentioned above for the Redis module for instance replaced an explicit mention of the build-essential package with the &ldquo;puppetlabs/gcc&rdquo;: class from the Forge. This makes the module less self contained, but without that change the module is incompatible with any other module that also uses that common package. I also went back and replaced explicit references to wget and build-essential in my Riemann module.</p>
-
-<p>As a rule of thumb. For a specific module only include resources that are unique to the software the module manages. Anything else should be in another module with a dependency in the Modulefile.</p>
-
-<p>This can feel a little much when you&rsquo;re replacing a simple Package resource with a whole new module but it has two advantages I care about. As well as the ability to use the module with other third party modules more easily it also makes it more likely that the module will work cross platform.</p>
-
-<h2 id="what-s-missing">What&rsquo;s missing?</h2>
-
-<p>I&rsquo;d like to see a few things improved when it comes to the Forge.</p>
-
-<ul>
-<li>I&rsquo;d like to be able to publish a new version of a module without having to use the web interface. The current workflow involves running a build command, then uploading the generated artifact via a web form after logging in.</li>
-<li>I&rsquo;d like to see best practice module development guides front and centre on the Forge. Lots of modules won&rsquo;t work with other modules and I think that&rsquo;s fixable.</li>
-<li>Integration with puppet-lint would be nice, giving some indication of whether the authors care about the Puppet styleguide.</li>
-<li><del>A command line search interface would be useful</del>. And <a href="http://docs.puppetlabs.com/man/module.html">turns out to exist</a>. Thanks <a href="http://twitter.com/a1cy">@a1cy</a> for the heads up.</li>
-<li>The Forge tracks number of downloads, but as a publisher I don&rsquo;t know how often my modules have been downloaded.</li>
-<li>And finally I&rsquo;d like to see more people using it.</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2012/10/21/shipping/">Shipping</a>
-      </h1>
-      <span class="post-date">Oct 21, 2012 &middot; 1 minute read
-      </span>
-      
-      <p>Last week we shipped <a href="https://www.gov.uk">GOV.UK</a>. Over the last year we&rsquo;ve built a team to build a website. Now we&rsquo;re busy building a culture too. I&rsquo;ve got so much that needs writing up about everything we&rsquo;ve been up to. Hopefully I&rsquo;ll make a start in the next week or so.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2012/08/19/Tale-of-a-grok-pattern/">Tale Of A Grok Pattern</a>
-      </h1>
-      <span class="post-date">Aug 19, 2012 &middot; 3 minute read
-      </span>
-      
-      
-
-<p>I&rsquo;m all of a sudden adding lots more code to GitHub. Here&rsquo;s the latest project, <a href="https://github.com/garethr/logstash-patterns">grok patterns for logstash</a>. At the moment this repo only contains one new pattern but I&rsquo;m hoping to add more, and maybe even for others to add more too.</p>
-
-<p>First, a bit of background. <a href="http://logstash.net/">Logstash</a> is the excellent, open source, log agregation and processing framework. It takes inputs from various configurable places, processes them with filters and then outputs the results. So maybe you&rsquo;ll take inputs from various application log files and output then into an elastic search index for easy searching, or output the same inputs to graphite and statsd to get graphs of rates. One of the host powerful filters in logstash is the <a href="http://logstash.net/docs/1.0.17/filters/grok">grok filter</a>. It takes a grok pattern and parses out information contained in the text into fields that can be more easily used by outputs. This post serves hopefully as both an explanation of why and an example of how you might do that.</p>
-
-<h2 id="the-problem">The problem</h2>
-
-<p>Rails logs are horrible, that is until you install the excellent <a href="https://github.com/roidrage/lograge">lograge</a> output formatter. That gives you lines like:</p>
-
-<pre><code>GET /jobs/833552.json format=json action=jobs#show status=200 duration=58.33 view=40.43 db=15.26
-</code></pre>
-
-<p>This contains loads of useful information that&rsquo;s easily parsable by a developer. We have the HTTP status code, the rails controller and information about response time too. A grok filter lets us teach logstash about that information too. The working grok filter for filtering this line looks like this:</p>
-
-<h2 id="the-solution">The solution</h2>
-
-<pre><code>LOGRAGE %{WORD:method}%{SPACE}%{DATA}%{SPACE}action=%{WORD:controller}#%{WORD:action}%{SPACE}status=%{INT:status}%{SPACE}duration=%{NUMBER:duration}%{SPACE}view=%{NUMBER:view}(%{SPACE}db=%{NUMBER:db})?%{GREEDYDATA}
-</code></pre>
-
-<p>That was worked out pretty much with a bit of trial and error and use of the logstash java binary, using stdin and stdout inputs and outputs. It works but getting their wasn&rsquo;t that much funand proving it works outside a running logstash setup was tricky. Enter rspec and the grok implementation in pure Ruby. The project above contains an Rspec matcher for use when testing grok filters for logstash. I&rsquo;ll probably extract that into a gem at some point but you&rsquo;ll get the idea. Now we can write tests like these:</p>
-
-<pre><code>the lograge grok pattern
-  with a standard lograge log line
-    should have the correct http method value
-    should have the correct value for the request duration
-    should have the correct value for the request view time
-    should have the correct controller and action
-    should have the correct value for db time
-  without the db time
-    should have the correct value for the request view time
-  with a post request
-    should have the correct http method value
-
-Finished in 0.01472 seconds
-7 examples, 0 failures
-</code></pre>
-
-<p>The <a href="https://github.com/garethr/logstash-patterns/blob/master/spec/lograge_spec.rb">tests themselves</a> are just basic Rspec with most of the work done in the <a href="https://github.com/garethr/logstash-patterns/blob/master/spec/spec_helper.rb">custom matcher</a>. This not only means I can be a bit more confident that my grok pattern works, it also provides a much nicer framework for writing more patterns for other log formats. Parsing rules like this are one area where test driven development is a huge boon in my experience. And with tests comes continuous integration, in this case via <a href="http://travis-ci.org/#!/garethr/logstash-patterns">Travis</a>.</p>
-
-<p>I&rsquo;ll hopefully find myself writing more patterns and tests for them, and if anyone wants to send pull requests and to start collecting working grok patterns together so much the better.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2012/08/11/Riemann-puppet-module/">Riemann Puppet Module</a>
-      </h1>
-      <span class="post-date">Aug 11, 2012 &middot; 1 minute read
-      </span>
-      
-      <p>Thanks to an <a href="https://twitter.com/bitprophet/status/233626675307479040">errant tweet</a> I started playing with <a href="http://aphyr.github.com/riemann/">Riemann</a> again. It ticks lots of boxes for me, from the clojure to configuration as code and the overloadable dashboard application. What started as using Puppet and Vagrant to investigate Riemann turned into a full blown tool and module writing exercise, resulting in two related projects on GitHub.</p>
-
-<ul>
-<li><a href="https://github.com/garethr/garethr-riemann/">garethr-riemann</a> is a Puppet module for installing and configuring Riemann. It allows for easily specifying your own server configuration and dashboard views.</li>
-<li><a href="https://github.com/garethr/riemann-vagrant">riemann-vagrant</a> is a Vagrantfile and other code which uses above puppet module to setup a local testing environment.</li>
-</ul>
-
-<p>I like this combination, a separate Puppet module along with a vagrant powered test bed. I&rsquo;ve written a reasonable rspec based test suite to check the module but it&rsquo;s always easier to be able to run <em>vagrant provision</em> as well to check everything is working. This also turned out to be the perfect opportunity to use <a href="https://github.com/rodjek/librarian-puppet">Librarian-Puppet</a> to manage the dependencies and eventually to ship the module to the <a href="https://forge.puppetlabs.com/garethr/riemann">Puppet Forge</a>.</p>
 
       
     </div>

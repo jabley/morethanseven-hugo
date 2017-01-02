@@ -2,7 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/post/2016-12-31-working-for-a-software-vendor/</loc>
+    <loc>/2017/01/01/republishing-service-manual-content/</loc>
+    <lastmod>2017-01-01T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/01/01/what-is-devops/</loc>
+    <lastmod>2017-01-01T22:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/01/01/agile-and-it-service-management/</loc>
+    <lastmod>2017-01-01T21:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/01/01/user-stories-for-web-operations/</loc>
+    <lastmod>2017-01-01T20:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2016/12/31/working-for-a-software-vendor/</loc>
     <lastmod>2016-12-31T14:37:50+00:00</lastmod>
   </url>
   
@@ -2068,13 +2088,13 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2016-12-31T14:37:50+00:00</lastmod>
+    <lastmod>2017-01-01T23:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2016-12-31T14:37:50+00:00</lastmod>
+    <lastmod>2017-01-01T23:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

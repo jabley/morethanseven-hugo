@@ -63,6 +63,164 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2007/06/11/introducing-hedgehog-lab/">Introducing hedgehog lab</a>
+      </h1>
+      <span class="post-date">Jun 11, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>For both of you who care what I get up to during my work hours this post is for you. I&rsquo;ve finally gotten involved in a new startup with a couple of friends. Look out for <a href="http://hedgehoglab.com">hedgehog lab</a> related goings on in a Newcastle near you. We&rsquo;ve got plans being drawn up as I type (multi-tasking) but a smattering of training and consultancy on web standards design and development and a very health dose of some of those new fangled online products (all with as many microformats as I can sneak in) sounds like fun to me.</p>
+
+<p><img src="http://morethanseven.net/_assets/media/imgHedgehogLab.jpg" alt="hedgehog lab" title="hedgehog lab" />:<a href="http://hedgehoglab.com/">http://hedgehoglab.com/</a></p>
+
+<p>Bye bye to all the people at TH_NK. It&rsquo;s been great for two years and I&rsquo;ll miss the cunning hit and run attacks on asp.net that have yielded some pretty good results. I&rsquo;m sure you&rsquo;ll get more done without me being quite so obstinate!</p>
+
+<p>It&rsquo;s not just the impending job move that has been keeping me so busy. I finally, after much useful feedback and patience from <a href="http://thewatchmakerproject.com">Matt</a> got my first <a href="http://www.digital-web.com">Digital Web</a> article done: <a href="http://www.digital-web.com/articles/apis_and_mashups/">APIs and Mashups For The Rest Of Us</a>. As the title suggests it&rsquo;s a quick run through the various goings on, in particular on what I find so interesting about the concepts of Open APIs and this web of data thing. I even squeezed in some talk of <a href="http://microformats.org">Microformats</a> <a href="http://www.digital-web.com/articles/apis_and_mashups/comments/">Let me know what you think</a>. Thanks to <a href="http://sam.aaron.name/">Sam</a> as well for a useful early proof read and to <a href="http://www.tiffehr.com/">Tiff</a> at Digital Web (who also has some interesting things to say on this here industry on her new blog, <a href="http://www.lostcog.com/.">Lost Cog</a>)</p>
+
+<p>End of self reverential post. The list of <em>real</em> things I have to blog about is frankly too long to wait around. And it&rsquo;s not helped by these <a href="http://vivabit.com/atmedia2007">trips</a> to <a href="http://hackday.org">london</a> which frankly just give me even more to write about. Incase anyone is interested (and more to remind me), expect something on automated site testing, some musings and code (!) for doing useful things with microformats, some cool CSS3 (or is it CSS2.2 now?) tricks and something involving flickr which should actually be quite interesting if I get the time.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/06/02/json-configuration-example-printing/">JSON configuration example - Printing</a>
+      </h1>
+      <span class="post-date">Jun 2, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>As a quick follow up to my <a href="http://morethanseven.net/posts/unobtrusive-javascript-example-printing/">previous post on unobtrusive javascript</a> I thought I&rsquo;d expand it even more, but this time in an attempt to make it easier to use.</p>
+
+<p>As we&rsquo;ve already mentioned javascript should be treated like any other programming language - not necessarily left to the experts but their should ideally be an expert involved somewhere along the line. One way of doing this is to abstract out configuration from programmatic logic. This massively helps with code resuse as well, leaving everyone to play to their strengths. It&rsquo;s interesting to note that even programmers who would always store configuration settings seperately when writing PHP or Rails applications don&rsquo;t always get around to doing the same in Javascript. Hell, I used to be one of them until <a href="http://wait-till-i.com/">Chris Heilmann</a> pointed out how patently obvious the solution was while at <a href="http://thehighlandfling.com/2007/">The Highland Fling</a>.</p>
+
+<p>The answer is <a href="http://www.json.org/">JSON</a>. I think it&rsquo;s nearly always easier with a quick example so here&rsquo;s the Print snippet from the previous post but this time with a few configurable options:</p>
+
+<pre><code>&lt;code&gt;var Print = {
+   config: {
+      &quot;id&quot;: &quot;iNav&quot;,
+      &quot;classname&quot;: &quot;has-print&quot;,
+      &quot;text&quot;: &quot;Print&quot;
+   },
+   init: new domFunction(function() {
+      if (list = document.getElementById(Print.config.id)) {
+         if (list.nodeName.toLowerCase() === 'ul') {
+            if (Print.hasClass(list,Print.config.classname)) {
+               var item = document.createElement(&quot;li&quot;);
+               item.className = &quot;print&quot;;
+               var link = document.createElement(&quot;a&quot;);
+               link.href = &quot;#&quot;;
+               link.onclick = Print.printpage;
+               var txt = document.createTextNode(Print.config.text);
+               link.appendChild(txt);
+               item.appendChild(link);
+               list.appendChild(item);
+            }
+         }
+      }
+   }),
+   hasClass: function(element,cName) { 
+      return new RegExp('\\b''&amp;#43;cName'&amp;#43;'\\b').test(element.className);
+   },
+   printpage: function() {
+      window.print();
+      return false;
+   }
+}&lt;/code&gt;
+</code></pre>
+
+<p>The main thing we have done is to add a new block:</p>
+
+<pre><code>&lt;code&gt;config: {
+   &quot;id&quot;: &quot;iNav&quot;,
+   &quot;classname&quot;: &quot;has-print&quot;,
+   &quot;text&quot;: &quot;brand new text&quot;
+},&lt;/code&gt;
+</code></pre>
+
+<p>This is simply a JSON object of name/value pairs. You can easily alter the right hand values and change the workings of the app. You then reference the settings in the rest of you&rsquo;re code using dot notation:</p>
+
+<pre><code>&lt;code&gt;Print.config.text&lt;/code&gt;
+</code></pre>
+
+<p>In the above example our configuration directives are stored in our Print object. Depending on the circumstances of use you might find it easier to have a seperate Config object which stores all the configuration settings for the entire site.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/05/29/unobtrusive-javascript-example-printing/">Unobtrusive Javascript Example - Printing</a>
+      </h1>
+      <span class="post-date">May 29, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>In lieu of some real posts here&rsquo;s a quick code sample to keep things ticking along.</p>
+
+<p>I&rsquo;m sure you&rsquo;ve had the need to place a nice print button on a web page from time to time. If you haven&rsquo;t you&rsquo;re probably alone. A quick google will throw up lots of results for print javascript - the problem is that most of them are horribly obtrusive.</p>
+
+<p>OK, so it&rsquo;s easy to write something like:</p>
+
+<pre><code>&lt;code&gt;&lt;a href=&quot;#&quot; onclick=&quot;window.print();&quot;&gt;print&lt;/a&gt;&lt;/code&gt;
+</code></pre>
+
+<p>But the problem is <em>What if you turn off javascript?</em> The following unobtrusive script automagically adds a print link to the page - in this case as part of a list item which is added to the unordered list with the id of <em>iNav</em> and a class of <em>has-print</em>.</p>
+
+<pre><code>&lt;code&gt;var Print = {
+   init: new domFunction(function() {
+      if (list = document.getElementById(&quot;iNav&quot;)) {
+         if (list.nodeName.toLowerCase() === 'ul') {
+            if (Print.hasClass(list,'has-print')) {
+               var item = document.createElement(&quot;li&quot;);
+               item.className = &quot;print&quot;;
+               var link = document.createElement(&quot;a&quot;);
+               link.href = &quot;#&quot;;
+               link.onclick = Print.printpage;
+               var txt = document.createTextNode(&quot;Print&quot;);
+               link.appendChild(txt);
+               item.appendChild(link);
+               list.appendChild(item);
+            }
+         }
+      }
+   }),
+
+   hasClass: function(element,cName) { 
+      return new RegExp('\\b'&amp;#43;cName&amp;#43;'\\b').test(element.className);
+   },
+
+   printpage: function() {
+      window.print();
+      return false;
+   }
+}&lt;/code&gt;
+</code></pre>
+
+<p>With something like this you want it to load as soon as the dom is ready, rather than on page load. <a href="http://www.brothercake.com">Brothercake&rsquo;s</a> <a href="http://www.brothercake.com/site/resources/scripts/domready/">domFunction</a> comes to the rescue here. The namespacing is based on <a href="http://www.kryogenix.org">Stuarts</a> technique which should make it more capable of just being dropped in to any site.</p>
+
+<p>The only problem with this is that it&rsquo;s just a little longer than the original. I think this is down to one often missed fact, at least until recently - Javascript is a programming language and should be treated as such.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/05/18/some-good-news/">Some good news</a>
+      </h1>
+      <span class="post-date">May 18, 2007 &middot; 1 minute read
+      </span>
+      
+      <p>Yeah, I just got my confirmation email for <a href="http://hackday.org">hackday</a> in a months time.</p>
+
+<p><a href="http://www.hackday.org" style="border: none; padding: 0px; margin: 0px"><img src="http://l.yimg.com/us.yimg.com/i/us/ydn/hackday/hack_day_pattern_four.gif" alt="Hack Day: London, June 16/17 2007" width="180" height="105" style="border: none; margin: 0; padding: 0;"/></a></p>
+
+<p>So, who else is going along and does anyone have any ideas they want team mates for? I&rsquo;m thinking something mobile or microformats related or alternatively something I know very little about. Any ideas?</p>
+
+<p>Oh, and I know I&rsquo;ve been quite around the place lately, more on that when I can talk about it.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2007/05/07/cssxx/">CSSx.x</a>
       </h1>
       <span class="post-date">May 7, 2007 &middot; 3 minute read
@@ -291,190 +449,6 @@ $website = new Website('http://morethanseven.net',$parser);&lt;/code&gt;
 <p>If that wasn&rsquo;t already enought (and I haven&rsquo;t even mentioned <a href="http://www.vivabit.com/atmedia2007/">@media</a>) their was something of a <a href="http://backstage.bbc.co.uk/news/archives/2007/03/hack_day_2007_g.html">big announcement</a> from <a href="http://www.thelondonbiker.com/blog/">Matt</a> over at the BBC today. Matt, and <a href="http://www.plasticbag.org/">Tom</a> from Yahoo have put together what looks like being <em>the</em> event of the year over the weekend of June 16th and 17th. Hackday is going to involve 400 geeks (you and me and all our friends in other words) spending 48 hours hacking on APIs and the like then watching some suitably bemused band.</p>
 
 <p>Most of these have details on <a href="http://upcoming.org">Upcoming</a> which I&rsquo;m increasingly thinking could be incredibly useful if only a few more people used it. So after telling you to go to all these events (which would cost money) I&rsquo;ll leave with telling you all to sign up for Upcoming (which costs nothing) and add <a href="http://upcoming.org/user/52694/">me</a> as a friend.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/03/18/semantic-web-acronym-links-primer/">Semantic Web acronym links primer</a>
-      </h1>
-      <span class="post-date">Mar 18, 2007 &middot; 3 minute read
-      </span>
-      
-      <p>One thing you hit pretty rapidly when you start having a look into all this Semantic Web malarkey is the number of rather <em>silly</em> acronyms and abbreviations. In fairness it&rsquo;s true of pretty much every technical or academic discipline I&rsquo;ve come across and you can ask the people I work with what I think about that - I wont ramble on here.</p>
-
-<p>And dont think this is all because I&rsquo;m not technical enough for ya, I have code on my blog and a faintly scary collection of technical tomes. I just think acronyms tend to breed elitism and make the world less penetrable, especially when they are often described in relation to other acronyms. So, after pointing out a problem here&rsquo;s a stab at a solution; a web designers guide (with the relevant links) to my understanding of the different things involved. I&rsquo;m not an expert on this yet mind, so if I&rsquo;m wrong and someone more knowlegable can provide a better description then please comment. If the descriptions from the relevant links I have are good enough I&rsquo;ll just use those as well.</p>
-
-<p>Most people will probably have come across <a href="http://www.w3.org/XML/">XML</a> so hopefully this is an easy one. XML is the eXtensible Markup Language. For me that means it&rsquo;s a set of rules for defining your own markup language; from simple data exchange formats to whole programming languages. The W3C says (which I think nicely highlights my problem from above)</p>
-
-<blockquote>
-<p>Extensible Markup Language (XML) is a simple, very flexible text format derived from SGML (ISO 8879)</p>
-</blockquote>
-
-<p><a href="http://www.w3.org/TR/xslt">XSLT</a> is another quite common tool. The W3C again defines it in relation to another acronym but this time I dont mind as much and we&rsquo;ve got a defintion of XML here anyway.</p>
-
-<blockquote>
-<p>[XSLT is] a language for transforming XML documents into other XML documents</p>
-</blockquote>
-
-<p>This is a pretty straighforward description, the only real problem for the outsider is wondering why you would want to do that!</p>
-
-<p><a href="http://www.w3.org/RDF/">RDF</a> <a href="http://www.w3schools.com/rdf/default.asp">W3Schools says</a> is really where the Semantic Web stuff starts. The W3C start off with:</p>
-
-<blockquote>
-<p>The Resource Description Framework (RDF) integrates a variety of application&hellip;</p>
-</blockquote>
-
-<p>Ah. It integrates applications&hellip; What! But wait:</p>
-
-<blockquote>
-<p>The RDF specifications provide a lightweight ontology system to support the exchange of knowledge on the Web</p>
-</blockquote>
-
-<p>This is pretty good actually, as long as you&rsquo;re happy with the word <a href="http://en.wikipedia.org/wiki/Ontology_%28computer_science%29">ontology</a>. Their is a <a href="http://www.xml.com/pub/a/2001/01/24/rdf1.html">good article</a> that takes a stab at the question from Tim Bray. I think, simply put, RDF is common set of rules for defining your own meta data (information about information) so it&rsquo;s interopable with everyone else doing the same thing.</p>
-
-<p>But how are we going to get all that RDF into our web pages (Semantic or otherwise)? <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">RDFa</a> is one possibility (not going there right now) which involves extending HTML (all varieties) with some additional attributes with the purpose of being able to embed RDF in the document. Or from the W3C:</p>
-
-<blockquote>
-<p>RDFa is a syntax that expresses this structured data using a set of elements and attributes that embed RDF in HTML</p>
-</blockquote>
-
-<p><a href="http://www.w3.org/TR/2004/NOTE-grddl-20040413/">GRDDL</a> is probably the worst offender here in terms of someone spending too much time coming up with the acronym. It stands for <em>Gleaning Resource Descriptions from Dialects of Languages</em>. From looking it appears to be a standard way of saying:</p>
-
-<blockquote>
-<p>Here be some RDF. If you want the RDF for this document please use this XSL transformation.</p>
-</blockquote>
-
-<p><a href="http://research.talis.com/2005/erdf/wiki/Main/RdfInHtml">eRDF</a>, or embedded RDF is a simpler approach to RDFa which involves no additional custom attributes but does not aim to be able to represent all the possible RDF constructs.</p>
-
-<p>Of course their are many more, but at least that&rsquo;s a start. Let me know what you think.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/03/10/im-not-a-werewolf/">I&amp;#39;m not a Werewolf!</a>
-      </h1>
-      <span class="post-date">Mar 10, 2007 &middot; 1 minute read
-      </span>
-      
-      <p>After the numerous games of <a href="http://en.wikipedia.org/wiki/Mafia_(game) ">Werewolf</a> at <a href="http://barcamp.org/BarCampLondon2">Barcamp London</a> recently a few of us <a href="http://kid666.com/blog/2007/02/19/werewolf-cards/">got chatting</a> about the idea of custom Werewolf cards using <a href="http://flickr.com">Flickr</a>. Well I&rsquo;ve just finished a very simple example of this and thought I&rsquo;d post it up.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgFlickrwerewolf.jpg" alt="Definately a Werewolf" title="Definately a Werewolf" /></p>
-
-<p>Head over to <a href="http://morethanseven.net/presents/werewolf">morethanseven.net/presents/werewolf</a> for a set of printable cards based on Flickr Machine Tags.</p>
-
-<p>In the future I may enhance this with a nifty interface which lets visitors select the number of each card they want - and I spoke briefly with <a href="http://www.whitelabel.org/">Stefan</a> from <a href="http://www.moo.com/">Moo</a> about if it&rsquo;s possible to link into printing them on those lovely Moo cards.</p>
-
-<p>If you want anyone to appear just add the relevant werewolf machine tag!</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/03/04/parsing-erdf/">Parsing ERDF</a>
-      </h1>
-      <span class="post-date">Mar 4, 2007 &middot; 2 minute read
-      </span>
-      
-      
-
-<p>Now we&rsquo;ve got some <a href="http://morethanseven.net/posts/microformats-and-erdf-sitting-in-a-tree/">eRDF in our pages</a> we need to extract it out in preparation for doing someting with it.</p>
-
-<h3 id="with-xsl">With XSL</h3>
-
-<p>First up we want to try and extract the eRDF in our page into an RDF document. <a href="http://iandavis.com">Ian Davis</a> has already created a nice XSL document to do just that. and I&rsquo;ve implemented a <a href="http://morethanseven.net/presents/erdf/">nice service wrapper</a> to extract the RDF from a given URL. Try pointing it at <a href="http://morethanseven.net">morethanseven.net</a> or <a href="http://iandavis.com">iandavis.com</a> for an example of it in action. Next step here is to extend it to allow extracting a simple vcard from the RDF in a similar manner to <a href="http://suda.co.uk/">Brian Suda&rsquo;s</a> <a href="http://suda.co.uk/projects/X2V/">Microformats extractor</a>.</p>
-
-<h3 id="with-javascript">With Javascript</h3>
-
-<p><a href="http://www.danwebb.net/">Dan Webb</a> has recently written up his <a href="http://www.danwebb.net/2007/2/9/sumo-a-generic-microformats-parser-for-javascript">Sumo! microformas parser</a> and boy is it really rather fancy. At the moment he&rsquo;s only got profiles for hCard, hCalendar and hResume but writing profiles is relatively simple. Accoring to one of Dans comments he&rsquo;s working on adding support for rel and rev style microformats like rel-tag and XFN.</p>
-
-<p>Although billed as a Microformats parser, in reality what Dan&rsquo;s created is pretty generic. You can use it to parse out any information marked up with any semantic class names - just like our eRDF.</p>
-
-<p>I&rsquo;ve set up a very basic Sumo! profile for FOAF and some <a href="http://morethanseven.net/presents/foaf/">simple tests to extract eRDF data from a test page</a>. This is very much a proof of concept of extracting eRDF using Javascript but would be relatively simple to extend for the full FOAF spec once Dan or someone else extends Sumo! to support rel and rev.</p>
-
-<p>On a related note the combination of Sumo! and the <a href="http://www.getfirebug.com/">Firebug</a> javascript console is just perfect. Anyone who hasn&rsquo;t yet downloaded the latest version should get over there quick.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgFirebug.png" alt="Firebug" title="Firebug" /></p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/03/03/microformats-and-erdf-sitting-in-a-tree/">Microformats and eRDF sitting in a tree</a>
-      </h1>
-      <span class="post-date">Mar 3, 2007 &middot; 3 minute read
-      </span>
-      
-      <p>Following on from <a href="http://morethanseven.net/posts/what-erdf-can-learn-from-microformats/">my previous post</a> on <a href="http://www.w3.org/RDF/">eRDF</a> I&rsquo;ve started to play around with it. For anyone bored enought to have read the source of this site today you&rsquo;ll have seen a couple of behind the scenes changes - specifically I&rsquo;ve added a dash of <a href="http://www.foaf-project.org/">FOAF</a>.</p>
-
-<p>The FOAF, or Friend of a Friend, project is:</p>
-
-<blockquote>
-<p>creating a Web of machine-readable pages describing people, the links between them and the things they create and do.</p>
-</blockquote>
-
-<p>I sort of see it as a bigger and more complicated older brother to <a href="http://gmpg.org/xfn">XFN</a> and <a href="http://microformats.org/wiki/hcard">hCard</a>.</p>
-
-<p>First things first, unlike <a href="http://microformats.org">Microformats</a>, using eRDF needs a bit of setup outside just adding classes and attributes - specifically you need to add a profile to the <em>head</em> element of your document and then add some namespaces links into the <em>head</em> like so:</p>
-
-<pre><code>&lt;code&gt;&lt;head profile=&quot;http://purl.org/NET/erdf/profile&quot;&gt;
-  &lt;link rel=&quot;schema.rdfs&quot; href=&quot;http://www.w3.org/2000/01/rdf-schema#&quot; /&gt;
-  &lt;link rel=&quot;schema.foaf&quot; href=&quot;http://xmlns.com/foaf/0.1/&quot; /&gt;
-&lt;/head&gt;&lt;/code&gt;
-</code></pre>
-
-<p>Then you&rsquo;re onto the more familiar ground (if you&rsquo;re used to Microformats) of adding semantic attributes. I already had the following snippet markup up in hCard, i just needed to add a few more classes (-foaf-Person, foaf-weblog and foaf-name) to existing elements.</p>
-
-<pre><code>&lt;code&gt;&lt;div id=&quot;iHead&quot;&gt;
-  &lt;h2 class=&quot;vcard -foaf-Person&quot; id=&quot;gareth&quot;&gt;
-  &lt;a href=&quot;/&quot; class=&quot;url org foaf-weblog&quot;&gt;Morethanseven&lt;/a&gt;
-  &lt;span&gt;is where &lt;a href=&quot;mailto:&amp;#103;&amp;#097;&amp;#114;&amp;#101;&amp;#116;&amp;#104;&amp;#064;&amp;#109;&amp;#111;&amp;#114;&amp;#101;&amp;#116;&amp;#104;&amp;#097;&amp;#110;&amp;#115;&amp;#101;&amp;#118;&amp;#101;&amp;#110;&amp;#046;&amp;#110;&amp;#101;&amp;#116;&quot; 
-    class=&quot;email fn foaf-name&quot;&gt;Gareth Rushgrove&lt;/a&gt; plays with the web
-    &lt;/span&gt;&lt;/h2&gt;
-&lt;/div&gt;&lt;/code&gt;
-</code></pre>
-
-<p>The full <a href="http://xmlns.com/foaf/0.1/">FOAF Specification</a> details a huge range of other elements - everything from <a href="http://xmlns.com/foaf/0.1/#term_Project">foaf:Project</a> for making associations between yourself and projects you have worked on, to <a href="http://xmlns.com/foaf/0.1/#term_OnlineGamingAccount">foaf:OnlineGamingAccount</a> which is pretty self explanatory.</p>
-
-<p>When parsed out that gives you a foaf document a little something like:</p>
-
-<pre><code>&lt;code&gt;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
-&lt;rdf:RDF xmlns:admin=&quot;http://webns.net/mvcb/&quot; 
-  xmlns:doap=&quot;http://usefulinc.com/ns/doap#&quot; 
-  xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; 
-  xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; 
-  xmlns:h=&quot;http://www.w3.org/1999/xhtml&quot; 
-  xmlns:rdfs=&quot;http://www.w3.org/2000/01/rdf-schema#&quot;
-  xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt;
-  &lt;rdf:Description rdf:about=&quot;&quot;&gt;
-    &lt;admin:generatorAgent 
-      rdf:resource=&quot;http://purl.org/NET/erdf/extract&quot;/&gt;
-  &lt;/rdf:Description&gt;
-  &lt;rdf:Description rdf:about=&quot;&quot;/&gt;
-  &lt;rdf:Description rdf:about=&quot;#gareth&quot;&gt;
-    &lt;rdf:type rdf:resource=&quot;http://xmlns.com/foaf/0.1/Person&quot;/&gt;
-    &lt;ns_13:weblog xmlns:ns_13=&quot;http://xmlns.com/foaf/0.1/&quot;&gt;
-      Morethanseven
-    &lt;/ns_13:weblog&gt;
-    &lt;ns_14:name xmlns:ns_14=&quot;http://xmlns.com/foaf/0.1/&quot;&gt;
-      Gareth Rushgrove
-    &lt;/ns_14:name&gt;
-  &lt;/rdf:Description&gt;
-  &lt;rdf:Description rdf:about=&quot;http://morethanseven.net&quot;/&gt;
-  &lt;rdf:Description rdf:about=&quot;mailto:gareth@morethanseven.net&quot;/&gt;
-&lt;/rdf:RDF&gt;&lt;/code&gt;
-</code></pre>
-
-<p>So far I&rsquo;d agree with <a href="http://ben-ward.co.uk/journal/fao-rdf/">Ben</a>. All I&rsquo;ve done is something people (including me) have been doing already with hCard. But I&rsquo;ve done it in a way, using eRDF, that doesn&rsquo;t in any way stop me continuing using Microformats.</p>
-
-<p>Marking things up with Microformats for it&rsquo;s own sake was only ever really of interest to markup junkies (including me again). It&rsquo;s only when you can parse that information out that it gets more interesting. I&rsquo;ve got a follow up post to this on just that subject involving some XSL, Javascript, PHP and some standing on the shoulder of giants. It will be left to a post after that when I try do something a little different.</p>
-
-<p>On a related note; so far I&rsquo;ve found only scattered and often overly technical and verbose documentation on eRDF and RDF in general. I&rsquo;ve been adding links to <a href="http://del.icio.us/garethr">del.icio.us</a> as I find useful resources but I can see how useful <a href="http://getsemantic.com">Get Semantic</a> has the potential to be if any of this is going to take off in the web standards community.</p>
 
       
     </div>

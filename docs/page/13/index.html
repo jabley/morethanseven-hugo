@@ -63,6 +63,92 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2009/09/21/learnings-september/">Learnings from September</a>
+      </h1>
+      <span class="post-date">Sep 21, 2009 &middot; 2 minute read
+      </span>
+      
+      <p>I&rsquo;m keep meaning to get around to writing about why I think the future of web developers is operations but in lieu of a proper post here&rsquo;s a list of things I&rsquo;ve been spending my work life getting to know this month:</p>
+
+<ul>
+<li><a href="http://reductivelabs.com/products/puppet">Puppet</a> - It&rsquo;s brilliant. Define (with a Ruby DSL of course) what software and services you want running on all your machines, install a daemon on each of them, and hey presto central configuration management.</li>
+<li><a href="http://www.vmware.com/products/vsphere/">VMWare vsphere</a> - puppet makes more sense the more boxes you have. With vsphere I can have as many boxes as I want (nearly). Command line scripts and an actually very nice windows gui for settings up virtual machines is all pretty nice, especially running on some meaty hardware.</li>
+<li><a href="http://nagios.org/">Nagios</a> - With lots of boxes comes lots of responsibility (or something). Nagios might look a bit ugly, and bug me with it&rsquo;s needless frames based admin, but I can see what people see in it. Which frankly is the ability to monitor everything everywhere for any change what-so-ever.</li>
+<li><a href="http://lucene.apache.org/solr/">Solr</a> - I&rsquo;m now also pretty well versed in using Solr. I&rsquo;ve used it in the past, but always behind a Ruby or Python library. Now I know my way around all the XML based configuration inards. Heck, I&rsquo;m even running a nighly release from a couple of days ago in a production environment because I wanted a cool new feature. A special mention to the Solr community on the mailing list, twitter and irc for being great when I had questions.</li>
+<li>Solaris - I nearly forgot, I spend more time than I care to remember working out how to use Open Solaris (conclusion: OK, but not Debian) and eventually Solaris 10 (conclusion: hope I don&rsquo;t have to do that again). My installation notes read like some hideous hack but everything works fine in production and it&rsquo;s scarily repeatable so I&rsquo;ll live with it for now.</li>
+</ul>
+
+<p>I do wonder if it&rsquo;s just me that&rsquo;s drawn to knowing how everything in the full web stack works. But personally I can&rsquo;t just write code if I don&rsquo;t understand how to deploy it or what it&rsquo;s running on. Front end types know this all too well. Being a master of CSS, HTML and Javascript simply isn&rsquo;t enough. You need to understand the browser to get anything done. I&rsquo;m not sure it&rsquo;s the same for all backend inclined folk; how many PHP programmers really understand Apache and a few other useful bits of web tech?</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/09/13/no-database-test-runner-added-test-extensions/">No database test runner added to test extensions</a>
+      </h1>
+      <span class="post-date">Sep 13, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>Thanks to <a href="http://intranation.com/">Brad</a> I&rsquo;ve just released a new version of <a href="http://pypi.python.org/pypi/django-test-extensions/0.5">Django Test Extensions</a> (also on <a href="http://github.com/garethr/django-test-extensions">GitHub</a> with support for running tests without the overhead of setting up and tearing down the database. Django still has a few places were it assumes you&rsquo;ll have a database somewhere in your project - and the default test runner is one of them.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/09/06/automating-web-site-deployment-barcamp-brighton/">Automating web site deployment at Barcamp Brighton</a>
+      </h1>
+      <span class="post-date">Sep 6, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>On the first day at Barcamp Brighton this year I did a brief talk about getting started with automating deployment. I kept it nice and simple and didn&rsquo;t focus on any specific technology or tool - just the general principles and pitfalls of doing anything manually. You can see the &ldquo;slides on Slideshare&rdquo;:</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=automatingdeployment-090906054723-phpapp01&stripped_title=automating-web-site-deployment" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=automatingdeployment-090906054723-phpapp01&stripped_title=automating-web-site-deployment" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>As part of the presentation I even did a live demo and promised I&rsquo;d upload the code I used. The following is an incredibly simple fabric file that has most the basic set of tasks. <a href="http://pypi.python.org/pypi/Fabric/">Fabric</a> is a python tool similar to capistrano in Ruby. I don&rsquo;t really care whether you&rsquo;re using make, ant, rake, capistrano or just plain shell scripts. Getting from not automating things to automating deployments is the important part - and it&rsquo;s easier that you think.</p>
+
+<p><script src="http://gist.github.com/181755.js">
+</script>
+The other part of the code example was a very basic apache virtualhost so just in case anyone needed that as well here it is:</p>
+
+<pre><code>&amp;lt;VirtualHost *:80&amp;gt;
+    ServerName sample.local
+    DocumentRoot /srv/sample/releases/current
+    &amp;lt;Directory /srv/sample/releases/current&amp;gt;
+        Order deny,allow
+        Allow from all
+    &amp;lt;/Directory&amp;gt;
+    ErrorLog /var/log/apache2/sample/error.log
+    LogLevel warn
+    CustomLog /var/log/apache2/sample/access.log combined
+&amp;lt;/VirtualHost&amp;gt;
+</code></pre>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/08/31/another-chance-djugl/">Another chance to DJUGL</a>
+      </h1>
+      <span class="post-date">Aug 31, 2009 &middot; 2 minute read
+      </span>
+      
+      <p><a href="http://djugl.eventwax.com/djugllondon-python">DJUGL</a> is back, the <em>monthly</em> Django meetup in London. I think the last few times have been as much about useful Python stuff as just using Django, and this time it&rsquo;s officially a bit more broad ranging. If you&rsquo;re in or around London on the 24th September then come along.</p>
+
+<p>You can get more information on <a href="http://twitter.com/londonpython">Twitter</a> or by following <a href="http://twitter.com/robertlofthouse/">Rob</a>. But expect a few short talks, some interesting conversations and maybe some beer with other like minded developers.</p>
+
+<p>I&rsquo;m going to be talking about automating deployment of Python web applications. If you follow me on Twitter you&rsquo;ll have heard me rambling a little about some of what I&rsquo;ve been up to, and some of the posts here give an insight into what I&rsquo;ve been working on. But the short version is that several friends mentioned how difficult it could be to get a working Django application from a local machine to a production web server. And I though I better get down in script form my experiences of Django, WSGI applications and web server setup to make things easier.</p>
+
+<p>I think this situation is partially caused by the success of the Django development server, and partially by people coming from a PHP background. In my PHP days I think I always wanted to know how Apache did it&rsquo;s think, so long ago jumped into anything and everything in httpd.conf from loading modules to virtual hosts. But not everyone does the same, and PHP does make simple deployments easy enough that you might get away without doing so. Rails went through the same problems and seems to be coming out the other side. I&rsquo;m hoping that Django and Python is soon to be in the same position, where basic deployment is just a given.</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2009/08/21/django-wsgi-deployment-solaris/">Django and WSGI deployment on Solaris</a>
       </h1>
       <span class="post-date">Aug 21, 2009 &middot; 3 minute read
@@ -566,139 +652,6 @@ manage.py test --coverage
 <p>But not everything needs an API. Sometimes it&rsquo;s just about the data, and the best way of getting at that data is as raw as possible. Government data is an easy sell here, as it is (or rather should be) <em>our</em> data. It&rsquo;s also for the most part interesting to read rather than write (historical council tax data, or population data for instance). Raw data can generally be provided quicker than via an API. It doesn&rsquo;t need fragile computer systems or extensive manual labour. It doesn&rsquo;t need particularly clever computing resources. Just upload a spreadsheet or a CSV file to a sensible URL on a known, regular basis and away we go.</p>
 
 <p>And giving data like this away to the development community is likely to have a few additional benefits if that data is useful (it probably is to someone). We&rsquo;ll happily write software libraries, or create APIs over the top of it for you. We&rsquo;ll also write all sorts of useful tools using the data in ways no one else thought of. So if you&rsquo;re sat on a load of data that&rsquo;s not core to your business, or is meant to be public anyway, then lets start talking publicly about how to just get this out on the web quickly and cheaply, rather than spending lots of your time and money on something fancy.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/07/08/thoughts-whole-xhtml-and-html5-affair/">Thoughts on the whole XHTML/HTML5 affair</a>
-      </h1>
-      <span class="post-date">Jul 8, 2009 &middot; 4 minute read
-      </span>
-      
-      <p>I wasn&rsquo;t going to write anything about <a href="http://www.w3.org/News/2009#item119">the whole XHTML2 thing</a>. I noted its passing, got <a href="https://twitter.com/jamierumbelow/status/2442111140">a nice message on Twitter</a> and thought that would be it. But no. The web standards world exploded. I honestly didn&rsquo;t see that coming.</p>
-
-<p>Let&rsquo;s get a few things straight:</p>
-
-<ul>
-<li>I use XHTML 1.0 for this site. In fact I&rsquo;ve been using it for the majority of things for most of my professional life.</li>
-<li>I don&rsquo;t serve content with an XML mime type. Neither does <em>anyone</em> else. It&rsquo;s a complete non issue. Ignore it.</li>
-<li>At my last job we used HTML 4. It meant I had to remember not to close my image elements, which bugged me, but not too much. I still quoted everything. Closed everything I could. And only used lowercase element names.</li>
-<li>My latest two pet projects are using HTML5. I&rsquo;m still closing everything (including image elements, yay), quoting everything and lowercasing everything.</li>
-</ul>
-
-<p>Web Standards are interesting, in that they are standards for both implementors (browser makers) and for authors (us). I like coding standards in programming languages too, it&rsquo;s one of the things I love about Python and <a href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>. But with these standards it&rsquo;s not about making your code <em>work</em>, it&rsquo;s about shared conventions and readability. So common spacing, UPPERCASE for constants and Leading caps for class names for instance. It&rsquo;s also about having a tool to check everyone is adhering to standards, like <a href="http://svn.browsershots.org/trunk/devtools/pep8/pep8.py">pep8.py</a> or FXCOP for .NET. If everyone writes code in the same way it&rsquo;s easier to read, write and to pick up someone else&rsquo; code. You can do that with HTML, but you <em>have</em> to do that with XHML.</p>
-
-<p>Now the whole HTML 4.0 vs XHTML 1.0 thing has come up lots of times, on mailing lists, at conferences as well as down the pub. I know on occasion me, <a href="http://allinthehead.com">Drew</a>, <a href="http://rachelandrew.co.uk">Rachel</a> and <a href="http://adactio.com">Jeremy</a> side against <a href="http://simonwillison.net">Simon</a> and <a href="http://natbat.net">Nat</a> on the issue. But what&rsquo;s interesting is that I think we all agree on all the typographical conventions stuff. My <a href="http://intranation.com">former</a> <a href="http://thecssdiv.com">colleagues</a> with a passion for front end standards and HTML 4 did the same thing. I even remember Simon looking for ways to validate against HTML 4 but also to check for all lower case elements, closed paragraphs and the like.</p>
-
-<p>Which brings me to the reason why I use XHTML: The validator enforces my preferred coding standards for HTML - lowercase elements, quoted attributes and closed elements. That&rsquo;s it. Not much really. I <em>know</em> it&rsquo;s <a href="http://hsivonen.iki.fi/xhtml2-html5-q-and-a/">marketing XHTML rather than technical XHTML</a>. I don&rsquo;t care. Or rather I do care, I just make a conscious pragmatic decision based on a small personal advantage. I&rsquo;m both pedantic and like having a tool chain which enforces that, XHTML suits my style.</p>
-
-<p>The markup language debate is being talked about in terms of pragmatists vs purists. But ignoring the people who both really understood and really wanted XHTML2, it&rsquo;s mainly the pragmatists arguing amongst themselves now. Some of them are big company people, others working for themselves. Some have standards or academic leanings, others are rooted in commercial web design. Some people probably work on huge long term projects, others relatively small sites and apps. And I think it&rsquo;s these cultural differences that are the root of arguments now. So blog posts coming out saying the same thing but arguing with other people give a strange impression of disagreement. Throw in that the web lends itself to popular blogs gathering a crowd of like-minded people around them and hey presto we have people feeling unfairly put upon and getting agitated.</p>
-
-<p>What a storm in a teacup. Who doesn&rsquo;t genuinely think the best approach is to use whatever you&rsquo;re using now for most projects, investigate HTML5 as time permits, and then expect to start using HTML5 in bits and pieces in the short to medium term, when being mainly dependent on your target audience?</p>
-
-<p>In my opinion the only genuine problem that this saga has highlighted is the fear, uncertainty and doubt around all flavours of HTML amongst a large number of web professionals. People don&rsquo;t get this stuff at all. With the added resources soon to be put into the HTML5 working group at the W3C this <em>outreach and education</em> side of the project has to have just as much love and attention as the spec itself.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/07/01/pants-python-code/">Pants Python Code</a>
-      </h1>
-      <span class="post-date">Jul 1, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>One of the projects that came out of the <a href="http://alt.djangodash.com/">Django Dash</a> recently was <a href="http://pypants.org">PyPants</a> which I&rsquo;m finding very cool.</p>
-
-<p><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cgwLEgVJbWFnZRiRTgw" alt="Urltest on PyPants"/></p>
-
-<p>It&rsquo;s basically a quality tracking service for Python modules. For instance my recent <a href="http://pypants.org/projects/urltest/0.2.3/evaluations/3142/">UrlTest module has a page on PyPants</a>, scoring a good B grade after some cleanup work earlier today.</p>
-
-<p>Under the hood I think it&rsquo;s probably <a href="http://pycheesecake.org/">CheeseCake</a> which is available as a command line application, maybe with a hint of <a href="http://pypi.python.org/pypi/pylint">PyLint</a> and <a href="http://svn.browsershots.org/trunk/devtools/pep8/pep8.py">pep8.py</a> thrown in. But the nice interface, as well as tracking of scores over time, really add something. GitHub has been credited by some as making sharing code more fun, I&rsquo;m hoping projects like PyPants can do the same for quality in Python code.</p>
-
-<p>Congrats to <a href="http://ericholscher.com/">Eric Holscher</a>, <a href="http://traviscline.com/">Travis Cline</a>, and <a href="http://playgroundblues.com/">Nathan Borror</a> on a fantastic addition to the Python community.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/06/24/urltest-pypi/">Urltest on PyPi</a>
-      </h1>
-      <span class="post-date">Jun 24, 2009 &middot; 1 minute read
-      </span>
-      
-      <p>I&rsquo;ve been meaning to add some of my code to the <a href="http://pypi.python.org">Python Package Index</a> for a while and have finally gotten around to it with <a href="http://github.com/garethr/urltest/tree/master">Urltest</a>, my simple DSL for testing WSGI apps.</p>
-
-<p>You can now find it at <a href="http://pypi.python.org/pypi/urltest">pypi.python.org/pypi/urltest</a> and install it using setuptools with:</p>
-
-<p>pre. easy_install urltest</p>
-
-<p>At the moment I&rsquo;ve not added any categorisation or detailed description to the setup.py file, I&rsquo;ll be doing that soon. I wanted to get it working with the absolute minimum setup.py file, which turned out to look like:</p>
-
-<p>pre. #!/usr/bin/env python
-from setuptools import setup, find_packages
-setup(
-name = &ldquo;urltest&rdquo;,
-version = &ldquo;0.1&rdquo;,
-author = &ldquo;Gareth Rushgrove&rdquo;,
-author_email = &ldquo;gareth@morethanseven.net&rdquo;,
-url = &ldquo;<a href="http://github.com/garethr/urltest&quot;">http://github.com/garethr/urltest&quot;</a>,
-packages = find_packages(&lsquo;src&rsquo;),
-package_dir = {&rdquo;:&lsquo;src&rsquo;},
-)</p>
-
-<p>Uploading it to PYPI itself was incredibly simple, partly as I was already using setup tools for local installation.</p>
-
-<p>pre. python setup.py register
-python setup.py bdist_egg upload</p>
-
-<p>Let me know if anyone uses this and gets it working. I&rsquo;ll be adding more details and maybe even some more features when I get the chance. Once I do that I&rsquo;ll probably work on a few more packages as well.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/06/23/ant-web-developers-ii-restart-apache/">Ant for Web Developers II - Restart Apache</a>
-      </h1>
-      <span class="post-date">Jun 23, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>Following on from <a href="http://morethanseven.net/2009/06/22/ant-web-developers-i-backup-config-file/">yesterdays first useful ant task</a>, here&rsquo;s another commonly used task - restarting a remote service. I&rsquo;ve used apache in this example, but it could be any service running on your remote machine and it doesn&rsquo;t have to be the restart command.</p>
-
-<p>In order to do this we&rsquo;ll use the <a href="http://ant.apache.org/manual/OptionalTasks/sshexec.html">sshexec target</a> which has a third party <a href="http://ant.apache.org/manual/install.html#librarydependencies">library dependency</a>. This is the same third party library needed for the scp task in yesterdays post</p>
-
-<p>You need first to download <a href="http://www.jcraft.com/jsch/index.html">JSCH</a> and then compile the source using ant. Just run <em>ant dist</em> in the downloaded folder and you should get a .jar file in the /dist/lib folder. Save this .jar file as as jsch.jar to a folder in your home directory <em>~/.ant/lib</em> where ant can automatically load it. Alternatively you can run ant with the -lib command to load libraries from a different location.</p>
-
-<p>pre. ant -lib /tools/ant-libraries</p>
-
-<p>With that out of the way lets have a look at the task.</p>
-
-<p>pre.</p>
-
-<p>&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?&gt;
-<project name="example" basedir=".">
-<property name="host" value="{host}"/>
-<property name="username" value="{user}"/>
-<property name="password" value="{password}"/>
-<target name="restart-apache" description="execute a remote command to restart apache">
-<sshexec host="${host}"
-            username="${username}"
-            password="${password}"
-            command="/etc/init.d/apache2 restart"/>
-</target>
-</project></p>
-
-<p>And running it is as simple as:</p>
-
-<p>pre. ant restart-apache</p>
-
-<p>One potential issue with tasks like this is storing the password in the build file in plain text. The target we&rsquo;re using can also use key authentication is you&rsquo;re happy using ssh keys. Alternatively you can set properties on the command line each time you run ant like so.</p>
-
-<p>pre. ant restart-apache -Dpassword={password}</p>
 
       
     </div>

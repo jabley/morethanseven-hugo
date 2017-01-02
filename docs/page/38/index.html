@@ -63,6 +63,158 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="/2005/12/04/tips-for-fluid-design-ii/">Tips for fluid design II</a>
+      </h1>
+      <span class="post-date">Dec 4, 2005 &middot; 2 minute read
+      </span>
+      
+      <p>
+A while back I decided to jot down a couple of practical, simple techniques that have served me well when actually building fluid designs.
+
+</p>
+<p>
+One of the situations that often comes up is the need to make an elements width vary. This is no problem when that element is a block level element (say a div or a paragraph) as unless you tell them otherwise their width willl vary with the space available. However, when it comes to graphics this can be a problem. After all, these will (probably) have been designed with a fixed size in mind.
+
+</p>
+<p>
+Their are a couple of possible solutions here, both useful in different circumstances. However, both rely on the image itself to some extent.
+
+</p>
+<p>
+The sometimes obvious method is using the CSS <em>background</em> rules, the image wont actually be part of the page and so wont take up any space, the size of the image can then be controlled by the size of the element (say a div) on which the background image is placed. This works but has a couple of ugly side effects – if the image is content based (ie. it carries some sort of important message rather than being just for it’s asthetic attributes) then placing it in the CSS removes it from the page completely, not good for those without CSS support. Another consequence is in site management. Having content imagery in the CSS can make life a little tricky.
+
+</p>
+<p>
+The second approach involves using the CSS overflow property. By wrapping the inline image with a container (again, maybe a div) and assigning this an <em>overflow: hidden</em> we can control the viewable area of the image by controlling the size of the surrounding div (with CSS, natch). An example of this can be seen on these pages, with the favourite sites and flickr images. Resize the window. These images should expand to fill the available space.
+
+</p>
+<p>
+OK, so we have added some additional markup to the page, depending on your feelings on this that solution may be fine. Want to go a bit further? What about assigning a class to the image and using some nifty DOM scripting to add in the additional markup?
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2005/11/27/ajax-and-privacy/">AJAX and Privacy</a>
+      </h1>
+      <span class="post-date">Nov 27, 2005 &middot; 3 minute read
+      </span>
+      
+      <p>
+Ok, so everyone by now has no doubt had a play with <acronym>XML"&gt;AJAX</acronym> in some shape or form, and their are lots of good <a href="http://rajshekhar.net/blog/archives/85-Rasmus-30-second-AJAX-Tutorial.html">tutorials</a> and <a href="http://dhtmlnirvana.com/ajax/ajax_tutorial/">articles</a> around. I’m not going to add to the pile, but on my travels I did do something that raised a couple of questions. Let me know if anyone has any answers.
+
+</p>
+<p>
+The questions are more ethical than technological however and came about when considering online advertising and it’s never ending need for metrics – at the moment that generally means impressions and click throughs (maybe also including converting click throughs). These two states are imposed to some extent by the stateless nature of most web pages. We can tell what gets shown to the visitor. But they then disappear from our radar until they do something – in this case click on an advert (or dont).
+
+</p>
+<p>
+But what about the asynchronous nature of our new toy AJAX? We are starting to break out from the constrains of the stateless web so can anything be added to our add example? Why yes of course it can.
+
+</p>
+<p>
+I’ve set up a quick working example that should hopefully make my point a little clearer. Open in a new tab (I know 80% of you can – <a href="http://haveamint.com">mint</a> is great) if you will – <a href="http://morethanseven.net/monitor">morethanseven.net/monitor</a>
+
+</p>
+<p>
+Mouse over the two <em>Ad</em> areas a few times. Click on them a few times too. Obviously the appearing message telling you what you have done is hardly exciting but it’s actually a response from an AJAX (actually it’s not returning XML so is that AJ?) call. All the call does is log the action inn a text file and return a success or failure. This isn’t high tech stuff – it’s proof of concept remember, it gets interesting a couple of jumps forwards.
+
+</p>
+<p>
+The two buttons at the bottom, clear log and view log, allow you to see the log of actions (and delete them). I dont imagine this attracting high but the log file will log everyone’s actions not just yours, so you might want to clear the log first to more easily see your actions appear.
+
+</p>
+<p>
+OK, so what? Well lets imagine instead of just the actions I log your IP address, some date details, maybe store a cookie on your computer while I’m at it. Also as well as hooking up two add areas as in the example I hook up <em>everything</em> on the page. Not only can I build up a picture of your activities between pages (your path through the site), I can build up a picture of what your mouse was doing on a given page. Now where stalking.
+
+</p>
+<p>
+OK, so I’m not sure if their is a correlation between a web users mouse pointer and what they intend but think of other examples – I could trigger the events on focus for form elements. You might get half way through registering or purchasing (you’ve entered your name and an email address) and then decide against it. Normally all I’d be able to get would be someone went to the page in question and did not complete the required actions – with AJAX I could log who you where and were you got to in the process (and then email you to ask why).
+
+</p>
+<p>
+Ethics anyone? Anyone else see problems? Let me know.
+
+</p>
+<p>
+<em>Note. The javascript examples are not great and I’ve testing in recent versions of IE and Firefox only. It’s a proof of concept rather than tutorial.</em>
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2005/11/26/roll-on-february/">Roll On February</a>
+      </h1>
+      <span class="post-date">Nov 26, 2005 &middot; 1 minute read
+      </span>
+      
+      <p>
+Well – It looks like february has made a quick move to try and secure the prestigious <em>month of the year</em> award.
+
+</p>
+<p>
+With two events happening in London, namely <a href="http://clearleft.com">Clearleft’s</a> <a href="http://www.clearleft.com/training/ajax.php">Ajax Training Workshop</a> on the 10th and <a href="http://www.carsonworkshops.com/">Carson Workshops</a> <a href="http://www.carsonworkshops.com/summit/">Future of Web Apps</a> summit on the 8th it’s <em>all go</em> in the rapidly expanding world of web geek meetups.
+
+</p>
+<p>
+After missing <a href="http://dconstruct.org">d.Construct</a> I dont feel two bad about the outlay for going to both of these, especially with the assistance of my lovely employers. So I need to work out the details; travel, accomodation, what to do on the thursday, etc. but that should hopefully not be too painful. Any suggestions welcome – especially if anyone else is going along to one or both – be good to be in the same hotel as other attendess – I met <a href="http://theintranetblog.blogspot.com/">Nic</a> at <a href="http://atmedia2005.co.uk">@Media</a> last year as she was in the same hotel.
+
+</p>
+<p>
+So, anyone else going along? Want to meet up? Ideas for accomodation or things to do on the Thursday? See you in February!
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2005/11/20/accessify-rocks-manchester/">Accessify ROCKS Manchester</a>
+      </h1>
+      <span class="post-date">Nov 20, 2005 &middot; 2 minute read
+      </span>
+      
+      <p>
+Back from Manchester after a pretty <a href="http://accessifyforum.com/viewtopic.php?t=3770&#38;postdays=0&#38;postorder=asc&#38;highlight=meetup&#38;start=150">good weekend</a> all in all.
+
+</p>
+<p>
+It didn’t start particularly well. Very briefly I was late getting to the station. Missed train. Waited an hour and the next train was delayed half an hour. Missed meeting everyone at the station and had no clue where the place was. After a trip (in the opposite direction to the pub) to the tourist information centre I finally got there and things picked up markedly.
+
+</p>
+<p>
+Present where <a href="http://www.splintered.co.uk/">Patrick Lauke</a>, <a href="http://vigo.org.uk">Vigo</a>, <a href="http://www.logohere.co.uk/">Andy Saxton</a>, <a href="http://www.thepickards.co.uk">Jack Pickard</a>, <a href="http://www.pixeldiva.co.uk">Pixeldiva</a>, <a href="http://www.xhtmlcoder.com">Robert Wellock</a>, <a href="http://accidentalsmallholder.net">Dan Champion</a> and myself.
+
+</p>
+<p>
+We started out in a small deserted bar where Patrick had booked a table (including a reserved sign with bad fonts). Considering that we accounted for the vast majority of people in their throughout the afternoon this was mildy amusing.
+
+</p>
+<p>
+I missed most of the introductions but not to fear. Conversation jumped around – people who made it to <a href="http://dconstruct.org">d.Construct</a> filled everyone else in with the highlights and the behind the scenes gossip. Tales of massages and ladies mainly. We had a wireless laptop connection and browsed around a little. Bad examples of error messages (I’ll dig out the links later on), brand new public sector sites that simply consist of sliced up images (including links with blue underlines and ovely image maps) and goings on at the BBC. But we cant speak about the later. Some talk as well on privacy issues tied in with the whole open API goings on and an idea we intent to sell to google – stalking.google.com – which is fairly self explanatory but we got into a worrying level of detail!
+
+</p>
+<p>
+After a brief break to stop off at the hotel, and for some of the group to depart, we got some Indian food on the way to a pub recommended by Patrick, who was going to meet the rest of us there. It was a ROCK pub. Rage on the jukebox, lots of proper beers, people wearing black, etc. All of a sudden we found something else we had in common – musical tastes. More discussions going backwards and forwards between the music (what’s that tune?) and the state of the industry. All good fun.
+
+</p>
+<p>
+Overall, another enjoyable meetup. Thumbs up to everyone turning up and I’ll look forward to the next one. I’ll post links and the obligatory <a href="http://flickr.com">flick</a> details once everyone else has their say.
+
+</p>
+
+      
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="/2005/11/15/creatives/">&amp;#39;Creatives&amp;#39;</a>
       </h1>
       <span class="post-date">Nov 15, 2005 &middot; 1 minute read
@@ -319,102 +471,6 @@ The <a href="http://www.accessify.com">accessify</a> forum meetup <del>is tonigh
 </p>
 <p>
 What do I want out of it besides the beer? Hopefully some ideas and enthusiasm. I keep meaning to do more with <a href="http://www.newcastlenewmedia.org">newcastlenewmedia</a> and a few people have expressed an interest in pulling some things off – the mailing list even kicked off yesterday with a flurry of posts. So some concrete ideas, a broader network and some beer will do nicely.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2005/10/25/all-change-again/">All change (again)</a>
-      </h1>
-      <span class="post-date">Oct 25, 2005 &middot; 2 minute read
-      </span>
-      
-      <p>
-I’m actually going on holiday soon and seem to be getting all sorts done before I go away. The obvious one is the change of scenery around these parts. Let me know what you think. It’s not complete as yet and I have a few more bits to add and check (yes I mean you IE) but I’m all for release early and often.
-
-</p>
-<p>
-I’d been meaning to move on a little recently, and the move to <a href="http://textpattern.com">textpattern</a> cemented that. I’m still impressed with it and wanted to delve further into setting up flexible forms and pages. I’ve set up a few areas of the site to hopefully make me organise things a little better – specifically an experiments section to play with code and an articles section if I every actually get round to writing something properly. Both appear in the sidebars.
-
-</p>
-<p>
-Another reason for the sudden change was, after using <a href="http://www.shauninman.com/plete/2004/03/shortstat-beta-3">ShortStat</a> for quite a while and looking over the Mint information on the <a href="http://haveamint.com">haveamint.com</a> site I made the plunge. Some had moaned about the cost but really Ã‚Â£17 is the price of a DVD and with a DVD you dont get the sense of supporting a really <a href="http://shauninman.com">smart developer</a>. Ok so I could have seemlessly moved from one to the other without a change in the design but I didn’t want to (confuse my database).
-
-</p>
-<p>
-I’ll hopefully post a review of sorts (better late than never) as the dicussion doesn’t seem to have died down yet. I’d personally like to see more of this sort of small, clever, personal application development. I’ve been a bit Open Source advocate for a good while which has it’s merits but I’m still of the mind that something as focused and polished as Mint is more likely to come out of one mind. The question is, I guess, about the market? If you’re <a href="http://www.hicksdesign.co.uk/journal/pimp-my-mint">friends</a> <a href="http://www.mikeindustries.com/blog/archive/2005/09/mint-the-flavor-of-the-month">blog</a> to a huge number of other web designers, bloggers and developers then you have an <em>in</em> on the promotional front but will that become the norm rather than a very clever marketing ploy?
-
-</p>
-<p>
-Also on the paying part, lots of people thought $30 was quite steep, I disagreed but will we be back to Shareware and people not paying? Lots of questions. Not many answers yet. But should be interesting to see where things go – at least for people like me with an interest in the sociology of software.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2005/10/25/contact/">Contact</a>
-      </h1>
-      <span class="post-date">Oct 25, 2005 &middot; 1 minute read
-      </span>
-      
-      <p>
-If you want to talk to me about, well anything really, let me know. Your best bet is probably emailing me on <a href="mailto:gareth@morethanseven.net">gareth@morethanseven.net</a> and hopefully I should get back to you. Unless you’re a spam bot in which case expect to be automatically deleted or ignored.
-
-</p>
-<p>
-On the other hand I can be found wandering the corridors over at <a href="http://www.designersinhouse.com/">designersinhouse.com</a> or appearing in person at anything I can get along to that sounds interesting.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2005/10/25/about/">about</a>
-      </h1>
-      <span class="post-date">Oct 25, 2005 &middot; 1 minute read
-      </span>
-      
-      <p>
-morethanseven is the personal playground of Gareth Rushgrove, a 26 year old web designer and developer living and working in Newcastle, UK.
-
-</p>
-<p>
-Before bored people ask, morethanseven is a reference to an interesting essay The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information, by George A. Miller, originally published in The Psychological Review, 1956, vol. 63, pp. 81-97. It’s about people’s ability to remember sets of data.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2005/10/16/the-real-world/">The Real World</a>
-      </h1>
-      <span class="post-date">Oct 16, 2005 &middot; 1 minute read
-      </span>
-      
-      <p>
-All of a sudden it’s all about the real world. In fact that’s my prediction for 2006 – geeks moving out into real social activities (often involving beer) around blogs and mailing lists what not. Anyway…
-
-</p>
-<p>
-After the Northern Geekender yesterday, which was a really good do for all those that couldn’t make it, I found out about another meet up even closer to home – in Newcastle no less.
-
-</p>
-<p>
-So people over at the <a href="http://www.accessify.com">Accessify</a> forum are organising a <a href="http://www.accessifyforum.com/viewtopic.php?p=28544#28544">get together</a> on the 27th of this month. Things are coming fast and furious at the moment. I’ll hopefully be going along, although it starts at 5:30 and I finish work at 6:00 so might be a bit late.
-
-</p>
-<p>
-I’ll post more details about that as I get anything, and I’ll post any half decent photos (and link to the inevitable <a href="http://www.flickr.com">flickr</a> group) as stuff happens.
 
 </p>
 
