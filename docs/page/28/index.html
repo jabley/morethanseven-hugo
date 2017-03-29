@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18" />
+	<meta name="generator" content="Hugo 0.18.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,52 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/06/22/encoded-characters-in-css3-generated-content/">Encoded Characters in CSS3 Generated Content</a>
+      </h1>
+      <span class="post-date">Jun 22, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>A quick, but hopefully informative post on something that took me a little time to work out and I thought might trip a few others up too.</p>
+
+<p>I&rsquo;m playing with quite a bit of CSS3 at the moment for our <a href="http://hedgehoglab.com">new company</a> site. It seemed like a good excuse to put into practice lots of progressive enhancement and the like and so far is going nicely if I do say so my self.</p>
+
+<p>The <a href="http://www.w3.org/TR/css3-content/">CSS3 Generated Content Module</a> has some nice little bits in and I decided to use it to put some icons after external link ala wikipedia (but with nicer icons). Actually what I wanted was simply an arrow and I didn&rsquo;t really need an image for that did I?</p>
+
+<p>Well my first try went a little something like this:</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;#8594;&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>Nope, no luck. By the time it hits the browser it&rsquo;s not what I was looking for. I didn&rsquo;t think old style named entities would work but what the heck?</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;&amp;rarr;&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>Nope. As I thought. No luck their either. I also tried the character itself (but forgot to put that in the first post - thanks <a href="http://joeclarke.org/weblogs/">Joe</a>) but again to no avail.</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;â†’&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>Some digging around and I managed to infer the correct syntax from some hidden away examples about something else.</p>
+
+<pre><code>&lt;code&gt;p a[href^=&quot;http:&quot;]:after {
+    content: &quot;\2192&quot;;
+}&lt;/code&gt;
+</code></pre>
+
+<p>You need to use the Unicode encoding. Doh. Job done.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -413,42 +459,6 @@ $website = new Website('http://morethanseven.net',$parser);&lt;/code&gt;
 <p>And just for <a href="http://anotherblog.com">Phil</a> it already has GCC-3.4-base on so no need to install.</p>
 
 <p>Oh, and for the nay sayers thinking iPhone I don&rsquo;t care. From all I&rsquo;ve read the iPhone is going to be a closed system and this is a full blown Linux OS that is designed expressly to be hackable. Plus the N800 makes people swoon now, not in six months or a year when the iPhone hits the shelves.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/03/28/even-more-events/">Even More Events</a>
-      </h1>
-      <span class="post-date">Mar 28, 2007 &middot; 2 minute read
-      </span>
-      
-      
-
-<p>I occasionally get some stick for wandering the country attending as many web related get togethers as I can manage but in fairness their are so many good events to get along to at the moment it would be rude not to. So here&rsquo;s yet another run down of some upcoming events that people really should try and get along to:</p>
-
-<h3 id="the-highland-fling">The Highland Fling</h3>
-
-<p>Yes! It&rsquo;s <a href="http://thehighlandfling.com">The Highland Fling</a> in only a couple of weeks and it&rsquo;s still looking as great as when I bought my tickets. A nice, small, event with a host of good speakers (and good guys) and it&rsquo;s not south of me for the first time ever. Props to <a href="http://www.alanwhitewebdevelopment.com/">Alan</a> for getting this off the ground.</p>
-
-<h3 id="refresh-edinburgh">Refresh Edinburgh</h3>
-
-<p>If that wasn&rsquo;t enought it&rsquo;s worth staying around an extra day in Edinburgh for a Refresh get together. Again a good lineup of <a href="http://groups.google.com/group/refresh-edinburgh/browse_thread/thread/be872d4891580ee4">speakers</a> and I would imagine a much interesting discussion and debate.</p>
-
-<h3 id="barcamp-northeast">BarCamp NorthEast</h3>
-
-<p>With all the <a href="http://barcamp.org">BarCamp</a> goings on around <a href="http://barcamp.org/BarCampLondon2">BarCamp London</a> lots of other UK BarCamps have started to get organised, including one around <a href="http://barcamp.org/BarCampNorthEast">these parts</a>. Heather, <a href="http://www.agm.me.uk/blog">Alistair</a>, <a href="http://blog.meriwilliams.com/">Meri</a> and myself (ably supported with some soon to be revealed logo design by <a href="http://www.ellythompson.co.uk/blog/">Elly</a>) have plans. Watch this space.</p>
-
-<h3 id="barcamp-sheffield">Barcamp Sheffield</h3>
-
-<p>While we&rsquo;re getting out act together another northern BarCamp is about to get going. <a href="http://barcamp.org/BarCampSheffield">BarCamp Sheffield</a> is happening in only a few weeks time. I&rsquo;m hoping to make it along, maybe just for the saturday, but if anyone else is going along let me know.</p>
-
-<h3 id="hackday">HackDay</h3>
-
-<p>If that wasn&rsquo;t already enought (and I haven&rsquo;t even mentioned <a href="http://www.vivabit.com/atmedia2007/">@media</a>) their was something of a <a href="http://backstage.bbc.co.uk/news/archives/2007/03/hack_day_2007_g.html">big announcement</a> from <a href="http://www.thelondonbiker.com/blog/">Matt</a> over at the BBC today. Matt, and <a href="http://www.plasticbag.org/">Tom</a> from Yahoo have put together what looks like being <em>the</em> event of the year over the weekend of June 16th and 17th. Hackday is going to involve 400 geeks (you and me and all our friends in other words) spending 48 hours hacking on APIs and the like then watching some suitably bemused band.</p>
-
-<p>Most of these have details on <a href="http://upcoming.org">Upcoming</a> which I&rsquo;m increasingly thinking could be incredibly useful if only a few more people used it. So after telling you to go to all these events (which would cost money) I&rsquo;ll leave with telling you all to sign up for Upcoming (which costs nothing) and add <a href="http://upcoming.org/user/52694/">me</a> as a friend.</p>
 
       
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18" />
+	<meta name="generator" content="Hugo 0.18.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,25 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2009/03/04/app-engine-python-developers/">App Engine for Python Developers</a>
+      </h1>
+      <span class="post-date">Mar 4, 2009 &middot; 1 minute read
+      </span>
+      
+      <p>I gave a short presentation about App Engine last night at the <a href="http://campug.org.uk/">Cambridge Python User Group</a> and as always it&rsquo;s available on <a href="http://slideshare.net">Slideshare</a>.</p>
+
+<p><object style="margin:0px" width="425" height="355">
+<param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=appengine-090304031400-phpapp02&stripped_title=app-engine-for-python-developers" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=appengine-090304031400-phpapp02&stripped_title=app-engine-for-python-developers" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></p>
+
+<p>I find App Engine a great way of just writing (Python) code and putting it online quickly, and the presentation was aimed at being something of a fanboy ode. During questions afterwards we talked about some of the limitations and cases where App Engine isn&rsquo;t as well suited, and at least a few people were heading off planning on having a play.</p>
+
+<p>The event was good fun and I picked up a few Python related tips and tricks from the other presentations and general conversation. Thanks for everyone who organised and attended the event and to <a href="http://www.realvnc.com/">RealVNC</a> for hosting the talks.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -329,54 +348,6 @@ pass</li>
 <p>So if anyone knows of something that would be up my street I&rsquo;d be grateful. Even better, if you or your company are looking for someone at the moment and don&rsquo;t mind waiting a few months then I might be what you&rsquo;re looking for. For those that don&rsquo;t already have an email address you can find me on <a href="mailto:gareth@morethanseven.net">gareth@morethanseven.net</a></p>
 
 <p>(There is obviously a chance that you might be a recruiter, rather than someone who wants me to work with or for them. I won&rsquo;t ignore you out of hand but please don&rsquo;t try and ring me unless I ask you to. Email is both quicker and easier for me to deal with. Also if you just want my CV for your files, have only a vague job description, or you want to tell me about a job in a company you can&rsquo;t tell me the name of please don&rsquo;t be offended if I don&rsquo;t get back to you.)</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/02/11/django-settings-tip-setting-relative-paths/">Django Settings Tip - Setting Relative Paths </a>
-      </h1>
-      <span class="post-date">Feb 11, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>Django settings files are pretty interesting. Rather than being written in some sort of purely declarative markup they just use Python. This brings both lots of power as well as the ability to do things in the settings file that you probably shouldn&rsquo;t do.</p>
-
-<p>One area where I find this capability particularly useful is when specifying file system paths. Lots of the settings concern where Django can find templates, images, or stylesheets for instance. The examples given in the default settings file are all of the form <em>/this/directory/structure/</em>. If you plan on only working on your own, and never running your applications anywhere except your local machine this is probably fine. The moment you want to deploy your application, or want to collaborate with others this becomes a problem. You either have to agree upon a fixed directory structure between all developers (annoying) or have distinct settings files for each machine, which probably means them being outside source control (also annoying).</p>
-
-<p>A better approach is to have those paths dynamically ascertained at runtime. It makes the application much more portable, making local development and production use easier. Using the standard library <em>os</em> module we can do just that.</p>
-
-<p>pre. import os
-import django</p>
-
-<ol>
-<li>calculated paths for django and the site</li>
-<li>used as starting points for various other paths
-DJANGO_ROOT = os.path.dirname(os.path.realpath(django.<em>file</em>))
-SITE_ROOT = os.path.dirname(os.path.realpath(<em>file</em>))</li>
-</ol>
-
-<p>Here we set a couple of useful constants, one is the path to the site folder and the other the path to where django is stored on this machine. settings.py contains a number of places where these constants are useful. For instance the MEDIA_ROOT settings which specifies the file system location for assets like images or stylesheets. The default settings file even comes with an instruction and example showing a non portable path.</p>
-
-<p>pre. # Absolute path to the directory that holds media.</p>
-
-<ol>
-<li>Example: &ldquo;/home/media/media.lawrence.com/&rdquo;
-MEDIA_ROOT = os.path.join(SITE_ROOT, &lsquo;assets&rsquo;)</li>
-</ol>
-
-<p>Other examples include setting the path for a SQLite database:</p>
-
-<p>pre. DATABASE_ENGINE = &lsquo;sqlite3&rsquo;
-DATABASE_NAME = os.path.join(SITE_ROOT, &lsquo;db&rsquo;) + &lsquo;/development.db&rsquo;</p>
-
-<p>Or specifying directories in which we can place templates.</p>
-
-<p>pre. TEMPLATE_DIRS = (
-os.path.join(SITE_ROOT, &lsquo;templates&rsquo;)
-)</p>
-
-<p>I actually think this should probably make it&rsquo;s way into the default settings file. I might very well be missing something but I can&rsquo;t see when it&rsquo;s not much better to do things this way.</p>
 
       
     </div>

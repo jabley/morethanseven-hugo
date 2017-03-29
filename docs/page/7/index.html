@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18" />
+	<meta name="generator" content="Hugo 0.18.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,23 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2011/08/11/Talking-configuration-management-vagrant-and-chef-at-lrug/">Talking Configuration Management, Vagrant And Chef At Lrug</a>
+      </h1>
+      <span class="post-date">Aug 11, 2011 &middot; 1 minute read
+      </span>
+      
+      <p>I stepped in at the last minute to do a talk at the last London Ruby User Group. From the feedback afterwards folks seemed to enyoy it and I certainly had fun. Thanks to everyone who came along.</p>
+
+<p><object id="__sse8828889" width="595" height="497">
+<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=configmanagamentfordevelopmentenvironmentsii-110811103611-phpapp02&rel=0&stripped_title=config-managament-for-development-environments-ii&userName=garethr" /> <param name="allowFullScreen" value="true"/> <param name="allowScriptAccess" value="always"/> <embed name="__sse8828889" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=configmanagamentfordevelopmentenvironmentsii-110811103611-phpapp02&rel=0&stripped_title=config-managament-for-development-environments-ii&userName=garethr" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="595" height="497"></embed> </object></p>
+
+<p>As well as the slides the nice Skills Matter folks have already uploaded the <a href="http://skillsmatter.com/podcast/home/chef-vagrant">videos from the night</a>.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -510,61 +527,6 @@ Created by Ken Barber, ken@puppetlabs.com
 <p>This proved a good excuse to delve into the Vagrant source code which is pretty readable for the most part once you understand the libraries it&rsquo;s build upon. It&rsquo;s simple enough to extend for adding commands like this too, which bodes well for other more useful additions in the future.</p>
 
 <p>If anyone has any problems with this extensions do let me know. Error handling currently consists of returning blank output rather than sensible error codes or messages, and as I&rsquo;ve yet to add a small test suite so their might (will) be a few bugs lying around. I&rsquo;ll try and make it better behaved in the next week or two but reasoned it&rsquo;s useful straight away.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2011/05/07/Version-control-and-deployment-of-cron-jobs/">Version Control And Deployment Of Cron Jobs</a>
-      </h1>
-      <span class="post-date">May 7, 2011 &middot; 3 minute read
-      </span>
-      
-      
-
-<p>A recent question on Twitter prompted me to write a quick blog post about managing cron jobs. As more and more people want to automate provisioning and deployment of web applications some, maybe previously manually managed, items come into the fold.</p>
-
-<p>Cron jobs are interesting because you may prefer to see them as part of the infrastructure (like apache or mysql) or as part of your application code. I think both are valid, sometimes at the same time. For instance you might have a cron job which deals with scheduled database backups. All that requires is the database and the script to be present. At other times your cron jobs might require your entire application stack. For instance a rake task which uses a Rails application model, or a django management command.</p>
-
-<h2 id="configuration-management-and-cron">Configuration Management and Cron</h2>
-
-<p>Both <a href="http://opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com/puppet/">Puppet</a> provide a cron resource type. This is particularly handy for things like database backup scripts or ganglia gmetric scripts. You probably want these scripts and cron jobs to be installed on machines that have the related software installed, and you&rsquo;re probably already describing this in your Chef recipes or Puppet manifests. If you&rsquo;re not already using one of these tools using them to manage just your cron jobs is a nice way of starting out.</p>
-
-<p>Using the <a href="http://docs.puppetlabs.com/references/latest/type.html#cron">Puppet Cron Type</a> looks like this:</p>
-
-<pre><code>&lt;code&gt;cron { command:
-  command =&gt; &quot;/usr/local/sbin/command&quot;,
-  hour =&gt; 2,
-  minute =&gt; 0
-}&lt;/code&gt;
-</code></pre>
-
-<p>And the equivalent <a href="http://wiki.opscode.com/display/chef/Resources#Resources-Cron">Chef Reasource</a> looks like:</p>
-
-<pre><code>&lt;code&gt;cron &quot;describe your job&quot; do
-  hour &quot;2&quot;
-  minute &quot;0&quot;
-  command &quot;/usr/local/sbin/command&quot;
-end&lt;/code&gt;
-</code></pre>
-
-<p>The important part is that by describing your cron jobs in code you can then version control them easily, and both Chef and Puppet have mechanisms to push these jobs out to be installed by the relevant hosts. With cron jobs you might not want all your machines to be running the same jobs for instance.</p>
-
-<h2 id="using-whenever">Using Whenever</h2>
-
-<p>An alternative, or complimentary, approach to versioning and deploying cron jobs would be to tie it in with your application code. This makes sense when those jobs are tightly coupled to your application, for instance rails specific rake tasks or django management commands. <a href="https://github.com/javan/whenever">Whenever</a> is a tool I&rsquo;ve been using recently that makes this pretty simple. You describe your cron jobs in a file called schedule.rb like so:</p>
-
-<pre><code>&lt;code&gt;every 3.hours do
-  command &quot;/usr/local/sbin/command&quot;
-end&lt;/code&gt;
-</code></pre>
-
-<p>And then running the provided whenever command line application will generate a working crontab. Whenever ships with capistrano integration and some useful shortcuts for running rake tasks or accessing Ruby code, but it&rsquo;s simple to write your own command shortcuts without having to write ruby code too.</p>
-
-<h2 id="other-approaches">Other Approaches</h2>
-
-<p>I have seen some tools which replace cron completely, but I&rsquo;ve never liked that idea much. Cron works pretty well, and is clever enough to deal with things like daylight saving time and leap years inteligently if needed. I know other folks who are centralising all regular jobs into something like Jenkins. I can see advantages to that, although I&rsquo;ve yet to find a really nice way of automating this outside the gui interface or manually modifying configuration files.</p>
 
       
     </div>

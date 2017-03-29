@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18" />
+	<meta name="generator" content="Hugo 0.18.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,22 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2008/12/06/gmemsess/">Gmemsess</a>
+      </h1>
+      <span class="post-date">Dec 6, 2008 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve been looking at different ways of using simple sessions on App Engine, in particular for one shot flash messaging after redirects and the like. Their are some issues with Cookie support at the moment but <a href="http://code.google.com/p/gmemsess/">Gmemsess</a> solved my problem perfectly.</p>
+
+<blockquote>
+<p>gmemsess is a secure lightweight memcache-backed session class for Google appengine.</p>
+</blockquote>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -294,27 +310,6 @@ self.assertEquals(12, response.search(&ldquo;p&rdquo;).fontSize</p>
 <p>I reason their are a fair few things that would be needed to make this first practical and later standard; nice APIs, run times in various languages, and working out whether or not it actually helps CSS development to name but a few. But right now I&rsquo;d go for a limited proof of concept that works on my machine. If anyone has any links to thinks that might be good starting points please let me know. Other ideas welcome as well.</p>
 
 <p>One last thing; <a href="http://ajaxian.com/archives/ajaxians-join-mozilla-creating-developer-tools">Mozilla&rsquo;s latest employees</a> are looking at the whole spectrum of developer tools. I&rsquo;d love for them to start with something like this.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2008/10/11/google-app-engine-pyunit-test-runner/">Google App Engine PyUnit Test Runner</a>
-      </h1>
-      <span class="post-date">Oct 11, 2008 &middot; 1 minute read
-      </span>
-      
-      <p>I&rsquo;m starting to play around with using <a href="http://code.google.com/appengine/">App Engine</a> again for small projects. It&rsquo;s great for simple, somewhat throwaway apps as long as you don&rsquo;t need anything too fancy. Actually all I want really is long running processes but I digress.</p>
-
-<p>I&rsquo;m increasingly writing test suites as well for even small projects and was missing the convenience of the Django test runner for running them against App Engine code. So I&rsquo;ve spent a little time writing a simple test running script to use for non-Django Python projects. I&rsquo;ve posted it over on the <a href="http://appengine-cookbook.appspot.com/recipe/app-engine-test-runner/">App Engine Cookbook</a> for anyone else who might want to do the same.</p>
-
-<p>I ended up writing something myself as I couldn&rsquo;t find anything else which quite met my needs, so it&rsquo;s the typical programmers itch code and as such is provided as <em>works for me</em> software. The other approaches out their didn&rsquo;t quite meet my needs but might be useful to know about if you want to start testing your apps.</p>
-
-<ul>
-<li><a href="http://code.google.com/p/nose-gae/">Nose GAE</a> uses the nose testing framework which I&rsquo;m less familiar with.</li>
-<li><a href="http://code.google.com/p/gaeunit/">GAE Unit</a> uses PyUnit but presents it&rsquo;s results in a browser rather than on the command line.</li>
-</ul>
 
       
     </div>

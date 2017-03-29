@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18" />
+	<meta name="generator" content="Hugo 0.18.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,31 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/02/15/blogging-platforms/">On blogging platforms</a>
+      </h1>
+      <span class="post-date">Feb 15, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>Every now and again I feel the need for a change and spent a little time tonight looking at different blogging software. I&rsquo;m currently running a custom django app I wrote a good while ago, more as an excuse to play with Django than anything. Previously I&rsquo;ve used Wordpress, Textpattern and even Radiant. But I&rsquo;m coming to the conclusion that what I want doesn&rsquo;t exist. In theory that means an opportunity for someone to enter the market, in reality I think it might just be me. So, what do I want?</p>
+
+<ul>
+<li>Customisable URL patterns and redirects. Tumblr did well until this point but I have years of content on nice URLs and I&rsquo;d not going to throw that away.</li>
+<li>Command line interface for posting snippets</li>
+<li>Nice looking web based API (bonus points to Typepad here for some nifty features like pubsubhubhub)</li>
+<li>iPod touch app</li>
+<li>Real control over the design, not just pre-made templates unless you pay for a pro account</li>
+<li>Hackable (this could mean anything, but I know it when I see it. So not WordPress then.)</li>
+<li>Export plain text out</li>
+<li>Use my own domain name</li>
+</ul>
+
+<p>I have a sneaking suspicion what I might be thinking about is a private tumblr blog used as a datasource for <a href="http://nanoc.stoneship.org/">Nanoc3</a>. But that relies on me having the time to build that as I can&rsquo;t find anyone who might have written such a think. Maybe one day.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -236,37 +261,6 @@ worker.work()&lt;/code&gt;
       </span>
       
       <p>I&rsquo;ve been lurking on the django-developers mailing list for the last couple of weeks and that provided an excuse to play with the <a href="http://blog.twitter.com/2009/09/soon-to-launch-lists.html">new Twitter Lists</a> feature. So here&rsquo;s a <a href="http://twitter.com/garethr/djangocommitters">list of djangocommitters on twitter</a>. If I missed someone do let me know. Their is a chance you won&rsquo;t be able to see this if you&rsquo;re not on the beta yet I think, sorry!</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2009/10/18/problems-installing-hadoop-and-dumbo-ubuntu/">Problems Installing Hadoop 0.20 and Dumbo 0.21 on Ubuntu</a>
-      </h1>
-      <span class="post-date">Oct 18, 2009 &middot; 2 minute read
-      </span>
-      
-      <p>The Hadoop wiki has a great introduction to <a href="http://wiki.apache.org/hadoop/Running_Hadoop_On_Ubuntu_Linux_(Single-Node_Cluster)">installing this piece of software</a>, which I wanted to do to have a play with <a href="http://klbostee.github.com/dumbo/">Dumbo</a>. The Dumbo docs also have a good <a href="http://wiki.github.com/klbostee/dumbo/building-and-installing">getting started</a> section which includes a few patches than need to be applied.</p>
-
-<blockquote>
-<p>Dumbo can be considered to be a convenient Python API for writing MapReduce programs</p>
-</blockquote>
-
-<p>Unfortunately it&rsquo;s not quite that simple, at least on Ubuntu Jaunty. Hadoop now uses Java6, but if you just follow the instructions on the wikis you&rsquo;ll hit a problem when you run &ldquo;ant package&rdquo;, namely that a third party application (<a href="http://forrest.apache.org/">Apache Forrest</a>) requires Java 1.5. Once you fix that, the build script will complain again that you need to install Forrest. Here&rsquo;s what I did to get everything working:</p>
-
-<p>pre. sudo apt-get install ant sun-java5-jdk</p>
-
-<p>pre. su - hadoop
-wget <a href="http://mirrors.dedipower.com/ftp.apache.org/forrest/apache-forrest-0.8.tar.gz">http://mirrors.dedipower.com/ftp.apache.org/forrest/apache-forrest-0.8.tar.gz</a>
-tar xzf apache-forrest-0.8.tar.gz
-cd /usr/local/hadoop
-patch -p0 &lt; /path/to/HADOOP-1722.patch
-patch -p0 &lt; /path/to/HADOOP-5450.patch
-patch -p0 &lt; /path/to/MAPREDUCE-764.patch
-ant package -Djava5.home=/usr/lib/jvm/java-1.5.0-sun -Dforrest.home=/home/hadoop/apache-forrest-0.8/</p>
-
-<p>With all that out of the way you should be able to run the <a href="http://dumbotics.com/2009/05/31/dumbo-on-clouderas-distribution/">simple examples</a> found on the rather excellent <a href="http://dumbotics.com">dumbotics</a> blog. If you&rsquo;re using the Cloudera distribution, or when the Hadoop 0.21 gets a release, these problems will disappear but in the meantime hopefully this saves someone else a bit of head scratching.</p>
 
       
     </div>

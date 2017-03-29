@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Kubernetes configuration without the YAML &middot; More than seven</title>
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/poole-overrides.css">
+  <link rel="stylesheet" href="/css/hyde-overrides.css">
+  <link rel="stylesheet" href="/css/hyde-x.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+  <link href="/favicon.png" rel="icon">
+
+  
+  
+  
+  
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-435455-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=morethansevennet" id="_carbonads_js"></script>
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <h1><a href="/">More than seven</a></h1>
+      <p class="lead">Writing about code. Occasional other topics. Made by <a href="https://twitter.com/garethr">@garethr</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1 class="post-title">Kubernetes configuration without the YAML</h1>
+    <span class="post-date">Mar 29, 2017 &middot; 3 minute read
+    </span>
+    
+
+<p>Tomorrow at KubeCon in Berlin I&rsquo;m running a birds-of-a-feather session to talk
+about Kubernetes configuration. Specifically we&rsquo;ll be talking about whether
+Kubernetes configuration benefits from a domain specific language. If you&rsquo;re
+at the conference and this sounds interesting <a href="http://sched.co/9Tcc">come along</a>.</p>
+
+<h2 id="the-problem">The problem</h2>
+
+<p>The fact the programme committee accepted the session proposa is hopefully a good
+indication that at least some other people in the community think this is an
+interesting topic to discuss. I&rsquo;ve also had a number of conversations in person
+and on the internet about similar areas.</p>
+
+<p>There are a number of other traces of concerns with using YAML as the main user
+interface to Kubernetes configuration. This comment from Brian Grant of Google on the
+Kubernetes Config SIG mailing list for instance:</p>
+
+<blockquote>
+<p>We&rsquo;ve had a few complaints that YAML is ugly, error prone, hard to read, etc.
+Are there any other alternatives we might want to support?</p>
+</blockquote>
+
+<p>And <a href="https://twitter.com/jbeda/status/833408476437110784">this one</a> from Joe Beda,
+one of the creators of Kubernetes:</p>
+
+<blockquote>
+<p>I want to go on record: the amount of yaml required to do anything in k8s is a
+tragedy. Something we need to solve. (Subtweeting HN comment)</p>
+</blockquote>
+
+<p>This quote from the <a href="http://queue.acm.org/detail.cfm?id=2898444">Borg, Omega and Kubernetes paper in ACM Queue, Volume 14, issue 1</a>
+nicely sums up my feelings:</p>
+
+<blockquote>
+<p>The language to represent the data should be a simple, data-only format
+such as JSON or YAML, and programmatic modification of this data should
+be done in a real programming language</p>
+</blockquote>
+
+<p>This quote also points at the problem I see at the moment. The configuration and the
+management of that configuration are <em>separate</em> but related concerns. Far too many
+people couple these together, ultimately moving all of the management complexity
+onto people. That&rsquo;s a missed opportunity in my view. The Kubernetes API is my
+favourite think about the project, I&rsquo;ve waxed lyrical about it allowing for
+different higher-level user interfaces for different users to all interact
+on the same base platform. But treating what is basically the wire format
+as a user interface is just needlessly messy.</p>
+
+<p>But what advantages do we get using a programming language to modify the data?
+For me it comes down to:</p>
+
+<ul>
+<li>Avoiding repetition</li>
+<li>Combining external inputs</li>
+<li>Building tools to enforce correctness (linting, unit testing, etc.)</li>
+<li>The abililty to introduce abstractions</li>
+</ul>
+
+<p>It&rsquo;s the last part I find most compelling. Building things to allow others
+to interact with a smaller domain specific abstraction is one way of scaling
+expertise. The infrastructure as code space I&rsquo;ve been involved in has lots of
+stories to tell around different good (and bad) ways of mixing data with code,
+but the idea that data on it&rsquo;s own is enough without higher-level abstractions
+doesn&rsquo;t hold up in my experience.</p>
+
+<h2 id="what-can-i-use-instead">What can I use instead?</h2>
+
+<p>Lukily various people at this point have build tools in this space. I&rsquo;m not sure
+could or should be a single answer to the question (whether there should be a
+default is a harder question to answer) but the following definitely all show
+what&rsquo;s possible.</p>
+
+<ul>
+<li><a href="http://jsonnet.org/">Jsonnet</a></li>
+<li><a href="https://github.com/anguslees/kubecfg">kubecfg</a></li>
+<li><a href="https://github.com/garethr/garethr-kubernetes">Puppet Kubernetes types</a></li>
+<li><a href="https://github.com/errordeveloper/kubeplay">Kubeplay</a></li>
+<li><a href="https://github.com/maxmanuylov/terraform-provider-kubernetes">Terraform</a></li>
+<li><a href="https://github.com/fkorotkov/k8s-kotlin-dsl">Kotlin DSL</a></li>
+<li><a href="https://github.com/doriordan/skuber">Skuber</a> (Scala DSL for Kubernetes)</li>
+</ul>
+
+<p>Obviously <a href="https://puppet.com/blog/managing-kubernetes-configuration-puppet">I wrote one of these</a>
+so I&rsquo;m biased but different tools work for different people and in different
+contexts. For example Skuber looks nice but I mainly don&rsquo;t like Scala. And
+I&rsquo;ve been using Jsonnet for Packer templates recently with success, so I&rsquo;m
+very interested in kubecfg which provides a nice Kubernetes wrapper to that
+tool.</p>
+
+<p>Ultimately this is still a developing space, but compared to a year ago it is
+now definitely moving. For me, I hope the default for managing Kubernetes
+configuration slowly but surely switches away from just hand rolling data.
+Towards what, only time and people reporting what works for them will tell.</p>
+
+  </div>
+  
+</div>
+
+
+
+
+
+</body>
+</html>
+

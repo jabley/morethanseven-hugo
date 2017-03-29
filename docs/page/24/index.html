@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18" />
+	<meta name="generator" content="Hugo 0.18.1" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,62 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2008/02/13/example-of-the-yahoo-live-api/">Example of the Yahoo Live Api</a>
+      </h1>
+      <span class="post-date">Feb 13, 2008 &middot; 2 minute read
+      </span>
+      
+      <p><a href="http://live.yahoo.com/">Yahoo! Live</a> launched recently along with a nice <a href="http://developer.yahoo.com/ylive/rest_api/">RESTful API</a>. I&rsquo;ve spoken before about the beauty of REST being in lowering the barrier to hacking and when I wanted a quick feature for Live it was simplicity itself to put together.</p>
+
+<p>A few friends are using it far too much it seems, <a href="http://ben-ward.co.uk/">Ben</a> has 7.6 hours and <a href="http://simonjobling.com">Si</a> has already clocked up 15 hours. But for the most part I keep missing their no-doubt highly entertaining antics. One thing that Live misses I feel is a favourite users or previously viewed channels list. Basically I want to see which of my friends who use the service are broadcasting right now. Something like:</p>
+
+<p><a href="http://morethanseven.net/presents/yahoolive/"><img src="http://img.skitch.com/20080213-q7ntrbip3rhwbkdbykuwt4an5.render.png" alt="Yahoo! Live Online"/></a></p>
+
+<p>The API request we&rsquo;re interested in is the <a href="http://developer.yahoo.com/ylive/rest_api/channel.html">/channel/PERMALINK</a> method. This lets us get information about whether the user is broadcasting at the moment.</p>
+
+<pre><code>&lt;code&gt;&lt;?php
+$api = 'http://api.live.yahoo.com/api/v1/channel';
+$friends = array(
+  'garethr',
+  'benward',
+  'sijobling'
+);
+$statuses = array();
+foreach ($friends as $friend) { 
+  $response = simplexml_load_file($api . '/' . $friend);
+  $name = $response-&gt;name; 
+  if ($response-&gt;broadcast) {
+    $status = 'live';
+  } else {
+    $status = 'offline';
+  }
+  $statuses[&quot;$name&quot;] = $status;
+}
+function displaylist($array) {
+  $output = '';
+  if (count($array) &gt;= 0) {
+    $output .= '&lt;ul&gt;';
+    foreach ($array as $key =&gt; $value) {
+      $output .= &quot;&lt;li class=\&quot;$value\&quot;&gt;&quot;;
+      $output .= &quot;&lt;a href=\&quot;http://live.yahoo.com/$key\&quot;&gt;&quot;;
+      $output .= &quot;$key&lt;/a&gt;&quot;;
+      $output .= &quot;&lt;span&gt;$value&lt;/span&gt;&lt;/li&gt;&quot;;
+    }
+    $output .= '&lt;/ul&gt;';
+  }
+  return $output;
+}
+echo displaylist($statuses);
+?&gt;&lt;/code&gt;
+</code></pre>
+
+<p>I&rsquo;ll add a few more people to <a href="http://morethanseven.net/presents/yahoolive/">my list</a> when I discover other people using the service. If you have an account leave a comment. I&rsquo;ve added a touch of javascript as well so as to avoid having to reload the page manually. This way I can loiter on my little aggregator until someone I know starts broadcasting and head over to Live for whatever Si has been spending 15 hours doing.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -452,20 +508,6 @@ For anyone in the Newcastle are we&rsquo;re having a meetup next week, on Thursd
 <p>Education is coming up more and more in conversation between people involved in web design and development it seams, both off and <a href="http://www.airbagindustries.com/archives/airbag/help.php">online</a>. I had a great conversation with <a href="http://www.rachelandrew.co.uk/">Rachel</a> and <a href="http://www.contentwithstyle.co.uk">Mike</a> after @media and then another good discussion with Dan Dixon, <a href="http://andybudd.com/">Andy</a>, <a href="http://kid666.com/">Tom</a> and others at barcamp and know other smart people are thinking about this too. I&rsquo;m hoping to get something off the group here in the next month or so but would love to know about any other industry driven initiatives anyone might know about?</p>
 
 <p>Ok, so that&rsquo;s more a list of things I <em>think</em> I&rsquo;ll end up focusing on (as much as I ever focus on anything) over the next year. We&rsquo;ll see how that goes and if other things crop up that are more interesting. What about you? Anything you think is going to be play worthy next year?</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/12/28/is-it-birthday/">Is it Birthday?</a>
-      </h1>
-      <span class="post-date">Dec 28, 2007 &middot; 1 minute read
-      </span>
-      
-      <p>Did you love the simplicity of <a href="http://isitchristmas.com">Is it Christmas?</a> but feel left out, wondering why Christmas should be more important than, say, <em>you</em>? Well here&rsquo;s your answer; <a href="http://isitbirthday.com">Is it Birthday?</a></p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgIsitbirthday.png" alt="Is it Birthday? home page" title="Is it Birthday? home page" />:<a href="http://isitbirthday.com">http://isitbirthday.com</a></p>
 
       
     </div>
