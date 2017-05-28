@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/2017/05/26/conference-speaking-as-a-software-vendor/</loc>
+    <lastmod>2017-05-26T13:56:00+00:00</lastmod>
+  </url>
   
   <url>
     <loc>/2017/03/29/kubernetes-configuration-without-the-yaml/</loc>
@@ -2092,14 +2098,24 @@
   </url>
   
   <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2017-03-29T13:56:00+00:00</lastmod>
+    <lastmod>2017-05-26T13:56:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2017-03-29T13:56:00+00:00</lastmod>
+    <lastmod>2017-05-26T13:56:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
     <priority>0</priority>
   </url>
   

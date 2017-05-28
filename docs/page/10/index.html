@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,26 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/11/07/Books-for-people-interested-in-devops/">Books For People Interested In Devops</a>
+      </h1>
+      <span class="post-date">Nov 7, 2010 &middot; 2 minute read
+      </span>
+      
+      <p>Before starting with FreeAgent I decided I should spend a bit more time with Ruby and set about building something I&rsquo;d been thinking about for a while. I&rsquo;ve just launched the first one of my related pet projects so thought I better link to it from here.</p>
+
+<p><a href="http://devopsbooks.com"><img src="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRihnAEM"/></a></p>
+
+<p><a href="http://devopsbooks.com">Devops Books</a> is exactly what it sounds like; a list of books that people interested in the whole devops concept should read. It&rsquo;s not a complete list just yet and I&rsquo;ll try and keep it up to date as new interesting books get released. Any suggestions to add to the list most welcome.</p>
+
+<p>It gave me a proper excuse to use <a href="http://heroku.com">Heroku</a> which has been very pleasant. Under the hood it&rsquo;s a very simple sinatra application using the Mustache template language. The majority of the code is a build script that pulls down information from the Amazon API and mixes it with my own content. It then creates a JSON document that is used as the basis for generating the pages. I love static generators and hand rolling your own for a particular domain is often worthwhile. It means I have the json already lying around if I want to make a JSONP style badge for instance.</p>
+
+<p>I plan on using the code as a bit of learning tool. Try out some different testing approaches, maybe add in GEOIP detection, make some of the commands I&rsquo;m running into Rake tasks, that sort of thing. Given how easy it will be to throw up little sites like this using the generator I have a few other similar things in mind too.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -409,42 +429,6 @@ vagrant up
 <p>&lt;img src=&ldquo;<a href="http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjphAEM&quot;">http://image-host.appspot.com/i/img?id=agppbWFnZS1ob3N0cg0LEgVJbWFnZRjphAEM&quot;</a> alt=&ldquo;Devops aggregator on Twitter&rdquo;</p>
 
 <p>I&rsquo;m really interested to see if the whole discussion around the term devops grows over the next year or so, and I&rsquo;m hoping this will make it a little easier to see that change happen.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2010/05/18/Installing-integrity-on-debianubuntu/">Installing Integrity On Debian/Ubuntu</a>
-      </h1>
-      <span class="post-date">May 18, 2010 &middot; 1 minute read
-      </span>
-      
-      <p>I&rsquo;ve been playing with <a href="http://integrityapp.com">Integrity</a> again as a simple continuous integration server and have installed it on a few debian and ubuntu machines in the last few weeks. The current site has good installation instructions for the Ruby side of things but leaves it as an excercise for the installer to make sure all the system level dependencies are installed.</p>
-
-<p>So probably as much for me in the future, here is what I had to install to get the installation instructions to work for me.</p>
-
-<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
-apt-get install build-essential
-apt-get install ruby
-apt-get install rdoc
-apt-get install sqlite3
-apt-get install libdbd-sqlite3-ruby
-apt-get install libdataobjects-sqlite3-ruby1.8
-apt-get install libsqlite3-dev
-apt-get install libxml2
-apt-get install libxml2-dev
-apt-get install libxsl-dev
-apt-get install libopenssl-ruby
-&lt;% end %&gt;</p>
-
-<p>I also needed to install the following package on Ubuntu:</p>
-
-<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
-apt-get install ruby1.8-dev
-&lt;% end %&gt;</p>
-
-<p>If you want to use a database other than the default SQLite then you won&rsquo;t need those packages and I&rsquo;ll assume you know what you&rsquo;re doing.</p>
 
       
     </div>

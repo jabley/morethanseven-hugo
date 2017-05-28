@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,44 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2007/06/24/targeting-on-css3/">Target(ing) on CSS3</a>
+      </h1>
+      <span class="post-date">Jun 24, 2007 &middot; 2 minute read
+      </span>
+      
+      <p>Apologies up front for the bad pun but I&rsquo;ve been busy playing with another little feature found in CSS3, namely the :target pseudo-class.</p>
+
+<p>It&rsquo;s actually pretty well described in the <a href="http://www.w3.org/TR/2001/CR-css3-selectors-20011113/#target-pseudo">CSS3 Selectors module</a>, (although given that the specs make lots of use of partial URLs the spec style sheet is crying out for use of said selector to I digress).</p>
+
+<p>Put simply it allows you to style elements of a page that are the target of in page anchors, ie. <code>&lt;a href=&rdquo;#target&rdquo;&gt;in page link&lt;/a&gt;</code></p>
+
+<p>For example. The following CSS hides all div children of an element with an id of <em>example3</em>.</p>
+
+<pre><code>&lt;code&gt;#example3 &gt;div {
+    display: none;
+}&lt;/code&gt;
+</code></pre>
+
+<p>The we can say &ldquo;if said element has been targetted then display them all&rdquo;</p>
+
+<pre><code>&lt;code&gt;#example3:target &gt;div {
+    display: block;
+}&lt;/code&gt;
+</code></pre>
+
+<p>So if you visiting #example3 you would see the divs, otherwise they will be hidden away.</p>
+
+<p>I&rsquo;ve set up a couple of examples over on <a href="http://morethanseven.net/presents/target">morethanseven.net/presents/target</a>.</p>
+
+<p>These examples basically remove the need for Javascript implementations but I&rsquo;m not sure whether I&rsquo;d actually use either of these. But you get the general idea. One thing about the examples was their simplicity compared with similar approaches though.</p>
+
+<p>It&rsquo;s already pretty well implemented according to this handy <a href="http://www.css3.info/modules/selector-compat">compatability table</a> from <a href="http://www.css3.info/">CSS3.info</a> and I would imagine an ideal candidate for <a href="http://andybudd.com">Andy Budd&rsquo;s</a> <a href="http://www.andybudd.com/archives/2007/05/css22/">CSS2.2</a>.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -407,58 +445,6 @@ $website = new Website('http://morethanseven.net',$parser);&lt;/code&gt;
 <p>The plan is to introduce methods like getReviews, getEvents, etc. which allow for the extraction of the relevant details. The part I find most interesting however is the idea of the expose method - asking a web page if it has an API, and if it does then what information you can extract automagically. If you&rsquo;re interested let me know what you think.</p>
 
 <p><a href="http://morethanseven.net/_assets/downloads/microformatsapi/microformatsapi.zip">Download example</a></p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2007/04/02/software-i-installed-on-my-n800/">Software I Installed on my N800</a>
-      </h1>
-      <span class="post-date">Apr 2, 2007 &middot; 2 minute read
-      </span>
-      
-      <p>Ok, so I&rsquo;ve been shopping again but I&rsquo;ll try and make this post a little more useful that <em>oh, look at my shiny new toy</em>.</p>
-
-<p>I decided that what I was really missing to help with my <a href="http://twitter.com">twitter</a> addiction and growing interest in the mobile web was a shiny new Nokia N800 Internet Tablet.</p>
-
-<p><img src="http://morethanseven.net/_assets/media/imgN800.jpg" alt="Nokia N800 Internet Tablet" title="Nokia N800 Internet Tablet" /></p>
-
-<p>I cant really write a fair review at the moment as I&rsquo;ve only just got my mits on it so that will have to save for later. All I can think at the moment is <em>&ldquo;Oh, shiny&rdquo;</em>. What I will do is list the software I installed on it from the start, partly to demonstrate what you can get on it, partly to link to thinks I found useful and mostly to remind me if and when I need to do it again.</p>
-
-<ul>
-<li><a href="http://openbossa.indt.org/canola/">Canola</a> - interesting media player app</li>
-<li><a href="http://tuomas.kulve.fi/blog/2007/01/17/maemo-screen-grabber/">Maemo Screengrabber</a></li>
-</ul>
-
-<!-- -->
-
-<ul>
-<li><a href="https://garage.maemo.org/projects/scite/">SciTE Text Editor</a></li>
-</ul>
-
-<!-- -->
-
-<ul>
-<li><a href="http://770.fs-security.com/xterm/">X Terminal</a></li>
-<li><a href="http://david.connolly.name/blog/hub/maemo/2006/04/25/Curl-Package-for-Nokia-770.html">Curl</a></li>
-<li><a href="http://www.owenwilliams.plus.com/maemo/">Sqlite</a></li>
-<li><a href="http://test.maemo.org/downloads/product/vim/">Vim</a></li>
-<li><a href="http://armin-warda.de/">Wget</a></li>
-<li>SSH</li>
-</ul>
-
-<!-- -->
-
-<ul>
-<li><a href="http://rubyforge.org/projects/rubynokia770/">Ruby 1.8.4</a></li>
-<li><a href="http://pymaemo.garage.maemo.org/">Python 25</a></li>
-<li><a href="http://www.mono-project.com/Maemo">Mono</a></li>
-</ul>
-
-<p>And just for <a href="http://anotherblog.com">Phil</a> it already has GCC-3.4-base on so no need to install.</p>
-
-<p>Oh, and for the nay sayers thinking iPhone I don&rsquo;t care. From all I&rsquo;ve read the iPhone is going to be a closed system and this is a full blown Linux OS that is designed expressly to be hackable. Plus the N800 makes people swoon now, not in six months or a year when the iPhone hits the shelves.</p>
 
       
     </div>

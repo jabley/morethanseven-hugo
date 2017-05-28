@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,63 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2006/11/15/mac-virtualhost-follow-up/">Mac Virtualhost follow up</a>
+      </h1>
+      <span class="post-date">Nov 15, 2006 &middot; 1 minute read
+      </span>
+      
+      <p>
+A couple of people asked for the details of the virtualhost script I modified for use with MAMP in a <a href="http://morethanseven.net/posts/virtualhosts-on-mac-os-x#comment">previous post</a>. Apologies for taking a bit of time.
+
+</p>
+<p>
+First I had to make these changes to the original <a href="http://patrickgibson.com/utilities/virtualhost/">virtualhost script</a>:
+
+</p>
+<code>
+DOC\_ROOT\_PREFIX="/Applications/MAMP/htdocs"
+</code>
+
+<code>
+
+    APACHE_CONFIG="/Applications/MAMP/conf/apache" 
+    APACHECTL="/Applications/MAMP/Library/bin/apachectl"
+
+</code>
+
+<p>
+I also made a few changes to httpd.conf in /Applications/MAMP/conf/apache. From memory first to allow local .htaccess files to override everything on a per directory basis.
+
+</p>
+<code>
+
+    &lt;Directory "/Applications/MAMP/htdocs"&gt;
+    oAllowOverride All
+    &lt;/Directory&gt;
+
+</code>
+
+<p>
+and then to point to the virtual hosts directory.
+
+</p>
+<code>
+
+    NameVirtualHost 127.0.0.1
+    Include /Applications/MAMP/conf/apache/virtualhosts
+
+</code>
+
+<p>
+I keep meaning to do a screen capture tutorial of sorts, so maybe something like this would be a good starting point? We shall see as and when time permits. Probably this time next year. Any problems let me know and I’ll try and debug.
+
+</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -1606,41 +1663,6 @@ I’d be interested to see how the two screens thing works for browsing, and how
 </p>
 <p>
 One minor let down is that the DS browser costs. This looks like it’s due to extra hardware being required but it’s still a shame after the PSP browser was added simply as a software upgrade. Hopefully that wont be a barrier to entry. If and when (ok, when) I get my hands on one (launch 6th of October) I might try and post some tests. The PSP browser does occasionally fall over on very large sites with a nasty memory error, and I’m interested in how complete the CSS and Javascript support are.
-
-</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2006/09/18/6-hours-on-a-train-with-code-igniter/">6 hours on a train with Code Igniter</a>
-      </h1>
-      <span class="post-date">Sep 18, 2006 &middot; 2 minute read
-      </span>
-      
-      <p>
-I’ve mentioned <a href="http://codeigniter.com">Code Igniter</a> <a href="http://morethanseven.net/posts/internet-check-media-check">before</a> but only now have I got round to really putting it through it’s paces by building something proper. I got the opportunity (if you could call it that) thanks to a six hour train journey from Oxford.
-
-</p>
-<p>
-I’ve been thinking about sprucing up this site for a while, and have a few other personal projects that I really should get round to sorting out. Something I’ve noted of late is a move, amongst some parties, back to bespoke personal content management systems. <a href="http://adactio.com">Jeremy</a> has been speaking about some of the <a href="http://adactio.com/journal/1162">feaures he has been adding</a> recently, <a href="http://christianmontoya.com">Christian</a> had a <a href="http://www.christianmontoya.com/2006/09/16/enjoying-cake/">few comments</a> too plus <a href="http://snook.ca">Jonathan</a> has been <a href="http://withcake.com/posts/view/snook_ca_using_cakephp">posting</a> about his recent move to <a href="http://cakephp.org/">CakePHP</a> from <a href="http://www.movabletype.org">Movable Type</a>.
-
-</p>
-<p>
-I find this kind of interesting. Everyone started off with hand rolled solutions, seemed to move to the comfort of <a href="http://textpattern.com">Textpattern</a> or <a href="http://wordpress.org">Wordpress</a> and the more geekely inclined are on the move again. With such large user bases the big blogging platforms are (rightly) spending more time on bug fixes and user experience, rather than kick ass features. And us geeks want more <a href="http://microformats.org">Microformats</a> and mashups that we can shake a stick at. Only this time we get to stand on the shoulders of giants by using frameworks such as <a href="http://rubyonrails.org">Rails</a>, <a href="http://www.djangoproject.com/">Django</a> or <a href="http://codeigniter.com">Code Igniter</a> which means less time doing the boring stuff.
-
-</p>
-<p>
-Short sales pitch. <a href="http://codeigniter.com">Code Igniter</a> is cool, and more. The documentation is first rate and comes along with the download rather than just being available online (useful when your on the train.) It all makes sense as well which is nice, especially if you have some familiarity with the MVC pattern. It covers the basics so you dont have to – validation, database abstraction, session hanling. It’s also easily extensible through a nice plugin architecture and makes no assumpions about what you intend to build. I have a quick and dirty <a href="http://textism.com/tools/textile/">Textile</a> plugin that I need to package up and put out – some <a href="http://www.codeigniter.com/forums/viewthread/1105/P0/">discussion</a> of this over on the <a href="http://www.codeigniter.com/forums/">forums</a> which I may peruse.
-
-</p>
-<p>
-In short expect to see some minor additions and the like round these parts as I try to transition away from <a href="http://textpattern.com">Textpattern</a> and any problems caused are no doubt the fault of some poor coding somewhere.
-
-</p>
-<p>
-And I wonder what the next step will be? We have been through hand rolled to stable applications to frameworks to hand rolled based on frameworks. Any takers?
 
 </p>
 

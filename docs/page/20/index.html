@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,20 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2008/12/13/search-genres-spotify/">Search for Genres on Spotify</a>
+      </h1>
+      <span class="post-date">Dec 13, 2008 &middot; 1 minute read
+      </span>
+      
+      <p><a href="http://www.spotify.com/">Spotify</a> is great. It seems stable, the desktop interface is simple and straight forward, and it has an entire album of emo bands doing covers of other emo bands. One thing that&rsquo;s not quite clear just yet in the interface however is how to search for all the Rock tracks, or more specifically how to search for all the tracks in a given genre.</p>
+
+<p>Turns out it&rsquo;s quite simple. Just do a search for <em>genre:Rock</em>. My guess is there are various other textual shortcuts hidden in that search box. If anyone knows of any others post a comment.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -256,60 +270,6 @@ exit()</p>
 <p>pre. ENV = &lsquo;live&rsquo;</p>
 
 <p>This isn&rsquo;t quite the same as the Rails implementation obviously. I run completely different server setups so I&rsquo;m not too bothered about a flag on the runserver command like the -e flag for mongel. I could also probably do something to autodetect the environment but this works fine for me.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2008/10/13/unit-testing-css-looking-solution/">Unit Testing CSS - Looking for a Solution</a>
-      </h1>
-      <span class="post-date">Oct 13, 2008 &middot; 4 minute read
-      </span>
-      
-      <blockquote>
-<p>I think it&rsquo;s an epic failure of web standards that CSS is the only essentially untestable technology invented in last decade - <a href="http://twitter.com/t_a_w/statuses/957359524">Tomasz</a></p>
-</blockquote>
-
-<p>Talking today on Twitter with <a href="http://twitter.com/t_a_w">Tomasz</a> got me thinking again about one of those problems that I come back to once in a while. Unit testing CSS. CSS development is a pain, even with some sort of <a href="http://natbat.net/2008/Sep/28/css-systems/">system</a>. Admit it. I actually like CSS most of the time but it&rsquo;s still painful at times. Hopefully with that out of the way you feel better.</p>
-
-<blockquote>
-<p>unit testing is a method of testing that verifies the individual units of source code are working properly. A unit is the smallest testable part of an application.</p>
-</blockquote>
-
-<p>All testing past simple validation of CSS seems to be done visually at present.
-Thinking about this from the point of view of CSS seems straight forward, but turns out not to be so for a variety of reasons. The problem lies in the cascading and compounding nature of the beast. Each individual CSS rule might do something which is self contained, but the chances on a real site are probably slim. For instance:</p>
-
-<p>pre. body {
-font-size: 100%;
-}
-p {
-font-size: 2em;
-}</p>
-
-<p>What is the size of the font size of a paragraph? It turns out it depends. Not just on more than one unit of source code (we have two rules here) but also on things like the browser. And how do we get this font size from a browser in the first place? I generally dislike <a href="http://selenium.openqa.org/">Selenium</a> but does it provide a mechanism for getting at the calculated DOM attribute values? Do we have to interface directly with a browser at a lower level?</p>
-
-<p><a href="http://wxmozilla.sourceforge.net/">wxMozilla</a>, <a href="http://wxmozilla.sourceforge.net/">wxWebKit</a> or maybe <a href="http://code.google.com/p/pywebkitgtk/">pywebkitgtz</a> might prove useful, but I&rsquo;m not sure at what level they operate. What I&rsquo;m imagining here is maybe something like (excuse the Python, hopefully you get the idea):</p>
-
-<p>pre. def test_text_size_is_12px(self):
-response = fetch_with_browser(&lsquo;<a href="http://www.google.com'">http://www.google.com'</a>)
-self.assertEquals(12, response.search(&ldquo;p&rdquo;).fontSize</p>
-
-<p>So we could use CSS selectors (ie. <em>p</em>) to find elements and then assert various DOM properties (ie. <em>fontSize</em>) are equal to values we specify. The magic is in getting access to those calculated DOM attribute values from an actual browser engine.</p>
-
-<p>Another approach would seem to be looking at visual rendering and comparing against a known good version. This seems to be something that the <a href="http://weblogs.mozillazine.org/roc/archives/2005/03/visual_regressi.html">Mozilla folks got up to a while back</a> to test different browser versions. Their are a few tools that might help us out here too; <a href="http://www.browsercam.com/">BrowserCam</a> provides a paid for service, <a href="http://www.paulhammond.org/webkit2png/">Webkit2png</a> is a handy command line script I&rsquo;ve had fun with in the past and <a href="http://iecapt.sourceforge.net/">IECapt</a> appears to be a similar beast for Internet Explorer. <a href="http://cutycapt.sourceforge.net/">CutyCapt</a> is another cross platform webkit based utility. I can see a few gotchas lurking here. Animations or slow loading javascript would obviously throw this into disarray. But disabling these in the browser might get up somewhere. How to compare images produced I&rsquo;m not yet sure, but I reasons someone reading this might have a good idea?</p>
-
-<p>As the title would suggest this post does not contain the answer, only a few useful links and two possible approaches to the problem. The questions at this stage are:</p>
-
-<ul>
-<li>Does any of this exist already? If so who do we need to cuddle up to to get access to it?</li>
-<li>Are any of the technical hurdles to either of the approaches mentioned above insurmountable? If not what is the best solution?</li>
-<li>Does anyone except me and Tomasz even want this?</li>
-</ul>
-
-<p>I reason their are a fair few things that would be needed to make this first practical and later standard; nice APIs, run times in various languages, and working out whether or not it actually helps CSS development to name but a few. But right now I&rsquo;d go for a limited proof of concept that works on my machine. If anyone has any links to thinks that might be good starting points please let me know. Other ideas welcome as well.</p>
-
-<p>One last thing; <a href="http://ajaxian.com/archives/ajaxians-join-mozilla-creating-developer-tools">Mozilla&rsquo;s latest employees</a> are looking at the whole spectrum of developer tools. I&rsquo;d love for them to start with something like this.</p>
 
       
     </div>

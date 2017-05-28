@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,153 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2014/10/28/docker-puppet-shared-volumes/">Docker, Puppet and shared volumes</a>
+      </h1>
+      <span class="post-date">Oct 28, 2014 &middot; 4 minute read
+      </span>
+      
+      
+
+<p>During one of the openspace sessions at Devopsdays we talked about docker and configuration management,
+and one of the things we touched on was using dockers shared volumes support. This is easier to explain
+with an example.</p>
+
+<p>First, lets create a docker image to run puppet. I&rsquo;m also installing r10k for managing third party
+modules.</p>
+
+<h2 id="docker">Docker</h2>
+
+<pre><code>FROM ubuntu:trusty
+
+RUN apt-get update -q
+RUN apt-get install -qy wget
+RUN wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
+RUN dpkg -i puppetlabs-release-trusty.deb
+RUN apt-get update
+
+RUN apt-get install -y puppet ruby1.9.3 build-essential git-core
+RUN echo &quot;gem: --no-ri --no-rdoc&quot; &gt; ~/.gemrc
+RUN gem install r10k
+</code></pre>
+
+<p>Lets build that and tag it locally. Feel free to use whatever name you like here.</p>
+
+<pre><code>docker build -t garethr/puppet .
+</code></pre>
+
+<p>Lets now use that image as a base for another image.</p>
+
+<pre><code>FROM garethr/puppet
+
+RUN mkdir /etc/shared
+ADD Puppetfile /
+RUN r10k puppetfile check
+RUN r10k puppetfile install
+ADD init.pp /
+CMD [&quot;puppet&quot;, &quot;apply&quot;, &quot;--modulepath=/modules&quot;, &quot;/init.pp&quot;,&quot;--verbose&quot;, &quot;--show_diff&quot;]
+</code></pre>
+
+<p>This image will be used to create containers that we intend to run. Here we&rsquo;re including a
+Puppetfile (a list of module dependencies) and then running r10k to download those dependencies.
+Finally we add a simple puppetfile (this would likely be an entire manifests directory in most cases).
+The final line means that when we run a container based on this image it will run puppet and then exit.</p>
+
+<p>Again lets build the image and tag it.</p>
+
+<pre><code>docker build -t garethr/puppetshared .
+</code></pre>
+
+<p>Just as a demo, here&rsquo;s a sample <code>Puppetfile</code> which includes the puppetlabs stdlib module.</p>
+
+<h2 id="puppet">Puppet</h2>
+
+<pre><code>mod 'puppetlabs/stdlib'
+</code></pre>
+
+<p>And again as an example here&rsquo;s a simple puppet <code>init.pp</code> file. All we&rsquo;re doing is creating a file
+at a specific location.</p>
+
+<pre><code>file { '/etc/shared/client':
+  ensure =&gt; directory,
+}
+
+file { '/etc/shared/client/apache.conf':
+  ensure  =&gt; present,
+  content =&gt; &quot;not a real config file&quot;,
+}
+</code></pre>
+
+<h2 id="fig">Fig</h2>
+
+<p><a href="http://fig.sh">Fig</a> is a tool to declare container types in a text file, and then run and manage
+them from a simple CLI. We could do all this with straigh docker calls too.</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>master:
+  image: garethr/puppetshared
+  volumes:
+    - /etc/shared:/etc/shared:rw
+
+client:
+  image: ubuntu:trusty
+  volumes:
+    - /etc/shared/client:/etc/:ro
+  command: <span style="color: #dd2200; background-color: #fff0f0">&#39;/bin/sh</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">-c</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">&quot;while</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">true;</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">do</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">echo</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">hello</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">world;</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">sleep</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">1;</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">done&quot;&#39;</span>
+</pre></div>
+
+<p>The important part of the above is the volumes lines. What we&rsquo;re doing here is:</p>
+
+<ul>
+<li>Sharing the <code>/etc/shared</code> directory on the host with the container called master. The container will be able to write to the host filesystem.</li>
+<li>Sharing a subdirectory of of <code>/etc/shared</code> with the client container. The client can only read this information.</li>
+</ul>
+
+<p>Note the client container here isn&rsquo;t running Puppet. Here it&rsquo;s just running sleep in a loop to simulate a long running process like
+your custom application.</p>
+
+<p>Let&rsquo;s run the master. Note that this will run puppet and then exit. But with the above manifest it will create
+a config file on the host.</p>
+
+<pre><code>fig run master
+</code></pre>
+
+<p>Then run the client. This won&rsquo;t exit and should just print <code>hello world</code> to stdout.</p>
+
+<pre><code>fig run client
+</code></pre>
+
+<p>Docker 1.3 adds the handy exec command, which allows for one-off commands to be executed within a running container.
+Lets use that to see our new config file.</p>
+
+<pre><code>docker exec puppetshared_client_run_1 cat /etc/apache.conf
+</code></pre>
+
+<p>This should output the contents of the file we created by running the master container.</p>
+
+<h2 id="why">Why?</h2>
+
+<p>This is obviously a very simple example but I think it&rsquo;s interesting for a few reasons.</p>
+
+<ul>
+<li>We have completely separated our code (in the container) from the configuration</li>
+<li>We get to use familiar tools for managing the configuration in a familiar way</li>
+</ul>
+
+<p>It also raises a few problems:</p>
+
+<ul>
+<li>The host needs to know what types of container are going to run on it, in order to have the correct configuration. If you&rsquo;re using <a href="https://forge.puppetlabs.com/garethr/docker">Puppet module</a> then this is simple enough to solve.</li>
+<li>The host ends up with all of the configuration for all the containers in one place, you could also do things with encrypting the data and having the relevant keys in one image and not others. Given how if you&rsquo;re on the host you own the container anyway this isn&rsquo;t as odd as it sounds.</li>
+<li>We&rsquo;re just demonstrating files here, but if we change our manifest and rerun the puppet container then we change the config files. But depending on the application it  won&rsquo;t pick that up unless we restart it or create a new container.</li>
+</ul>
+
+<p>Given enough time I may try build a reference implementation using this approach, anyone with ideas about that let me know.</p>
+
+<p>This post was inspired by a conversation with <a href="https://twitter.com/kelseyhightower">Kelsey</a> and <a href="http://twitter.com/botchagalupe">John</a>, thanks guys.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -812,49 +959,6 @@ describe service(<span style="color: #dd2200; background-color: #fff0f0">&#39;nt
 <p>The real power comes from doing this iteratively as you work on code, probably code more complex than a simple one-line bash script. You can also test across multiple virtual machines at a time, for instance different operating systems or different machine roles. The <code>kitchen</code> command line tool provides lots of help too, with the ability to login to machines, verify that specific combinations of platform and suite are working and print lots of diagnotic information to aid development.</p>
 
 <p>Hopefully this will make it into a release soon, and we&rsquo;ll see more involved examples using higher level tools and more documentation. But even now I&rsquo;d be looking at Test Kitchen for any infrastructure testing you might be doing.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2014/01/01/testing-packer-created-images-with-serverspec/">Testing Packer created images with serverspec</a>
-      </h1>
-      <span class="post-date">Jan 1, 2014 &middot; 2 minute read
-      </span>
-      
-      
-
-<p><a href="http://www.packer.io/">Packer</a> provides a great way of describing the steps for creating a virtual machine image. But it doesn&rsquo;t have a built-in way of verifying those images.</p>
-
-<p><a href="http://serverspec.org/">Serverspec</a> provides a nice framework for writing tests against infrastructure, asserting the operation of services or the installation of packages.</p>
-
-<p>I&rsquo;m interested at the moment in building continous delivery pipelines for infrastructure components and have a simple working example of <a href="https://github.com/garethr/packer-serverspec-example">testing Packer with Serverspec</a> on
-Github. The example uses the AWS builder and the Puppet provisioner but the approach should work with other combinations.</p>
-
-<p>This doesn&rsquo;t represent a complete infrastructure pipeline, but it does demonstrate an approach to automating one particular component - building base images.</p>
-
-<h2 id="testing">Testing</h2>
-
-<p>In our example I&rsquo;m using the <a href="https://github.com/puppetlabs/puppetlabs-ntp">Puppetlabs NTP</a> module to install and configure NTP. Once the Puppet provisioner has run, but before we build the AMI (or other virtal machine image) we run a test suite. For our example the tests are pretty simple:</p>
-
-<pre><code>describe package('ntp') do
-  it { should be_installed }
-end
-
-describe service('ntp') do
-  it { should be_enabled   }
-  it { should be_running   }
-end
-</code></pre>
-
-<p>If the tests fail, Packer will stop and the AMI won&rsquo;t be built. The combination of storing the code (Packer template) alongside a test suite (Serverspec) and building a new AMI whenever you change the code, makes this setup perfect for continuous integration.</p>
-
-<h2 id="wercker-builds">Wercker builds</h2>
-
-<p>As an example of a continuous integration setup the repository contains a <a href="https://github.com/garethr/packer-serverspec-example/blob/master/wercker.yml">wercker.yml</a> configuration file for the excellent <a href="http://devcenter.wercker.com/">Wercker</a> service. Wercker makes setting up multi-step built pipelines easy and nicely configurable via a simple text file in your repository.</p>
-
-<p>The Wercker <a href="https://app.wercker.com/#applications/52c450e489daaf145f001ad8">build for this project is public</a>. Currently the build involves downloading Packer, running <code>packer validate</code> to check the template and eventually running <code>packer build</code> to boot an instance and run our serverspec tests.</p>
 
       
     </div>

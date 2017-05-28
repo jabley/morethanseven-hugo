@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,42 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2010/05/18/Installing-integrity-on-debianubuntu/">Installing Integrity On Debian/Ubuntu</a>
+      </h1>
+      <span class="post-date">May 18, 2010 &middot; 1 minute read
+      </span>
+      
+      <p>I&rsquo;ve been playing with <a href="http://integrityapp.com">Integrity</a> again as a simple continuous integration server and have installed it on a few debian and ubuntu machines in the last few weeks. The current site has good installation instructions for the Ruby side of things but leaves it as an excercise for the installer to make sure all the system level dependencies are installed.</p>
+
+<p>So probably as much for me in the future, here is what I had to install to get the installation instructions to work for me.</p>
+
+<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
+apt-get install build-essential
+apt-get install ruby
+apt-get install rdoc
+apt-get install sqlite3
+apt-get install libdbd-sqlite3-ruby
+apt-get install libdataobjects-sqlite3-ruby1.8
+apt-get install libsqlite3-dev
+apt-get install libxml2
+apt-get install libxml2-dev
+apt-get install libxsl-dev
+apt-get install libopenssl-ruby
+&lt;% end %&gt;</p>
+
+<p>I also needed to install the following package on Ubuntu:</p>
+
+<p>&lt;% syntax_colorize :bash, type=:coderay do %&gt;
+apt-get install ruby1.8-dev
+&lt;% end %&gt;</p>
+
+<p>If you want to use a database other than the default SQLite then you won&rsquo;t need those packages and I&rsquo;ll assume you know what you&rsquo;re doing.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -422,24 +458,6 @@ Feature: localhost
 <p>This <a href="http://codeinthehole.com/archives/8-Monitoring-MySQL-with-Ganglia-and-gmetric.html">mysql gmetric script</a> gave me lots of the ideas for invidual steps. I&rsquo;ll be writing more about some work I&rsquo;ve been doing with cucumber-nagios and ganglia soon as well.</p>
 
 <p>For the moment if anyone want&rsquo;s to try these steps out you can either check out <a href="http://github.com/garethr/cucumber-nagios">my cucumber-nagios</a> fork or just grab the steps from the <a href="http://github.com/garethr/cucumber-nagios/blob/master/lib/generators/project/features/steps/mysql_steps.rb">mysql_steps.rb</a> file. Any feedback much appreciated.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2010/03/07/New-nanoc-powered-blog/">New Nanoc Powered Blog</a>
-      </h1>
-      <span class="post-date">Mar 7, 2010 &middot; 1 minute read
-      </span>
-      
-      <p>It&rsquo;s taken longer than I would have liked but I&rsquo;ve finally gotten around to relaunching this site on <a href="http://nanoc.stoneship.org/">nanoc</a>.</p>
-
-<p>After looking through lots of code from the <a href="http://projects.stoneship.org/trac/nanoc/wiki/Showcase">nanoc showcase</a> I had a pretty good feel for how I wanted things to work and I then used the excellent <a href="http://github.com/mgutz/nanoc3_blog">nanoc3_blog</a> template to get started. I&rsquo;ve hacked around quite a bit with the code to get things how I wanted them. Using <a href="http://lesscss.org/">Less</a> to make the CSS more manageable, <a href="http://coderay.rubychan.de/">Coderay</a> for lovely syntax highlighting and making everything default to textile rather than markdown. I&rsquo;ve also written import scripts for my old blog (in Python) and another one so I can use tumblr is I want to create items on here (in Ruby).</p>
-
-<p>Nanoc really is a joy to work with and I&rsquo;m hoping that alone will get me back into writing more freqently than I have done for a while. The fact I can just write in Vim or WriteRoom or whatever editor I have to hand feels nice. And using Git, Rake and Rsync complete my little toolset. Everything is still served via Nginx.</p>
-
-<p>I&rsquo;ve thrown the all the code, including all the content, up on <a href="http://github.com/garethr/morethanseven">GitHub</a> for anyone interested. Back to writing.</p>
 
       
     </div>

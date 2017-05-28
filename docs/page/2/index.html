@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.21-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -60,6 +60,99 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="/2016/10/07/infrakit-hello-world/">InfraKit Hello World</a>
+      </h1>
+      <span class="post-date">Oct 7, 2016 &middot; 3 minute read
+      </span>
+      
+      <p>Docker just shipped <a href="https://github.com/docker/infrakit">InfraKit</a> a few days ago at LinuxCon and, while at the Docker Distributed Systems Summit, I wanted to see if I could get a hello world example up and running. The documentation is lacking at the moment, epecially around how to tie the different components like instances and flavors together.</p>
+
+<p>The following example isn&rsquo;t going to do anything particularly useful, but it&rsquo;s hopefully simple enough to help anyone else trying to get started. I&rsquo;m assuming you&rsquo;ve checked out and built the binaries as described in the <a href="https://github.com/docker/infrakit#building">README</a>.</p>
+
+<p>First create a directory. We&rsquo;re going to be using InfraKit to manage local files in that directory as part of the demo.</p>
+
+<pre><code>mkdir test
+</code></pre>
+
+<p>Now create an InfraKit configuration file. We&rsquo;re going to use the <code>file</code> instance plugin to manage files in out directory. This means everything works on the local machine, rather than trying to launch real infrastructure in AWS or similar. InfraKit also requires a <code>flavor</code> plugin. I&rsquo;m using <code>vanilla</code> here just to meet the requirement for a flavor plugin, but it&rsquo;s not going to actually do anything in this demo. It might be useful to write a noop flavor plugin or similar.</p>
+
+<pre><code>cat garethr.json
+</code></pre>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>{
+    <span style="color: #bb0066; font-weight: bold">&quot;ID&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;garethr&quot;</span>,
+    <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+        <span style="color: #bb0066; font-weight: bold">&quot;Instance&quot;</span> : {
+            <span style="color: #bb0066; font-weight: bold">&quot;Plugin&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;instance-file&quot;</span>,
+            <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+            }
+        },
+        <span style="color: #bb0066; font-weight: bold">&quot;Flavor&quot;</span> : {
+            <span style="color: #bb0066; font-weight: bold">&quot;Plugin&quot;</span>: <span style="color: #dd2200; background-color: #fff0f0">&quot;flavor-vanilla&quot;</span>,
+            <span style="color: #bb0066; font-weight: bold">&quot;Properties&quot;</span>: {
+                <span style="color: #bb0066; font-weight: bold">&quot;Size&quot;</span>: <span style="color: #0000DD; font-weight: bold">1</span>
+            }
+        }
+    }
+}
+</pre></div>
+
+<p>InfraKit is based on running separate plugins. Each plugin runs as a separate process and provides a filesystem socket in /run/infrakit/plugins. First start up the file plugin:</p>
+
+<pre><code>$ ./infrakit/file --dir=./test
+INFO[0000] Starting plugin
+INFO[0000] Listening on: unix:///run/infrakit/plugins/instance-file.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/instance-file.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>Next, in a separate terminal run the vanilla plugin:</p>
+
+<pre><code>$ ./infrakit/vanilla
+INFO[0000] Starting plugin
+INFO[0000] Listening on: unix:///run/infrakit/plugins/flavor-vanilla.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/flavor-vanilla.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>An finally run the group plugin. I&rsquo;m passing <code>--log=5</code> to enable more verbose outout so it&rsquo;s easier to see what&rsquo;s going on with the group.</p>
+
+<pre><code>$ ./infrakit/group --log=5
+INFO[0000] Starting discovery
+DEBU[0000] Opening: /run/infrakit/plugins
+DEBU[0000] Discovered plugin at unix:///run/infrakit/plugins/instance-file.sock
+INFO[0000] Starting plugin
+INFO[0000] Starting
+INFO[0000] Listening on: unix:///run/infrakit/plugins/group.sock
+INFO[0000] listener protocol= unix addr= /run/infrakit/plugins/group.sock err= &lt;nil&gt;
+</code></pre>
+
+<p>With that all setup we can create a group based on our configuration file from above.</p>
+
+<pre><code>$ ./infrakit/cli group --name group watch garethr.json
+watching garethr
+</code></pre>
+
+<p>Have a look in the test directory. You should see a single file has been created.</p>
+
+<pre><code>$ ls test
+instance-1475833380
+</code></pre>
+
+<p>Let&rsquo;s delete that file and see what happens:</p>
+
+<pre><code>rm test/*
+</code></pre>
+
+<p>Hopefully InfraKit will spot the instance (a file in this case) no longer exists and recreate it. You should see something like the following in the logs:</p>
+
+<pre><code>INFO[0612] Created instance instance-1475833820 with tags map[infrakit.config_sha:B2MsacXz8V_ztsjAzu3tu3zivlw= infrakit.group:garethr]
+</code></pre>
+
+<p>This is obviously a less-than-useful example but hopefully provides a good hello world example for anyone trying to run InfraKit in it&rsquo;s current early stage.</p>
+
+      
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -922,153 +1015,6 @@ Explorer if you prefer).</p>
 <p>This takes a while as it runs Windows update and repeatedly reboots the
 machine. But once completed you&rsquo;ll have the listed software installed
 and configured on a newly up-to-date Windows machine.</p>
-
-      
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="/2014/10/28/docker-puppet-shared-volumes/">Docker, Puppet and shared volumes</a>
-      </h1>
-      <span class="post-date">Oct 28, 2014 &middot; 4 minute read
-      </span>
-      
-      
-
-<p>During one of the openspace sessions at Devopsdays we talked about docker and configuration management,
-and one of the things we touched on was using dockers shared volumes support. This is easier to explain
-with an example.</p>
-
-<p>First, lets create a docker image to run puppet. I&rsquo;m also installing r10k for managing third party
-modules.</p>
-
-<h2 id="docker">Docker</h2>
-
-<pre><code>FROM ubuntu:trusty
-
-RUN apt-get update -q
-RUN apt-get install -qy wget
-RUN wget http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
-RUN dpkg -i puppetlabs-release-trusty.deb
-RUN apt-get update
-
-RUN apt-get install -y puppet ruby1.9.3 build-essential git-core
-RUN echo &quot;gem: --no-ri --no-rdoc&quot; &gt; ~/.gemrc
-RUN gem install r10k
-</code></pre>
-
-<p>Lets build that and tag it locally. Feel free to use whatever name you like here.</p>
-
-<pre><code>docker build -t garethr/puppet .
-</code></pre>
-
-<p>Lets now use that image as a base for another image.</p>
-
-<pre><code>FROM garethr/puppet
-
-RUN mkdir /etc/shared
-ADD Puppetfile /
-RUN r10k puppetfile check
-RUN r10k puppetfile install
-ADD init.pp /
-CMD [&quot;puppet&quot;, &quot;apply&quot;, &quot;--modulepath=/modules&quot;, &quot;/init.pp&quot;,&quot;--verbose&quot;, &quot;--show_diff&quot;]
-</code></pre>
-
-<p>This image will be used to create containers that we intend to run. Here we&rsquo;re including a
-Puppetfile (a list of module dependencies) and then running r10k to download those dependencies.
-Finally we add a simple puppetfile (this would likely be an entire manifests directory in most cases).
-The final line means that when we run a container based on this image it will run puppet and then exit.</p>
-
-<p>Again lets build the image and tag it.</p>
-
-<pre><code>docker build -t garethr/puppetshared .
-</code></pre>
-
-<p>Just as a demo, here&rsquo;s a sample <code>Puppetfile</code> which includes the puppetlabs stdlib module.</p>
-
-<h2 id="puppet">Puppet</h2>
-
-<pre><code>mod 'puppetlabs/stdlib'
-</code></pre>
-
-<p>And again as an example here&rsquo;s a simple puppet <code>init.pp</code> file. All we&rsquo;re doing is creating a file
-at a specific location.</p>
-
-<pre><code>file { '/etc/shared/client':
-  ensure =&gt; directory,
-}
-
-file { '/etc/shared/client/apache.conf':
-  ensure  =&gt; present,
-  content =&gt; &quot;not a real config file&quot;,
-}
-</code></pre>
-
-<h2 id="fig">Fig</h2>
-
-<p><a href="http://fig.sh">Fig</a> is a tool to declare container types in a text file, and then run and manage
-them from a simple CLI. We could do all this with straigh docker calls too.</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span>master:
-  image: garethr/puppetshared
-  volumes:
-    - /etc/shared:/etc/shared:rw
-
-client:
-  image: ubuntu:trusty
-  volumes:
-    - /etc/shared/client:/etc/:ro
-  command: <span style="color: #dd2200; background-color: #fff0f0">&#39;/bin/sh</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">-c</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">&quot;while</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">true;</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">do</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">echo</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">hello</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">world;</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">sleep</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">1;</span><span style="color: #336699"> </span><span style="color: #dd2200; background-color: #fff0f0">done&quot;&#39;</span>
-</pre></div>
-
-<p>The important part of the above is the volumes lines. What we&rsquo;re doing here is:</p>
-
-<ul>
-<li>Sharing the <code>/etc/shared</code> directory on the host with the container called master. The container will be able to write to the host filesystem.</li>
-<li>Sharing a subdirectory of of <code>/etc/shared</code> with the client container. The client can only read this information.</li>
-</ul>
-
-<p>Note the client container here isn&rsquo;t running Puppet. Here it&rsquo;s just running sleep in a loop to simulate a long running process like
-your custom application.</p>
-
-<p>Let&rsquo;s run the master. Note that this will run puppet and then exit. But with the above manifest it will create
-a config file on the host.</p>
-
-<pre><code>fig run master
-</code></pre>
-
-<p>Then run the client. This won&rsquo;t exit and should just print <code>hello world</code> to stdout.</p>
-
-<pre><code>fig run client
-</code></pre>
-
-<p>Docker 1.3 adds the handy exec command, which allows for one-off commands to be executed within a running container.
-Lets use that to see our new config file.</p>
-
-<pre><code>docker exec puppetshared_client_run_1 cat /etc/apache.conf
-</code></pre>
-
-<p>This should output the contents of the file we created by running the master container.</p>
-
-<h2 id="why">Why?</h2>
-
-<p>This is obviously a very simple example but I think it&rsquo;s interesting for a few reasons.</p>
-
-<ul>
-<li>We have completely separated our code (in the container) from the configuration</li>
-<li>We get to use familiar tools for managing the configuration in a familiar way</li>
-</ul>
-
-<p>It also raises a few problems:</p>
-
-<ul>
-<li>The host needs to know what types of container are going to run on it, in order to have the correct configuration. If you&rsquo;re using <a href="https://forge.puppetlabs.com/garethr/docker">Puppet module</a> then this is simple enough to solve.</li>
-<li>The host ends up with all of the configuration for all the containers in one place, you could also do things with encrypting the data and having the relevant keys in one image and not others. Given how if you&rsquo;re on the host you own the container anyway this isn&rsquo;t as odd as it sounds.</li>
-<li>We&rsquo;re just demonstrating files here, but if we change our manifest and rerun the puppet container then we change the config files. But depending on the application it  won&rsquo;t pick that up unless we restart it or create a new container.</li>
-</ul>
-
-<p>Given enough time I may try build a reference implementation using this approach, anyone with ideas about that let me know.</p>
-
-<p>This post was inspired by a conversation with <a href="https://twitter.com/kelseyhightower">Kelsey</a> and <a href="http://twitter.com/botchagalupe">John</a>, thanks guys.</p>
 
       
     </div>
