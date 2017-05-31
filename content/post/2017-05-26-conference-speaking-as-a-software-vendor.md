@@ -19,7 +19,7 @@ particular pushed me over the edge into actually writing this post:
 > since I work for a vendor, even though my talk was not a pitch.
 
 Writing something up felt like it might be useful to a few folks so here
-goes. This is but one persons opinion, but I at least have some relevant
+goes. This is but one person's opinion, but I at least have some relevant
 experience:
 
 * I've worked for a software vendor for about 3 years
@@ -42,10 +42,10 @@ roles to work vendor-side.
 
 ## Learn to write a good proposal
 
-My main experience with speaking at conferences, or helping currate
+My main experience with speaking at conferences, or helping curate
 content, is via a call-for-proposals. The conference will have some
 sort of theme or topic, set a date, and see what content is submitted.
-Their are a variety of oft-made points here about sponsoring to get a
+There are a variety of oft-made points here about sponsoring to get a
 talk slot, or submitting early, or approaching the organisers, but in my
 experience the best bet is to write a really good proposal around a good
 idea. That's obviously easier said that done, but it's not as hard as
@@ -60,7 +60,7 @@ you may think.
 * Include explicitly what the audience will do or be able to do
   differently after seeing the talk. Go so far as to say _"after this
   talk attendee will..."_
-* Novely really helps, as long as the topic is interesting and relevant.
+* Novelty really helps, as long as the topic is interesting and relevant.
   Given 100 proposals about deploying your web application with Docker,
   the one that says "and we do this for the International Space Station"
   is getting picked.
@@ -71,8 +71,8 @@ you may think.
   reading 200+ proposals making it quick to read helps get your point
   across.
 
-Unless you write a good proposal around an interesting idea you probably
-won't be accepted whether you're a software vendor or not. Try get
+Unless you write a good proposal around an interesting idea, you probably
+won't be accepted, whether you're a software vendor or not. Try get
 feedback on your proposals, especially from folks who have previously
 spoken at the event you're hoping to present at.
 
@@ -84,7 +84,7 @@ everyone likes that idea, but I think at least for the purposes of this
 blog post it stands true. It doesn't matter if you're an evangelist
 reporting into Marketing, or a software developer in Engineering or
 anything else - you stand to gain directly or indirectly from people
-purchasing your product. From the point of view of a conference you are
+purchasing your product. From the point of view of a conference, you are
 thoroughly compromised when it comes to talking about your product
 directly. This can be disheartening as you likely work at the vendor
 and want to talk at the conference because you're genuinely interested,
@@ -96,7 +96,7 @@ is about that product, you'll probably not be given the benefit of
 doubt.
 
 
-## And the answers is...
+## And the answer is...
 
 Probably the worst example of vendor talks that do sometimes get
 accepted go something like this:
@@ -171,7 +171,7 @@ Build](https://github.com/puppetlabs/puppetlabs-image_build).
 
 These talks all stand alone as (hopefully) useful and interesting
 presentations, but also serve a parallel internal purpose which
-importantly doesn't excert the same bias on the content.
+importantly doesn't exert the same bias on the content.
 
 
 ## Some good examples
